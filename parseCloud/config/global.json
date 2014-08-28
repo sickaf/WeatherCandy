@@ -1,0 +1,14 @@
+{
+    "applications": {
+        "Weather Candy": {
+            "applicationId": "p8AF2BKCLQ7fr3oJXPg43fOL6LXAK3mwAb5Ywnke", 
+            "masterKey": "Pkp4bgcqtGv9UBJNO17HxW0fJCs8TItI22nAZgks"
+        }, 
+        "_default": {
+            "link": "Weather Candy"
+        }
+    }, 
+    "global": {
+        "parseVersion": "1.2.19"
+    }
+}
