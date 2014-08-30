@@ -10,45 +10,46 @@ Parse.Cloud.define("getStaticInstagramURL", function(request, response) {
 });
 
 
-Parse.Cloud.define("getWeatherData", function(request, response) {
-  getWeatherData(request, response);
+Parse.Cloud.define("getWeatherCandyData", function(request, response) {
+  getWeatherCandyData(request, response);
 });
 
 //api.openweathermap.org/data/2.5/weather?lat=35&lon=139
 
-function getWeatherData(request, response) {
+function getWeatherCandyData(request, response) {
 
   var lat = request.params.lat;
   var lon = request.params.lon;
-  
-  console.log('getWeatherData called. lat= '+request.params.lat);
+  var date = request.params.date;
+  var listOfIGs = [];
+  var IGPhotoQuery = new Parse.Query("IGPhoto");
+  IGPhotoQuery.equalTo("forDate", date);
 
-  Parse.Cloud.httpRequest({
-    url: 'api.openweathermap.org/data/2.5/weather?lat='+lat+'&lon='+lon+'',
-    success: function(httpResponse) {
-      console.log('the response is ' + httpResponse.text);
+  return IGPhotoQuery.find().then(function(results) {
 
-      obj = JSON.parse(httpResponse.text);
+    listOfIGs = results;
 
-      console.log('description is ' + obj.weather[0].description);
-      console.log('base is ' + obj.base);
-      console.log('temp is ' + obj.main.temp);
-      console.log('high is ' + obj.main.temp_max);
-      console.log('low is ' + obj.main.temp_min);
+    console.log('the results.length is ' + results.length);
 
-      response.success('succeeded');
-    },
-    error: function(httpResponse) {
-      response.error('Request failed with response code ' + httpResponse.status);
-    }
+    Parse.Cloud.httpRequest({
+      url: 'api.openweathermap.org/data/2.5/weather?lat='+lat+'&lon='+lon+'',
+      success: function(httpResponse) {
+
+        console.log('the response is ' + httpResponse.text);
+        var obj = JSON.parse(httpResponse.text);
+        
+        obj.IGPhotos = [];
+        for (i = 0; i < results.length; i++) {
+          obj['IGPhotos'].push({'PhotoNum':i, 'IGUsername':results[i].get('IGUsername'),'IGUrl':results[i].get('URL')});
+        }
+        console.log("the obj is: "+ JSON.stringify(obj) );
+
+        response.success('succeeded');
+      },
+      error: function(httpResponse) {
+        response.error('Request failed with response code ' + httpResponse.status);
+      }
+    });
   });
 }
-
-function ParseWeatherJSON(weatherJSON) {
-
-
-}
-
-
-
 
