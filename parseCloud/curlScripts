@@ -37,10 +37,10 @@ curl -X GET \
   -H "X-Parse-Application-Id: p8AF2BKCLQ7fr3oJXPg43fOL6LXAK3mwAb5Ywnke" \
   -H "X-Parse-REST-API-Key: v8C3jQHw0b8JkoCMy3Vn9QgqLdl3F7TxptAKfSVx" \
   -H "Content-Type: application/json" \
-  -d '{"cityName":"london","date":"2014-09-10"}' \
+  -d '{"cityID":"1645528","date":"2014-09-10"}' \
   https://api.parse.com/1/functions/getWeatherCandyData
 
-    curl -X POST \
+  curl -X POST \
   -H "X-Parse-Application-Id: p8AF2BKCLQ7fr3oJXPg43fOL6LXAK3mwAb5Ywnke" \
   -H "X-Parse-REST-API-Key: v8C3jQHw0b8JkoCMy3Vn9QgqLdl3F7TxptAKfSVx" \
   -H "Content-Type: application/json" \
@@ -48,4 +48,20 @@ curl -X GET \
   https://api.parse.com/1/functions/getWeatherCandyData
 
 
-lat=-8.67&lon=115.169
+  curl -X POST \
+  -H "X-Parse-Application-Id: p8AF2BKCLQ7fr3oJXPg43fOL6LXAK3mwAb5Ywnke" \
+  -H "X-Parse-REST-API-Key: v8C3jQHw0b8JkoCMy3Vn9QgqLdl3F7TxptAKfSVx" \
+  -H "Content-Type: application/json" \
+  -d '{"cityName":"london","date":"2014-09-10"}' \
+  https://api.parse.com/1/functions/getWeatherCandyData
+
+
+
+
+
+
+
+
+
+
+

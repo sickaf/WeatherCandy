@@ -24,27 +24,30 @@ function getWeatherCandyData(request, response) {
   var date = request.params.date;
   var cityName = request.params.cityName;
   var cityID = request.params.cityID;
-  var WeatherQueryString ='api.openweathermap.org/data/2.5/weather?';
+  var WeatherQueryString ="api.openweathermap.org/data/2.5/weather?";
 
   var IGPhotoQuery = new Parse.Query("IGPhoto");
 
 
   //build WeatherQueryString with parameters the client sent us
-  if ( (lat !== undefined) && (lon !== undefined) ) { //TODO: use isNaN here instead
-    console.log('got lat='+lat+' and lon='+lon);
-    WeatherQueryString = WeatherQueryString+'lat='+lat+'&lon='+lon;
+  if ( cityID !== undefined ) { 
+    console.log("got cityID="+cityID);
+    WeatherQueryString = WeatherQueryString+"id="+cityID;
+  } else if ( (lat !== undefined) && (lon !== undefined) ) { //TODO: use isNaN here instead
+    console.log("got lat="+lat+" and lon="+lon);
+    WeatherQueryString = WeatherQueryString+"lat="+lat+"&lon="+lon;
   } else if (cityName!==undefined) {
-    console.log('got cityName='+cityName);
-    WeatherQueryString = WeatherQueryString+'q='+cityName;
+    console.log("got cityName="+cityName);
+    WeatherQueryString = WeatherQueryString+"q="+cityName;
   } else {
-    console.log('didnt get enough info in the call, weather going to fail.');
+    console.log("didnt get enough info in the call, weather going to fail.");
   }
 
   IGPhotoQuery.equalTo("forDate", date);
   return IGPhotoQuery.find().then(function(results) {
 
-    console.log('the number of photos is ' + results.length);
-    console.log('getting weather with ' + WeatherQueryString);
+    console.log("the number of photos is " + results.length);
+    console.log("getting weather with " + WeatherQueryString);
 
     Parse.Cloud.httpRequest({
       url: WeatherQueryString,
@@ -54,14 +57,14 @@ function getWeatherCandyData(request, response) {
         obj.IGPhotos = [];
 
         for (i = 0; i < results.length; i++) {
-          obj['IGPhotos'].push({'PhotoNum':i, 'IGUsername':results[i].get('IGUsername'),'IGUrl':results[i].get('URL')});
+          obj["IGPhotos"].push({"PhotoNum":i, "IGUsername":results[i].get("IGUsername"),"IGUrl":results[i].get("URL")});
         }
         console.log("the obj is: "+ JSON.stringify(obj) );
 
-        response.success('succeeded');
+        response.success("succeeded");
       },
       error: function(httpResponse) {
-        response.error('Request failed with response code ' + httpResponse.status);
+        response.error("Request failed with response code " + httpResponse.status);
       }
     });
   });
