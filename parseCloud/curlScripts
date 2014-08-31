@@ -31,11 +31,20 @@ curl -X GET \
   api.openweathermap.org/data/2.5/weather?id=2172797
 
 
+// -84.398277, 39.51506 ]
+
   curl -X POST \
   -H "X-Parse-Application-Id: p8AF2BKCLQ7fr3oJXPg43fOL6LXAK3mwAb5Ywnke" \
   -H "X-Parse-REST-API-Key: v8C3jQHw0b8JkoCMy3Vn9QgqLdl3F7TxptAKfSVx" \
   -H "Content-Type: application/json" \
-  -d '{"lat":"-8.67","lon":"115.169","date":"2014-09-10"}' \
+  -d '{"cityName":"london","date":"2014-09-10"}' \
+  https://api.parse.com/1/functions/getWeatherCandyData
+
+    curl -X POST \
+  -H "X-Parse-Application-Id: p8AF2BKCLQ7fr3oJXPg43fOL6LXAK3mwAb5Ywnke" \
+  -H "X-Parse-REST-API-Key: v8C3jQHw0b8JkoCMy3Vn9QgqLdl3F7TxptAKfSVx" \
+  -H "Content-Type: application/json" \
+  -d '{"lat":"41.56266","lon":"-72.64984","date":"2014-09-10"}' \
   https://api.parse.com/1/functions/getWeatherCandyData
 
 

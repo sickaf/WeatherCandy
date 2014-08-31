@@ -15,30 +15,44 @@ Parse.Cloud.define("getWeatherCandyData", function(request, response) {
 });
 
 //api.openweathermap.org/data/2.5/weather?lat=35&lon=139
+// -84.398277, 39.51506 ]
 
 function getWeatherCandyData(request, response) {
 
   var lat = request.params.lat;
   var lon = request.params.lon;
   var date = request.params.date;
-  var listOfIGs = [];
-  var IGPhotoQuery = new Parse.Query("IGPhoto");
-  IGPhotoQuery.equalTo("forDate", date);
+  var cityName = request.params.cityName;
+  var cityID = request.params.cityID;
+  var WeatherQueryString ='api.openweathermap.org/data/2.5/weather?';
 
+  var IGPhotoQuery = new Parse.Query("IGPhoto");
+
+
+  //build WeatherQueryString with parameters the client sent us
+  if ( (lat !== undefined) && (lon !== undefined) ) { //TODO: use isNaN here instead
+    console.log('got lat='+lat+' and lon='+lon);
+    WeatherQueryString = WeatherQueryString+'lat='+lat+'&lon='+lon;
+  } else if (cityName!==undefined) {
+    console.log('got cityName='+cityName);
+    WeatherQueryString = WeatherQueryString+'q='+cityName;
+  } else {
+    console.log('didnt get enough info in the call, weather going to fail.');
+  }
+
+  IGPhotoQuery.equalTo("forDate", date);
   return IGPhotoQuery.find().then(function(results) {
 
-    listOfIGs = results;
-
-    console.log('the results.length is ' + results.length);
+    console.log('the number of photos is ' + results.length);
+    console.log('getting weather with ' + WeatherQueryString);
 
     Parse.Cloud.httpRequest({
-      url: 'api.openweathermap.org/data/2.5/weather?lat='+lat+'&lon='+lon+'',
+      url: WeatherQueryString,
       success: function(httpResponse) {
-
-        console.log('the response is ' + httpResponse.text);
-        var obj = JSON.parse(httpResponse.text);
         
+        var obj = JSON.parse(httpResponse.text);
         obj.IGPhotos = [];
+
         for (i = 0; i < results.length; i++) {
           obj['IGPhotos'].push({'PhotoNum':i, 'IGUsername':results[i].get('IGUsername'),'IGUrl':results[i].get('URL')});
         }
