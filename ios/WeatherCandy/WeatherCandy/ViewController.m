@@ -33,7 +33,6 @@
 
 - (IBAction)getWeatherCandyDataButton:(id)sender {
     
-//    __block NSString *serverResult[] = {};
 //   stringToReturn =  ""+obj.name + "$"+obj.weather[0].description+"$"+(obj.main.temp-kelvin)+"$"+obj.main.temp_max+"$"+obj.main.temp_min+"$"+obj.IGPhotos[0].IGUrl;
 
     
@@ -41,10 +40,14 @@
                        withParameters:@{@"cityName": self.cityTextField.text,@"date":self.dateTextField.text}
                                 block:^(NSString *result, NSError *error) {
                                     if (!error) {
-                                        self.cityNameLabel.text = [weatherDataText componentsSeparatedByString:@"$"][0];
-                                        self.weatherDataLabel.text = [weatherDataText componentsSeparatedByString:@"$"][1];
+                                        self.cityNameLabel.text =    [result componentsSeparatedByString:@"$"][0];
+                                        self.descriptionLabel.text = [result componentsSeparatedByString:@"$"][1];
+                                        self.currentTempLabel.text = [result componentsSeparatedByString:@"$"][2];
+                                        self.highTempLabel.text = [result componentsSeparatedByString:@"$"][3];
+                                        self.lowTempLabel.text = [result componentsSeparatedByString:@"$"][4];
+
                                         
-                                        NSData * imageData = [[NSData alloc] initWithContentsOfURL: [NSURL URLWithString: [result componentsSeparatedByString:@"IGURL"][1]]];
+                                        NSData * imageData = [[NSData alloc] initWithContentsOfURL: [NSURL URLWithString: [result componentsSeparatedByString:@"$"][5]]];
                                         self.igImageView.image = [UIImage imageWithData: imageData];
                                         
                                     }

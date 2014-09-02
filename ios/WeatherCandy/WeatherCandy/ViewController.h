@@ -10,13 +10,16 @@
 
 @interface ViewController : UIViewController
 
-@property (weak, nonatomic) IBOutlet UILabel *weatherDataLabel;
 @property (weak, nonatomic) IBOutlet UIImageView *igImageView;
 @property (weak, nonatomic) IBOutlet UITextField *dateTextField;
 @property (weak, nonatomic) IBOutlet UITextField *cityTextField;
 - (IBAction)getWeatherCandyDataButton:(id)sender;
 
 @property (weak, nonatomic) IBOutlet UILabel *cityNameLabel;
+@property (weak, nonatomic) IBOutlet UILabel *highTempLabel;
+@property (weak, nonatomic) IBOutlet UILabel *currentTempLabel;
+@property (weak, nonatomic) IBOutlet UILabel *lowTempLabel;
+@property (weak, nonatomic) IBOutlet UILabel *descriptionLabel;
 
 
 @end

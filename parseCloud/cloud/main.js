@@ -30,7 +30,7 @@ function getWeatherCandyData(request, response) {
   var cityName = request.params.cityName;
   var cityID = request.params.cityID;
   var WeatherQueryString ="api.openweathermap.org/data/2.5/weather?";
-  var kelvin = 273.15;
+  var kelvin = 273;
 
   var IGPhotoQuery = new Parse.Query("IGPhoto");
 
@@ -66,7 +66,9 @@ function getWeatherCandyData(request, response) {
           obj["IGPhotos"].push({"PhotoNum":i, "IGUsername":results[i].get("IGUsername"),"IGUrl":results[i].get("URL")});
         }
 
-        stringToReturn =  ""+obj.name + "$"+obj.weather[0].description+"$"+(obj.main.temp-kelvin)+"$"+obj.main.temp_max+"$"+obj.main.temp_min+"$"+obj.IGPhotos[0].IGUrl;
+        stringToReturn =  ""+obj.name + "$"+obj.weather[0].description+"$"+(obj.main.temp-kelvin)+"$"+(obj.main.temp_max-kelvin)+"$"+(obj.main.temp_min-kelvin)+"$"+obj.IGPhotos[0].IGUrl;
+        console.log("stringToReturn: "+ stringToReturn);
+
         var weatherCandyDataStr = JSON.stringify(obj);
         console.log("the obj is: "+ weatherCandyDataStr );
 
