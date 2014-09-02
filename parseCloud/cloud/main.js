@@ -59,9 +59,13 @@ function getWeatherCandyData(request, response) {
         for (i = 0; i < results.length; i++) {
           obj["IGPhotos"].push({"PhotoNum":i, "IGUsername":results[i].get("IGUsername"),"IGUrl":results[i].get("URL")});
         }
-        console.log("the obj is: "+ JSON.stringify(obj) );
 
-        response.success("succeeded");
+        stringToReturn =  ""+obj.name + "\n"+obj.weather[0].description+"\nTemp: "+obj.main.temp+"\nHigh, Low: "+obj.main.temp_max+", "+obj.main.temp_min+"IGURL"+obj.IGPhotos[0].IGUrl;
+        var weatherCandyDataStr = JSON.stringify(obj);
+        console.log("the obj is: "+ weatherCandyDataStr );
+
+
+        response.success(stringToReturn);
       },
       error: function(httpResponse) {
         response.error("Request failed with response code " + httpResponse.status);

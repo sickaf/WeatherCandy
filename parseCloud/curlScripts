@@ -1,10 +1,8 @@
 
-  curl -X POST \
-  -H "X-Parse-Application-Id: p8AF2BKCLQ7fr3oJXPg43fOL6LXAK3mwAb5Ywnke" \
-  -H "X-Parse-REST-API-Key: v8C3jQHw0b8JkoCMy3Vn9QgqLdl3F7TxptAKfSVx" \
-  -H "Content-Type: application/json" \
-  -d '{"URL":"http://photos-h.ak.instagram.com/hphotos-ak-xaf1/10661088_579312335512287_864534314_n.jpg", "forDate":"2014-09-13"}' \
-  https://api.parse.com/1/classes/IGPhoto
+  curl -X POST -H "X-Parse-Application-Id: p8AF2BKCLQ7fr3oJXPg43fOL6LXAK3mwAb5Ywnke" -H "X-Parse-REST-API-Key: v8C3jQHw0b8JkoCMy3Vn9QgqLdl3F7TxptAKfSVx" -H "Content-Type: application/json" -d '{"URL":"http://photos-d.ak.instagram.com/hphotos-ak-xaf1/10601929_1546280335592507_1297605176_n.jpg", "forDate":"2014-09-03","IGUsername":"blablabla"}' https://api.parse.com/1/classes/IGPhoto
+
+
+
 
 
 curl -X GET \
@@ -37,7 +35,7 @@ curl -X GET \
   -H "X-Parse-Application-Id: p8AF2BKCLQ7fr3oJXPg43fOL6LXAK3mwAb5Ywnke" \
   -H "X-Parse-REST-API-Key: v8C3jQHw0b8JkoCMy3Vn9QgqLdl3F7TxptAKfSVx" \
   -H "Content-Type: application/json" \
-  -d '{"cityID":"1645528","date":"2014-09-10"}' \
+  -d '{"cityID":"2655138","date":"2014-09-10"}' \
   https://api.parse.com/1/functions/getWeatherCandyData
 
   curl -X POST \

@@ -13,6 +13,18 @@
 		8201148719B3548A00F44D0B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8201148519B3548A00F44D0B /* Main.storyboard */; };
 		8201148919B3548A00F44D0B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8201148819B3548A00F44D0B /* Images.xcassets */; };
 		8201149519B3548A00F44D0B /* WeatherCandyTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8201149419B3548A00F44D0B /* WeatherCandyTests.m */; };
+		820114A019B35BE500F44D0B /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8201149E19B35BE500F44D0B /* Bolts.framework */; };
+		820114A119B35BE500F44D0B /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8201149F19B35BE500F44D0B /* Parse.framework */; };
+		820114AD19B35EFF00F44D0B /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 820114A319B35EFF00F44D0B /* AudioToolbox.framework */; };
+		820114AE19B35EFF00F44D0B /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 820114A419B35EFF00F44D0B /* CFNetwork.framework */; };
+		820114AF19B35EFF00F44D0B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 820114A519B35EFF00F44D0B /* CoreGraphics.framework */; };
+		820114B019B35EFF00F44D0B /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 820114A619B35EFF00F44D0B /* CoreLocation.framework */; };
+		820114B119B35EFF00F44D0B /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 820114A719B35EFF00F44D0B /* libz.dylib */; };
+		820114B219B35EFF00F44D0B /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 820114A819B35EFF00F44D0B /* MobileCoreServices.framework */; };
+		820114B319B35EFF00F44D0B /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 820114A919B35EFF00F44D0B /* QuartzCore.framework */; };
+		820114B419B35EFF00F44D0B /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 820114AA19B35EFF00F44D0B /* Security.framework */; };
+		820114B519B35EFF00F44D0B /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 820114AB19B35EFF00F44D0B /* StoreKit.framework */; };
+		820114B619B35EFF00F44D0B /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 820114AC19B35EFF00F44D0B /* SystemConfiguration.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,6 +50,18 @@
 		8201148E19B3548A00F44D0B /* WeatherCandyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WeatherCandyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8201149319B3548A00F44D0B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8201149419B3548A00F44D0B /* WeatherCandyTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WeatherCandyTests.m; sourceTree = "<group>"; };
+		8201149E19B35BE500F44D0B /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
+		8201149F19B35BE500F44D0B /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
+		820114A319B35EFF00F44D0B /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		820114A419B35EFF00F44D0B /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		820114A519B35EFF00F44D0B /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		820114A619B35EFF00F44D0B /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		820114A719B35EFF00F44D0B /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		820114A819B35EFF00F44D0B /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		820114A919B35EFF00F44D0B /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		820114AA19B35EFF00F44D0B /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		820114AB19B35EFF00F44D0B /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		820114AC19B35EFF00F44D0B /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -45,6 +69,18 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				820114AD19B35EFF00F44D0B /* AudioToolbox.framework in Frameworks */,
+				820114AE19B35EFF00F44D0B /* CFNetwork.framework in Frameworks */,
+				820114AF19B35EFF00F44D0B /* CoreGraphics.framework in Frameworks */,
+				820114B019B35EFF00F44D0B /* CoreLocation.framework in Frameworks */,
+				820114B119B35EFF00F44D0B /* libz.dylib in Frameworks */,
+				820114B219B35EFF00F44D0B /* MobileCoreServices.framework in Frameworks */,
+				820114B319B35EFF00F44D0B /* QuartzCore.framework in Frameworks */,
+				820114B419B35EFF00F44D0B /* Security.framework in Frameworks */,
+				820114B519B35EFF00F44D0B /* StoreKit.framework in Frameworks */,
+				820114B619B35EFF00F44D0B /* SystemConfiguration.framework in Frameworks */,
+				820114A119B35BE500F44D0B /* Parse.framework in Frameworks */,
+				820114A019B35BE500F44D0B /* Bolts.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -64,6 +100,7 @@
 				8201147A19B3548A00F44D0B /* WeatherCandy */,
 				8201149119B3548A00F44D0B /* WeatherCandyTests */,
 				8201147919B3548A00F44D0B /* Products */,
+				820114A219B35C0100F44D0B /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -114,6 +151,25 @@
 				8201149319B3548A00F44D0B /* Info.plist */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		820114A219B35C0100F44D0B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				820114A319B35EFF00F44D0B /* AudioToolbox.framework */,
+				820114A419B35EFF00F44D0B /* CFNetwork.framework */,
+				820114A519B35EFF00F44D0B /* CoreGraphics.framework */,
+				820114A619B35EFF00F44D0B /* CoreLocation.framework */,
+				820114A719B35EFF00F44D0B /* libz.dylib */,
+				820114A819B35EFF00F44D0B /* MobileCoreServices.framework */,
+				820114A919B35EFF00F44D0B /* QuartzCore.framework */,
+				820114AA19B35EFF00F44D0B /* Security.framework */,
+				820114AB19B35EFF00F44D0B /* StoreKit.framework */,
+				820114AC19B35EFF00F44D0B /* SystemConfiguration.framework */,
+				8201149E19B35BE500F44D0B /* Bolts.framework */,
+				8201149F19B35BE500F44D0B /* Parse.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -332,6 +388,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = WeatherCandy/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -343,6 +403,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = WeatherCandy/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
