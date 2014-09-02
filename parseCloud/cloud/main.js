@@ -17,6 +17,11 @@ Parse.Cloud.define("getWeatherCandyData", function(request, response) {
 //api.openweathermap.org/data/2.5/weather?lat=35&lon=139
 // -84.398277, 39.51506 ]
 
+function addInstagram(request, response) {
+
+
+}
+
 function getWeatherCandyData(request, response) {
 
   var lat = request.params.lat;
@@ -25,6 +30,7 @@ function getWeatherCandyData(request, response) {
   var cityName = request.params.cityName;
   var cityID = request.params.cityID;
   var WeatherQueryString ="api.openweathermap.org/data/2.5/weather?";
+  var kelvin = 273.15;
 
   var IGPhotoQuery = new Parse.Query("IGPhoto");
 
@@ -60,7 +66,7 @@ function getWeatherCandyData(request, response) {
           obj["IGPhotos"].push({"PhotoNum":i, "IGUsername":results[i].get("IGUsername"),"IGUrl":results[i].get("URL")});
         }
 
-        stringToReturn =  ""+obj.name + "\n"+obj.weather[0].description+"\nTemp: "+obj.main.temp+"\nHigh, Low: "+obj.main.temp_max+", "+obj.main.temp_min+"IGURL"+obj.IGPhotos[0].IGUrl;
+        stringToReturn =  ""+obj.name + "$"+obj.weather[0].description+"$"+(obj.main.temp-kelvin)+"$"+obj.main.temp_max+"$"+obj.main.temp_min+"$"+obj.IGPhotos[0].IGUrl;
         var weatherCandyDataStr = JSON.stringify(obj);
         console.log("the obj is: "+ weatherCandyDataStr );
 
