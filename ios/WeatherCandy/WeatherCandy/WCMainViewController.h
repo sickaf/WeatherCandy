@@ -9,12 +9,10 @@
 #import <UIKit/UIKit.h>
 #import "UIImageViewAligned.h"
 
-@interface WCMainViewController : UIViewController <UICollectionViewDataSource, UIViewControllerTransitioningDelegate>
+@interface WCMainViewController : UIViewController <UICollectionViewDataSource, UINavigationControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet UIImageViewAligned *imageView;
-
-
 
 @end
 

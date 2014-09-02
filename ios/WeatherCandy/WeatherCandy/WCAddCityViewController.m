@@ -8,108 +8,143 @@
 
 #import "WCAddCityViewController.h"
 #import "WCConstants.h"
+#import "WCCity.h"
+#import "WCCityCell.h"
+#import "AFNetworking.h"
 
 @interface WCAddCityViewController ()
 
 @property (weak, nonatomic) IBOutlet UITextField *textField;
+@property (strong, nonatomic) NSMutableArray *savedCities;
+@property (strong, nonatomic) NSMutableArray *searchResults;
+
+@property (assign, nonatomic) BOOL searching;
 
 @end
 
 @implementation WCAddCityViewController
 
-- (id)initWithStyle:(UITableViewStyle)style
-{
-    self = [super initWithStyle:style];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
-}
-
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
-    self.textField.attributedPlaceholder = [[NSAttributedString alloc] initWithString:@"Enter City Name" attributes:@{NSForegroundColorAttributeName: [UIColor whiteColor]}];
+    self.navigationItem.backBarButtonItem = nil;
+    self.navigationItem.hidesBackButton = YES;
+    
+    _savedCities = [NSMutableArray new];
+    _searchResults = [NSMutableArray new];
+    
+    UIButton *butt = [UIButton buttonWithType:UIButtonTypeCustom];
+    [butt setTitle:@"Boston" forState:UIControlStateNormal];
+    [butt setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [butt setTitleColor:[UIColor colorWithWhite:1 alpha:0.6] forState:UIControlStateHighlighted];
+    butt.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:22];
+    [butt addTarget:self action:@selector(pressedDone:) forControlEvents:UIControlEventTouchUpInside];
+    [self.navigationItem setTitleView:butt];
+    
+    self.tableView.backgroundColor = kDefaultGreyColor;
+    self.searchBar.searchBarStyle = UISearchBarStyleMinimal;
+    self.searchBar.tintColor = [UIColor whiteColor];
+    
+    [[UITextField appearanceWhenContainedIn:[UISearchBar class], nil] setTextColor:[UIColor whiteColor]];
+    
+    [self getSavedCityData];
 }
 
-- (void)didReceiveMemoryWarning
+#pragma mark - Properties
+
+- (void)setSearching:(BOOL)searching
 {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    _searching = searching;
+    [self.tableView reloadData];
+}
+
+#pragma mark - Helpers
+
+- (void)getSavedCityData
+{
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+    NSArray *savedCities = [ud objectForKey:@"cities"];
+    [_savedCities addObjectsFromArray:savedCities];
+    [self.tableView reloadData];
 }
 
 #pragma mark - Table view data source
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    // Return the number of rows in the section.
-    return 50;
+    NSInteger numRows = 0;
+    
+    if (_searching) {
+        numRows = 1;
+    }
+    else {
+        if (_searchResults.count > 0) {
+            numRows = _searchResults.count;
+        }
+        else {
+            numRows = _savedCities.count;
+        }
+    }
+    
+    return numRows;
 }
-
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CityCell" forIndexPath:indexPath];
     
-    cell.backgroundColor = kDefaultGreyColor;
+    if (_searching) {
+        cell.textLabel.text = @"Searching...";
+    }
+    else {
+        if (_searchResults.count > 0) {
+            cell.textLabel.text = _searchResults[indexPath.row][@"name"];
+        }
+        else {
+            //WCCity *city = self.savedCities[indexPath.row];
+            cell.textLabel.text = @"we made it";
+        }
+    }
     
     return cell;
 }
 
+#pragma mark - Table View Delegate
 
-/*
-// Override to support conditional editing of the table view.
-- (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
+#pragma mark - Actions
+
+- (void)pressedDone:(id)sender
 {
-    // Return NO if you do not want the specified item to be editable.
-    return YES;
+    [self.navigationController popViewControllerAnimated:YES];
 }
-*/
 
-/*
-// Override to support editing the table view.
-- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+#pragma mark - Search Bar Delegate
+
+- (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
 {
-    if (editingStyle == UITableViewCellEditingStyleDelete) {
-        // Delete the row from the data source
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    } else if (editingStyle == UITableViewCellEditingStyleInsert) {
-        // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-    }   
-}
-*/
-
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
-{
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
-
-- (IBAction)pressedDone:(id)sender
-{
-    [self dismissViewControllerAnimated:YES completion:nil];
+    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
+    [manager.operationQueue cancelAllOperations];
+    
+    if (!searchText.length) {
+        [_searchResults removeAllObjects];
+        self.searching = NO;
+        return;
+    }
+    
+    self.searching = YES;
+    
+    NSDictionary *params = @{@"name": searchText, @"name_startsWith": searchText, @"cities": @"cities1000", @"maxRows": @"50", @"isNameRequired": @"true", @"orderby": @"relevance", @"featureClass":@"P", @"username": @"codyko"};
+    [manager GET:@"http://api.geonames.org/searchJSON" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        if (!operation.isCancelled) {
+            NSDictionary *dict = responseObject;
+            [_searchResults removeAllObjects];
+            [_searchResults addObjectsFromArray:dict[@"geonames"]];
+            self.searching = NO;
+        }
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error: %@", error);
+    }];
 }
 
 @end

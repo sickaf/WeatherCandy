@@ -10,6 +10,7 @@
 #import "WCCollectionViewCell.h"
 #import "WCConstants.h"
 #import "AFNetworking.h"
+#import "WCSlideDownModalAnimation.h"
 
 #import <Parse/Parse.h>
 
@@ -38,6 +39,13 @@
     self.imageView.image = [self.imageView.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     self.imageView.alignBottom = YES;
     
+    UIButton *butt = [UIButton buttonWithType:UIButtonTypeCustom];
+    [butt setTitle:@"Boston" forState:UIControlStateNormal];
+    [butt setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [butt setTitleColor:[UIColor colorWithWhite:1 alpha:0.6] forState:UIControlStateHighlighted];
+    butt.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:22];
+    [butt addTarget:self action:@selector(pressedCityName:) forControlEvents:UIControlEventTouchUpInside];
+    [self.navigationItem setTitleView:butt];
 }
 
 //- (void)refreshVisibleCells
@@ -94,19 +102,24 @@
 - (IBAction)pressedCityName:(id)sender
 {
     UIViewController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"AddCity"];
-    vc.transitioningDelegate = self;
-    vc.modalTransitionStyle = UIModalPresentationCustom;
-    
-    [self presentViewController:vc animated:YES completion:nil];
-    
+
+    self.navigationController.delegate = self;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 #pragma mark - animation delegate
 
-//- (id <UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source
-//{
-//    
-//}
+- (id <UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController
+                                   animationControllerForOperation:(UINavigationControllerOperation)operation
+                                                fromViewController:(UIViewController *)fromVC
+                                                  toViewController:(UIViewController *)toVC
+{
+    WCSlideDownModalAnimation *slide = [WCSlideDownModalAnimation new];
+    if (operation == UINavigationControllerOperationPop) {
+        slide.presenting = YES;
+    }
+    return slide;
+}
 
 - (UIColor *)random
 {

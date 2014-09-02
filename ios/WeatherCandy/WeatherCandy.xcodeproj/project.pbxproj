@@ -11,6 +11,8 @@
 		7F14C61919B5DE58001FA062 /* UIImageViewAligned.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F14C61819B5DE58001FA062 /* UIImageViewAligned.m */; };
 		7F14C61D19B5EC69001FA062 /* WCAddCityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F14C61C19B5EC69001FA062 /* WCAddCityViewController.m */; };
 		7F14C62019B5F349001FA062 /* WCSlideDownModalAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F14C61F19B5F349001FA062 /* WCSlideDownModalAnimation.m */; };
+		7F14C62319B60EF0001FA062 /* WCCity.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F14C62219B60EF0001FA062 /* WCCity.m */; };
+		7F14C62719B61A29001FA062 /* WCCityCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F14C62619B61A29001FA062 /* WCCityCell.m */; };
 		7FAE69D819B5A6BA0061B1BD /* WCCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FAE69D719B5A6BA0061B1BD /* WCCollectionViewCell.m */; };
 		7FAE69DE19B5AD370061B1BD /* WCAlphaGradientView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FAE69DD19B5AD370061B1BD /* WCAlphaGradientView.m */; };
 		7FAE69DF19B5AD640061B1BD /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 820114A919B35EFF00F44D0B /* QuartzCore.framework */; };
@@ -63,6 +65,10 @@
 		7F14C61C19B5EC69001FA062 /* WCAddCityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCAddCityViewController.m; sourceTree = "<group>"; };
 		7F14C61E19B5F349001FA062 /* WCSlideDownModalAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WCSlideDownModalAnimation.h; sourceTree = "<group>"; };
 		7F14C61F19B5F349001FA062 /* WCSlideDownModalAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCSlideDownModalAnimation.m; sourceTree = "<group>"; };
+		7F14C62119B60EF0001FA062 /* WCCity.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WCCity.h; sourceTree = "<group>"; };
+		7F14C62219B60EF0001FA062 /* WCCity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCCity.m; sourceTree = "<group>"; };
+		7F14C62519B61A29001FA062 /* WCCityCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WCCityCell.h; sourceTree = "<group>"; };
+		7F14C62619B61A29001FA062 /* WCCityCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCCityCell.m; sourceTree = "<group>"; };
 		7FAE69D619B5A6BA0061B1BD /* WCCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WCCollectionViewCell.h; sourceTree = "<group>"; };
 		7FAE69D719B5A6BA0061B1BD /* WCCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCCollectionViewCell.m; sourceTree = "<group>"; };
 		7FAE69DC19B5AD370061B1BD /* WCAlphaGradientView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WCAlphaGradientView.h; sourceTree = "<group>"; };
@@ -164,8 +170,21 @@
 				7FAE69D719B5A6BA0061B1BD /* WCCollectionViewCell.m */,
 				7FAE69DC19B5AD370061B1BD /* WCAlphaGradientView.h */,
 				7FAE69DD19B5AD370061B1BD /* WCAlphaGradientView.m */,
+				7F14C62519B61A29001FA062 /* WCCityCell.h */,
+				7F14C62619B61A29001FA062 /* WCCityCell.m */,
 			);
 			name = Views;
+			sourceTree = "<group>";
+		};
+		7F14C62419B60FF6001FA062 /* Objects */ = {
+			isa = PBXGroup;
+			children = (
+				7F14C61E19B5F349001FA062 /* WCSlideDownModalAnimation.h */,
+				7F14C61F19B5F349001FA062 /* WCSlideDownModalAnimation.m */,
+				7F14C62119B60EF0001FA062 /* WCCity.h */,
+				7F14C62219B60EF0001FA062 /* WCCity.m */,
+			);
+			name = Objects;
 			sourceTree = "<group>";
 		};
 		7FAE69E619B5B42D0061B1BD /* AFNetworking */ = {
@@ -219,9 +238,10 @@
 		8201147A19B3548A00F44D0B /* WeatherCandy */ = {
 			isa = PBXGroup;
 			children = (
+				7F14C62419B60FF6001FA062 /* Objects */,
+				7F14C61A19B5E79F001FA062 /* Views */,
 				8201147F19B3548A00F44D0B /* WCAppDelegate.h */,
 				8201148019B3548A00F44D0B /* WCAppDelegate.m */,
-				7F14C61A19B5E79F001FA062 /* Views */,
 				8201148219B3548A00F44D0B /* WCMainViewController.h */,
 				8201148319B3548A00F44D0B /* WCMainViewController.m */,
 				7F14C61B19B5EC69001FA062 /* WCAddCityViewController.h */,
@@ -231,8 +251,6 @@
 				8201148519B3548A00F44D0B /* Main.storyboard */,
 				8201148819B3548A00F44D0B /* Images.xcassets */,
 				8201147B19B3548A00F44D0B /* Supporting Files */,
-				7F14C61E19B5F349001FA062 /* WCSlideDownModalAnimation.h */,
-				7F14C61F19B5F349001FA062 /* WCSlideDownModalAnimation.m */,
 			);
 			path = WeatherCandy;
 			sourceTree = "<group>";
@@ -396,9 +414,11 @@
 				7FAE6A0019B5B42D0061B1BD /* AFURLRequestSerialization.m in Sources */,
 				7FAE69D819B5A6BA0061B1BD /* WCCollectionViewCell.m in Sources */,
 				7F14C61D19B5EC69001FA062 /* WCAddCityViewController.m in Sources */,
+				7F14C62319B60EF0001FA062 /* WCCity.m in Sources */,
 				8201147E19B3548A00F44D0B /* main.m in Sources */,
 				7FAE69E519B5B2040061B1BD /* WCNavigationController.m in Sources */,
 				7FAE6A0519B5C74B0061B1BD /* UIImageView+AFNetworking.m in Sources */,
+				7F14C62719B61A29001FA062 /* WCCityCell.m in Sources */,
 				7F14C61919B5DE58001FA062 /* UIImageViewAligned.m in Sources */,
 				7FAE69FB19B5B42D0061B1BD /* AFHTTPRequestOperationManager.m in Sources */,
 				7FAE69FE19B5B42D0061B1BD /* AFSecurityPolicy.m in Sources */,

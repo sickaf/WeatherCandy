@@ -8,6 +8,9 @@
 
 #import <UIKit/UIKit.h>
 
-@interface WCAddCityViewController : UITableViewController
+@interface WCAddCityViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate>
+
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+@property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 
 @end

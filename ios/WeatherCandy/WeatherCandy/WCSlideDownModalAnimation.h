@@ -11,4 +11,6 @@
 
 @interface WCSlideDownModalAnimation : NSObject <UIViewControllerAnimatedTransitioning>
 
+@property (nonatomic, assign) BOOL presenting;
+
 @end
