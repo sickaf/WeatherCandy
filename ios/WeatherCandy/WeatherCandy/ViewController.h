@@ -16,6 +16,7 @@
 @property (weak, nonatomic) IBOutlet UITextField *cityTextField;
 - (IBAction)getWeatherCandyDataButton:(id)sender;
 
+@property (weak, nonatomic) IBOutlet UILabel *cityNameLabel;
 
 
 @end

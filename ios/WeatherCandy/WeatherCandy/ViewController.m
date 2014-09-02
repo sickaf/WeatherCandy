@@ -41,8 +41,9 @@
                        withParameters:@{@"cityName": self.cityTextField.text,@"date":self.dateTextField.text}
                                 block:^(NSString *result, NSError *error) {
                                     if (!error) {
-                                        
-                                        self.weatherDataLabel.text = [result componentsSeparatedByString:@"IGURL"][0];
+                                        NSString *weatherDataText = [result componentsSeparatedByString:@"IGURL"][0];
+                                        self.cityNameLabel.text = [weatherDataText componentsSeparatedByString:@"\n"][0];
+                                        self.weatherDataLabel.text = [weatherDataText componentsSeparatedByString:@"\n"][1];
                                         
                                         NSData * imageData = [[NSData alloc] initWithContentsOfURL: [NSURL URLWithString: [result componentsSeparatedByString:@"IGURL"][1]]];
                                         self.igImageView.image = [UIImage imageWithData: imageData];
