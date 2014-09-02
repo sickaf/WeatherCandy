@@ -6,15 +6,15 @@
 //  Copyright (c) 2014 sickaf. All rights reserved.
 //
 
-#import "AppDelegate.h"
+#import "WCAppDelegate.h"
 #import <Parse/Parse.h>
 
 
-@interface AppDelegate ()
+@interface WCAppDelegate ()
 
 @end
 
-@implementation AppDelegate
+@implementation WCAppDelegate
             
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {

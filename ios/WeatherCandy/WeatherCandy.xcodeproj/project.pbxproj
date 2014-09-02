@@ -7,9 +7,27 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7F14C61519B5DA66001FA062 /* Weather&Time.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7F14C61419B5D92D001FA062 /* Weather&Time.ttf */; };
+		7F14C61919B5DE58001FA062 /* UIImageViewAligned.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F14C61819B5DE58001FA062 /* UIImageViewAligned.m */; };
+		7F14C61D19B5EC69001FA062 /* WCAddCityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F14C61C19B5EC69001FA062 /* WCAddCityViewController.m */; };
+		7F14C62019B5F349001FA062 /* WCSlideDownModalAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F14C61F19B5F349001FA062 /* WCSlideDownModalAnimation.m */; };
+		7FAE69D819B5A6BA0061B1BD /* WCCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FAE69D719B5A6BA0061B1BD /* WCCollectionViewCell.m */; };
+		7FAE69DE19B5AD370061B1BD /* WCAlphaGradientView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FAE69DD19B5AD370061B1BD /* WCAlphaGradientView.m */; };
+		7FAE69DF19B5AD640061B1BD /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 820114A919B35EFF00F44D0B /* QuartzCore.framework */; };
+		7FAE69E519B5B2040061B1BD /* WCNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FAE69E419B5B2040061B1BD /* WCNavigationController.m */; };
+		7FAE69FA19B5B42D0061B1BD /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FAE69E819B5B42D0061B1BD /* AFHTTPRequestOperation.m */; };
+		7FAE69FB19B5B42D0061B1BD /* AFHTTPRequestOperationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FAE69EA19B5B42D0061B1BD /* AFHTTPRequestOperationManager.m */; };
+		7FAE69FC19B5B42D0061B1BD /* AFHTTPSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FAE69EC19B5B42D0061B1BD /* AFHTTPSessionManager.m */; };
+		7FAE69FD19B5B42D0061B1BD /* AFNetworkReachabilityManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FAE69EF19B5B42D0061B1BD /* AFNetworkReachabilityManager.m */; };
+		7FAE69FE19B5B42D0061B1BD /* AFSecurityPolicy.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FAE69F119B5B42D0061B1BD /* AFSecurityPolicy.m */; };
+		7FAE69FF19B5B42D0061B1BD /* AFURLConnectionOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FAE69F319B5B42D0061B1BD /* AFURLConnectionOperation.m */; };
+		7FAE6A0019B5B42D0061B1BD /* AFURLRequestSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FAE69F519B5B42D0061B1BD /* AFURLRequestSerialization.m */; };
+		7FAE6A0119B5B42D0061B1BD /* AFURLResponseSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FAE69F719B5B42D0061B1BD /* AFURLResponseSerialization.m */; };
+		7FAE6A0219B5B42D0061B1BD /* AFURLSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FAE69F919B5B42D0061B1BD /* AFURLSessionManager.m */; };
+		7FAE6A0519B5C74B0061B1BD /* UIImageView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FAE6A0419B5C74B0061B1BD /* UIImageView+AFNetworking.m */; };
 		8201147E19B3548A00F44D0B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8201147D19B3548A00F44D0B /* main.m */; };
-		8201148119B3548A00F44D0B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8201148019B3548A00F44D0B /* AppDelegate.m */; };
-		8201148419B3548A00F44D0B /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8201148319B3548A00F44D0B /* ViewController.m */; };
+		8201148119B3548A00F44D0B /* WCAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8201148019B3548A00F44D0B /* WCAppDelegate.m */; };
+		8201148419B3548A00F44D0B /* WCMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8201148319B3548A00F44D0B /* WCMainViewController.m */; };
 		8201148719B3548A00F44D0B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8201148519B3548A00F44D0B /* Main.storyboard */; };
 		8201148919B3548A00F44D0B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8201148819B3548A00F44D0B /* Images.xcassets */; };
 		8201149519B3548A00F44D0B /* WeatherCandyTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8201149419B3548A00F44D0B /* WeatherCandyTests.m */; };
@@ -38,13 +56,48 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		7F14C61419B5D92D001FA062 /* Weather&Time.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Weather&Time.ttf"; sourceTree = "<group>"; };
+		7F14C61719B5DE58001FA062 /* UIImageViewAligned.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIImageViewAligned.h; sourceTree = "<group>"; };
+		7F14C61819B5DE58001FA062 /* UIImageViewAligned.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIImageViewAligned.m; sourceTree = "<group>"; };
+		7F14C61B19B5EC69001FA062 /* WCAddCityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WCAddCityViewController.h; sourceTree = "<group>"; };
+		7F14C61C19B5EC69001FA062 /* WCAddCityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCAddCityViewController.m; sourceTree = "<group>"; };
+		7F14C61E19B5F349001FA062 /* WCSlideDownModalAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WCSlideDownModalAnimation.h; sourceTree = "<group>"; };
+		7F14C61F19B5F349001FA062 /* WCSlideDownModalAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCSlideDownModalAnimation.m; sourceTree = "<group>"; };
+		7FAE69D619B5A6BA0061B1BD /* WCCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WCCollectionViewCell.h; sourceTree = "<group>"; };
+		7FAE69D719B5A6BA0061B1BD /* WCCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCCollectionViewCell.m; sourceTree = "<group>"; };
+		7FAE69DC19B5AD370061B1BD /* WCAlphaGradientView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WCAlphaGradientView.h; sourceTree = "<group>"; };
+		7FAE69DD19B5AD370061B1BD /* WCAlphaGradientView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCAlphaGradientView.m; sourceTree = "<group>"; };
+		7FAE69E119B5B0230061B1BD /* WCConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WCConstants.h; sourceTree = "<group>"; };
+		7FAE69E319B5B2040061B1BD /* WCNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WCNavigationController.h; sourceTree = "<group>"; };
+		7FAE69E419B5B2040061B1BD /* WCNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCNavigationController.m; sourceTree = "<group>"; };
+		7FAE69E719B5B42D0061B1BD /* AFHTTPRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperation.h; sourceTree = "<group>"; };
+		7FAE69E819B5B42D0061B1BD /* AFHTTPRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFHTTPRequestOperation.m; sourceTree = "<group>"; };
+		7FAE69E919B5B42D0061B1BD /* AFHTTPRequestOperationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperationManager.h; sourceTree = "<group>"; };
+		7FAE69EA19B5B42D0061B1BD /* AFHTTPRequestOperationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFHTTPRequestOperationManager.m; sourceTree = "<group>"; };
+		7FAE69EB19B5B42D0061B1BD /* AFHTTPSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPSessionManager.h; sourceTree = "<group>"; };
+		7FAE69EC19B5B42D0061B1BD /* AFHTTPSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFHTTPSessionManager.m; sourceTree = "<group>"; };
+		7FAE69ED19B5B42D0061B1BD /* AFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFNetworking.h; sourceTree = "<group>"; };
+		7FAE69EE19B5B42D0061B1BD /* AFNetworkReachabilityManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFNetworkReachabilityManager.h; sourceTree = "<group>"; };
+		7FAE69EF19B5B42D0061B1BD /* AFNetworkReachabilityManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFNetworkReachabilityManager.m; sourceTree = "<group>"; };
+		7FAE69F019B5B42D0061B1BD /* AFSecurityPolicy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFSecurityPolicy.h; sourceTree = "<group>"; };
+		7FAE69F119B5B42D0061B1BD /* AFSecurityPolicy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFSecurityPolicy.m; sourceTree = "<group>"; };
+		7FAE69F219B5B42D0061B1BD /* AFURLConnectionOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFURLConnectionOperation.h; sourceTree = "<group>"; };
+		7FAE69F319B5B42D0061B1BD /* AFURLConnectionOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFURLConnectionOperation.m; sourceTree = "<group>"; };
+		7FAE69F419B5B42D0061B1BD /* AFURLRequestSerialization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFURLRequestSerialization.h; sourceTree = "<group>"; };
+		7FAE69F519B5B42D0061B1BD /* AFURLRequestSerialization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFURLRequestSerialization.m; sourceTree = "<group>"; };
+		7FAE69F619B5B42D0061B1BD /* AFURLResponseSerialization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFURLResponseSerialization.h; sourceTree = "<group>"; };
+		7FAE69F719B5B42D0061B1BD /* AFURLResponseSerialization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFURLResponseSerialization.m; sourceTree = "<group>"; };
+		7FAE69F819B5B42D0061B1BD /* AFURLSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFURLSessionManager.h; sourceTree = "<group>"; };
+		7FAE69F919B5B42D0061B1BD /* AFURLSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFURLSessionManager.m; sourceTree = "<group>"; };
+		7FAE6A0319B5C74B0061B1BD /* UIImageView+AFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImageView+AFNetworking.h"; path = "Frameworks/AFNetworking/UIKit+AFNetworking/UIImageView+AFNetworking.h"; sourceTree = SOURCE_ROOT; };
+		7FAE6A0419B5C74B0061B1BD /* UIImageView+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImageView+AFNetworking.m"; path = "Frameworks/AFNetworking/UIKit+AFNetworking/UIImageView+AFNetworking.m"; sourceTree = SOURCE_ROOT; };
 		8201147819B3548A00F44D0B /* WeatherCandy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeatherCandy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8201147C19B3548A00F44D0B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8201147D19B3548A00F44D0B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		8201147F19B3548A00F44D0B /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		8201148019B3548A00F44D0B /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		8201148219B3548A00F44D0B /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		8201148319B3548A00F44D0B /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		8201147F19B3548A00F44D0B /* WCAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WCAppDelegate.h; sourceTree = "<group>"; };
+		8201148019B3548A00F44D0B /* WCAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WCAppDelegate.m; sourceTree = "<group>"; };
+		8201148219B3548A00F44D0B /* WCMainViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WCMainViewController.h; sourceTree = "<group>"; };
+		8201148319B3548A00F44D0B /* WCMainViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WCMainViewController.m; sourceTree = "<group>"; };
 		8201148619B3548A00F44D0B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		8201148819B3548A00F44D0B /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		8201148E19B3548A00F44D0B /* WeatherCandyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WeatherCandyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -88,12 +141,62 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7FAE69DF19B5AD640061B1BD /* QuartzCore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7F14C61619B5DE58001FA062 /* UIImageViewAligned */ = {
+			isa = PBXGroup;
+			children = (
+				7F14C61719B5DE58001FA062 /* UIImageViewAligned.h */,
+				7F14C61819B5DE58001FA062 /* UIImageViewAligned.m */,
+			);
+			path = UIImageViewAligned;
+			sourceTree = "<group>";
+		};
+		7F14C61A19B5E79F001FA062 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				7FAE69D619B5A6BA0061B1BD /* WCCollectionViewCell.h */,
+				7FAE69D719B5A6BA0061B1BD /* WCCollectionViewCell.m */,
+				7FAE69DC19B5AD370061B1BD /* WCAlphaGradientView.h */,
+				7FAE69DD19B5AD370061B1BD /* WCAlphaGradientView.m */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		7FAE69E619B5B42D0061B1BD /* AFNetworking */ = {
+			isa = PBXGroup;
+			children = (
+				7FAE6A0319B5C74B0061B1BD /* UIImageView+AFNetworking.h */,
+				7FAE6A0419B5C74B0061B1BD /* UIImageView+AFNetworking.m */,
+				7FAE69E719B5B42D0061B1BD /* AFHTTPRequestOperation.h */,
+				7FAE69E819B5B42D0061B1BD /* AFHTTPRequestOperation.m */,
+				7FAE69E919B5B42D0061B1BD /* AFHTTPRequestOperationManager.h */,
+				7FAE69EA19B5B42D0061B1BD /* AFHTTPRequestOperationManager.m */,
+				7FAE69EB19B5B42D0061B1BD /* AFHTTPSessionManager.h */,
+				7FAE69EC19B5B42D0061B1BD /* AFHTTPSessionManager.m */,
+				7FAE69ED19B5B42D0061B1BD /* AFNetworking.h */,
+				7FAE69EE19B5B42D0061B1BD /* AFNetworkReachabilityManager.h */,
+				7FAE69EF19B5B42D0061B1BD /* AFNetworkReachabilityManager.m */,
+				7FAE69F019B5B42D0061B1BD /* AFSecurityPolicy.h */,
+				7FAE69F119B5B42D0061B1BD /* AFSecurityPolicy.m */,
+				7FAE69F219B5B42D0061B1BD /* AFURLConnectionOperation.h */,
+				7FAE69F319B5B42D0061B1BD /* AFURLConnectionOperation.m */,
+				7FAE69F419B5B42D0061B1BD /* AFURLRequestSerialization.h */,
+				7FAE69F519B5B42D0061B1BD /* AFURLRequestSerialization.m */,
+				7FAE69F619B5B42D0061B1BD /* AFURLResponseSerialization.h */,
+				7FAE69F719B5B42D0061B1BD /* AFURLResponseSerialization.m */,
+				7FAE69F819B5B42D0061B1BD /* AFURLSessionManager.h */,
+				7FAE69F919B5B42D0061B1BD /* AFURLSessionManager.m */,
+			);
+			name = AFNetworking;
+			path = Frameworks/AFNetworking/AFNetworking;
+			sourceTree = "<group>";
+		};
 		8201146F19B3548A00F44D0B = {
 			isa = PBXGroup;
 			children = (
@@ -116,13 +219,20 @@
 		8201147A19B3548A00F44D0B /* WeatherCandy */ = {
 			isa = PBXGroup;
 			children = (
-				8201147F19B3548A00F44D0B /* AppDelegate.h */,
-				8201148019B3548A00F44D0B /* AppDelegate.m */,
-				8201148219B3548A00F44D0B /* ViewController.h */,
-				8201148319B3548A00F44D0B /* ViewController.m */,
+				8201147F19B3548A00F44D0B /* WCAppDelegate.h */,
+				8201148019B3548A00F44D0B /* WCAppDelegate.m */,
+				7F14C61A19B5E79F001FA062 /* Views */,
+				8201148219B3548A00F44D0B /* WCMainViewController.h */,
+				8201148319B3548A00F44D0B /* WCMainViewController.m */,
+				7F14C61B19B5EC69001FA062 /* WCAddCityViewController.h */,
+				7F14C61C19B5EC69001FA062 /* WCAddCityViewController.m */,
+				7FAE69E319B5B2040061B1BD /* WCNavigationController.h */,
+				7FAE69E419B5B2040061B1BD /* WCNavigationController.m */,
 				8201148519B3548A00F44D0B /* Main.storyboard */,
 				8201148819B3548A00F44D0B /* Images.xcassets */,
 				8201147B19B3548A00F44D0B /* Supporting Files */,
+				7F14C61E19B5F349001FA062 /* WCSlideDownModalAnimation.h */,
+				7F14C61F19B5F349001FA062 /* WCSlideDownModalAnimation.m */,
 			);
 			path = WeatherCandy;
 			sourceTree = "<group>";
@@ -130,6 +240,8 @@
 		8201147B19B3548A00F44D0B /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				7F14C61419B5D92D001FA062 /* Weather&Time.ttf */,
+				7FAE69E119B5B0230061B1BD /* WCConstants.h */,
 				8201147C19B3548A00F44D0B /* Info.plist */,
 				8201147D19B3548A00F44D0B /* main.m */,
 			);
@@ -156,6 +268,8 @@
 		820114A219B35C0100F44D0B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7F14C61619B5DE58001FA062 /* UIImageViewAligned */,
+				7FAE69E619B5B42D0061B1BD /* AFNetworking */,
 				820114A319B35EFF00F44D0B /* AudioToolbox.framework */,
 				820114A419B35EFF00F44D0B /* CFNetwork.framework */,
 				820114A519B35EFF00F44D0B /* CoreGraphics.framework */,
@@ -252,6 +366,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7F14C61519B5DA66001FA062 /* Weather&Time.ttf in Resources */,
 				8201148719B3548A00F44D0B /* Main.storyboard in Resources */,
 				8201148919B3548A00F44D0B /* Images.xcassets in Resources */,
 			);
@@ -271,9 +386,25 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8201148419B3548A00F44D0B /* ViewController.m in Sources */,
-				8201148119B3548A00F44D0B /* AppDelegate.m in Sources */,
+				7FAE6A0219B5B42D0061B1BD /* AFURLSessionManager.m in Sources */,
+				7FAE69DE19B5AD370061B1BD /* WCAlphaGradientView.m in Sources */,
+				8201148419B3548A00F44D0B /* WCMainViewController.m in Sources */,
+				7FAE69FD19B5B42D0061B1BD /* AFNetworkReachabilityManager.m in Sources */,
+				8201148119B3548A00F44D0B /* WCAppDelegate.m in Sources */,
+				7FAE69FF19B5B42D0061B1BD /* AFURLConnectionOperation.m in Sources */,
+				7FAE69FC19B5B42D0061B1BD /* AFHTTPSessionManager.m in Sources */,
+				7FAE6A0019B5B42D0061B1BD /* AFURLRequestSerialization.m in Sources */,
+				7FAE69D819B5A6BA0061B1BD /* WCCollectionViewCell.m in Sources */,
+				7F14C61D19B5EC69001FA062 /* WCAddCityViewController.m in Sources */,
 				8201147E19B3548A00F44D0B /* main.m in Sources */,
+				7FAE69E519B5B2040061B1BD /* WCNavigationController.m in Sources */,
+				7FAE6A0519B5C74B0061B1BD /* UIImageView+AFNetworking.m in Sources */,
+				7F14C61919B5DE58001FA062 /* UIImageViewAligned.m in Sources */,
+				7FAE69FB19B5B42D0061B1BD /* AFHTTPRequestOperationManager.m in Sources */,
+				7FAE69FE19B5B42D0061B1BD /* AFSecurityPolicy.m in Sources */,
+				7FAE6A0119B5B42D0061B1BD /* AFURLResponseSerialization.m in Sources */,
+				7F14C62019B5F349001FA062 /* WCSlideDownModalAnimation.m in Sources */,
+				7FAE69FA19B5B42D0061B1BD /* AFHTTPRequestOperation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -341,7 +472,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -376,7 +507,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
@@ -393,6 +524,7 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = WeatherCandy/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -408,6 +540,7 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = WeatherCandy/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -426,6 +559,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = WeatherCandyTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/WeatherCandy.app/WeatherCandy";
@@ -441,6 +575,7 @@
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = WeatherCandyTests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/WeatherCandy.app/WeatherCandy";
@@ -466,6 +601,7 @@
 				8201149A19B3548A00F44D0B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		8201149B19B3548A00F44D0B /* Build configuration list for PBXNativeTarget "WeatherCandyTests" */ = {
 			isa = XCConfigurationList;
@@ -474,6 +610,7 @@
 				8201149D19B3548A00F44D0B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
