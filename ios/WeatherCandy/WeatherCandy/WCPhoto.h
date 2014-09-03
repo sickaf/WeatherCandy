@@ -10,4 +10,8 @@
 
 @interface WCPhoto : NSObject
 
+@property (nonatomic, strong) NSString *photoURL;
+@property (nonatomic, strong) NSString *username;
+@property (nonatomic, strong) NSNumber *index;
+
 @end

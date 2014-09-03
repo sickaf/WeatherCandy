@@ -74,6 +74,7 @@
                                 </cells>
                                 <connections>
                                     <outlet property="dataSource" destination="MCC-ya-Nfu" id="997-kv-Gw7"/>
+                                    <outlet property="delegate" destination="MCC-ya-Nfu" id="x66-wq-K3u"/>
                                 </connections>
                             </collectionView>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="69" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="75" translatesAutoresizingMaskIntoConstraints="NO" id="6Ed-6P-8bU">
@@ -122,6 +123,16 @@
                     </view>
                     <navigationItem key="navigationItem" id="MHz-iE-lBS">
                         <nil key="title"/>
+                        <barButtonItem key="leftBarButtonItem" image="Image" id="Ijd-HR-VJE">
+                            <connections>
+                                <action selector="pressedSettings:" destination="MCC-ya-Nfu" id="0P7-xD-Xo3"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem key="rightBarButtonItem" systemItem="action" id="hgh-XE-a7d">
+                            <connections>
+                                <action selector="pressedAction:" destination="MCC-ya-Nfu" id="zjx-Ef-fIB"/>
+                            </connections>
+                        </barButtonItem>
                     </navigationItem>
                     <connections>
                         <outlet property="collectionView" destination="35N-sA-6VQ" id="DIo-h3-m06"/>
@@ -197,6 +208,7 @@
     </scenes>
     <resources>
         <image name="A" width="151" height="150"/>
+        <image name="Image" width="25" height="25"/>
         <image name="arrow-thin-down" width="29" height="38"/>
         <image name="arrow-thin-up" width="30" height="39"/>
     </resources>
