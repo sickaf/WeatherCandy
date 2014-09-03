@@ -84,32 +84,39 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="62" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q0S-cK-f23">
-                                <rect key="frame" x="100" y="374" width="36" height="36"/>
+                                <rect key="frame" x="122" y="370" width="36" height="36"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="30"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="74" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Olt-w6-2kT">
-                                <rect key="frame" x="38" y="380" width="36" height="24"/>
+                                <rect key="frame" x="60" y="376" width="36" height="24"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="30"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="arrow-thin-down" translatesAutoresizingMaskIntoConstraints="NO" id="6In-Ud-k7f">
-                                <rect key="frame" x="87" y="392" width="8" height="11"/>
+                                <rect key="frame" x="109" y="388" width="8" height="11"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="arrow-thin-up" translatesAutoresizingMaskIntoConstraints="NO" id="9w9-YP-J7v">
-                                <rect key="frame" x="28" y="393" width="8" height="11"/>
+                                <rect key="frame" x="50" y="389" width="8" height="11"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="A" translatesAutoresizingMaskIntoConstraints="NO" id="p22-qA-k62" customClass="UIImageViewAligned">
-                                <rect key="frame" x="197" y="245" width="103" height="158"/>
+                                <rect key="frame" x="197" y="245" width="103" height="124"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="tintColor" red="0.9960784912109375" green="0.99215692281723022" blue="0.99215692281723022" alpha="1" colorSpace="deviceRGB"/>
                             </imageView>
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fPF-Fc-yrL">
+                                <rect key="frame" x="197" y="377" width="103" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="20"/>
+                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.23921570181846619" green="0.23921570181846619" blue="0.23921570181846619" alpha="1" colorSpace="deviceRGB"/>
                     </view>
@@ -118,7 +125,11 @@
                     </navigationItem>
                     <connections>
                         <outlet property="collectionView" destination="35N-sA-6VQ" id="DIo-h3-m06"/>
+                        <outlet property="descriptionLabel" destination="fPF-Fc-yrL" id="B2b-3D-KkG"/>
+                        <outlet property="highTempLabel" destination="Olt-w6-2kT" id="kAl-r2-lUL"/>
                         <outlet property="imageView" destination="p22-qA-k62" id="KdU-ha-8ki"/>
+                        <outlet property="lowTempLabel" destination="q0S-cK-f23" id="M9v-Bh-dK9"/>
+                        <outlet property="mainTempLabel" destination="6Ed-6P-8bU" id="3pW-gg-hAt"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="IPf-5n-vgq" userLabel="First Responder" sceneMemberID="firstResponder"/>

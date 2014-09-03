@@ -11,12 +11,14 @@
 #import "WCConstants.h"
 #import "AFNetworking.h"
 #import "WCSlideDownModalAnimation.h"
+#import "WCCity.h"
 
 #import <Parse/Parse.h>
 
 @interface WCMainViewController () {
     NSArray *_imgData;
     NSMutableArray *_imgs;
+    UIButton *_navButton;
 }
 
 @end
@@ -33,6 +35,7 @@
     _imgData = @[@"http://photos-a.ak.instagram.com/hphotos-ak-xpf1/10553999_1447827782154488_388662961_n.jpg",
                  @"http://photos-e.ak.instagram.com/hphotos-ak-xfa1/10012522_259935160847948_1011959515_n.jpg",
                  @"http://photos-d.ak.instagram.com/hphotos-ak-xaf1/10601929_1546280335592507_1297605176_n.jpg",
+                 @"http://photos-h.ak.instagram.com/hphotos-ak-xaf1/10661088_579312335512287_864534314_n.jpg",
                  @"http://photos-h.ak.instagram.com/hphotos-ak-xaf1/10661088_579312335512287_864534314_n.jpg"];
     _imgs = [NSMutableArray new];
     
@@ -46,43 +49,46 @@
     butt.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:22];
     [butt addTarget:self action:@selector(pressedCityName:) forControlEvents:UIControlEventTouchUpInside];
     [self.navigationItem setTitleView:butt];
+    _navButton = butt;
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cityChanged:) name:kCityChangedNotification object:nil];
 }
 
-//- (void)refreshVisibleCells
-//{
-//    NSArray *vis = self.collectionView.visibleCells;
-//    for (WCCollectionViewCell *cell in vis) {
-//        NSIndexPath *indexPath = [self.collectionView indexPathForCell:cell];
-//        if (_imgs.count > indexPath.row) {
-//            cell.imageView.image = _imgs[indexPath.row];
-//        }
-//    }
-//}
+- (void)getWeatherDataWithCityID:(NSString *)cityID
+{
+    [PFCloud callFunctionInBackground:@"getWeatherCandyData"
+                       withParameters:@{@"cityID": cityID, @"date":@"2014-09-11"}
+                                block:^(NSDictionary *result, NSError *error) {
+                                    if (!error) {
+                                        _imgData = [result[@"IGPhotoSet"] valueForKeyPath:@"IGUrl"];
+                                        [self.collectionView reloadData];
+                                        
+                                        NSNumber *curTemp = result[@"currentWeather"][@"main"][@"temp"];
+                                        curTemp = [NSNumber numberWithInt:[curTemp intValue] - 273];
+                                        self.mainTempLabel.text = [[curTemp stringValue] substringToIndex:2];
+                                        
+                                        self.descriptionLabel.text = result[@"currentWeather"][@"weather"][0][@"description"];
+                                        
+                                        NSNumber *curHigh = result[@"currentWeather"][@"main"][@"temp_max"];
+                                        curHigh = [NSNumber numberWithInt:[curHigh intValue] - 273];
+                                        self.highTempLabel.text = [[curHigh stringValue] substringToIndex:2];
+                                        
+                                        NSNumber *curLow = result[@"currentWeather"][@"main"][@"temp_min"];
+                                        curLow = [NSNumber numberWithInt:[curLow intValue] - 273];
+                                        self.lowTempLabel.text = [[curLow stringValue] substringToIndex:2];
+                                    }
+                                }];
+}
 
-//
-//- (IBAction)getWeatherCandyDataButton:(id)sender {
-//    
-////   stringToReturn =  ""+obj.name + "$"+obj.weather[0].description+"$"+(obj.main.temp-kelvin)+"$"+obj.main.temp_max+"$"+obj.main.temp_min+"$"+obj.IGPhotos[0].IGUrl;
-//
-//    
-//    [PFCloud callFunctionInBackground:@"getWeatherCandyData"
-//                       withParameters:@{@"cityName": self.cityTextField.text,@"date":self.dateTextField.text}
-//                                block:^(NSDictionary *result, NSError *error) {
-//                                    if (!error) {
-//                                        self.cityNameLabel.text =    [result componentsSeparatedByString:@"$"][0];
-//                                        self.descriptionLabel.text = [result componentsSeparatedByString:@"$"][1];
-//                                        self.currentTempLabel.text = [result componentsSeparatedByString:@"$"][2];
-//                                        self.highTempLabel.text = [result componentsSeparatedByString:@"$"][3];
-//                                        self.lowTempLabel.text = [result componentsSeparatedByString:@"$"][4];
-//
-//                                        
-//                                        NSData * imageData = [[NSData alloc] initWithContentsOfURL: [NSURL URLWithString: [result componentsSeparatedByString:@"$"][5]]];
-//                                        self.igImageView.image = [UIImage imageWithData: imageData];
-//                                        
-//                                    }
-//                                }];
-//    
-//}
+#pragma mark - notifications
+
+- (void)cityChanged:(NSNotification *)note
+{
+    NSDictionary *info = note.userInfo;
+    WCCity *city = info[@"city"];
+    [_navButton setTitle:city.name forState:UIControlStateNormal];
+    [self getWeatherDataWithCityID:[city.cityID stringValue]];
+}
 
 #pragma mark - Collection view data source
 

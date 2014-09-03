@@ -27,6 +27,7 @@
 		7FAE6A0119B5B42D0061B1BD /* AFURLResponseSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FAE69F719B5B42D0061B1BD /* AFURLResponseSerialization.m */; };
 		7FAE6A0219B5B42D0061B1BD /* AFURLSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FAE69F919B5B42D0061B1BD /* AFURLSessionManager.m */; };
 		7FAE6A0519B5C74B0061B1BD /* UIImageView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FAE6A0419B5C74B0061B1BD /* UIImageView+AFNetworking.m */; };
+		7FDB143219B6E29200790272 /* WCPhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FDB143119B6E29200790272 /* WCPhoto.m */; };
 		8201147E19B3548A00F44D0B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8201147D19B3548A00F44D0B /* main.m */; };
 		8201148119B3548A00F44D0B /* WCAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8201148019B3548A00F44D0B /* WCAppDelegate.m */; };
 		8201148419B3548A00F44D0B /* WCMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8201148319B3548A00F44D0B /* WCMainViewController.m */; };
@@ -97,6 +98,8 @@
 		7FAE69F919B5B42D0061B1BD /* AFURLSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFURLSessionManager.m; sourceTree = "<group>"; };
 		7FAE6A0319B5C74B0061B1BD /* UIImageView+AFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImageView+AFNetworking.h"; path = "Frameworks/AFNetworking/UIKit+AFNetworking/UIImageView+AFNetworking.h"; sourceTree = SOURCE_ROOT; };
 		7FAE6A0419B5C74B0061B1BD /* UIImageView+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImageView+AFNetworking.m"; path = "Frameworks/AFNetworking/UIKit+AFNetworking/UIImageView+AFNetworking.m"; sourceTree = SOURCE_ROOT; };
+		7FDB143019B6E29200790272 /* WCPhoto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WCPhoto.h; sourceTree = "<group>"; };
+		7FDB143119B6E29200790272 /* WCPhoto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCPhoto.m; sourceTree = "<group>"; };
 		8201147819B3548A00F44D0B /* WeatherCandy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeatherCandy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8201147C19B3548A00F44D0B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8201147D19B3548A00F44D0B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -183,6 +186,8 @@
 				7F14C61F19B5F349001FA062 /* WCSlideDownModalAnimation.m */,
 				7F14C62119B60EF0001FA062 /* WCCity.h */,
 				7F14C62219B60EF0001FA062 /* WCCity.m */,
+				7FDB143019B6E29200790272 /* WCPhoto.h */,
+				7FDB143119B6E29200790272 /* WCPhoto.m */,
 			);
 			name = Objects;
 			sourceTree = "<group>";
@@ -404,6 +409,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7FDB143219B6E29200790272 /* WCPhoto.m in Sources */,
 				7FAE6A0219B5B42D0061B1BD /* AFURLSessionManager.m in Sources */,
 				7FAE69DE19B5AD370061B1BD /* WCAlphaGradientView.m in Sources */,
 				8201148419B3548A00F44D0B /* WCMainViewController.m in Sources */,

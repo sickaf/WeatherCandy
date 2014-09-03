@@ -9,3 +9,5 @@
 #define kDefaultGreyColor [UIColor colorWithRed:0.17 green:0.17 blue:0.17 alpha:1.000]
 #define kDefaultFont    [UIFont fontWithName:@"HelveticaNeue-Light" size:16]
 
+static NSString *const kCityChangedNotification = @"WCCityChangedNotification";
+

@@ -12,6 +12,7 @@
 
 @property (nonatomic, strong) NSNumber *cityID;
 @property (nonatomic, strong) NSString *name;
+@property (nonatomic, strong) NSString *adminName;
 @property (nonatomic, strong) NSString *country;
 
 @end
