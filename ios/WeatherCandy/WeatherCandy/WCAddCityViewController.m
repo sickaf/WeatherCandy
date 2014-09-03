@@ -104,6 +104,13 @@
     [ud synchronize];
 }
 
+- (void)saveLastSelectedCity:(WCCity *)city
+{
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+    [ud setObject:[NSKeyedArchiver archivedDataWithRootObject:city] forKey:kLastSelectedCity];
+    [ud synchronize];
+}
+
 - (void)stopSearching
 {
     [_searchResults removeAllObjects];
@@ -198,6 +205,8 @@
     
     [[NSNotificationCenter defaultCenter] postNotificationName:kCityChangedNotification object:nil userInfo:@{@"city": selectedCity}];
     
+    [self saveLastSelectedCity:selectedCity];
+    
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -205,6 +214,7 @@
 
 - (void)pressedDone:(id)sender
 {
+    [_manager.operationQueue cancelAllOperations];
     [self.navigationController popViewControllerAnimated:YES];
 }
 
@@ -228,11 +238,19 @@
     self.showSearchResults = YES;
     self.searching = YES;
     
+    // remove all search objects first
+    [self.searchResults removeAllObjects];
+    
     NSDictionary *params = @{@"name": searchBar.text, @"name_startsWith": searchBar.text, @"cities": @"cities1000", @"maxRows": @"50", @"isNameRequired": @"true", @"orderby": @"relevance", @"featureClass":@"P", @"username": @"codyko"};
+    
+    __weak id weakSelf = self;
+    
     [_manager GET:@"http://api.geonames.org/searchJSON" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        __strong WCAddCityViewController *strongSelf = weakSelf;
+        
         if (!operation.isCancelled) {
             NSDictionary *dict = responseObject;
-            [_searchResults removeAllObjects];
             
             for (NSDictionary *cityDict in dict[@"geonames"]) {
                 WCCity *newCity = [WCCity new];
@@ -241,13 +259,15 @@
                 newCity.adminName = cityDict[@"adminName1"];
                 newCity.country = cityDict[@"countryCode"];
                 
-                [_searchResults addObject:newCity];
+                [strongSelf.searchResults addObject:newCity];
             }
             
-            self.searching = NO;
+            strongSelf.searching = NO;
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"Error: %@", error);
+        // Fail with no results state
+        __strong WCAddCityViewController *strongSelf = weakSelf;
+        strongSelf.searching = NO;
     }];
 }
 

@@ -11,3 +11,5 @@
 
 static NSString *const kCityChangedNotification = @"WCCityChangedNotification";
 
+static NSString *const kLastSelectedCity = @"WCLastSelectedCity";
+

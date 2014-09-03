@@ -42,10 +42,18 @@
     [butt setTitle:@"Boston" forState:UIControlStateNormal];
     [butt setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [butt setTitleColor:[UIColor colorWithWhite:1 alpha:0.6] forState:UIControlStateHighlighted];
-    butt.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:22];
+    butt.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:20];
     [butt addTarget:self action:@selector(pressedCityName:) forControlEvents:UIControlEventTouchUpInside];
     [self.navigationItem setTitleView:butt];
     _navButton = butt;
+    
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+    NSData *dataRepresentingCity = [ud objectForKey:kLastSelectedCity];
+    if (dataRepresentingCity)
+    {
+        WCCity *lastCity = [NSKeyedUnarchiver unarchiveObjectWithData:dataRepresentingCity];
+        [self changeToCity:lastCity];
+    }
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cityChanged:) name:kCityChangedNotification object:nil];
 }
@@ -98,14 +106,19 @@
     [as showInView:self.view];
 }
 
+- (void)changeToCity:(WCCity *)city
+{
+    [_navButton setTitle:city.name forState:UIControlStateNormal];
+    [self getWeatherDataWithCityID:[city.cityID stringValue]];
+}
+
 #pragma mark - notifications
 
 - (void)cityChanged:(NSNotification *)note
 {
     NSDictionary *info = note.userInfo;
     WCCity *city = info[@"city"];
-    [_navButton setTitle:city.name forState:UIControlStateNormal];
-    [self getWeatherDataWithCityID:[city.cityID stringValue]];
+    [self changeToCity:city];
 }
 
 #pragma mark - Actions
