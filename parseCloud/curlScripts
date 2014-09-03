@@ -14,10 +14,10 @@ curl -X GET \
   -H "X-Parse-Application-Id: p8AF2BKCLQ7fr3oJXPg43fOL6LXAK3mwAb5Ywnke" \
   -H "X-Parse-REST-API-Key: v8C3jQHw0b8JkoCMy3Vn9QgqLdl3F7TxptAKfSVx" \
   -H "Content-Type: application/json" \
-  -d '{"URL":"http://photos-h.ak.instagram.com/hphotos-ak-xaf1/10661088_579312335512287_864534314_n.jpg", "forDate":"2014-09-10","IGUsername":"codyko"}' \
+  -d '{"URL":"http://photos-f.ak.instagram.com/hphotos-ak-xaf1/10598574_539400209537509_202421868_n.jpg", "forDate":"2014-09-03","IGUsername":"jacycatlin"}' \
   https://api.parse.com/1/classes/IGPhoto
 
-
+//http://photos-f.ak.instagram.com/hphotos-ak-xaf1/10598574_539400209537509_202421868_n.jpg
 
   curl -X PUT \
   -H "X-Parse-Application-Id: p8AF2BKCLQ7fr3oJXPg43fOL6LXAK3mwAb5Ywnke" \
