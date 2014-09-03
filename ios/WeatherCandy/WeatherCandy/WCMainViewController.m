@@ -11,13 +11,14 @@
 #import "WCConstants.h"
 #import "AFNetworking.h"
 #import "WCSlideDownModalAnimation.h"
+#import "WCSlideBehindModalAnimation.h"
 #import "WCCity.h"
+#import "WCPhoto.h"
 
 #import <Parse/Parse.h>
 
 @interface WCMainViewController () {
     NSArray *_imgData;
-    NSMutableArray *_imgs;
     UIButton *_navButton;
 }
 
@@ -32,12 +33,7 @@
     
     self.view.backgroundColor = kDefaultGreyColor;
     
-    _imgData = @[@"http://photos-a.ak.instagram.com/hphotos-ak-xpf1/10553999_1447827782154488_388662961_n.jpg",
-                 @"http://photos-e.ak.instagram.com/hphotos-ak-xfa1/10012522_259935160847948_1011959515_n.jpg",
-                 @"http://photos-d.ak.instagram.com/hphotos-ak-xaf1/10601929_1546280335592507_1297605176_n.jpg",
-                 @"http://photos-h.ak.instagram.com/hphotos-ak-xaf1/10661088_579312335512287_864534314_n.jpg",
-                 @"http://photos-h.ak.instagram.com/hphotos-ak-xaf1/10661088_579312335512287_864534314_n.jpg"];
-    _imgs = [NSMutableArray new];
+    _imgData = @[];
     
     self.imageView.image = [self.imageView.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     self.imageView.alignBottom = YES;
@@ -57,10 +53,24 @@
 - (void)getWeatherDataWithCityID:(NSString *)cityID
 {
     [PFCloud callFunctionInBackground:@"getWeatherCandyData"
-                       withParameters:@{@"cityID": cityID, @"date":@"2014-09-11"}
+                       withParameters:@{@"cityID": cityID, @"date":[NSDate date]}
                                 block:^(NSDictionary *result, NSError *error) {
                                     if (!error) {
-                                        _imgData = [result[@"IGPhotoSet"] valueForKeyPath:@"IGUrl"];
+                                        
+                                        NSLog(@"%@", result);
+                                        
+                                        NSMutableArray *temp = [NSMutableArray new];
+                                        for (NSDictionary *dict in result[@"IGPhotoSet"]) {
+                                            WCPhoto *newPhoto = [WCPhoto new];
+                                            newPhoto.photoURL = dict[@"IGUrl"];
+                                            newPhoto.username = dict[@"IGUsername"];
+                                            newPhoto.index = dict[@"PhotoNum"];
+                                            [temp addObject:newPhoto];
+                                        }
+                                        
+                                        NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"index" ascending:YES];
+
+                                        _imgData = [temp sortedArrayUsingDescriptors:@[sortDescriptor]];
                                         [self.collectionView reloadData];
                                         
                                         NSNumber *curTemp = result[@"currentWeather"][@"main"][@"temp"];
@@ -80,6 +90,14 @@
                                 }];
 }
 
+- (void)openProfileForIndexPath:(NSIndexPath *)indexPath
+{
+    WCPhoto *p = _imgData[indexPath.row];
+    
+    UIActionSheet *as = [[UIActionSheet alloc] initWithTitle:p.username delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Instagram Profile", nil];
+    [as showInView:self.view];
+}
+
 #pragma mark - notifications
 
 - (void)cityChanged:(NSNotification *)note
@@ -88,6 +106,31 @@
     WCCity *city = info[@"city"];
     [_navButton setTitle:city.name forState:UIControlStateNormal];
     [self getWeatherDataWithCityID:[city.cityID stringValue]];
+}
+
+#pragma mark - Actions
+
+- (IBAction)pressedCityName:(id)sender
+{
+    UIViewController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"AddCity"];
+    
+    self.navigationController.delegate = self;
+    [self.navigationController pushViewController:vc animated:YES];
+}
+
+- (IBAction)pressedAction:(id)sender
+{
+    if (self.collectionView.visibleCells.count) {
+        NSIndexPath *ind = [self.collectionView indexPathForCell:self.collectionView.visibleCells[0]];
+        if ([self collectionView:self.collectionView shouldSelectItemAtIndexPath:ind]) {
+            [self openProfileForIndexPath:ind];
+        }
+    }
+}
+
+- (IBAction)pressedSettings:(id)sender
+{
+    
 }
 
 #pragma mark - Collection view data source
@@ -100,17 +143,40 @@
 // The cell that is returned must be retrieved from a call to -dequeueReusableCellWithReuseIdentifier:forIndexPath:
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    WCPhoto *photo = _imgData[indexPath.row];
+    
     WCCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"ImageCell" forIndexPath:indexPath];
     cell.imageView.backgroundColor = [self random];
-    cell.imageURL = _imgData[indexPath.row];
+    cell.imageURL = photo.photoURL;
     return cell;
 }
-- (IBAction)pressedCityName:(id)sender
-{
-    UIViewController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"AddCity"];
 
-    self.navigationController.delegate = self;
-    [self.navigationController pushViewController:vc animated:YES];
+#pragma mark - Collection view delegate
+
+- (BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    WCPhoto *p = _imgData[indexPath.row];
+    return p.username != nil;
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    [collectionView deselectItemAtIndexPath:indexPath animated:NO];
+    
+    [self openProfileForIndexPath:indexPath];
+}
+
+#pragma mark - Action sheet delegate
+
+- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 0) {
+        NSString *st = [NSString stringWithFormat:@"instagram://user?username=%@", actionSheet.title];
+        NSURL *instagramURL = [NSURL URLWithString:st];
+        if ([[UIApplication sharedApplication] canOpenURL:instagramURL]) {
+            [[UIApplication sharedApplication] openURL:instagramURL];
+        }
+    }
 }
 
 #pragma mark - animation delegate

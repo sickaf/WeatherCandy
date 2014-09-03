@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "UIImageViewAligned.h"
 
-@interface WCMainViewController : UIViewController <UICollectionViewDataSource, UINavigationControllerDelegate>
+@interface WCMainViewController : UIViewController <UICollectionViewDataSource, UICollectionViewDelegate, UINavigationControllerDelegate, UIActionSheetDelegate>
 
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet UIImageViewAligned *imageView;
