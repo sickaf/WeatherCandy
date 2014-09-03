@@ -12,13 +12,25 @@ Parse.Cloud.define("getStaticInstagramURL", function(request, response) {
 Parse.Cloud.define("getWeatherCandyData", function(request, response) {
   getWeatherCandyData(request, response);
 });
+
+Date.prototype.yyyymmdd = function() {
+   var yyyy = this.getFullYear().toString();
+   var mm = (this.getMonth()+1).toString(); // getMonth() is zero-based
+   var dd  = this.getDate().toString();
+   return yyyy +"-"+ (mm[1]?mm:"0"+mm[0]) +"-"+ (dd[1]?dd:"0"+dd[0]); // padding
+  };
+
+d = new Date();
+d.yyyymmdd();
  
 function getWeatherCandyData(request, response) {
  
   var objForClient = new Object();
   var lat = request.params.lat;
   var lon = request.params.lon;
-  var date = request.params.date;
+  var date = new Date(request.params.date);
+  console.log("date"+date.toUTCString());
+  date = date.yyyymmdd();
   var cityName = request.params.cityName;
   var cityID = request.params.cityID;
   var weatherQueryString ="api.openweathermap.org/data/2.5/weather?";
