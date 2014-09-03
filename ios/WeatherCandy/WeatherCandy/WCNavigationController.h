@@ -10,4 +10,6 @@
 
 @interface WCNavigationController : UINavigationController
 
+@property (nonatomic, strong) UIButton *titleButton;
+
 @end

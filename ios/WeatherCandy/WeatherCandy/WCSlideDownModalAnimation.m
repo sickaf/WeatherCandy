@@ -31,7 +31,7 @@
         
         // Animate
         [UIView animateWithDuration:[self transitionDuration:transitionContext] delay:0
-             usingSpringWithDamping:0.8f initialSpringVelocity:0.3f
+             usingSpringWithDamping:1 initialSpringVelocity:0.3f
                             options:0 animations:^{
                                 fromViewController.view.frame = endFrame;
                             } completion:^(BOOL finished) {
@@ -51,7 +51,7 @@
         
         // Animate
         [UIView animateWithDuration:[self transitionDuration:transitionContext] delay:0
-             usingSpringWithDamping:0.8f initialSpringVelocity:0.3f
+             usingSpringWithDamping:1.0f initialSpringVelocity:0.3f
                             options:0 animations:^{
                                 toViewController.view.frame = endFrame;
                             } completion:^(BOOL finished) {

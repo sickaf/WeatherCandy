@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "UIImageViewAligned.h"
+#import "WCTitleButtonViewController.h"
 
-@interface WCMainViewController : UIViewController <UICollectionViewDataSource, UICollectionViewDelegate, UINavigationControllerDelegate, UIActionSheetDelegate, UIViewControllerTransitioningDelegate>
+@interface WCMainViewController : WCTitleButtonViewController <UICollectionViewDataSource, UICollectionViewDelegate, UINavigationControllerDelegate, UIActionSheetDelegate, UIViewControllerTransitioningDelegate>
 
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet UIImageViewAligned *imageView;

@@ -12,6 +12,7 @@
 #import "AFNetworking.h"
 #import "WCSlideDownModalAnimation.h"
 #import "WCSlideBehindModalAnimation.h"
+#import "WCNavigationController.h"
 #import "WCCity.h"
 #import "WCPhoto.h"
 
@@ -19,7 +20,6 @@
 
 @interface WCMainViewController () {
     NSArray *_imgData;
-    UIButton *_navButton;
 }
 
 @end
@@ -37,15 +37,6 @@
     
     self.imageView.image = [self.imageView.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     self.imageView.alignBottom = YES;
-    
-    UIButton *butt = [UIButton buttonWithType:UIButtonTypeCustom];
-    [butt setTitle:@"Boston" forState:UIControlStateNormal];
-    [butt setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [butt setTitleColor:[UIColor colorWithWhite:1 alpha:0.6] forState:UIControlStateHighlighted];
-    butt.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:20];
-    [butt addTarget:self action:@selector(pressedCityName:) forControlEvents:UIControlEventTouchUpInside];
-    [self.navigationItem setTitleView:butt];
-    _navButton = butt;
     
     NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
     NSData *dataRepresentingCity = [ud objectForKey:kLastSelectedCity];
@@ -108,7 +99,7 @@
 
 - (void)changeToCity:(WCCity *)city
 {
-    [_navButton setTitle:city.name forState:UIControlStateNormal];
+    self.titleButtonText = city.name;
     [self getWeatherDataWithCityID:[city.cityID stringValue]];
 }
 
@@ -122,14 +113,6 @@
 }
 
 #pragma mark - Actions
-
-- (IBAction)pressedCityName:(id)sender
-{
-    UIViewController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"AddCity"];
-    
-    self.navigationController.delegate = self;
-    [self.navigationController pushViewController:vc animated:YES];
-}
 
 - (IBAction)pressedAction:(id)sender
 {
@@ -152,6 +135,14 @@
     } else {
         [self dismissViewControllerAnimated:YES completion:nil];
     }
+}
+
+- (void)pressedTitle:(id)sender
+{
+    WCTitleButtonViewController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"AddCity"];
+    vc.titleButtonText = self.titleButtonText;
+    self.navigationController.delegate = self;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 #pragma mark - Collection view data source

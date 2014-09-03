@@ -36,14 +36,6 @@
     _savedCities = [NSMutableArray new];
     _searchResults = [NSMutableArray new];
     
-    UIButton *butt = [UIButton buttonWithType:UIButtonTypeCustom];
-    [butt setTitle:@"Boston" forState:UIControlStateNormal];
-    [butt setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [butt setTitleColor:[UIColor colorWithWhite:1 alpha:0.6] forState:UIControlStateHighlighted];
-    butt.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:22];
-    [butt addTarget:self action:@selector(pressedDone:) forControlEvents:UIControlEventTouchUpInside];
-    [self.navigationItem setTitleView:butt];
-    
     self.tableView.backgroundColor = kDefaultGreyColor;
     self.searchBar.searchBarStyle = UISearchBarStyleMinimal;
     self.searchBar.tintColor = [UIColor whiteColor];
@@ -78,6 +70,14 @@
 {
     _searching = searching;
     [self.tableView reloadData];
+}
+
+#pragma mark - Actions
+
+- (void)pressedTitle:(id)sender
+{
+    [_manager.operationQueue cancelAllOperations];
+    [self.navigationController popViewControllerAnimated:YES];
 }
 
 #pragma mark - Helpers
@@ -207,14 +207,6 @@
     
     [self saveLastSelectedCity:selectedCity];
     
-    [self.navigationController popViewControllerAnimated:YES];
-}
-
-#pragma mark - Actions
-
-- (void)pressedDone:(id)sender
-{
-    [_manager.operationQueue cancelAllOperations];
     [self.navigationController popViewControllerAnimated:YES];
 }
 

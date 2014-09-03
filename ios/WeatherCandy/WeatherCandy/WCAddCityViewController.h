@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "WCTitleButtonViewController.h"
 
-@interface WCAddCityViewController : UIViewController <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate>
+@interface WCAddCityViewController : WCTitleButtonViewController <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate>
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
