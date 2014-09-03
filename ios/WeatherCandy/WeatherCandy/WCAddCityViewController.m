@@ -20,6 +20,7 @@
 @property (strong, nonatomic) AFHTTPRequestOperationManager *manager;
 
 @property (assign, nonatomic) BOOL searching;
+@property (assign, nonatomic) BOOL showSearchResults;
 
 @end
 
@@ -106,6 +107,7 @@
 - (void)stopSearching
 {
     [_searchResults removeAllObjects];
+    self.showSearchResults = NO;
     self.searching = NO;
 }
 
@@ -115,16 +117,16 @@
 {
     NSInteger numRows = 0;
     
-    if (_searching) {
-        numRows = 1;
-    }
-    else {
-        if (_searchResults.count > 0) {
-            numRows = _searchResults.count;
+    if (_showSearchResults) {
+        if (_searching || _searchResults.count == 0) {
+            numRows = 1;
         }
         else {
-            numRows = _savedCities.count;
+            numRows = _searchResults.count;
         }
+    }
+    else {
+        numRows = _savedCities.count;
     }
     
     return numRows;
@@ -134,36 +136,47 @@
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CityCell" forIndexPath:indexPath];
     
-    if (_searching) {
-        cell.textLabel.text = @"Searching...";
-    }
-    else {
-        
-        WCCity *city;
-        
-        if (_searchResults.count > 0) {
-           city  = _searchResults[indexPath.row];
+    if (_showSearchResults) {
+        if (_searching) {
+            cell.textLabel.text = @"Searching...";
+        }
+        else if (_searchResults.count > 0) {
+            WCCity *city = _searchResults[indexPath.row];
+            [self formatCell:cell withCity:city];
         }
         else {
-            city = _savedCities[indexPath.row];
+            cell.textLabel.text = @"No Results";
         }
-        
-        NSString *cityName = city.name;
-        NSString *adminName = city.adminName;
-        NSString *countryCode = city.country;
-        
-        NSString *wholeString = [NSString stringWithFormat:@"%@, %@ (%@)", cityName, adminName, countryCode];
-        cell.textLabel.text = wholeString;
+    }
+    else {
+        WCCity *city = _savedCities[indexPath.row];
+        [self formatCell:cell withCity:city];
     }
     
     return cell;
 }
 
+- (void)formatCell:(UITableViewCell *)cell withCity:(WCCity *)city
+{
+    NSString *cityName = city.name;
+    NSString *adminName = city.adminName;
+    NSString *countryCode = city.country;
+    
+    NSString *wholeString = [NSString stringWithFormat:@"%@, %@ (%@)", cityName, adminName, countryCode];
+    cell.textLabel.text = wholeString;
+}
+
 #pragma mark - Table View Delegate
+
+- (BOOL)tableView:(UITableView *)tableView shouldHighlightRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    return !(_searching || (_showSearchResults && !_searchResults.count));
+}
+
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (_searching) return;
+    if (_searching || (_showSearchResults && !_searchResults.count)) return;
     
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
@@ -212,6 +225,7 @@
         return;
     }
     
+    self.showSearchResults = YES;
     self.searching = YES;
     
     NSDictionary *params = @{@"name": searchBar.text, @"name_startsWith": searchBar.text, @"cities": @"cities1000", @"maxRows": @"50", @"isNameRequired": @"true", @"orderby": @"relevance", @"featureClass":@"P", @"username": @"codyko"};
