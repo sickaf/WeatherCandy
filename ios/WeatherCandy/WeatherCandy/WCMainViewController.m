@@ -130,7 +130,15 @@
 
 - (IBAction)pressedSettings:(id)sender
 {
-    
+    if (!self.presentedViewController) {
+        UIStoryboard *st = [UIStoryboard storyboardWithName:@"Settings" bundle:[NSBundle mainBundle]];
+        UIViewController *vc = [st instantiateViewControllerWithIdentifier:@"Settings"];
+        vc.modalPresentationStyle = UIModalPresentationCustom;
+        vc.transitioningDelegate = self;
+        [self presentViewController:vc animated:YES completion:nil];
+    } else {
+        [self dismissViewControllerAnimated:YES completion:nil];
+    }
 }
 
 #pragma mark - Collection view data source
@@ -190,6 +198,20 @@
     if (operation == UINavigationControllerOperationPop) {
         slide.presenting = YES;
     }
+    return slide;
+}
+
+-(id<UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source {
+    
+    WCSlideBehindModalAnimation *slide = [WCSlideBehindModalAnimation new];
+    slide.presenting = NO;
+    return slide;
+}
+
+-(id<UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController:(UIViewController *)dismissed
+{
+    WCSlideBehindModalAnimation *slide = [WCSlideBehindModalAnimation new];
+    slide.presenting = YES;
     return slide;
 }
 

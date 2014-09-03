@@ -29,11 +29,14 @@
         CGRect endFrame = fromViewController.view.frame;
         endFrame.origin.y -= endFrame.size.height;
         
-        [UIView animateWithDuration:[self transitionDuration:transitionContext] animations:^{
-            fromViewController.view.frame = endFrame;
-        } completion:^(BOOL finished) {
-            [transitionContext completeTransition:YES];
-        }];
+        // Animate
+        [UIView animateWithDuration:[self transitionDuration:transitionContext] delay:0
+             usingSpringWithDamping:0.8f initialSpringVelocity:0.3f
+                            options:0 animations:^{
+                                fromViewController.view.frame = endFrame;
+                            } completion:^(BOOL finished) {
+                                [transitionContext completeTransition:YES];
+                            }];
     }
     else {
         CGRect starting = fromViewController.view.frame;
@@ -46,12 +49,14 @@
         // Set our ending frame. We'll modify this later if we have to
         CGRect endFrame = fromViewController.view.frame;
         
-        
-        [UIView animateWithDuration:[self transitionDuration:transitionContext] delay:0 options:UIViewAnimationOptionCurveEaseOut animations:^{
-            toViewController.view.frame = endFrame;
-        } completion:^(BOOL finished) {
-            [transitionContext completeTransition:YES];
-        }];
+        // Animate
+        [UIView animateWithDuration:[self transitionDuration:transitionContext] delay:0
+             usingSpringWithDamping:0.8f initialSpringVelocity:0.3f
+                            options:0 animations:^{
+                                toViewController.view.frame = endFrame;
+                            } completion:^(BOOL finished) {
+                                [transitionContext completeTransition:YES];
+                            }];
     }
 }
 

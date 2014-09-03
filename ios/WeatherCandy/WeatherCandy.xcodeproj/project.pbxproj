@@ -30,6 +30,7 @@
 		7FDB143219B6E29200790272 /* WCPhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FDB143119B6E29200790272 /* WCPhoto.m */; };
 		7FDB143519B6EBB400790272 /* WCSlideBehindModalAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FDB143419B6EBB400790272 /* WCSlideBehindModalAnimation.m */; };
 		7FDB143719B6ECEE00790272 /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7FDB143619B6ECEE00790272 /* Settings.storyboard */; };
+		7FDB143A19B6EF7500790272 /* WCSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FDB143919B6EF7500790272 /* WCSettingsViewController.m */; };
 		8201147E19B3548A00F44D0B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8201147D19B3548A00F44D0B /* main.m */; };
 		8201148119B3548A00F44D0B /* WCAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8201148019B3548A00F44D0B /* WCAppDelegate.m */; };
 		8201148419B3548A00F44D0B /* WCMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8201148319B3548A00F44D0B /* WCMainViewController.m */; };
@@ -105,6 +106,8 @@
 		7FDB143319B6EBB400790272 /* WCSlideBehindModalAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WCSlideBehindModalAnimation.h; sourceTree = "<group>"; };
 		7FDB143419B6EBB400790272 /* WCSlideBehindModalAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCSlideBehindModalAnimation.m; sourceTree = "<group>"; };
 		7FDB143619B6ECEE00790272 /* Settings.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Settings.storyboard; sourceTree = "<group>"; };
+		7FDB143819B6EF7500790272 /* WCSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WCSettingsViewController.h; sourceTree = "<group>"; };
+		7FDB143919B6EF7500790272 /* WCSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCSettingsViewController.m; sourceTree = "<group>"; };
 		8201147819B3548A00F44D0B /* WeatherCandy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeatherCandy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8201147C19B3548A00F44D0B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8201147D19B3548A00F44D0B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -258,6 +261,8 @@
 				8201148319B3548A00F44D0B /* WCMainViewController.m */,
 				7F14C61B19B5EC69001FA062 /* WCAddCityViewController.h */,
 				7F14C61C19B5EC69001FA062 /* WCAddCityViewController.m */,
+				7FDB143819B6EF7500790272 /* WCSettingsViewController.h */,
+				7FDB143919B6EF7500790272 /* WCSettingsViewController.m */,
 				7FAE69E319B5B2040061B1BD /* WCNavigationController.h */,
 				7FAE69E419B5B2040061B1BD /* WCNavigationController.m */,
 				8201148519B3548A00F44D0B /* Main.storyboard */,
@@ -425,6 +430,7 @@
 				8201148419B3548A00F44D0B /* WCMainViewController.m in Sources */,
 				7FAE69FD19B5B42D0061B1BD /* AFNetworkReachabilityManager.m in Sources */,
 				8201148119B3548A00F44D0B /* WCAppDelegate.m in Sources */,
+				7FDB143A19B6EF7500790272 /* WCSettingsViewController.m in Sources */,
 				7FAE69FF19B5B42D0061B1BD /* AFURLConnectionOperation.m in Sources */,
 				7FAE69FC19B5B42D0061B1BD /* AFHTTPSessionManager.m in Sources */,
 				7FAE6A0019B5B42D0061B1BD /* AFURLRequestSerialization.m in Sources */,
