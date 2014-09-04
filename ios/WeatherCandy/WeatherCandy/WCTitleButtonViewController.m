@@ -7,6 +7,7 @@
 //
 
 #import "WCTitleButtonViewController.h"
+#import "WCConstants.h"
 
 @interface WCTitleButtonViewController ()
 
@@ -19,12 +20,14 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.view.backgroundColor = kDefaultGreyColor;
 
     UIButton *butt = [UIButton buttonWithType:UIButtonTypeCustom];
     [butt setTitle:_titleButtonText forState:UIControlStateNormal];
     [butt setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [butt setTitleColor:[UIColor colorWithWhite:1 alpha:0.6] forState:UIControlStateHighlighted];
-    butt.titleLabel.font = [UIFont fontWithName:@"HelveticaNeue-Light" size:18];
+    butt.titleLabel.font = kDefaultTitleFont;
     [butt addTarget:self action:@selector(pressedTitle:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.titleView = butt;
     _titleButton = butt;

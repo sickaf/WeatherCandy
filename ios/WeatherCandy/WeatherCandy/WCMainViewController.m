@@ -15,23 +15,29 @@
 #import "WCNavigationController.h"
 #import "WCCity.h"
 #import "WCPhoto.h"
+#import "UIImage+ImageEffects.h"
+#import "UIView+Snapshot.h"
+#import "WCAddCityViewController.h"
 
 #import <Parse/Parse.h>
 
 @interface WCMainViewController () {
     NSArray *_imgData;
+    UIImageView *_blurImageView;
 }
+
+@property (weak, nonatomic) IBOutlet UIScrollView *outerScrollView;
+@property (weak, nonatomic) IBOutlet UIScrollView *innerScrollView;
 
 @end
 
 @implementation WCMainViewController
             
-- (void)viewDidLoad {
+- (void)viewDidLoad
+{
     [super viewDidLoad];
     
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:NO];
-    
-    self.view.backgroundColor = kDefaultGreyColor;
     
     _imgData = @[];
     
@@ -47,6 +53,8 @@
     }
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cityChanged:) name:kCityChangedNotification object:nil];
+    
+    self.collectionView.backgroundColor = kDefaultGreyColor;
 }
 
 - (void)getWeatherDataWithCityID:(NSString *)cityID
@@ -126,21 +134,24 @@
 
 - (IBAction)pressedSettings:(id)sender
 {
-    if (!self.presentedViewController) {
-        UIStoryboard *st = [UIStoryboard storyboardWithName:@"Settings" bundle:[NSBundle mainBundle]];
-        UIViewController *vc = [st instantiateViewControllerWithIdentifier:@"Settings"];
-        vc.modalPresentationStyle = UIModalPresentationCustom;
-        vc.transitioningDelegate = self;
-        [self presentViewController:vc animated:YES completion:nil];
-    } else {
-        [self dismissViewControllerAnimated:YES completion:nil];
-    }
+    UIStoryboard *st = [UIStoryboard storyboardWithName:@"Settings" bundle:[NSBundle mainBundle]];
+    UIViewController *vc = [st instantiateViewControllerWithIdentifier:@"Settings"];
+    vc.modalPresentationStyle = UIModalPresentationCustom;
+    vc.transitioningDelegate = self;
+    [self presentViewController:vc animated:YES completion:nil];
+    
 }
 
 - (void)pressedTitle:(id)sender
 {
-    WCTitleButtonViewController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"AddCity"];
+    
+    UIImage *snap = [self.view convertViewToImage];
+    UIImage *blurred = [snap applyBlurWithRadius:20 tintColor:[UIColor colorWithWhite:0 alpha:0.5] saturationDeltaFactor:1.3 maskImage:nil];
+    
+    WCAddCityViewController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"AddCity"];
     vc.titleButtonText = self.titleButtonText;
+    vc.bgImg = blurred;
+    
     self.navigationController.delegate = self;
     [self.navigationController pushViewController:vc animated:YES];
 }
@@ -158,7 +169,6 @@
     WCPhoto *photo = _imgData[indexPath.row];
     
     WCCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"ImageCell" forIndexPath:indexPath];
-    cell.imageView.backgroundColor = [self random];
     cell.imageURL = photo.photoURL;
     return cell;
 }
@@ -219,11 +229,40 @@
     return slide;
 }
 
-- (UIColor *)random
+#pragma mark - Scroll view delegate
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    CGFloat hue = ( arc4random() % 256 / 256.0 );  //  0.0 to 1.0
-    CGFloat saturation = ( arc4random() % 128 / 256.0 ) + 0.5;  //  0.5 to 1.0, away from white
-    CGFloat brightness = ( arc4random() % 128 / 256.0 ) + 0.5;  //  0.5 to 1.0, away from black
-    return [UIColor colorWithHue:hue saturation:saturation brightness:brightness alpha:1];
+    if (scrollView.contentOffset.y >= 0) {
+        
+        if (!_blurImageView) {
+            _blurImageView = [[UIImageView alloc] initWithFrame:self.view.bounds];
+            _blurImageView.alpha = 0;
+            if (!_blurImageView.image) {
+                UIImage *snap = [self.innerScrollView convertViewToImage];
+                UIImage *blurred = [snap applyBlurWithRadius:20 tintColor:[UIColor colorWithWhite:0 alpha:0.3] saturationDeltaFactor:1.3 maskImage:nil];
+                _blurImageView.image = blurred;
+            }
+            [self.innerScrollView addSubview:_blurImageView];
+        }
+        
+        self.innerScrollView.contentOffset = CGPointMake(0, -scrollView.contentOffset.y);
+    }
+    else {
+        
+        [_blurImageView removeFromSuperview];
+        _blurImageView.image = nil;
+        _blurImageView = nil;
+        
+        self.innerScrollView.contentOffset = scrollView.contentOffset;
+        
+    }
+    
+    _blurImageView.alpha = scrollView.contentOffset.y / self.view.bounds.size.height * 5;
+}
+
+- (void)viewDidLayoutSubviews
+{
+    [self.outerScrollView setContentSize:CGSizeMake(320, 650)];
 }
 @end

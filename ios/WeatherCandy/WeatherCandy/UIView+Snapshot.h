@@ -1,5 +1,5 @@
 //
-//  WCSettingsViewController.h
+//  UIView+Snapshot.h
 //  WeatherCandy
 //
 //  Created by Cody Kolodziejzyk on 9/3/14.
@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface WCSettingsViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
+@interface UIView (Snapshot)
+
+- (UIImage *)convertViewToImage;
 
 @end

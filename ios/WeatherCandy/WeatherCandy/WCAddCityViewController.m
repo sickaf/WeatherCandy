@@ -15,6 +15,7 @@
 @interface WCAddCityViewController ()
 
 @property (weak, nonatomic) IBOutlet UITextField *textField;
+@property (weak, nonatomic) IBOutlet UIImageView *bgImgView;
 @property (strong, nonatomic) NSMutableArray *savedCities;
 @property (strong, nonatomic) NSMutableArray *searchResults;
 @property (strong, nonatomic) AFHTTPRequestOperationManager *manager;
@@ -36,7 +37,9 @@
     _savedCities = [NSMutableArray new];
     _searchResults = [NSMutableArray new];
     
-    self.tableView.backgroundColor = kDefaultGreyColor;
+    self.bgImgView.image = self.bgImg;
+    
+    self.tableView.backgroundColor = [UIColor clearColor];
     self.searchBar.searchBarStyle = UISearchBarStyleMinimal;
     self.searchBar.tintColor = [UIColor whiteColor];
     
@@ -142,6 +145,7 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CityCell" forIndexPath:indexPath];
+    cell.backgroundColor = [UIColor clearColor];
     
     if (_showSearchResults) {
         if (_searching) {

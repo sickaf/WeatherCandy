@@ -6,8 +6,9 @@
 //  Copyright (c) 2014 sickaf. All rights reserved.
 //
 
-#define kDefaultGreyColor [UIColor colorWithRed:0.17 green:0.17 blue:0.17 alpha:1.000]
-#define kDefaultFont    [UIFont fontWithName:@"HelveticaNeue-Light" size:16]
+#define kDefaultGreyColor       [UIColor colorWithRed:0.16f green:0.16f blue:0.16f alpha:1.000]
+#define kDefaultFont            [UIFont fontWithName:@"HelveticaNeue-Light" size:16]
+#define kDefaultTitleFont       [UIFont fontWithName:@"HelveticaNeue-Light" size:20]
 
 static NSString *const kCityChangedNotification = @"WCCityChangedNotification";
 

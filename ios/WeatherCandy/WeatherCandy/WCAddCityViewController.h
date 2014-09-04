@@ -11,6 +11,8 @@
 
 @interface WCAddCityViewController : WCTitleButtonViewController <UITableViewDataSource, UITableViewDelegate, UISearchBarDelegate>
 
+@property (strong, nonatomic) UIImage *bgImg;
+
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (weak, nonatomic) IBOutlet UISearchBar *searchBar;
 

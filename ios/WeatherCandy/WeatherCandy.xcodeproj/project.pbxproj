@@ -32,6 +32,10 @@
 		7FDB143719B6ECEE00790272 /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7FDB143619B6ECEE00790272 /* Settings.storyboard */; };
 		7FDB143A19B6EF7500790272 /* WCSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FDB143919B6EF7500790272 /* WCSettingsViewController.m */; };
 		7FDB144619B759EE00790272 /* WCTitleButtonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FDB144519B759EE00790272 /* WCTitleButtonViewController.m */; };
+		7FDB144A19B7683E00790272 /* UIImage+ImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FDB144919B7683E00790272 /* UIImage+ImageEffects.m */; };
+		7FDB144D19B769B100790272 /* UIView+Snapshot.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FDB144C19B769B100790272 /* UIView+Snapshot.m */; };
+		7FDB145019B85D7E00790272 /* WCLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FDB144F19B85D7E00790272 /* WCLabel.m */; };
+		7FDB145319B88EA800790272 /* WCFrontScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FDB145219B88EA800790272 /* WCFrontScrollView.m */; };
 		8201147E19B3548A00F44D0B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8201147D19B3548A00F44D0B /* main.m */; };
 		8201148119B3548A00F44D0B /* WCAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8201148019B3548A00F44D0B /* WCAppDelegate.m */; };
 		8201148419B3548A00F44D0B /* WCMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8201148319B3548A00F44D0B /* WCMainViewController.m */; };
@@ -111,6 +115,14 @@
 		7FDB143919B6EF7500790272 /* WCSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCSettingsViewController.m; sourceTree = "<group>"; };
 		7FDB144419B759EE00790272 /* WCTitleButtonViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WCTitleButtonViewController.h; sourceTree = "<group>"; };
 		7FDB144519B759EE00790272 /* WCTitleButtonViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCTitleButtonViewController.m; sourceTree = "<group>"; };
+		7FDB144819B7683E00790272 /* UIImage+ImageEffects.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ImageEffects.h"; sourceTree = "<group>"; };
+		7FDB144919B7683E00790272 /* UIImage+ImageEffects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ImageEffects.m"; sourceTree = "<group>"; };
+		7FDB144B19B769B100790272 /* UIView+Snapshot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Snapshot.h"; sourceTree = "<group>"; };
+		7FDB144C19B769B100790272 /* UIView+Snapshot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Snapshot.m"; sourceTree = "<group>"; };
+		7FDB144E19B85D7E00790272 /* WCLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WCLabel.h; sourceTree = "<group>"; };
+		7FDB144F19B85D7E00790272 /* WCLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCLabel.m; sourceTree = "<group>"; };
+		7FDB145119B88EA800790272 /* WCFrontScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WCFrontScrollView.h; sourceTree = "<group>"; };
+		7FDB145219B88EA800790272 /* WCFrontScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCFrontScrollView.m; sourceTree = "<group>"; };
 		8201147819B3548A00F44D0B /* WeatherCandy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeatherCandy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8201147C19B3548A00F44D0B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8201147D19B3548A00F44D0B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -186,6 +198,12 @@
 				7FAE69DD19B5AD370061B1BD /* WCAlphaGradientView.m */,
 				7F14C62519B61A29001FA062 /* WCCityCell.h */,
 				7F14C62619B61A29001FA062 /* WCCityCell.m */,
+				7FDB144B19B769B100790272 /* UIView+Snapshot.h */,
+				7FDB144C19B769B100790272 /* UIView+Snapshot.m */,
+				7FDB144E19B85D7E00790272 /* WCLabel.h */,
+				7FDB144F19B85D7E00790272 /* WCLabel.m */,
+				7FDB145119B88EA800790272 /* WCFrontScrollView.h */,
+				7FDB145219B88EA800790272 /* WCFrontScrollView.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -232,6 +250,16 @@
 			);
 			name = AFNetworking;
 			path = Frameworks/AFNetworking/AFNetworking;
+			sourceTree = "<group>";
+		};
+		7FDB144719B7683E00790272 /* ImageEffects */ = {
+			isa = PBXGroup;
+			children = (
+				7FDB144819B7683E00790272 /* UIImage+ImageEffects.h */,
+				7FDB144919B7683E00790272 /* UIImage+ImageEffects.m */,
+			);
+			name = ImageEffects;
+			path = Frameworks/ImageEffects;
 			sourceTree = "<group>";
 		};
 		8201146F19B3548A00F44D0B = {
@@ -309,6 +337,7 @@
 		820114A219B35C0100F44D0B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7FDB144719B7683E00790272 /* ImageEffects */,
 				7F14C61619B5DE58001FA062 /* UIImageViewAligned */,
 				7FAE69E619B5B42D0061B1BD /* AFNetworking */,
 				820114A319B35EFF00F44D0B /* AudioToolbox.framework */,
@@ -442,12 +471,16 @@
 				7FAE69D819B5A6BA0061B1BD /* WCCollectionViewCell.m in Sources */,
 				7F14C61D19B5EC69001FA062 /* WCAddCityViewController.m in Sources */,
 				7F14C62319B60EF0001FA062 /* WCCity.m in Sources */,
+				7FDB144A19B7683E00790272 /* UIImage+ImageEffects.m in Sources */,
 				8201147E19B3548A00F44D0B /* main.m in Sources */,
 				7FAE69E519B5B2040061B1BD /* WCNavigationController.m in Sources */,
 				7FAE6A0519B5C74B0061B1BD /* UIImageView+AFNetworking.m in Sources */,
 				7F14C62719B61A29001FA062 /* WCCityCell.m in Sources */,
 				7F14C61919B5DE58001FA062 /* UIImageViewAligned.m in Sources */,
 				7FAE69FB19B5B42D0061B1BD /* AFHTTPRequestOperationManager.m in Sources */,
+				7FDB144D19B769B100790272 /* UIView+Snapshot.m in Sources */,
+				7FDB145019B85D7E00790272 /* WCLabel.m in Sources */,
+				7FDB145319B88EA800790272 /* WCFrontScrollView.m in Sources */,
 				7FAE69FE19B5B42D0061B1BD /* AFSecurityPolicy.m in Sources */,
 				7FAE6A0119B5B42D0061B1BD /* AFURLResponseSerialization.m in Sources */,
 				7FDB144619B759EE00790272 /* WCTitleButtonViewController.m in Sources */,
