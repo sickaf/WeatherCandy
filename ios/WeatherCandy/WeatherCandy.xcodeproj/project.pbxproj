@@ -35,7 +35,9 @@
 		7FDB144A19B7683E00790272 /* UIImage+ImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FDB144919B7683E00790272 /* UIImage+ImageEffects.m */; };
 		7FDB144D19B769B100790272 /* UIView+Snapshot.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FDB144C19B769B100790272 /* UIView+Snapshot.m */; };
 		7FDB145019B85D7E00790272 /* WCLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FDB144F19B85D7E00790272 /* WCLabel.m */; };
-		7FDB145319B88EA800790272 /* WCFrontScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FDB145219B88EA800790272 /* WCFrontScrollView.m */; };
+		7FDB145619B8A0D300790272 /* WCTintedImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FDB145519B8A0D300790272 /* WCTintedImageView.m */; };
+		7FDB145C19B8AED500790272 /* RMDisplayLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FDB145919B8AED500790272 /* RMDisplayLabel.m */; };
+		7FDB145D19B8AED500790272 /* RMDownloadIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FDB145B19B8AED500790272 /* RMDownloadIndicator.m */; };
 		8201147E19B3548A00F44D0B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8201147D19B3548A00F44D0B /* main.m */; };
 		8201148119B3548A00F44D0B /* WCAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8201148019B3548A00F44D0B /* WCAppDelegate.m */; };
 		8201148419B3548A00F44D0B /* WCMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8201148319B3548A00F44D0B /* WCMainViewController.m */; };
@@ -121,8 +123,12 @@
 		7FDB144C19B769B100790272 /* UIView+Snapshot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Snapshot.m"; sourceTree = "<group>"; };
 		7FDB144E19B85D7E00790272 /* WCLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WCLabel.h; sourceTree = "<group>"; };
 		7FDB144F19B85D7E00790272 /* WCLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCLabel.m; sourceTree = "<group>"; };
-		7FDB145119B88EA800790272 /* WCFrontScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WCFrontScrollView.h; sourceTree = "<group>"; };
-		7FDB145219B88EA800790272 /* WCFrontScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCFrontScrollView.m; sourceTree = "<group>"; };
+		7FDB145419B8A0D300790272 /* WCTintedImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WCTintedImageView.h; sourceTree = "<group>"; };
+		7FDB145519B8A0D300790272 /* WCTintedImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCTintedImageView.m; sourceTree = "<group>"; };
+		7FDB145819B8AED500790272 /* RMDisplayLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMDisplayLabel.h; sourceTree = "<group>"; };
+		7FDB145919B8AED500790272 /* RMDisplayLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMDisplayLabel.m; sourceTree = "<group>"; };
+		7FDB145A19B8AED500790272 /* RMDownloadIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMDownloadIndicator.h; sourceTree = "<group>"; };
+		7FDB145B19B8AED500790272 /* RMDownloadIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMDownloadIndicator.m; sourceTree = "<group>"; };
 		8201147819B3548A00F44D0B /* WeatherCandy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeatherCandy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8201147C19B3548A00F44D0B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8201147D19B3548A00F44D0B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -202,8 +208,8 @@
 				7FDB144C19B769B100790272 /* UIView+Snapshot.m */,
 				7FDB144E19B85D7E00790272 /* WCLabel.h */,
 				7FDB144F19B85D7E00790272 /* WCLabel.m */,
-				7FDB145119B88EA800790272 /* WCFrontScrollView.h */,
-				7FDB145219B88EA800790272 /* WCFrontScrollView.m */,
+				7FDB145419B8A0D300790272 /* WCTintedImageView.h */,
+				7FDB145519B8A0D300790272 /* WCTintedImageView.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -260,6 +266,18 @@
 			);
 			name = ImageEffects;
 			path = Frameworks/ImageEffects;
+			sourceTree = "<group>";
+		};
+		7FDB145719B8AED500790272 /* Download-Indicator */ = {
+			isa = PBXGroup;
+			children = (
+				7FDB145819B8AED500790272 /* RMDisplayLabel.h */,
+				7FDB145919B8AED500790272 /* RMDisplayLabel.m */,
+				7FDB145A19B8AED500790272 /* RMDownloadIndicator.h */,
+				7FDB145B19B8AED500790272 /* RMDownloadIndicator.m */,
+			);
+			name = "Download-Indicator";
+			path = "Frameworks/Download-Indicator";
 			sourceTree = "<group>";
 		};
 		8201146F19B3548A00F44D0B = {
@@ -337,6 +355,7 @@
 		820114A219B35C0100F44D0B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7FDB145719B8AED500790272 /* Download-Indicator */,
 				7FDB144719B7683E00790272 /* ImageEffects */,
 				7F14C61619B5DE58001FA062 /* UIImageViewAligned */,
 				7FAE69E619B5B42D0061B1BD /* AFNetworking */,
@@ -469,6 +488,7 @@
 				7FAE69FC19B5B42D0061B1BD /* AFHTTPSessionManager.m in Sources */,
 				7FAE6A0019B5B42D0061B1BD /* AFURLRequestSerialization.m in Sources */,
 				7FAE69D819B5A6BA0061B1BD /* WCCollectionViewCell.m in Sources */,
+				7FDB145619B8A0D300790272 /* WCTintedImageView.m in Sources */,
 				7F14C61D19B5EC69001FA062 /* WCAddCityViewController.m in Sources */,
 				7F14C62319B60EF0001FA062 /* WCCity.m in Sources */,
 				7FDB144A19B7683E00790272 /* UIImage+ImageEffects.m in Sources */,
@@ -478,9 +498,10 @@
 				7F14C62719B61A29001FA062 /* WCCityCell.m in Sources */,
 				7F14C61919B5DE58001FA062 /* UIImageViewAligned.m in Sources */,
 				7FAE69FB19B5B42D0061B1BD /* AFHTTPRequestOperationManager.m in Sources */,
+				7FDB145C19B8AED500790272 /* RMDisplayLabel.m in Sources */,
 				7FDB144D19B769B100790272 /* UIView+Snapshot.m in Sources */,
 				7FDB145019B85D7E00790272 /* WCLabel.m in Sources */,
-				7FDB145319B88EA800790272 /* WCFrontScrollView.m in Sources */,
+				7FDB145D19B8AED500790272 /* RMDownloadIndicator.m in Sources */,
 				7FAE69FE19B5B42D0061B1BD /* AFSecurityPolicy.m in Sources */,
 				7FAE6A0119B5B42D0061B1BD /* AFURLResponseSerialization.m in Sources */,
 				7FDB144619B759EE00790272 /* WCTitleButtonViewController.m in Sources */,

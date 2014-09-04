@@ -1,5 +1,5 @@
 //
-//  WCFrontScrollView.h
+//  WCTintedImageView.h
 //  WeatherCandy
 //
 //  Created by Cody Kolodziejzyk on 9/4/14.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface WCFrontScrollView : UIScrollView
+@interface WCTintedImageView : UIImageView
 
 @end

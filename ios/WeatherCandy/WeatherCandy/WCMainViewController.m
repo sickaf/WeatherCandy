@@ -28,6 +28,7 @@
 
 @property (weak, nonatomic) IBOutlet UIScrollView *outerScrollView;
 @property (weak, nonatomic) IBOutlet UIScrollView *innerScrollView;
+@property (weak, nonatomic) IBOutlet UICollectionView *forecastCollectionView;
 
 @end
 
@@ -55,6 +56,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cityChanged:) name:kCityChangedNotification object:nil];
     
     self.collectionView.backgroundColor = kDefaultGreyColor;
+    self.forecastCollectionView.backgroundColor = kDefaultGreyColor;
 }
 
 - (void)getWeatherDataWithCityID:(NSString *)cityID
@@ -160,17 +162,25 @@
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return _imgData.count;
+    if ([collectionView isEqual:self.collectionView]) {
+        return _imgData.count;
+    }
+    
+    return 2;
 }
 
 // The cell that is returned must be retrieved from a call to -dequeueReusableCellWithReuseIdentifier:forIndexPath:
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    WCPhoto *photo = _imgData[indexPath.row];
+    if ([collectionView isEqual:self.collectionView]) {
+        WCPhoto *photo = _imgData[indexPath.row];
+        
+        WCCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"ImageCell" forIndexPath:indexPath];
+        cell.imageURL = photo.photoURL;
+        return cell;
+    }
     
-    WCCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"ImageCell" forIndexPath:indexPath];
-    cell.imageURL = photo.photoURL;
-    return cell;
+    return [collectionView dequeueReusableCellWithReuseIdentifier:@"ForecastCell" forIndexPath:indexPath];
 }
 
 #pragma mark - Collection view delegate
@@ -233,17 +243,19 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
+    if (![scrollView isEqual:self.outerScrollView]) return;
+    
     if (scrollView.contentOffset.y >= 0) {
         
         if (!_blurImageView) {
-            _blurImageView = [[UIImageView alloc] initWithFrame:self.view.bounds];
+            _blurImageView = [[UIImageView alloc] initWithFrame:self.collectionView.bounds];
             _blurImageView.alpha = 0;
             if (!_blurImageView.image) {
-                UIImage *snap = [self.innerScrollView convertViewToImage];
+                UIImage *snap = [self.collectionView convertViewToImage];
                 UIImage *blurred = [snap applyBlurWithRadius:20 tintColor:[UIColor colorWithWhite:0 alpha:0.3] saturationDeltaFactor:1.3 maskImage:nil];
                 _blurImageView.image = blurred;
             }
-            [self.innerScrollView addSubview:_blurImageView];
+            [[self.collectionView.visibleCells[0] contentView] insertSubview:_blurImageView atIndex:1];
         }
         
         self.innerScrollView.contentOffset = CGPointMake(0, -scrollView.contentOffset.y);
