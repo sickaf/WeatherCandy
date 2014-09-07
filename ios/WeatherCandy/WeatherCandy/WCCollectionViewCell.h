@@ -7,10 +7,12 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "RMDownloadIndicator.h"
 
 @interface WCCollectionViewCell : UICollectionViewCell
 
 @property (weak, nonatomic) IBOutlet UIImageView *imageView;
 @property (strong, nonatomic) NSString *imageURL;
+@property (strong, nonatomic) RMDownloadIndicator *downloadIndicator;
 
 @end

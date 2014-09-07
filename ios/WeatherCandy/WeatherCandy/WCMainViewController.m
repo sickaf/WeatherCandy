@@ -29,6 +29,8 @@
 @property (weak, nonatomic) IBOutlet UIScrollView *outerScrollView;
 @property (weak, nonatomic) IBOutlet UIScrollView *innerScrollView;
 @property (weak, nonatomic) IBOutlet UICollectionView *forecastCollectionView;
+@property (strong, nonatomic) UIActivityIndicatorView *spinner;
+@property (assign, nonatomic) BOOL loading;
 
 @end
 
@@ -45,6 +47,11 @@
     self.imageView.image = [self.imageView.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     self.imageView.alignBottom = YES;
     
+    _spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
+    _spinner.hidesWhenStopped = YES;
+    _spinner.center = self.outerScrollView.center;
+    [self.view addSubview:_spinner];
+    
     NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
     NSData *dataRepresentingCity = [ud objectForKey:kLastSelectedCity];
     if (dataRepresentingCity)
@@ -59,11 +66,37 @@
     self.forecastCollectionView.backgroundColor = kDefaultGreyColor;
 }
 
+- (void)setLoading:(BOOL)loading
+{
+    _loading = loading;
+    
+    if (_loading) {
+        [_spinner startAnimating];
+        _spinner.hidden = NO;
+        self.outerScrollView.alpha = 0;
+    }
+    else {
+        [_spinner stopAnimating];
+        [UIView animateWithDuration:0.2 animations:^{
+            self.outerScrollView.alpha = 1;
+        }];
+        [self.collectionView reloadData];
+    }
+}
+
 - (void)getWeatherDataWithCityID:(NSString *)cityID
 {
+    
+    if (_loading) return;
+    
+    self.loading = YES;
+    
     [PFCloud callFunctionInBackground:@"getWeatherCandyData"
                        withParameters:@{@"cityID": cityID, @"date":[NSDate date]}
                                 block:^(NSDictionary *result, NSError *error) {
+                                    
+                                    self.loading = NO;
+                                    
                                     if (!error) {
                                         
                                         NSLog(@"%@", result);
