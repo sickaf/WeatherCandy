@@ -59,7 +59,9 @@ function getWeatherCandyData(request, response) {
   } else {
     console.log("didnt get enough info in the call, weather going to fail.");
   }
- 
+
+  var currentDate = request.params.date;
+
   IGPhotoQuery.equalTo("forDate", date);
   return IGPhotoQuery.find().then(function(results) {
  
@@ -81,11 +83,21 @@ function getWeatherCandyData(request, response) {
           url:forecastQueryString,
           success: function(httpResponse2) {
             var tmpForecastObj = JSON.parse(httpResponse2.text);
-             
-            objForClient.forecastList = [];
-            for (i=0; i< 8; i++) {
-              objForClient.forecastList.push(tmpForecastObj.list[i]);
-            }
+
+            console.log('current date' + currentDate.getTime() / 1000);
+            console.log('total number of hourly forecasts: ' + tmpForecastObj.list.length);
+
+            var forecastList = [];
+            tmpForecastObj.list.forEach(function(entry) {
+                var dateOfForecast = new Date(entry["dt"]);
+                if ((currentDate.getTime() / 1000) < dateOfForecast.getTime()) {
+                  forecastList.push(entry);
+                };
+            });
+
+            console.log('total number of hourly forecasts passed to the client: ' + forecastList.length);
+
+            objForClient.forecastList = forecastList;
  
             console.log(JSON.stringify(objForClient, undefined, 2) );
             response.success(objForClient);

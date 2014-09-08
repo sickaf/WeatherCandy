@@ -30,6 +30,7 @@
 		7FB123A819BD7BF500EFAAC3 /* WCTempFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FB123A719BD7BF500EFAAC3 /* WCTempFormatter.m */; };
 		7FB123AB19BD7C6400EFAAC3 /* WCSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FB123AA19BD7C6400EFAAC3 /* WCSettings.m */; };
 		7FB123AE19BD877800EFAAC3 /* WCToggleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FB123AD19BD877800EFAAC3 /* WCToggleCell.m */; };
+		7FB123B119BDE56900EFAAC3 /* WCForecastCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FB123B019BDE56900EFAAC3 /* WCForecastCollectionViewCell.m */; };
 		7FDB143219B6E29200790272 /* WCPhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FDB143119B6E29200790272 /* WCPhoto.m */; };
 		7FDB143519B6EBB400790272 /* WCSlideBehindModalAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FDB143419B6EBB400790272 /* WCSlideBehindModalAnimation.m */; };
 		7FDB143719B6ECEE00790272 /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7FDB143619B6ECEE00790272 /* Settings.storyboard */; };
@@ -117,6 +118,8 @@
 		7FB123AA19BD7C6400EFAAC3 /* WCSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCSettings.m; sourceTree = "<group>"; };
 		7FB123AC19BD877800EFAAC3 /* WCToggleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WCToggleCell.h; sourceTree = "<group>"; };
 		7FB123AD19BD877800EFAAC3 /* WCToggleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCToggleCell.m; sourceTree = "<group>"; };
+		7FB123AF19BDE56900EFAAC3 /* WCForecastCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WCForecastCollectionViewCell.h; sourceTree = "<group>"; };
+		7FB123B019BDE56900EFAAC3 /* WCForecastCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCForecastCollectionViewCell.m; sourceTree = "<group>"; };
 		7FDB143019B6E29200790272 /* WCPhoto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WCPhoto.h; sourceTree = "<group>"; };
 		7FDB143119B6E29200790272 /* WCPhoto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCPhoto.m; sourceTree = "<group>"; };
 		7FDB143319B6EBB400790272 /* WCSlideBehindModalAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WCSlideBehindModalAnimation.h; sourceTree = "<group>"; };
@@ -223,6 +226,8 @@
 				7FDB145519B8A0D300790272 /* WCTintedImageView.m */,
 				7FB123AC19BD877800EFAAC3 /* WCToggleCell.h */,
 				7FB123AD19BD877800EFAAC3 /* WCToggleCell.m */,
+				7FB123AF19BDE56900EFAAC3 /* WCForecastCollectionViewCell.h */,
+				7FB123B019BDE56900EFAAC3 /* WCForecastCollectionViewCell.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -502,6 +507,7 @@
 				8201148119B3548A00F44D0B /* WCAppDelegate.m in Sources */,
 				7FDB143A19B6EF7500790272 /* WCSettingsViewController.m in Sources */,
 				7FAE69FF19B5B42D0061B1BD /* AFURLConnectionOperation.m in Sources */,
+				7FB123B119BDE56900EFAAC3 /* WCForecastCollectionViewCell.m in Sources */,
 				7FAE69FC19B5B42D0061B1BD /* AFHTTPSessionManager.m in Sources */,
 				7FAE6A0019B5B42D0061B1BD /* AFURLRequestSerialization.m in Sources */,
 				7FAE69D819B5A6BA0061B1BD /* WCCollectionViewCell.m in Sources */,

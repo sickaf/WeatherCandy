@@ -19,13 +19,16 @@
 #import "UIView+Snapshot.h"
 #import "WCAddCityViewController.h"
 #import "WCTempFormatter.h"
+#import "WCForecastCollectionViewCell.h"
 
 #import <Parse/Parse.h>
 
 @interface WCMainViewController () {
     NSArray *_imgData;
-    NSDictionary *_weatherData;
+    NSDictionary *_currentWeatherData;
+    NSArray *_forecastData;
     UIImageView *_blurImageView;
+    NSDateFormatter *_dateFormatter;
 }
 
 @property (weak, nonatomic) IBOutlet UIScrollView *outerScrollView;
@@ -45,7 +48,7 @@
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:NO];
     
     _imgData = @[];
-    _weatherData = @{};
+    _currentWeatherData = @{};
     
     self.imageView.image = [self.imageView.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     self.imageView.alignBottom = YES;
@@ -54,6 +57,13 @@
     _spinner.hidesWhenStopped = YES;
     _spinner.center = self.outerScrollView.center;
     [self.view addSubview:_spinner];
+    
+    _dateFormatter = [[NSDateFormatter alloc] init];
+    [_dateFormatter setDateStyle:NSDateFormatterNoStyle];
+    [_dateFormatter setTimeStyle:NSDateFormatterShortStyle];
+    [_dateFormatter setDateFormat:@"ha"];
+    [_dateFormatter setLocale:[[NSLocale alloc] initWithLocaleIdentifier:@"en_US"]];
+    [_dateFormatter setTimeZone:[NSTimeZone systemTimeZone]];
     
     NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
     NSData *dataRepresentingCity = [ud objectForKey:kLastSelectedCity];
@@ -128,9 +138,11 @@
                                         _imgData = [temp sortedArrayUsingDescriptors:@[sortDescriptor]];
                                         [self.collectionView reloadData];
                                         
-                                        _weatherData = result;
+                                        _currentWeatherData = result[@"currentWeather"];
+                                        _forecastData = result[@"forecastList"];
         
                                         [self refreshTempLabels];
+                                        [self.forecastCollectionView reloadData];
                                     }
                                 }];
 }
@@ -139,7 +151,7 @@
 {
     WCTempFormatter *formatter = [WCTempFormatter new];
     
-    NSNumber *curTemp = _weatherData[@"currentWeather"][@"main"][@"temp"];
+    NSNumber *curTemp = _currentWeatherData[@"main"][@"temp"];
     self.mainTempLabel.text = [formatter formattedStringWithKelvin:[curTemp floatValue]];
 }
 
@@ -169,19 +181,10 @@
 - (void)tempUnitToggled:(NSNotification *)note
 {
     [self refreshTempLabels];
+    [self.forecastCollectionView reloadData];
 }
 
 #pragma mark - Actions
-
-- (IBAction)pressedAction:(id)sender
-{
-    if (self.collectionView.visibleCells.count) {
-        NSIndexPath *ind = [self.collectionView indexPathForCell:self.collectionView.visibleCells[0]];
-        if ([self collectionView:self.collectionView shouldSelectItemAtIndexPath:ind]) {
-            [self openProfileForIndexPath:ind];
-        }
-    }
-}
 
 - (IBAction)pressedSettings:(id)sender
 {
@@ -190,12 +193,10 @@
     vc.modalPresentationStyle = UIModalPresentationCustom;
     vc.transitioningDelegate = self;
     [self presentViewController:vc animated:YES completion:nil];
-    
 }
 
 - (void)pressedTitle:(id)sender
 {
-    
     UIImage *snap = [self.view convertViewToImage];
     UIImage *blurred = [snap applyBlurWithRadius:20 tintColor:[UIColor colorWithWhite:0 alpha:0.5] saturationDeltaFactor:1.3 maskImage:nil];
     
@@ -209,16 +210,24 @@
 
 #pragma mark - Collection view data source
 
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
+{
+    return [collectionView isEqual:self.forecastCollectionView] ? 2 : 1;
+}
+
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
     if ([collectionView isEqual:self.collectionView]) {
         return _imgData.count;
     }
     
-    return 2;
+    if (_forecastData.count >= 8) {
+        return 4;
+    }
+    
+    return 4;
 }
 
-// The cell that is returned must be retrieved from a call to -dequeueReusableCellWithReuseIdentifier:forIndexPath:
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     if ([collectionView isEqual:self.collectionView]) {
@@ -229,13 +238,31 @@
         return cell;
     }
     
-    return [collectionView dequeueReusableCellWithReuseIdentifier:@"ForecastCell" forIndexPath:indexPath];
+    WCForecastCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"ForecastCell" forIndexPath:indexPath];
+    WCTempFormatter *tf = [WCTempFormatter new];
+    
+    NSInteger ind = indexPath.row + 4 * indexPath.section;
+    
+    if (ind < _forecastData.count) {
+        NSDictionary *data = _forecastData[indexPath.row + 4 * indexPath.section];
+        cell.tempLabel.text = [tf formattedStringWithKelvin:[data[@"main"][@"temp"] floatValue]];
+        NSDate *date = [NSDate dateWithTimeIntervalSince1970:[data[@"dt"] longLongValue]];
+        cell.timeLabel.text = [[_dateFormatter stringFromDate:date] lowercaseString];
+    }
+    else {
+        cell.tempLabel.text = @"-";
+        cell.timeLabel.text = @"-";
+    }
+   
+    return cell;
 }
 
 #pragma mark - Collection view delegate
 
 - (BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    if ([collectionView isEqual:self.forecastCollectionView]) return NO;
+    
     WCPhoto *p = _imgData[indexPath.row];
     return p.username != nil;
 }
