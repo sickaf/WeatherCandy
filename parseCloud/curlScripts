@@ -10,6 +10,10 @@ curl -X GET \
   -H "X-Parse-REST-API-Key: v8C3jQHw0b8JkoCMy3Vn9QgqLdl3F7TxptAKfSVx" \
   https://api.parse.com/1/classes/IGPhoto/ol5je2DiNb
 
+curl -X GET \
+  -d “dickCount”:”true” \
+  marcusisgay.herokuapp.com
+
   curl -X POST \
   -H "X-Parse-Application-Id: p8AF2BKCLQ7fr3oJXPg43fOL6LXAK3mwAb5Ywnke" \
   -H "X-Parse-REST-API-Key: v8C3jQHw0b8JkoCMy3Vn9QgqLdl3F7TxptAKfSVx" \
