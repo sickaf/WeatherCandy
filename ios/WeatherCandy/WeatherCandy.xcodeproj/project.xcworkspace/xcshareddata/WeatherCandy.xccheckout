@@ -12,6 +12,8 @@
 	<dict>
 		<key>94445D8AAEE4B830DCBDDC0C8009FB220DA3DCF0</key>
 		<string>https://github.com/CodyKolodziejzyk/WeatherCandy.git</string>
+		<key>DD20A1A48C66B5213E0FEBB87A95EF51D6C6F3E8</key>
+		<string>https://github.com/AFNetworking/AFNetworking.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>ios/WeatherCandy/WeatherCandy.xcodeproj</string>
@@ -19,6 +21,8 @@
 	<dict>
 		<key>94445D8AAEE4B830DCBDDC0C8009FB220DA3DCF0</key>
 		<string>../../../..</string>
+		<key>DD20A1A48C66B5213E0FEBB87A95EF51D6C6F3E8</key>
+		<string>../../../../../weatherCandy/ios/WeatherCandy/Frameworks/AFNetworking</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>https://github.com/CodyKolodziejzyk/WeatherCandy.git</string>
@@ -28,6 +32,14 @@
 	<string>94445D8AAEE4B830DCBDDC0C8009FB220DA3DCF0</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>DD20A1A48C66B5213E0FEBB87A95EF51D6C6F3E8</string>
+			<key>IDESourceControlWCCName</key>
+			<string>AFNetworking</string>
+		</dict>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>

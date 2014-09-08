@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <MessageUI/MessageUI.h>
 
-@interface WCSettingsViewController : UIViewController <UITableViewDataSource, UITableViewDelegate>
+@interface WCSettingsViewController : UIViewController <UITableViewDataSource, UITableViewDelegate,MFMailComposeViewControllerDelegate>
 
 @end

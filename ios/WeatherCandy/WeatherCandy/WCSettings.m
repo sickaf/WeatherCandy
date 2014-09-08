@@ -31,4 +31,5 @@ static NSString *const kWCTemperatureTypeKey = @"WCTemperatureType";
     return unit;
 }
 
+
 @end

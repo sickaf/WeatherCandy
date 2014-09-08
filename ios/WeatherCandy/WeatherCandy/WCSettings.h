@@ -16,5 +16,7 @@ typedef enum {
 @interface WCSettings : NSObject
 
 @property (nonatomic, assign) WCTemperatureUnit tempUnit;
+@property (nonatomic, assign) BOOL notificationsOn;
+
 
 @end
