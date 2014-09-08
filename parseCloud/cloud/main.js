@@ -24,11 +24,15 @@ d = new Date();
 d.yyyymmdd();
  
 function getWeatherCandyData(request, response) {
+
  
   var objForClient = new Object();
   var lat = request.params.lat;
   var lon = request.params.lon;
   var date = new Date(request.params.date);
+  console.log("local date is: "+date.toLocaleString());
+  console.log("local time is: "+date.toLocaleTimeString());
+  console.log("stringify date: "+JSON.stringify(request.params.date, undefined, 2));
   console.log("date"+date.toUTCString());
   date = date.yyyymmdd();
   var cityName = request.params.cityName;
