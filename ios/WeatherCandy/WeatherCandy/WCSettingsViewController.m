@@ -8,8 +8,12 @@
 
 #import "WCSettingsViewController.h"
 #import "WCConstants.h"
+#import "WCSettings.h"
+#import "WCToggleCell.h"
 
-@interface WCSettingsViewController ()
+@interface WCSettingsViewController () {
+    WCSettings *_settings;
+}
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 
@@ -22,6 +26,8 @@
     [super viewDidLoad];
     
     self.tableView.contentInset = UIEdgeInsetsMake(10, 0, 0, 0);
+    
+    _settings = [WCSettings new];
 }
 
 #pragma mark - Actions
@@ -29,6 +35,12 @@
 - (IBAction)pressedDone:(id)sender
 {
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (IBAction)segmentChanged:(UISegmentedControl *)sender
+{
+    [_settings setTempUnit:sender.selectedSegmentIndex];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kReloadTempLabelsNotification object:nil];
 }
 
 #pragma mark - Table view data source
@@ -45,7 +57,8 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
+    WCToggleCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ToggleCell" forIndexPath:indexPath];
+    cell.tempToggle.selectedSegmentIndex = [_settings tempUnit];
     return cell;
 }
 

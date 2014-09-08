@@ -18,11 +18,13 @@
 #import "UIImage+ImageEffects.h"
 #import "UIView+Snapshot.h"
 #import "WCAddCityViewController.h"
+#import "WCTempFormatter.h"
 
 #import <Parse/Parse.h>
 
 @interface WCMainViewController () {
     NSArray *_imgData;
+    NSDictionary *_weatherData;
     UIImageView *_blurImageView;
 }
 
@@ -43,6 +45,7 @@
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:NO];
     
     _imgData = @[];
+    _weatherData = @{};
     
     self.imageView.image = [self.imageView.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
     self.imageView.alignBottom = YES;
@@ -61,10 +64,18 @@
     }
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cityChanged:) name:kCityChangedNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tempUnitToggled:) name:kReloadTempLabelsNotification object:nil];
     
     self.collectionView.backgroundColor = kDefaultGreyColor;
     self.forecastCollectionView.backgroundColor = kDefaultGreyColor;
 }
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+#pragma mark - Properties
 
 - (void)setLoading:(BOOL)loading
 {
@@ -83,6 +94,8 @@
         [self.collectionView reloadData];
     }
 }
+
+#pragma mark - Helpers
 
 - (void)getWeatherDataWithCityID:(NSString *)cityID
 {
@@ -115,21 +128,19 @@
                                         _imgData = [temp sortedArrayUsingDescriptors:@[sortDescriptor]];
                                         [self.collectionView reloadData];
                                         
-                                        NSNumber *curTemp = result[@"currentWeather"][@"main"][@"temp"];
-                                        curTemp = [NSNumber numberWithInt:[curTemp intValue] - 273];
-                                        self.mainTempLabel.text = [[curTemp stringValue] substringToIndex:2];
-                                        
-                                        self.descriptionLabel.text = result[@"currentWeather"][@"weather"][0][@"description"];
-                                        
-                                        NSNumber *curHigh = result[@"currentWeather"][@"main"][@"temp_max"];
-                                        curHigh = [NSNumber numberWithInt:[curHigh intValue] - 273];
-                                        self.highTempLabel.text = [[curHigh stringValue] substringToIndex:2];
-                                        
-                                        NSNumber *curLow = result[@"currentWeather"][@"main"][@"temp_min"];
-                                        curLow = [NSNumber numberWithInt:[curLow intValue] - 273];
-                                        self.lowTempLabel.text = [[curLow stringValue] substringToIndex:2];
+                                        _weatherData = result;
+        
+                                        [self refreshTempLabels];
                                     }
                                 }];
+}
+
+- (void)refreshTempLabels
+{
+    WCTempFormatter *formatter = [WCTempFormatter new];
+    
+    NSNumber *curTemp = _weatherData[@"currentWeather"][@"main"][@"temp"];
+    self.mainTempLabel.text = [formatter formattedStringWithKelvin:[curTemp floatValue]];
 }
 
 - (void)openProfileForIndexPath:(NSIndexPath *)indexPath
@@ -153,6 +164,11 @@
     NSDictionary *info = note.userInfo;
     WCCity *city = info[@"city"];
     [self changeToCity:city];
+}
+
+- (void)tempUnitToggled:(NSNotification *)note
+{
+    [self refreshTempLabels];
 }
 
 #pragma mark - Actions

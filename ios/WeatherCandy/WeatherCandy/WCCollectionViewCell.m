@@ -14,22 +14,31 @@
 
 - (void)awakeFromNib
 {
-//    RMDownloadIndicator *closedIndicator = [[RMDownloadIndicator alloc]initWithFrame:CGRectMake((CGRectGetWidth(self.bounds) - 50)/2, (CGRectGetHeight(self.bounds) - 50)/2, 50, 50) type:kRMClosedIndicator];
-//    [closedIndicator setBackgroundColor:[UIColor clearColor]];
-//    [closedIndicator setFillColor:[UIColor colorWithRed:16./255 green:119./255 blue:234./255 alpha:1.0f]];
-//    [closedIndicator setStrokeColor:[UIColor colorWithRed:16./255 green:119./255 blue:234./255 alpha:1.0f]];
-//    closedIndicator.radiusPercent = 0.45;
-//    [self.contentView addSubview:closedIndicator];
-//    [closedIndicator loadIndicator];
-//    _downloadIndicator = closedIndicator;
+    RMDownloadIndicator *closedIndicator = [[RMDownloadIndicator alloc]initWithFrame:CGRectMake((CGRectGetWidth(self.bounds) - 40)/2, (CGRectGetHeight(self.bounds) - 40)/2 - 10, 40, 40) type:kRMClosedIndicator];
+    [closedIndicator setBackgroundColor:[UIColor clearColor]];
+    [closedIndicator setFillColor:[UIColor colorWithWhite:0.400 alpha:1.000]];
+    [closedIndicator setStrokeColor:[UIColor whiteColor]];
+    [self.contentView insertSubview:closedIndicator belowSubview:self.imageView];
+    [closedIndicator loadIndicator];
+    _downloadIndicator = closedIndicator;
 }
 
 - (void)setImageURL:(NSString *)imageURL
 {
     if (_imageURL == imageURL) return;
     _imageURL = imageURL;
-        
-    [self.imageView setImageWithURL:[NSURL URLWithString:imageURL]];
+    
+    __weak __typeof(self)weakSelf = self;
+    [self.imageView setImageWithURL:[NSURL URLWithString:imageURL] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
+        __strong __typeof(weakSelf)strongSelf = weakSelf;
+        strongSelf.imageView.image = image;
+        [strongSelf.downloadIndicator removeFromSuperview];
+    } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
+        // TODO: handle error
+    } progress:^(NSUInteger bytesRead, long long totalBytesRead, long long totalBytesExpectedToRead) {
+        __strong __typeof(weakSelf)strongSelf = weakSelf;
+        [strongSelf.downloadIndicator updateWithTotalBytes:totalBytesExpectedToRead downloadedBytes:totalBytesRead];
+    }];
 }
 
 - (void)prepareForReuse

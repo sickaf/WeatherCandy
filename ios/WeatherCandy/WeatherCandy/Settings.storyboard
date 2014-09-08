@@ -21,7 +21,7 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <prototypes>
-                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="Cell" id="x1l-Jj-Y4O">
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="ToggleCell" id="x1l-Jj-Y4O" customClass="WCToggleCell">
                                         <rect key="frame" x="0.0" y="119" width="320" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="x1l-Jj-Y4O" id="z1m-uG-Fcx">
@@ -35,9 +35,15 @@
                                                         <segment title="C"/>
                                                         <segment title="F"/>
                                                     </segments>
+                                                    <connections>
+                                                        <action selector="segmentChanged:" destination="2hT-1a-ywd" eventType="valueChanged" id="INg-yH-1VX"/>
+                                                    </connections>
                                                 </segmentedControl>
                                             </subviews>
                                         </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="tempToggle" destination="kaL-fC-jO2" id="jQS-RK-0Nx"/>
+                                        </connections>
                                     </tableViewCell>
                                 </prototypes>
                                 <sections/>

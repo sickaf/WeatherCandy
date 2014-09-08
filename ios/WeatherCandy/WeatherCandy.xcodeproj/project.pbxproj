@@ -26,7 +26,10 @@
 		7FAE6A0019B5B42D0061B1BD /* AFURLRequestSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FAE69F519B5B42D0061B1BD /* AFURLRequestSerialization.m */; };
 		7FAE6A0119B5B42D0061B1BD /* AFURLResponseSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FAE69F719B5B42D0061B1BD /* AFURLResponseSerialization.m */; };
 		7FAE6A0219B5B42D0061B1BD /* AFURLSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FAE69F919B5B42D0061B1BD /* AFURLSessionManager.m */; };
-		7FAE6A0519B5C74B0061B1BD /* UIImageView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FAE6A0419B5C74B0061B1BD /* UIImageView+AFNetworking.m */; };
+		7FB123A519BD734700EFAAC3 /* UIImageView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FB123A419BD734700EFAAC3 /* UIImageView+AFNetworking.m */; };
+		7FB123A819BD7BF500EFAAC3 /* WCTempFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FB123A719BD7BF500EFAAC3 /* WCTempFormatter.m */; };
+		7FB123AB19BD7C6400EFAAC3 /* WCSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FB123AA19BD7C6400EFAAC3 /* WCSettings.m */; };
+		7FB123AE19BD877800EFAAC3 /* WCToggleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FB123AD19BD877800EFAAC3 /* WCToggleCell.m */; };
 		7FDB143219B6E29200790272 /* WCPhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FDB143119B6E29200790272 /* WCPhoto.m */; };
 		7FDB143519B6EBB400790272 /* WCSlideBehindModalAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FDB143419B6EBB400790272 /* WCSlideBehindModalAnimation.m */; };
 		7FDB143719B6ECEE00790272 /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7FDB143619B6ECEE00790272 /* Settings.storyboard */; };
@@ -106,8 +109,14 @@
 		7FAE69F719B5B42D0061B1BD /* AFURLResponseSerialization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFURLResponseSerialization.m; sourceTree = "<group>"; };
 		7FAE69F819B5B42D0061B1BD /* AFURLSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFURLSessionManager.h; sourceTree = "<group>"; };
 		7FAE69F919B5B42D0061B1BD /* AFURLSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFURLSessionManager.m; sourceTree = "<group>"; };
-		7FAE6A0319B5C74B0061B1BD /* UIImageView+AFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImageView+AFNetworking.h"; path = "Frameworks/AFNetworking/UIKit+AFNetworking/UIImageView+AFNetworking.h"; sourceTree = SOURCE_ROOT; };
-		7FAE6A0419B5C74B0061B1BD /* UIImageView+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImageView+AFNetworking.m"; path = "Frameworks/AFNetworking/UIKit+AFNetworking/UIImageView+AFNetworking.m"; sourceTree = SOURCE_ROOT; };
+		7FB123A319BD734700EFAAC3 /* UIImageView+AFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+AFNetworking.h"; sourceTree = "<group>"; };
+		7FB123A419BD734700EFAAC3 /* UIImageView+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+AFNetworking.m"; sourceTree = "<group>"; };
+		7FB123A619BD7BF500EFAAC3 /* WCTempFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WCTempFormatter.h; sourceTree = "<group>"; };
+		7FB123A719BD7BF500EFAAC3 /* WCTempFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCTempFormatter.m; sourceTree = "<group>"; };
+		7FB123A919BD7C6400EFAAC3 /* WCSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WCSettings.h; sourceTree = "<group>"; };
+		7FB123AA19BD7C6400EFAAC3 /* WCSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCSettings.m; sourceTree = "<group>"; };
+		7FB123AC19BD877800EFAAC3 /* WCToggleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WCToggleCell.h; sourceTree = "<group>"; };
+		7FB123AD19BD877800EFAAC3 /* WCToggleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCToggleCell.m; sourceTree = "<group>"; };
 		7FDB143019B6E29200790272 /* WCPhoto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WCPhoto.h; sourceTree = "<group>"; };
 		7FDB143119B6E29200790272 /* WCPhoto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCPhoto.m; sourceTree = "<group>"; };
 		7FDB143319B6EBB400790272 /* WCSlideBehindModalAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WCSlideBehindModalAnimation.h; sourceTree = "<group>"; };
@@ -198,6 +207,8 @@
 		7F14C61A19B5E79F001FA062 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				7FB123A319BD734700EFAAC3 /* UIImageView+AFNetworking.h */,
+				7FB123A419BD734700EFAAC3 /* UIImageView+AFNetworking.m */,
 				7FAE69D619B5A6BA0061B1BD /* WCCollectionViewCell.h */,
 				7FAE69D719B5A6BA0061B1BD /* WCCollectionViewCell.m */,
 				7FAE69DC19B5AD370061B1BD /* WCAlphaGradientView.h */,
@@ -210,6 +221,8 @@
 				7FDB144F19B85D7E00790272 /* WCLabel.m */,
 				7FDB145419B8A0D300790272 /* WCTintedImageView.h */,
 				7FDB145519B8A0D300790272 /* WCTintedImageView.m */,
+				7FB123AC19BD877800EFAAC3 /* WCToggleCell.h */,
+				7FB123AD19BD877800EFAAC3 /* WCToggleCell.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -225,6 +238,10 @@
 				7F14C62219B60EF0001FA062 /* WCCity.m */,
 				7FDB143019B6E29200790272 /* WCPhoto.h */,
 				7FDB143119B6E29200790272 /* WCPhoto.m */,
+				7FB123A619BD7BF500EFAAC3 /* WCTempFormatter.h */,
+				7FB123A719BD7BF500EFAAC3 /* WCTempFormatter.m */,
+				7FB123A919BD7C6400EFAAC3 /* WCSettings.h */,
+				7FB123AA19BD7C6400EFAAC3 /* WCSettings.m */,
 			);
 			name = Objects;
 			sourceTree = "<group>";
@@ -232,8 +249,6 @@
 		7FAE69E619B5B42D0061B1BD /* AFNetworking */ = {
 			isa = PBXGroup;
 			children = (
-				7FAE6A0319B5C74B0061B1BD /* UIImageView+AFNetworking.h */,
-				7FAE6A0419B5C74B0061B1BD /* UIImageView+AFNetworking.m */,
 				7FAE69E719B5B42D0061B1BD /* AFHTTPRequestOperation.h */,
 				7FAE69E819B5B42D0061B1BD /* AFHTTPRequestOperation.m */,
 				7FAE69E919B5B42D0061B1BD /* AFHTTPRequestOperationManager.h */,
@@ -476,10 +491,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7FB123A519BD734700EFAAC3 /* UIImageView+AFNetworking.m in Sources */,
 				7FDB143219B6E29200790272 /* WCPhoto.m in Sources */,
 				7FAE6A0219B5B42D0061B1BD /* AFURLSessionManager.m in Sources */,
 				7FDB143519B6EBB400790272 /* WCSlideBehindModalAnimation.m in Sources */,
 				7FAE69DE19B5AD370061B1BD /* WCAlphaGradientView.m in Sources */,
+				7FB123AE19BD877800EFAAC3 /* WCToggleCell.m in Sources */,
 				8201148419B3548A00F44D0B /* WCMainViewController.m in Sources */,
 				7FAE69FD19B5B42D0061B1BD /* AFNetworkReachabilityManager.m in Sources */,
 				8201148119B3548A00F44D0B /* WCAppDelegate.m in Sources */,
@@ -489,12 +506,13 @@
 				7FAE6A0019B5B42D0061B1BD /* AFURLRequestSerialization.m in Sources */,
 				7FAE69D819B5A6BA0061B1BD /* WCCollectionViewCell.m in Sources */,
 				7FDB145619B8A0D300790272 /* WCTintedImageView.m in Sources */,
+				7FB123AB19BD7C6400EFAAC3 /* WCSettings.m in Sources */,
 				7F14C61D19B5EC69001FA062 /* WCAddCityViewController.m in Sources */,
 				7F14C62319B60EF0001FA062 /* WCCity.m in Sources */,
+				7FB123A819BD7BF500EFAAC3 /* WCTempFormatter.m in Sources */,
 				7FDB144A19B7683E00790272 /* UIImage+ImageEffects.m in Sources */,
 				8201147E19B3548A00F44D0B /* main.m in Sources */,
 				7FAE69E519B5B2040061B1BD /* WCNavigationController.m in Sources */,
-				7FAE6A0519B5C74B0061B1BD /* UIImageView+AFNetworking.m in Sources */,
 				7F14C62719B61A29001FA062 /* WCCityCell.m in Sources */,
 				7F14C61919B5DE58001FA062 /* UIImageViewAligned.m in Sources */,
 				7FAE69FB19B5B42D0061B1BD /* AFHTTPRequestOperationManager.m in Sources */,
