@@ -22,7 +22,6 @@
     
     if (self.presenting) {
         
-        [transitionContext.containerView addSubview:fromViewController.view];
         [transitionContext.containerView addSubview:toViewController.view];
         
         CGRect startFrame = fromViewController.view.frame;
@@ -38,7 +37,8 @@
                             options:0 animations:^{
                                 toViewController.view.frame = endFrame;
                             } completion:^(BOOL finished) {
-                                [transitionContext completeTransition:YES];
+                                [transitionContext completeTransition:finished];
+                                [[UIApplication sharedApplication].keyWindow addSubview:toViewController.view];
                             }];
     }
     else {
