@@ -34,6 +34,7 @@
     self.tableView.contentInset = UIEdgeInsetsMake(10, 0, 0, 0);
 
     _settings = [WCSettings new];
+    
 }
 
 #pragma mark - Actions
@@ -49,7 +50,28 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:kReloadTempLabelsNotification object:nil];
 }
 
+
 - (IBAction)notificationsSwitchChanged:(UISwitch *)sender {
+    
+    if (sender.isOn) {
+        UIUserNotificationSettings *notificationSettings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert|UIUserNotificationTypeBadge|UIUserNotificationTypeSound categories:nil];
+        [[UIApplication sharedApplication] registerUserNotificationSettings:notificationSettings];
+        
+        
+        NSDate *dateTmw = [NSDate date];
+        dateTmw = [dateTmw dateByAddingTimeInterval:60*60*24*1]; //one day
+        
+        UILocalNotification *localNotification = [[UILocalNotification alloc] init];
+        localNotification.fireDate = dateTmw;
+        localNotification.alertBody = [NSString stringWithFormat:@"Alert Fired at %@", dateTmw];
+        localNotification.applicationIconBadgeNumber = 1;
+        [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
+        NSLog([NSString stringWithFormat:@"Scheduled for %@", dateTmw]);
+        
+    } else {
+        [[UIApplication sharedApplication] setApplicationIconBadgeNumber: 0];
+        [[UIApplication sharedApplication] cancelAllLocalNotifications]; //TODO call this when app is opened
+    }
     _settings.notificationsOn = sender.isOn;
     NSLog(@"notifications are: %@", _settings.notificationsOn ? @"ON" : @"OFF");
     
@@ -73,12 +95,9 @@
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
     switch (section) {
-        case 0:
-            return @"Options";
-        case 1:
-            return @"About Sick.AF";
-        case 2:
-            return @"Hit us up";
+        case 0: return @"Options";
+        case 1: return @"About Sick.AF";
+        case 2: return @"Hit us up";
     }
     return @"SickAF"; //TODO: better handle this error
 }
