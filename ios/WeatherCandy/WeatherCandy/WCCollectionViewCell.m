@@ -9,6 +9,7 @@
 #import "WCCollectionViewCell.h"
 #import "UIImageView+AFNetworking.h"
 #import "AFNetworking.h"
+#import "WCConstants.h"
 
 @implementation WCCollectionViewCell
 
@@ -33,6 +34,7 @@
         __strong __typeof(weakSelf)strongSelf = weakSelf;
         strongSelf.imageView.image = image;
         [strongSelf.downloadIndicator removeFromSuperview];
+        [[NSNotificationCenter defaultCenter] postNotificationName:kImageDownloadedNotification object:nil];
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
         // TODO: handle error
     } progress:^(NSUInteger bytesRead, long long totalBytesRead, long long totalBytesExpectedToRead) {

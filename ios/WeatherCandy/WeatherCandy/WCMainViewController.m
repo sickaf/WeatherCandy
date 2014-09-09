@@ -169,6 +169,21 @@
     [self getWeatherDataWithCityID:[city.cityID stringValue]];
 }
 
+- (UIImage *)blurredImageOfCurrentView
+{
+    UIImage *snap = [self.view convertViewToImage];
+    UIImage *blurred = [snap applyBlurWithRadius:20 tintColor:[UIColor colorWithWhite:0 alpha:0.5] saturationDeltaFactor:1.3 maskImage:nil];
+    return blurred;
+}
+
+- (void)reloadBlurredBackgroundOnPresentedViewController
+{
+    if (![self.navigationController.topViewController isEqual:self]) {
+        WCAddCityViewController *vc = (WCAddCityViewController *)self.navigationController.topViewController;
+        vc.bgImg = [self blurredImageOfCurrentView];
+    }
+}
+
 #pragma mark - notifications
 
 - (void)cityChanged:(NSNotification *)note
@@ -197,12 +212,9 @@
 
 - (void)pressedTitle:(id)sender
 {
-    UIImage *snap = [self.view convertViewToImage];
-    UIImage *blurred = [snap applyBlurWithRadius:20 tintColor:[UIColor colorWithWhite:0 alpha:0.5] saturationDeltaFactor:1.3 maskImage:nil];
-    
     WCAddCityViewController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"AddCity"];
     vc.titleButtonText = self.titleButtonText;
-    vc.bgImg = blurred;
+    vc.bgImg = [self blurredImageOfCurrentView];
     
     self.navigationController.delegate = self;
     [self.navigationController pushViewController:vc animated:YES];
