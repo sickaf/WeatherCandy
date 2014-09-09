@@ -105,10 +105,8 @@
             return cell;
         } else if (indexPath.row == 1) {
             WCNotificationsSwitchCell *cell = [tableView dequeueReusableCellWithIdentifier:@"NotificationsSwitchCell" forIndexPath:indexPath];
-            //cell.tempToggle.selectedSegmentIndex = [_settings tempUnit];
-            cell
+            cell.notificationsSwitch.selected = [[WCSettings sharedSettings] notificationsOn];
             return cell;
-
         }
     }
     else if (indexPath.section == 1)
