@@ -14,11 +14,7 @@
 #import "WCContactUsCell.h"
 #import "WCNotificationsSwitchCell.h"
 
-
-
-@interface WCSettingsViewController () {
-    WCSettings *_settings;
-}
+@interface WCSettingsViewController ()
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) MFMailComposeViewController *mailComposer;
@@ -32,9 +28,6 @@
     [super viewDidLoad];
     
     self.tableView.contentInset = UIEdgeInsetsMake(10, 0, 0, 0);
-
-    _settings = [WCSettings new];
-    
 }
 
 #pragma mark - Actions
@@ -46,7 +39,7 @@
 
 - (IBAction)segmentChanged:(UISegmentedControl *)sender
 {
-    [_settings setTempUnit:sender.selectedSegmentIndex];
+    [[WCSettings sharedSettings] setTempUnit:sender.selectedSegmentIndex];
     [[NSNotificationCenter defaultCenter] postNotificationName:kReloadTempLabelsNotification object:nil];
 }
 
@@ -72,8 +65,8 @@
         [[UIApplication sharedApplication] setApplicationIconBadgeNumber: 0];
         [[UIApplication sharedApplication] cancelAllLocalNotifications]; //TODO call this when app is opened
     }
-    _settings.notificationsOn = sender.isOn;
-    NSLog(@"notifications are: %@", _settings.notificationsOn ? @"ON" : @"OFF");
+    [[WCSettings sharedSettings] setNotificationsOn:sender.isOn];
+    NSLog(@"notifications are: %@", [[WCSettings sharedSettings] notificationsOn] ? @"ON" : @"OFF");
     
 }
 
@@ -104,16 +97,16 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    
     if(indexPath.section == 0)
     {
         if(indexPath.row == 0){
             WCToggleCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ToggleCell" forIndexPath:indexPath];
-            cell.tempToggle.selectedSegmentIndex = [_settings tempUnit];
+            cell.tempToggle.selectedSegmentIndex = [[WCSettings sharedSettings] tempUnit];
             return cell;
         } else if (indexPath.row == 1) {
             WCNotificationsSwitchCell *cell = [tableView dequeueReusableCellWithIdentifier:@"NotificationsSwitchCell" forIndexPath:indexPath];
             //cell.tempToggle.selectedSegmentIndex = [_settings tempUnit];
+            cell
             return cell;
 
         }

@@ -8,24 +8,13 @@
 
 #import "WCTempFormatter.h"
 
-@implementation WCTempFormatter {
-    WCSettings *_settings;
-}
-
-- (id)init
-{
-    self = [super init];
-    if (self) {
-        _settings = [WCSettings new];
-    }
-    return self;
-}
+@implementation WCTempFormatter
 
 - (NSString *)formattedStringWithKelvin:(float)temp
 {
     NSInteger formattedTemp = 0;
     
-    WCTemperatureUnit unit = [_settings tempUnit];
+    WCTemperatureUnit unit = [[WCSettings sharedSettings] tempUnit];
     if (unit == kWCCelsius) {
         formattedTemp = temp - 273;
     }
