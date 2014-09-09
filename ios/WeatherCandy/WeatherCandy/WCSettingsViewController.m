@@ -43,9 +43,31 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:kReloadTempLabelsNotification object:nil];
 }
 
+
 - (IBAction)notificationsSwitchChanged:(UISwitch *)sender {
+    
+    if (sender.isOn) {
+        UIUserNotificationSettings *notificationSettings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert|UIUserNotificationTypeBadge|UIUserNotificationTypeSound categories:nil];
+        [[UIApplication sharedApplication] registerUserNotificationSettings:notificationSettings];
+        
+        
+        NSDate *dateTmw = [NSDate date];
+        dateTmw = [dateTmw dateByAddingTimeInterval:60*60*24*1]; //one day
+        
+        UILocalNotification *localNotification = [[UILocalNotification alloc] init];
+        localNotification.fireDate = dateTmw;
+        localNotification.alertBody = [NSString stringWithFormat:@"Alert Fired at %@", dateTmw];
+        localNotification.applicationIconBadgeNumber = 1;
+        [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
+        NSLog([NSString stringWithFormat:@"Scheduled for %@", dateTmw]);
+        
+    } else {
+        [[UIApplication sharedApplication] setApplicationIconBadgeNumber: 0];
+        [[UIApplication sharedApplication] cancelAllLocalNotifications]; //TODO call this when app is opened
+    }
     [[WCSettings sharedSettings] setNotificationsOn:sender.isOn];
     NSLog(@"notifications are: %@", [[WCSettings sharedSettings] notificationsOn] ? @"ON" : @"OFF");
+    
 }
 
 #pragma mark - Table view data source
@@ -66,12 +88,9 @@
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
     switch (section) {
-        case 0:
-            return @"Options";
-        case 1:
-            return @"About Sick.AF";
-        case 2:
-            return @"Hit us up";
+        case 0: return @"Options";
+        case 1: return @"About Sick.AF";
+        case 2: return @"Hit us up";
     }
     return @"SickAF"; //TODO: better handle this error
 }
@@ -86,9 +105,8 @@
             return cell;
         } else if (indexPath.row == 1) {
             WCNotificationsSwitchCell *cell = [tableView dequeueReusableCellWithIdentifier:@"NotificationsSwitchCell" forIndexPath:indexPath];
-            //cell.tempToggle.selectedSegmentIndex = [_settings tempUnit];
+            cell.notificationsSwitch.selected = [[WCSettings sharedSettings] notificationsOn];
             return cell;
-
         }
     }
     else if (indexPath.section == 1)
