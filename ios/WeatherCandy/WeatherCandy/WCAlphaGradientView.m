@@ -44,7 +44,7 @@ void drawLinearGradient(CGContextRef context, CGRect rect, CGColorRef startColor
 {
 	CGContextRef context = UIGraphicsGetCurrentContext();
 	UIColor *startColor = [UIColor clearColor];
-	UIColor *endColor = kDefaultGreyColor;
+	UIColor *endColor = kDefaultBackgroundColor;
 	
 	drawLinearGradient(context, rect, startColor.CGColor, endColor.CGColor);
 }

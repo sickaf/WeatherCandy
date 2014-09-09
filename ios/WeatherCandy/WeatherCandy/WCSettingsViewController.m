@@ -10,7 +10,7 @@
 #import "WCConstants.h"
 #import "WCSettings.h"
 #import "WCToggleCell.h"
-#import "WCAboutCell.h"
+#import "WCPlainCell.h"
 #import "WCContactUsCell.h"
 #import "WCNotificationsSwitchCell.h"
 
@@ -74,7 +74,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if(section == 0) {
-        return 2;
+        return 3;
     }
     return 1;
 }
@@ -86,50 +86,67 @@
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
 {
+    NSString *title = @"";
     switch (section) {
-        case 0: return @"Options";
-        case 1: return @"About Sick.AF";
-        case 2: return @"Hit us up";
+        case 0: title = @"Options"; break;
+        case 1: title = @"About Sick.AF"; break;
+        case 2: title = @"Hit us up"; break;
     }
-    return @"SickAF"; //TODO: better handle this error
+    return title;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if(indexPath.section == 0) //Options
+    if(indexPath.section == 0)
     {
-        if(indexPath.row == 0){ // C | F
+        if(indexPath.row == 0)
+        {
             WCToggleCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ToggleCell" forIndexPath:indexPath];
             cell.tempToggle.selectedSegmentIndex = [[WCSettings sharedSettings] tempUnit];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             return cell;
-        } else if (indexPath.row == 1) { //Daily Notifications
+        }
+        else if (indexPath.row == 1)
+        {
             WCNotificationsSwitchCell *cell = [tableView dequeueReusableCellWithIdentifier:@"NotificationsSwitchCell" forIndexPath:indexPath];
-            cell.notificationsSwitch.selected = [[WCSettings sharedSettings] notificationsOn];
+            cell.notificationsSwitch.on = [[WCSettings sharedSettings] notificationsOn];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            return cell;
+        }
+        else if (indexPath.row == 2)
+        {
+            WCPlainCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PlainCell" forIndexPath:indexPath];
+            cell.mainLabel.text = @"Clear saved cities";
             return cell;
         }
     }
     else if (indexPath.section == 1)  //About
     {
-        WCAboutCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AboutCell" forIndexPath:indexPath];
-        //[tableView deselectRowAtIndexPath:indexPath animated:YES];
+        WCPlainCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PlainCell" forIndexPath:indexPath];
+        cell.mainLabel.text = @"About";
         return cell;
         
     }
     else if (indexPath.section == 2) //Contact us
     {
-        WCContactUsCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ContactUsCell" forIndexPath:indexPath];
+        WCPlainCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PlainCell" forIndexPath:indexPath];
+        cell.mainLabel.text = @"Contact Us";
         return cell;
     
     }
-    NSLog(@"error: asked for cell that we don't know of");
+    
     return nil;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    if (indexPath.section == 0) {
+        if (indexPath.row == 2) {
+            [[WCSettings sharedSettings] clearSavedCities];
+        }
+    }
 
     if(indexPath.section == 2 && indexPath.row == 0) { // Contact us
         

@@ -69,4 +69,11 @@ static NSString *const kWCNotificationsKey      = @"WCNotificationsKey";
     [ud synchronize];
 }
 
+- (void)clearSavedCities
+{
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+    [ud removeObjectForKey:@"cities"];
+    [ud synchronize];
+}
+
 @end

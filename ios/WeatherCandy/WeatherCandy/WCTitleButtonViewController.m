@@ -21,7 +21,7 @@
 {
     [super viewDidLoad];
     
-    self.view.backgroundColor = kDefaultGreyColor;
+    self.view.backgroundColor = kDefaultBackgroundColor;
 
     UIButton *butt = [UIButton buttonWithType:UIButtonTypeCustom];
     [butt setTitle:_titleButtonText forState:UIControlStateNormal];

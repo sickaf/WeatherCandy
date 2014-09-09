@@ -29,7 +29,7 @@
 {
     self.textLabel.font = kDefaultFont;
     self.textLabel.textColor = [UIColor whiteColor];
-    self.backgroundColor = kDefaultGreyColor;
+    self.backgroundColor = kDefaultBackgroundColor;
 }
 
 @end

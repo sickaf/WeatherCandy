@@ -77,8 +77,8 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tempUnitToggled:) name:kReloadTempLabelsNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(imageDownloaded:) name:kImageDownloadedNotification object:nil];
     
-    self.collectionView.backgroundColor = kDefaultGreyColor;
-    self.forecastCollectionView.backgroundColor = kDefaultGreyColor;
+    self.collectionView.backgroundColor = kDefaultBackgroundColor;
+    self.forecastCollectionView.backgroundColor = kDefaultBackgroundColor;
 }
 
 - (void)dealloc
@@ -385,8 +385,4 @@
     [self blurCurrentImageWithScrollOffset:scrollView.contentOffset];
 }
 
-- (void)viewDidLayoutSubviews
-{
-    [self.outerScrollView setContentSize:CGSizeMake(320, 650)];
-}
 @end

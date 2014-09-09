@@ -60,7 +60,7 @@
 		820114B419B35EFF00F44D0B /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 820114AA19B35EFF00F44D0B /* Security.framework */; };
 		820114B519B35EFF00F44D0B /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 820114AB19B35EFF00F44D0B /* StoreKit.framework */; };
 		820114B619B35EFF00F44D0B /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 820114AC19B35EFF00F44D0B /* SystemConfiguration.framework */; };
-		8282844119BDE01E005AA449 /* WCAboutCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8282844019BDE01E005AA449 /* WCAboutCell.m */; };
+		8282844119BDE01E005AA449 /* WCPlainCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8282844019BDE01E005AA449 /* WCPlainCell.m */; };
 		8282844619BDF2C3005AA449 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8282844519BDF2C3005AA449 /* MessageUI.framework */; };
 		8282844F19BE0B94005AA449 /* WCNotificationsSwitchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8282844E19BE0B94005AA449 /* WCNotificationsSwitchCell.m */; };
 /* End PBXBuildFile section */
@@ -168,8 +168,8 @@
 		820114AA19B35EFF00F44D0B /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		820114AB19B35EFF00F44D0B /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		820114AC19B35EFF00F44D0B /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
-		8282843F19BDE01E005AA449 /* WCAboutCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WCAboutCell.h; sourceTree = "<group>"; };
-		8282844019BDE01E005AA449 /* WCAboutCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCAboutCell.m; sourceTree = "<group>"; };
+		8282843F19BDE01E005AA449 /* WCPlainCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WCPlainCell.h; sourceTree = "<group>"; };
+		8282844019BDE01E005AA449 /* WCPlainCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCPlainCell.m; sourceTree = "<group>"; };
 		8282844519BDF2C3005AA449 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		8282844D19BE0B94005AA449 /* WCNotificationsSwitchCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WCNotificationsSwitchCell.h; sourceTree = "<group>"; };
 		8282844E19BE0B94005AA449 /* WCNotificationsSwitchCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCNotificationsSwitchCell.m; sourceTree = "<group>"; };
@@ -236,8 +236,8 @@
 				7FDB145519B8A0D300790272 /* WCTintedImageView.m */,
 				7FB123AC19BD877800EFAAC3 /* WCToggleCell.h */,
 				7FB123AD19BD877800EFAAC3 /* WCToggleCell.m */,
-				8282843F19BDE01E005AA449 /* WCAboutCell.h */,
-				8282844019BDE01E005AA449 /* WCAboutCell.m */,
+				8282843F19BDE01E005AA449 /* WCPlainCell.h */,
+				8282844019BDE01E005AA449 /* WCPlainCell.m */,
 				8282844D19BE0B94005AA449 /* WCNotificationsSwitchCell.h */,
 				8282844E19BE0B94005AA449 /* WCNotificationsSwitchCell.m */,
 				7FB123AF19BDE56900EFAAC3 /* WCForecastCollectionViewCell.h */,
@@ -534,7 +534,7 @@
 				7FB123A819BD7BF500EFAAC3 /* WCTempFormatter.m in Sources */,
 				7FDB144A19B7683E00790272 /* UIImage+ImageEffects.m in Sources */,
 				8201147E19B3548A00F44D0B /* main.m in Sources */,
-				8282844119BDE01E005AA449 /* WCAboutCell.m in Sources */,
+				8282844119BDE01E005AA449 /* WCPlainCell.m in Sources */,
 				7FAE69E519B5B2040061B1BD /* WCNavigationController.m in Sources */,
 				7F14C62719B61A29001FA062 /* WCCityCell.m in Sources */,
 				7FAE69FB19B5B42D0061B1BD /* AFHTTPRequestOperationManager.m in Sources */,

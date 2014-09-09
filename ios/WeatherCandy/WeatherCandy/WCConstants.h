@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 sickaf. All rights reserved.
 //
 
-#define kDefaultGreyColor       [UIColor colorWithWhite:0.230 alpha:1.000]
+#define kDefaultBackgroundColor       [UIColor colorWithWhite:0.230 alpha:1.000]
 #define kDefaultFont            [UIFont fontWithName:@"HelveticaNeue-Light" size:16]
 #define kDefaultTitleFont       [UIFont fontWithName:@"HelveticaNeue-Light" size:20]
 

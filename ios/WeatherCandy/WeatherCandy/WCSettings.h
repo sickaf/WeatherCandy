@@ -20,4 +20,6 @@ typedef enum {
 
 + (id)sharedSettings;
 
+- (void)clearSavedCities;
+
 @end

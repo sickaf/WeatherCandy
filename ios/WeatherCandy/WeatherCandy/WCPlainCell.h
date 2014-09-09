@@ -8,6 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface WCAboutCell : UITableViewCell
+@interface WCPlainCell : UITableViewCell
+
+@property (weak, nonatomic) IBOutlet UILabel *mainLabel;
 
 @end
