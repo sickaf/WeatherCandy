@@ -261,9 +261,10 @@
             strongSelf.searching = NO;
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        // Fail with no results state
-        __strong WCAddCityViewController *strongSelf = weakSelf;
-        strongSelf.searching = NO;
+        if (!operation.isCancelled) {
+            __strong WCAddCityViewController *strongSelf = weakSelf;
+            strongSelf.searching = NO;
+        }
     }];
 }
 
