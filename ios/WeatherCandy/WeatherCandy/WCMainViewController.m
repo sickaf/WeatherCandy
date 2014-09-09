@@ -75,6 +75,7 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cityChanged:) name:kCityChangedNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tempUnitToggled:) name:kReloadTempLabelsNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(imageDownloaded:) name:kImageDownloadedNotification object:nil];
     
     self.collectionView.backgroundColor = kDefaultGreyColor;
     self.forecastCollectionView.backgroundColor = kDefaultGreyColor;
@@ -197,6 +198,11 @@
 {
     [self refreshTempLabels];
     [self.forecastCollectionView reloadData];
+}
+
+- (void)imageDownloaded:(NSNotification *)note
+{
+    [self blurCurrentImageWithScrollOffset:self.outerScrollView.contentOffset];
 }
 
 #pragma mark - Actions
@@ -329,36 +335,54 @@
 
 #pragma mark - Scroll view delegate
 
+- (void)blurCurrentImageWithScrollOffset:(CGPoint)offset
+{
+    if (self.collectionView.visibleCells.count <= 0) return;
+    
+    WCCollectionViewCell *currentImageCell = self.collectionView.visibleCells[0];
+    UIImage *currentImage = currentImageCell.imageView.image;
+    
+    if (!currentImage) return;
+    
+    if (offset.y > 0) {
+        if (!_blurImageView) {
+            _blurImageView = [[UIImageView alloc] initWithFrame:currentImageCell.contentView.bounds];
+            _blurImageView.alpha = 0;
+            UIImage *blurred = [currentImage applyBlurWithRadius:20 tintColor:[UIColor colorWithWhite:0 alpha:0.3] saturationDeltaFactor:1.3 maskImage:nil];
+            _blurImageView.image = blurred;
+            [currentImageCell.contentView insertSubview:_blurImageView atIndex:1];
+        }
+    }
+    else {
+        [_blurImageView removeFromSuperview];
+        _blurImageView.image = nil;
+        _blurImageView = nil;
+    }
+    
+    _blurImageView.alpha = offset.y / self.view.bounds.size.height * 5;
+}
+
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     if (![scrollView isEqual:self.outerScrollView]) return;
     
-    if (scrollView.contentOffset.y >= 0) {
-        
-        if (!_blurImageView) {
-            _blurImageView = [[UIImageView alloc] initWithFrame:self.collectionView.bounds];
-            _blurImageView.alpha = 0;
-            if (!_blurImageView.image) {
-                UIImage *snap = [self.collectionView convertViewToImage];
-                UIImage *blurred = [snap applyBlurWithRadius:20 tintColor:[UIColor colorWithWhite:0 alpha:0.3] saturationDeltaFactor:1.3 maskImage:nil];
-                _blurImageView.image = blurred;
-            }
-            [[self.collectionView.visibleCells[0] contentView] insertSubview:_blurImageView atIndex:1];
+    CGFloat yOffset = scrollView.contentOffset.y;
+    CGFloat upperScrollLimit = 180;
+    
+    if (yOffset >= 0) {
+        self.innerScrollView.contentOffset = CGPointMake(0, -yOffset);
+        if (yOffset < upperScrollLimit) {
+            self.collectionView.userInteractionEnabled = scrollView.contentOffset.y <= 0;
         }
-        
-        self.innerScrollView.contentOffset = CGPointMake(0, -scrollView.contentOffset.y);
+        else {
+            self.innerScrollView.contentOffset = CGPointMake(0, -upperScrollLimit);
+        }
     }
     else {
-        
-        [_blurImageView removeFromSuperview];
-        _blurImageView.image = nil;
-        _blurImageView = nil;
-        
         self.innerScrollView.contentOffset = scrollView.contentOffset;
-        
     }
     
-    _blurImageView.alpha = scrollView.contentOffset.y / self.view.bounds.size.height * 5;
+    [self blurCurrentImageWithScrollOffset:scrollView.contentOffset];
 }
 
 - (void)viewDidLayoutSubviews

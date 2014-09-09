@@ -20,6 +20,7 @@
     [closedIndicator setFillColor:[UIColor colorWithWhite:0.400 alpha:1.000]];
     [closedIndicator setStrokeColor:[UIColor whiteColor]];
     [self.contentView insertSubview:closedIndicator belowSubview:self.imageView];
+    [closedIndicator setHidden:YES];
     [closedIndicator loadIndicator];
     _downloadIndicator = closedIndicator;
 }
@@ -29,11 +30,15 @@
     if (_imageURL == imageURL) return;
     _imageURL = imageURL;
     
+    [_downloadIndicator setHidden:NO];
+    self.gradientView.hidden = YES;
+    
     __weak __typeof(self)weakSelf = self;
     [self.imageView setImageWithURL:[NSURL URLWithString:imageURL] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
         __strong __typeof(weakSelf)strongSelf = weakSelf;
         strongSelf.imageView.image = image;
         [strongSelf.downloadIndicator removeFromSuperview];
+        strongSelf.gradientView.hidden = NO;
         [[NSNotificationCenter defaultCenter] postNotificationName:kImageDownloadedNotification object:nil];
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
         // TODO: handle error

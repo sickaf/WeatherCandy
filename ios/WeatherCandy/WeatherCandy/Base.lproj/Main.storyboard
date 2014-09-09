@@ -73,6 +73,7 @@
                                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                         </view>
                                                         <connections>
+                                                            <outlet property="gradientView" destination="zzs-9O-wIC" id="xek-XL-z4t"/>
                                                             <outlet property="imageView" destination="rtm-uU-geY" id="seC-iS-JaF"/>
                                                         </connections>
                                                     </collectionViewCell>
@@ -165,7 +166,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="MHz-iE-lBS">
                         <nil key="title"/>
-                        <barButtonItem key="leftBarButtonItem" image="Image" style="plain" id="Ijd-HR-VJE">
+                        <barButtonItem key="leftBarButtonItem" image="Image" id="Ijd-HR-VJE">
                             <connections>
                                 <action selector="pressedSettings:" destination="MCC-ya-Nfu" id="0P7-xD-Xo3"/>
                             </connections>

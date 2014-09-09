@@ -7,8 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7F0C772F19BF229800E2C44C /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F0C772D19BF229800E2C44C /* Bolts.framework */; };
+		7F0C773019BF229800E2C44C /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F0C772E19BF229800E2C44C /* Parse.framework */; };
+		7F0C773419BF22AD00E2C44C /* UIImageViewAligned.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F0C773319BF22AD00E2C44C /* UIImageViewAligned.m */; };
 		7F14C61519B5DA66001FA062 /* Weather&Time.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7F14C61419B5D92D001FA062 /* Weather&Time.ttf */; };
-		7F14C61919B5DE58001FA062 /* UIImageViewAligned.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F14C61819B5DE58001FA062 /* UIImageViewAligned.m */; };
 		7F14C61D19B5EC69001FA062 /* WCAddCityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F14C61C19B5EC69001FA062 /* WCAddCityViewController.m */; };
 		7F14C62019B5F349001FA062 /* WCSlideDownModalAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F14C61F19B5F349001FA062 /* WCSlideDownModalAnimation.m */; };
 		7F14C62319B60EF0001FA062 /* WCCity.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F14C62219B60EF0001FA062 /* WCCity.m */; };
@@ -48,8 +50,6 @@
 		8201148719B3548A00F44D0B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 8201148519B3548A00F44D0B /* Main.storyboard */; };
 		8201148919B3548A00F44D0B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8201148819B3548A00F44D0B /* Images.xcassets */; };
 		8201149519B3548A00F44D0B /* WeatherCandyTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8201149419B3548A00F44D0B /* WeatherCandyTests.m */; };
-		820114A019B35BE500F44D0B /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8201149E19B35BE500F44D0B /* Bolts.framework */; };
-		820114A119B35BE500F44D0B /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8201149F19B35BE500F44D0B /* Parse.framework */; };
 		820114AD19B35EFF00F44D0B /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 820114A319B35EFF00F44D0B /* AudioToolbox.framework */; };
 		820114AE19B35EFF00F44D0B /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 820114A419B35EFF00F44D0B /* CFNetwork.framework */; };
 		820114AF19B35EFF00F44D0B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 820114A519B35EFF00F44D0B /* CoreGraphics.framework */; };
@@ -76,9 +76,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		7F0C772D19BF229800E2C44C /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Bolts.framework; path = Frameworks/Bolts.framework; sourceTree = "<group>"; };
+		7F0C772E19BF229800E2C44C /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Parse.framework; path = Frameworks/Parse.framework; sourceTree = "<group>"; };
+		7F0C773219BF22AD00E2C44C /* UIImageViewAligned.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIImageViewAligned.h; sourceTree = "<group>"; };
+		7F0C773319BF22AD00E2C44C /* UIImageViewAligned.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIImageViewAligned.m; sourceTree = "<group>"; };
 		7F14C61419B5D92D001FA062 /* Weather&Time.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Weather&Time.ttf"; sourceTree = "<group>"; };
-		7F14C61719B5DE58001FA062 /* UIImageViewAligned.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIImageViewAligned.h; sourceTree = "<group>"; };
-		7F14C61819B5DE58001FA062 /* UIImageViewAligned.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIImageViewAligned.m; sourceTree = "<group>"; };
 		7F14C61B19B5EC69001FA062 /* WCAddCityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WCAddCityViewController.h; sourceTree = "<group>"; };
 		7F14C61C19B5EC69001FA062 /* WCAddCityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCAddCityViewController.m; sourceTree = "<group>"; };
 		7F14C61E19B5F349001FA062 /* WCSlideDownModalAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WCSlideDownModalAnimation.h; sourceTree = "<group>"; };
@@ -156,8 +158,6 @@
 		8201148E19B3548A00F44D0B /* WeatherCandyTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WeatherCandyTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		8201149319B3548A00F44D0B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8201149419B3548A00F44D0B /* WeatherCandyTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WeatherCandyTests.m; sourceTree = "<group>"; };
-		8201149E19B35BE500F44D0B /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
-		8201149F19B35BE500F44D0B /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
 		820114A319B35EFF00F44D0B /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		820114A419B35EFF00F44D0B /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		820114A519B35EFF00F44D0B /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -183,16 +183,16 @@
 				8282844619BDF2C3005AA449 /* MessageUI.framework in Frameworks */,
 				820114AD19B35EFF00F44D0B /* AudioToolbox.framework in Frameworks */,
 				820114AE19B35EFF00F44D0B /* CFNetwork.framework in Frameworks */,
+				7F0C772F19BF229800E2C44C /* Bolts.framework in Frameworks */,
 				820114AF19B35EFF00F44D0B /* CoreGraphics.framework in Frameworks */,
 				820114B019B35EFF00F44D0B /* CoreLocation.framework in Frameworks */,
+				7F0C773019BF229800E2C44C /* Parse.framework in Frameworks */,
 				820114B119B35EFF00F44D0B /* libz.dylib in Frameworks */,
 				820114B219B35EFF00F44D0B /* MobileCoreServices.framework in Frameworks */,
 				820114B319B35EFF00F44D0B /* QuartzCore.framework in Frameworks */,
 				820114B419B35EFF00F44D0B /* Security.framework in Frameworks */,
 				820114B519B35EFF00F44D0B /* StoreKit.framework in Frameworks */,
 				820114B619B35EFF00F44D0B /* SystemConfiguration.framework in Frameworks */,
-				820114A119B35BE500F44D0B /* Parse.framework in Frameworks */,
-				820114A019B35BE500F44D0B /* Bolts.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -207,13 +207,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		7F14C61619B5DE58001FA062 /* UIImageViewAligned */ = {
+		7F0C773119BF22AD00E2C44C /* UIImageViewAligned */ = {
 			isa = PBXGroup;
 			children = (
-				7F14C61719B5DE58001FA062 /* UIImageViewAligned.h */,
-				7F14C61819B5DE58001FA062 /* UIImageViewAligned.m */,
+				7F0C773219BF22AD00E2C44C /* UIImageViewAligned.h */,
+				7F0C773319BF22AD00E2C44C /* UIImageViewAligned.m */,
 			);
-			path = UIImageViewAligned;
+			name = UIImageViewAligned;
+			path = Frameworks/UIImageViewAligned;
 			sourceTree = "<group>";
 		};
 		7F14C61A19B5E79F001FA062 /* Views */ = {
@@ -388,10 +389,12 @@
 		820114A219B35C0100F44D0B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7F0C773119BF22AD00E2C44C /* UIImageViewAligned */,
+				7F0C772D19BF229800E2C44C /* Bolts.framework */,
+				7F0C772E19BF229800E2C44C /* Parse.framework */,
 				8282844519BDF2C3005AA449 /* MessageUI.framework */,
 				7FDB145719B8AED500790272 /* Download-Indicator */,
 				7FDB144719B7683E00790272 /* ImageEffects */,
-				7F14C61619B5DE58001FA062 /* UIImageViewAligned */,
 				7FAE69E619B5B42D0061B1BD /* AFNetworking */,
 				820114A319B35EFF00F44D0B /* AudioToolbox.framework */,
 				820114A419B35EFF00F44D0B /* CFNetwork.framework */,
@@ -403,8 +406,6 @@
 				820114AA19B35EFF00F44D0B /* Security.framework */,
 				820114AB19B35EFF00F44D0B /* StoreKit.framework */,
 				820114AC19B35EFF00F44D0B /* SystemConfiguration.framework */,
-				8201149E19B35BE500F44D0B /* Bolts.framework */,
-				8201149F19B35BE500F44D0B /* Parse.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -536,7 +537,6 @@
 				8282844119BDE01E005AA449 /* WCAboutCell.m in Sources */,
 				7FAE69E519B5B2040061B1BD /* WCNavigationController.m in Sources */,
 				7F14C62719B61A29001FA062 /* WCCityCell.m in Sources */,
-				7F14C61919B5DE58001FA062 /* UIImageViewAligned.m in Sources */,
 				7FAE69FB19B5B42D0061B1BD /* AFHTTPRequestOperationManager.m in Sources */,
 				7FDB145C19B8AED500790272 /* RMDisplayLabel.m in Sources */,
 				7FDB144D19B769B100790272 /* UIView+Snapshot.m in Sources */,
@@ -544,6 +544,7 @@
 				7FDB145D19B8AED500790272 /* RMDownloadIndicator.m in Sources */,
 				7FAE69FE19B5B42D0061B1BD /* AFSecurityPolicy.m in Sources */,
 				7FAE6A0119B5B42D0061B1BD /* AFURLResponseSerialization.m in Sources */,
+				7F0C773419BF22AD00E2C44C /* UIImageViewAligned.m in Sources */,
 				7FDB144619B759EE00790272 /* WCTitleButtonViewController.m in Sources */,
 				7F14C62019B5F349001FA062 /* WCSlideDownModalAnimation.m in Sources */,
 				7FAE69FA19B5B42D0061B1BD /* AFHTTPRequestOperation.m in Sources */,
@@ -664,6 +665,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Frameworks",
 				);
 				INFOPLIST_FILE = WeatherCandy/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
@@ -680,6 +682,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Frameworks",
 				);
 				INFOPLIST_FILE = WeatherCandy/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;

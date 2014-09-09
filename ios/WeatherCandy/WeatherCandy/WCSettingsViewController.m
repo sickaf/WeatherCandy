@@ -59,7 +59,6 @@
         localNotification.alertBody = [NSString stringWithFormat:@"Alert Fired at %@", dateTmw];
         localNotification.applicationIconBadgeNumber = 1;
         [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
-        NSLog([NSString stringWithFormat:@"Scheduled for %@", dateTmw]);
         
     } else {
         [[UIApplication sharedApplication] setApplicationIconBadgeNumber: 0];
