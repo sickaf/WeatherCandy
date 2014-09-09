@@ -31,8 +31,8 @@
 {
     [super viewDidLoad];
     
-    self.navigationItem.backBarButtonItem = nil;
-    self.navigationItem.hidesBackButton = YES;
+    // Hack to hide the back button without weird animation bug when dismissing
+    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:self action:@selector(blankMethod)];
     
     _savedCities = [NSMutableArray new];
     _searchResults = [NSMutableArray new];
@@ -81,6 +81,11 @@
 {
     [_manager.operationQueue cancelAllOperations];
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+- (void)blankMethod
+{
+    // Bruh obviously nothing happens here
 }
 
 #pragma mark - Helpers
@@ -196,7 +201,12 @@
     if (_searchResults.count > 0) {
         
         selectedCity = _searchResults[indexPath.row];
-        [_savedCities addObject:selectedCity];
+        [_savedCities insertObject:selectedCity atIndex:0];
+        
+        if (_savedCities.count > 6) {
+            [_savedCities removeLastObject];
+        }
+        
         [self saveCityData];
         
         [self.searchBar setText:@""];
