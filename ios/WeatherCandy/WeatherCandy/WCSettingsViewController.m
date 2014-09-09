@@ -97,35 +97,32 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if(indexPath.section == 0)
+    if(indexPath.section == 0) //Options
     {
-        if(indexPath.row == 0){
+        if(indexPath.row == 0){ // C | F
             WCToggleCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ToggleCell" forIndexPath:indexPath];
             cell.tempToggle.selectedSegmentIndex = [[WCSettings sharedSettings] tempUnit];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
             return cell;
-        } else if (indexPath.row == 1) {
+        } else if (indexPath.row == 1) { //Daily Notifications
             WCNotificationsSwitchCell *cell = [tableView dequeueReusableCellWithIdentifier:@"NotificationsSwitchCell" forIndexPath:indexPath];
             cell.notificationsSwitch.selected = [[WCSettings sharedSettings] notificationsOn];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
             return cell;
         }
     }
-    else if (indexPath.section == 1)
+    else if (indexPath.section == 1)  //About
     {
         WCAboutCell *cell = [tableView dequeueReusableCellWithIdentifier:@"AboutCell" forIndexPath:indexPath];
+        //[tableView deselectRowAtIndexPath:indexPath animated:YES];
         return cell;
         
     }
-    else if (indexPath.section == 2)
+    else if (indexPath.section == 2) //Contact us
     {
         WCContactUsCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ContactUsCell" forIndexPath:indexPath];
         return cell;
     
-    }
-    else if (indexPath.section == 3)
-    {
-        WCNotificationsSwitchCell *cell = [tableView dequeueReusableCellWithIdentifier:@"NotificationsSwitchCell" forIndexPath:indexPath];
-        return cell;
-
     }
     NSLog(@"error: asked for cell that we don't know of");
     return nil;
@@ -133,7 +130,9 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if(indexPath.section == 2 && indexPath.row == 0) {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+
+    if(indexPath.section == 2 && indexPath.row == 0) { // Contact us
         
         if ([MFMailComposeViewController canSendMail])
         {
@@ -157,11 +156,10 @@
                                                          cancelButtonTitle:@"I'm gay"
                                                          otherButtonTitles:nil];
             [noEmailAlert show];
-            
             NSLog(@"This device cannot send email");
         }
     }
-    else if (indexPath.section == 1 && indexPath.row == 0){
+    else if (indexPath.section == 1 && indexPath.row == 0){ //About
         UIAlertView *pressedAboutButtonAlert = [[UIAlertView alloc] initWithTitle:@"FAGGOT"
                                                                message:@"Marcus molchany has no dicks"
                                                               delegate:self
