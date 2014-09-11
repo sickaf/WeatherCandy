@@ -50,13 +50,8 @@
 }
 
 -(void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Check the weather"
-                                                    message:[NSString stringWithFormat:@"Message: %@", notification.description]
-                                                   delegate:self
-                                          cancelButtonTitle:@"oaight"
-                                          otherButtonTitles:nil];
-    [alert show];
-    
+    NSLog(@"Received local notification");
+    [[UIApplication sharedApplication] setApplicationIconBadgeNumber: 0];
 }
 
 

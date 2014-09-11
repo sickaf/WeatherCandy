@@ -50,14 +50,14 @@
         UIUserNotificationSettings *notificationSettings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert|UIUserNotificationTypeBadge|UIUserNotificationTypeSound categories:nil];
         [[UIApplication sharedApplication] registerUserNotificationSettings:notificationSettings];
         
-        
         NSDate *dateTmw = [NSDate date];
         dateTmw = [dateTmw dateByAddingTimeInterval:60*60*24*1]; //one day
         
         UILocalNotification *localNotification = [[UILocalNotification alloc] init];
         localNotification.fireDate = dateTmw;
-        localNotification.alertBody = [NSString stringWithFormat:@"Alert Fired at %@", dateTmw];
+        localNotification.alertBody = @"Check the weather!";
         localNotification.applicationIconBadgeNumber = 1;
+        localNotification.repeatInterval = NSMinuteCalendarUnit;
         [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
         
     } else {
@@ -66,7 +66,6 @@
     }
     [[WCSettings sharedSettings] setNotificationsOn:sender.isOn];
     NSLog(@"notifications are: %@", [[WCSettings sharedSettings] notificationsOn] ? @"ON" : @"OFF");
-    
 }
 
 #pragma mark - Table view data source
@@ -99,21 +98,21 @@
 {
     if(indexPath.section == 0)
     {
-        if(indexPath.row == 0)
+        if(indexPath.row == 0)  // C|F cell
         {
             WCToggleCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ToggleCell" forIndexPath:indexPath];
             cell.tempToggle.selectedSegmentIndex = [[WCSettings sharedSettings] tempUnit];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             return cell;
         }
-        else if (indexPath.row == 1)
+        else if (indexPath.row == 1)  //Notifications cell
         {
             WCNotificationsSwitchCell *cell = [tableView dequeueReusableCellWithIdentifier:@"NotificationsSwitchCell" forIndexPath:indexPath];
             cell.notificationsSwitch.on = [[WCSettings sharedSettings] notificationsOn];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             return cell;
         }
-        else if (indexPath.row == 2)
+        else if (indexPath.row == 2) //clear saved cities
         {
             WCPlainCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PlainCell" forIndexPath:indexPath];
             cell.mainLabel.text = @"Clear saved cities";
@@ -125,14 +124,12 @@
         WCPlainCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PlainCell" forIndexPath:indexPath];
         cell.mainLabel.text = @"About";
         return cell;
-        
     }
     else if (indexPath.section == 2) //Contact us
     {
         WCPlainCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PlainCell" forIndexPath:indexPath];
         cell.mainLabel.text = @"Contact Us";
         return cell;
-    
     }
     
     return nil;
@@ -142,10 +139,8 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    if (indexPath.section == 0) {
-        if (indexPath.row == 2) {
-            [[WCSettings sharedSettings] clearSavedCities];
-        }
+    if (indexPath.section == 0 && indexPath.row == 2) {
+        [[WCSettings sharedSettings] clearSavedCities];
     }
 
     if(indexPath.section == 2 && indexPath.row == 0) { // Contact us
