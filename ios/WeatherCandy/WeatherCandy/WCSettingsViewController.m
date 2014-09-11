@@ -51,13 +51,11 @@
         [[UIApplication sharedApplication] registerUserNotificationSettings:notificationSettings];
         
         NSDate *dateTmw = [NSDate date];
-        dateTmw = [dateTmw dateByAddingTimeInterval:60*60*24*1]; //one day
         
         UILocalNotification *localNotification = [[UILocalNotification alloc] init];
         localNotification.fireDate = dateTmw;
         localNotification.alertBody = @"Check the weather!";
-        localNotification.applicationIconBadgeNumber = 1;
-        localNotification.repeatInterval = NSMinuteCalendarUnit;
+        localNotification.repeatInterval = NSDayCalendarUnit;
         [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
         
     } else {
