@@ -8,7 +8,11 @@
 
 #define kDefaultBackgroundColor       [UIColor colorWithWhite:0.230 alpha:1.000]
 #define kDefaultFont            [UIFont fontWithName:@"HelveticaNeue-Light" size:16]
-#define kDefaultTitleFont       [UIFont fontWithName:@"HelveticaNeue-Light" size:20]
+#define kDefaultTitleFont       [UIFont fontWithName:@"HelveticaNeue" size:15]
+
+#define kDefaultFontBold(s)             [UIFont fontWithName:@"AvenirNextCondensed-Bold" size:s]
+#define kDefaultFontUltraLight(s)		[UIFont fontWithName:@"AvenirNextCondensed-UltraLight" size:s]
+#define kDefaultFontMedium(s)           [UIFont fontWithName:@"AvenirNextCondensed-Medium" size:s]
 
 static NSString *const kCityChangedNotification         = @"WCCityChangedNotification";
 static NSString *const kReloadTempLabelsNotification    = @"WCReloadTempLabelsNotification";

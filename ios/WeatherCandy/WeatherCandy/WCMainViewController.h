@@ -10,12 +10,13 @@
 #import "UIImageViewAligned.h"
 #import "WCTitleButtonViewController.h"
 
-@interface WCMainViewController : WCTitleButtonViewController <UICollectionViewDataSource, UICollectionViewDelegate, UINavigationControllerDelegate, UIActionSheetDelegate, UIViewControllerTransitioningDelegate, UIScrollViewDelegate>
+@interface WCMainViewController : UIViewController <UICollectionViewDataSource, UICollectionViewDelegate, UINavigationControllerDelegate, UIActionSheetDelegate, UIViewControllerTransitioningDelegate, UIScrollViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 @property (weak, nonatomic) IBOutlet UIImageViewAligned *imageView;
 
 @property (weak, nonatomic) IBOutlet UILabel *mainTempLabel;
+@property (weak, nonatomic) IBOutlet UILabel *descriptionLabel;
 
 @end
 

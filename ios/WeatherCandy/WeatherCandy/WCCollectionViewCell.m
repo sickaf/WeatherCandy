@@ -31,14 +31,16 @@
     _imageURL = imageURL;
     
     [_downloadIndicator setHidden:NO];
-    self.gradientView.hidden = YES;
     
     __weak __typeof(self)weakSelf = self;
     [self.imageView setImageWithURL:[NSURL URLWithString:imageURL] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
         __strong __typeof(weakSelf)strongSelf = weakSelf;
+        
+        UIImage *reflectedImage = [UIImage imageWithCGImage:image.CGImage scale:image.scale orientation:UIImageOrientationDownMirrored];
+        
         strongSelf.imageView.image = image;
+        strongSelf.reflectionView.image = reflectedImage;
         [strongSelf.downloadIndicator setHidden:YES];
-        strongSelf.gradientView.hidden = NO;
         [[NSNotificationCenter defaultCenter] postNotificationName:kImageDownloadedNotification object:nil];
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
         // TODO: handle error
@@ -52,6 +54,7 @@
 {
     [super prepareForReuse];
     self.imageView.image = nil;
+    self.reflectionView.image = nil;
     self.imageURL = nil;
 }
 

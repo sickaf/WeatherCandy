@@ -27,7 +27,7 @@
     [butt setTitle:_titleButtonText forState:UIControlStateNormal];
     [butt setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [butt setTitleColor:[UIColor colorWithWhite:1 alpha:0.6] forState:UIControlStateHighlighted];
-    butt.titleLabel.font = kDefaultTitleFont;
+    butt.titleLabel.font = kDefaultFontMedium(18);
     [butt addTarget:self action:@selector(pressedTitle:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.titleView = butt;
     _titleButton = butt;

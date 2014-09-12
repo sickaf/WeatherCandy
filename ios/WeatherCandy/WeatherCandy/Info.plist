@@ -24,7 +24,7 @@
 	<true/>
 	<key>UIAppFonts</key>
 	<array>
-		<string>Weather&amp;Time.ttf</string>
+		<string>Avenir Next.ttc</string>
 	</array>
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>

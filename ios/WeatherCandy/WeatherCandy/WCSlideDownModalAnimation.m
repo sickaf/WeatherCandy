@@ -36,6 +36,7 @@
                                 fromViewController.view.frame = endFrame;
                             } completion:^(BOOL finished) {
                                 [transitionContext completeTransition:YES];
+                                [[UIApplication sharedApplication].keyWindow addSubview:toViewController.view];
                             }];
     }
     else {

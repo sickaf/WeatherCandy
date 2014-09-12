@@ -7,16 +7,15 @@
 //
 
 #import "WCForecastCollectionViewCell.h"
+#import "WCConstants.h"
 
 @implementation WCForecastCollectionViewCell
 
-- (id)initWithFrame:(CGRect)frame
+- (void)awakeFromNib
 {
-    self = [super initWithFrame:frame];
-    if (self) {
-        // Initialization code
-    }
-    return self;
+    self.timeLabel.font = kDefaultFontMedium(14);
+    self.tempLabel.font = kDefaultFontMedium(14);
+    self.timeLabel.alpha = 0.5;
 }
 
 @end

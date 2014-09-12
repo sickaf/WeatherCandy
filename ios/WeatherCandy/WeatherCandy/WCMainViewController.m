@@ -32,11 +32,12 @@
     NSDateFormatter *_dateFormatter;
 }
 
-@property (weak, nonatomic) IBOutlet UIScrollView *outerScrollView;
-@property (weak, nonatomic) IBOutlet UIScrollView *innerScrollView;
+//@property (weak, nonatomic) IBOutlet UIScrollView *outerScrollView;
+//@property (weak, nonatomic) IBOutlet UIScrollView *innerScrollView;
 @property (weak, nonatomic) IBOutlet UICollectionView *forecastCollectionView;
 @property (strong, nonatomic) UIActivityIndicatorView *spinner;
 @property (assign, nonatomic) BOOL loading;
+@property (weak, nonatomic) IBOutlet UIButton *titleButton;
 
 @end
 
@@ -56,8 +57,12 @@
     
     _spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
     _spinner.hidesWhenStopped = YES;
-    _spinner.center = self.outerScrollView.center;
+    _spinner.center = self.view.center;
     [self.view addSubview:_spinner];
+    
+    [self.titleButton.titleLabel setFont:kDefaultFontMedium(18)];
+    self.mainTempLabel.font = kDefaultFontUltraLight(100);
+    self.descriptionLabel.font = kDefaultFontBold(40);
     
     _dateFormatter = [[NSDateFormatter alloc] init];
     [_dateFormatter setDateStyle:NSDateFormatterNoStyle];
@@ -78,8 +83,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tempUnitToggled:) name:kReloadTempLabelsNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(imageDownloaded:) name:kImageDownloadedNotification object:nil];
     
-    self.collectionView.backgroundColor = kDefaultBackgroundColor;
-    self.forecastCollectionView.backgroundColor = kDefaultBackgroundColor;
+    self.forecastCollectionView.backgroundColor = [UIColor clearColor];
 }
 
 - (void)dealloc
@@ -96,12 +100,18 @@
     if (_loading) {
         [_spinner startAnimating];
         _spinner.hidden = NO;
-        self.outerScrollView.alpha = 0;
+        self.collectionView.alpha = 0;
+        self.forecastCollectionView.alpha = 0;
+        self.mainTempLabel.alpha = 0;
+        self.descriptionLabel.alpha = 0;
     }
     else {
         [_spinner stopAnimating];
         [UIView animateWithDuration:0.2 animations:^{
-            self.outerScrollView.alpha = 1;
+            self.collectionView.alpha = 1;
+            self.forecastCollectionView.alpha = 1;
+            self.mainTempLabel.alpha = 1;
+            self.descriptionLabel.alpha = 1;
         }];
         [self.collectionView reloadData];
     }
@@ -116,8 +126,19 @@
     
     self.loading = YES;
     
+    NSDateFormatter *df = [NSDateFormatter new];
+    [df setDateFormat:@"dd/MM/yyyy HH:mm"];
+    
+    // Create a date for GMT time
+    NSDate *date = [NSDate date];
+    NSString *gmtString = [df stringFromDate:date];
+    
+    //Create a date string in the local timezone
+    df.timeZone = [NSTimeZone systemTimeZone];
+    NSDate *localDate = [df dateFromString:gmtString];
+    
     [PFCloud callFunctionInBackground:@"getWeatherCandyData"
-                       withParameters:@{@"cityID": cityID, @"date":[NSDate date]}
+                       withParameters:@{@"cityID": cityID, @"date":localDate}
                                 block:^(NSDictionary *result, NSError *error) {
                                     
                                     self.loading = NO;
@@ -154,7 +175,9 @@
     WCTempFormatter *formatter = [WCTempFormatter new];
     
     NSNumber *curTemp = _currentWeatherData[@"main"][@"temp"];
+    NSString *description = _currentWeatherData[@"weather"][0][@"description"];
     self.mainTempLabel.text = [formatter formattedStringWithKelvin:[curTemp floatValue]];
+    self.descriptionLabel.text = description;
 }
 
 - (void)openProfileForIndexPath:(NSIndexPath *)indexPath
@@ -167,7 +190,7 @@
 
 - (void)changeToCity:(WCCity *)city
 {
-    self.titleButtonText = city.name;
+    [self.titleButton setTitle:city.name forState:UIControlStateNormal];
     [self getWeatherDataWithCityID:[city.cityID stringValue]];
 }
 
@@ -196,7 +219,7 @@
 
 - (void)imageDownloaded:(NSNotification *)note
 {
-    [self blurCurrentImageWithScrollOffset:self.outerScrollView.contentOffset];
+//    [self blurCurrentImageWithScrollOffset:self.outerScrollView.contentOffset];
 }
 
 #pragma mark - Actions
@@ -210,14 +233,16 @@
     [self presentViewController:vc animated:YES completion:nil];
 }
 
-- (void)pressedTitle:(id)sender
+- (IBAction)pressedTitle:(id)sender
 {
-    WCAddCityViewController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"AddCity"];
-    vc.titleButtonText = self.titleButtonText;
-    vc.bgImg = [self blurredImageOfCurrentView];
+    UINavigationController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"AddCityNavController"];
+    WCAddCityViewController *addCity = (WCAddCityViewController *)vc.topViewController;
+    addCity.titleButtonText = self.titleButton.titleLabel.text;
+    addCity.bgImg = [self blurredImageOfCurrentView];
     
-    self.navigationController.delegate = self;
-    [self.navigationController pushViewController:vc animated:YES];
+    vc.modalPresentationStyle = UIModalPresentationCustom;
+    vc.transitioningDelegate = self;
+    [self presentViewController:vc animated:YES completion:nil];
 }
 
 #pragma mark - Collection view data source
@@ -247,6 +272,7 @@
         
         WCCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"ImageCell" forIndexPath:indexPath];
         cell.imageURL = photo.photoURL;
+        
         return cell;
     }
     
@@ -267,6 +293,15 @@
     }
    
     return cell;
+}
+
+- (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    if ([collectionView isEqual:self.collectionView]) {
+        return self.view.bounds.size;
+    }
+    
+    return CGSizeMake((self.view.bounds.size.width - 50) / 4, 118);
 }
 
 #pragma mark - Collection view delegate
@@ -301,28 +336,16 @@
 
 #pragma mark - animation delegate
 
-- (id <UIViewControllerAnimatedTransitioning>)navigationController:(UINavigationController *)navigationController
-                                   animationControllerForOperation:(UINavigationControllerOperation)operation
-                                                fromViewController:(UIViewController *)fromVC
-                                                  toViewController:(UIViewController *)toVC
-{
-    WCSlideDownModalAnimation *slide = [WCSlideDownModalAnimation new];
-    if (operation == UINavigationControllerOperationPop) {
-        slide.presenting = YES;
-    }
-    return slide;
-}
-
 -(id<UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source {
     
-    WCSlideBehindModalAnimation *slide = [WCSlideBehindModalAnimation new];
+    WCSlideDownModalAnimation *slide = [WCSlideDownModalAnimation new];
     slide.presenting = NO;
     return slide;
 }
 
 -(id<UIViewControllerAnimatedTransitioning>)animationControllerForDismissedController:(UIViewController *)dismissed
 {
-    WCSlideBehindModalAnimation *slide = [WCSlideBehindModalAnimation new];
+    WCSlideDownModalAnimation *slide = [WCSlideDownModalAnimation new];
     slide.presenting = YES;
     return slide;
 }
@@ -358,25 +381,25 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    if (![scrollView isEqual:self.outerScrollView]) return;
-    
-    CGFloat yOffset = scrollView.contentOffset.y;
-    CGFloat upperScrollLimit = 180;
-    
-    if (yOffset >= 0) {
-        self.innerScrollView.contentOffset = CGPointMake(0, -yOffset);
-        if (yOffset < upperScrollLimit) {
-            self.collectionView.userInteractionEnabled = scrollView.contentOffset.y <= 0;
-        }
-        else {
-            self.innerScrollView.contentOffset = CGPointMake(0, -upperScrollLimit);
-        }
-    }
-    else {
-        self.innerScrollView.contentOffset = scrollView.contentOffset;
-    }
-    
-    [self blurCurrentImageWithScrollOffset:scrollView.contentOffset];
+//    if (![scrollView isEqual:self.outerScrollView]) return;
+//    
+//    CGFloat yOffset = scrollView.contentOffset.y;
+//    CGFloat upperScrollLimit = 180;
+//    
+//    if (yOffset >= 0) {
+//        self.innerScrollView.contentOffset = CGPointMake(0, -yOffset);
+//        if (yOffset < upperScrollLimit) {
+//            self.collectionView.userInteractionEnabled = scrollView.contentOffset.y <= 0;
+//        }
+//        else {
+//            self.innerScrollView.contentOffset = CGPointMake(0, -upperScrollLimit);
+//        }
+//    }
+//    else {
+//        self.innerScrollView.contentOffset = scrollView.contentOffset;
+//    }
+//    
+//    [self blurCurrentImageWithScrollOffset:scrollView.contentOffset];
 }
 
 @end

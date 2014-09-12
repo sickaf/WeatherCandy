@@ -80,7 +80,7 @@
 - (void)pressedTitle:(id)sender
 {
     [_manager.operationQueue cancelAllOperations];
-    [self.navigationController popViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 - (void)blankMethod
@@ -221,7 +221,7 @@
     
     [self saveLastSelectedCity:selectedCity];
     
-    [self.navigationController popViewControllerAnimated:YES];
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - Search Bar Delegate

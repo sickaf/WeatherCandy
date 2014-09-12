@@ -10,7 +10,6 @@
 		7F0C772F19BF229800E2C44C /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F0C772D19BF229800E2C44C /* Bolts.framework */; };
 		7F0C773019BF229800E2C44C /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F0C772E19BF229800E2C44C /* Parse.framework */; };
 		7F0C773419BF22AD00E2C44C /* UIImageViewAligned.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F0C773319BF22AD00E2C44C /* UIImageViewAligned.m */; };
-		7F14C61519B5DA66001FA062 /* Weather&Time.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7F14C61419B5D92D001FA062 /* Weather&Time.ttf */; };
 		7F14C61D19B5EC69001FA062 /* WCAddCityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F14C61C19B5EC69001FA062 /* WCAddCityViewController.m */; };
 		7F14C62019B5F349001FA062 /* WCSlideDownModalAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F14C61F19B5F349001FA062 /* WCSlideDownModalAnimation.m */; };
 		7F14C62319B60EF0001FA062 /* WCCity.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F14C62219B60EF0001FA062 /* WCCity.m */; };
@@ -44,6 +43,7 @@
 		7FDB145619B8A0D300790272 /* WCTintedImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FDB145519B8A0D300790272 /* WCTintedImageView.m */; };
 		7FDB145C19B8AED500790272 /* RMDisplayLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FDB145919B8AED500790272 /* RMDisplayLabel.m */; };
 		7FDB145D19B8AED500790272 /* RMDownloadIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FDB145B19B8AED500790272 /* RMDownloadIndicator.m */; };
+		7FF217DD19C3563A00D045BF /* Avenir Next.ttc in Resources */ = {isa = PBXBuildFile; fileRef = 7FF217DC19C3563A00D045BF /* Avenir Next.ttc */; };
 		8201147E19B3548A00F44D0B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8201147D19B3548A00F44D0B /* main.m */; };
 		8201148119B3548A00F44D0B /* WCAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8201148019B3548A00F44D0B /* WCAppDelegate.m */; };
 		8201148419B3548A00F44D0B /* WCMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8201148319B3548A00F44D0B /* WCMainViewController.m */; };
@@ -83,7 +83,6 @@
 		7F0C772E19BF229800E2C44C /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Parse.framework; path = Frameworks/Parse.framework; sourceTree = "<group>"; };
 		7F0C773219BF22AD00E2C44C /* UIImageViewAligned.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = UIImageViewAligned.h; sourceTree = "<group>"; };
 		7F0C773319BF22AD00E2C44C /* UIImageViewAligned.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = UIImageViewAligned.m; sourceTree = "<group>"; };
-		7F14C61419B5D92D001FA062 /* Weather&Time.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Weather&Time.ttf"; sourceTree = "<group>"; };
 		7F14C61B19B5EC69001FA062 /* WCAddCityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WCAddCityViewController.h; sourceTree = "<group>"; };
 		7F14C61C19B5EC69001FA062 /* WCAddCityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCAddCityViewController.m; sourceTree = "<group>"; };
 		7F14C61E19B5F349001FA062 /* WCSlideDownModalAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WCSlideDownModalAnimation.h; sourceTree = "<group>"; };
@@ -149,6 +148,7 @@
 		7FDB145919B8AED500790272 /* RMDisplayLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMDisplayLabel.m; sourceTree = "<group>"; };
 		7FDB145A19B8AED500790272 /* RMDownloadIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMDownloadIndicator.h; sourceTree = "<group>"; };
 		7FDB145B19B8AED500790272 /* RMDownloadIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMDownloadIndicator.m; sourceTree = "<group>"; };
+		7FF217DC19C3563A00D045BF /* Avenir Next.ttc */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Avenir Next.ttc"; sourceTree = "<group>"; };
 		8201147819B3548A00F44D0B /* WeatherCandy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeatherCandy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8201147C19B3548A00F44D0B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8201147D19B3548A00F44D0B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -376,7 +376,7 @@
 		8201147B19B3548A00F44D0B /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				7F14C61419B5D92D001FA062 /* Weather&Time.ttf */,
+				7FF217DC19C3563A00D045BF /* Avenir Next.ttc */,
 				7FAE69E119B5B0230061B1BD /* WCConstants.h */,
 				8201147C19B3548A00F44D0B /* Info.plist */,
 				8201147D19B3548A00F44D0B /* main.m */,
@@ -506,7 +506,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				7F14C61519B5DA66001FA062 /* Weather&Time.ttf in Resources */,
+				7FF217DD19C3563A00D045BF /* Avenir Next.ttc in Resources */,
 				8201148719B3548A00F44D0B /* Main.storyboard in Resources */,
 				8201148919B3548A00F44D0B /* Images.xcassets in Resources */,
 				7FDB143719B6ECEE00790272 /* Settings.storyboard in Resources */,
