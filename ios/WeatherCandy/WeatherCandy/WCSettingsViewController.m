@@ -15,6 +15,7 @@
 #import "WCNotificationsSwitchCell.h"
 #import "UIViewController+BlurredSnapshot.h"
 #import "WCNotificationBlurViewController.h"
+#import "WCAboutViewController.h"
 
 #import "WCAddCityViewController.h"
 
@@ -50,40 +51,63 @@
 }
 
 
-- (IBAction)notificationsSwitchChanged:(UISwitch *)sender {
+- (IBAction)notificationsSwitchChanged:(UISwitch *)sender
+{
+    //UIRemoteNotificationType *types = [[UIApplication sharedApplication] enabledRemoteNotificationTypes];
+  
+    
     
     if (sender.isOn) {//Switched on
         
+        if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0) {
+            NSLog(@"using ios8!");
+
+        } else {
+            NSLog(@"not using ios8!");
+        }
+
+        
+        //[[UIApplication sharedApplication] registerForRemoteNotificationTypes:notificationTypes];
+        
+        /*
         UIUserNotificationSettings *notificationSettings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert|UIUserNotificationTypeBadge|UIUserNotificationTypeSound categories:nil];
         [[UIApplication sharedApplication] registerUserNotificationSettings:notificationSettings];
+         */
+        NSLog(@"about to tell you if the user is registered for notifications but only on iOS8");
+        BOOL myBool = [[UIApplication sharedApplication] isRegisteredForRemoteNotifications];
+        if(myBool){
+            NSLog(@"it is!");
+        } else {
+            NSLog(@"it is not!");
+        }
+        
         UIRemoteNotificationType types = [[UIApplication sharedApplication] enabledRemoteNotificationTypes];
         
-        //User opted in to notifications and wants to turn on notifs
-        if (YES){ // TODO: finish this
-            
+        if (types & UIRemoteNotificationTypeAlert) //user has opted OUT
+        {
+            NSLog(@"user already opted out of notifications");
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Enable notifications"
+                                                            message:@"Turn on notifications for Weather Candy in settings"
+                                                            delegate:self
+                                                            cancelButtonTitle:@"Ok"
+                                                            otherButtonTitles:nil];
+            [alert show];
+            [sender setOn:NO animated:YES];
+            [[WCSettings sharedSettings] setNotificationsOn:NO]; // TODO: I dont know if I really use this
+            return;
+        }
+        else //User has opted IN to notifications
+        {
             WCNotificationBlurViewController *vc = [[UIStoryboard storyboardWithName:@"Settings" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"NotificationDatePicker"];
             vc.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
             vc.blurImg = [self blurredImageOfCurrentViewWithAlpha:0.7 withRadius:15 withSaturation:2];
-            self.navigationController.delegate = self;
             [self presentViewController:vc animated:YES completion:nil];
-        }
-        else {
-            NSLog(@"user already opted out of notifications");
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Enable notifications"
-                                                                   message:@"Turn on notifications for Weather Candy in settings"
-                                                                  delegate:self
-                                                         cancelButtonTitle:@"oaight"
-                                                         otherButtonTitles:nil];
-            [alert show];
-            // TODO: make sure switch is off
-            //[[WCSettings sharedSettings] setNotificationsOn:NO];
-            return;
         }
         
     } else {//Switched off
         [[UIApplication sharedApplication] cancelAllLocalNotifications]; // TODO: call this when app is opened
     }
-    [[WCSettings sharedSettings] setNotificationsOn:sender.isOn];
+    [[WCSettings sharedSettings] setNotificationsOn:sender.isOn]; // TODO: I dont know if I really use this
     NSLog(@"notifications are: %@", [[WCSettings sharedSettings] notificationsOn] ? @"ON" : @"OFF");
 }
 
@@ -94,12 +118,12 @@
     if(section == 0) {
         return 3;
     }
-    return 1;
+    return 2;
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-    return 3;
+    return 2;
 }
 
 - (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section
@@ -107,10 +131,17 @@
     NSString *title = @"";
     switch (section) {
         case 0: title = @"Options"; break;
-        case 1: title = @"About Sick.AF"; break;
-        case 2: title = @"Hit us up"; break;
+        case 1: title = @"sick.af"; break;
     }
     return title;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
+    if (section == 1) {
+        return @"Get in touch if you want to have your photos featured in Weather Candy";
+    }
+    
+    return nil;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -138,19 +169,22 @@
             return cell;
         }
     }
-    else if (indexPath.section == 1)  //About
+    else if (indexPath.section == 1)  //Sick.af section
     {
-        WCPlainCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PlainCell" forIndexPath:indexPath];
-        cell.mainLabel.text = @"About";
-        return cell;
+        if(indexPath.row == 0)  // About
+        {
+            WCPlainCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PlainCell" forIndexPath:indexPath];
+            cell.mainLabel.text = @"About";
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            return cell;
+        }
+        if(indexPath.row == 1)  // Contact us
+        {
+            WCPlainCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PlainCell" forIndexPath:indexPath];
+            cell.mainLabel.text = @"Contact Us";
+            return cell;
+        }
     }
-    else if (indexPath.section == 2) //Contact us
-    {
-        WCPlainCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PlainCell" forIndexPath:indexPath];
-        cell.mainLabel.text = @"Contact Us";
-        return cell;
-    }
-    
     return nil;
 }
 
@@ -158,45 +192,47 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    if (indexPath.section == 0 && indexPath.row == 2) {
+    if (indexPath.section == 0 && indexPath.row == 2) { //Clear saved cities
         [[WCSettings sharedSettings] clearSavedCities];
     }
 
-    if(indexPath.section == 2 && indexPath.row == 0) { // Contact us
+    if (indexPath.section == 1 && indexPath.row == 0){ //About
+        
+        //Get rid of back button label for the about section
+        UIBarButtonItem *backButton = [[UIBarButtonItem alloc]
+                                       initWithTitle: @""
+                                       style: UIBarButtonItemStyleBordered
+                                       target: nil action: nil];
+        [self.navigationItem setBackBarButtonItem: backButton];
+
+        //grab and push view controller
+        WCAboutViewController *vc = [[UIStoryboard storyboardWithName:@"Settings" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"About"];
+        [self.navigationController pushViewController:vc animated:YES];
+    }
+    else if(indexPath.section == 1 && indexPath.row == 1) { // Contact us
         
         if ([MFMailComposeViewController canSendMail])
         {
-            
-            if (!self.mailComposer) {
-                MFMailComposeViewController *mail = [[MFMailComposeViewController alloc] init];
-                mail.mailComposeDelegate = self;
-                [mail setSubject:@"Hey!"];
-                [mail setMessageBody:@"I want you to put my tits up there too" isHTML:NO];
-                [mail setToRecipients:@[@"acue@mac.com"]];
-                self.mailComposer = mail;
+            if (!self.mailComposer)
+            {
+                MFMailComposeViewController *mailer = [[MFMailComposeViewController alloc] init];
+                mailer.mailComposeDelegate = self;
+                [mailer setSubject:@"Hi!"];
+                NSArray *toRecipients = [NSArray arrayWithObjects:@"whatsgood@sick.af", nil];
+                [mailer setToRecipients:toRecipients];
+                [self presentViewController:self.mailComposer animated:YES completion:NULL];
             }
-            
-            [self presentViewController:self.mailComposer animated:YES completion:NULL];
         }
         else
         {
             UIAlertView *noEmailAlert = [[UIAlertView alloc] initWithTitle:@"Uh oh"
                                                                    message:@"You don't have mail set up"
                                                                   delegate:self
-                                                         cancelButtonTitle:@"I'm gay"
+                                                         cancelButtonTitle:@"Ok"
                                                          otherButtonTitles:nil];
             [noEmailAlert show];
             NSLog(@"This device cannot send email");
         }
-    }
-    else if (indexPath.section == 1 && indexPath.row == 0){ //About
-        UIAlertView *pressedAboutButtonAlert = [[UIAlertView alloc] initWithTitle:@"FAGGOT"
-                                                               message:@"Marcus molchany has no dicks"
-                                                              delegate:self
-                                                     cancelButtonTitle:@"I'm gay"
-                                                     otherButtonTitles:nil];
-        [pressedAboutButtonAlert show];
-
     }
     
 
