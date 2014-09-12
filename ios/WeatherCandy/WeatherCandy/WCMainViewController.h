@@ -17,6 +17,7 @@
 
 @property (weak, nonatomic) IBOutlet UILabel *mainTempLabel;
 @property (weak, nonatomic) IBOutlet UILabel *descriptionLabel;
+@property (weak, nonatomic) IBOutlet UIButton *settingsButton;
 
 @end
 
