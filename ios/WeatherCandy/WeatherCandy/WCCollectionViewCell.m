@@ -37,7 +37,7 @@
     [self.imageView setImageWithURL:[NSURL URLWithString:imageURL] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
         __strong __typeof(weakSelf)strongSelf = weakSelf;
         strongSelf.imageView.image = image;
-        [strongSelf.downloadIndicator removeFromSuperview];
+        [strongSelf.downloadIndicator setHidden:YES];
         strongSelf.gradientView.hidden = NO;
         [[NSNotificationCenter defaultCenter] postNotificationName:kImageDownloadedNotification object:nil];
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
