@@ -42,7 +42,7 @@
 
 #pragma mark - Actions
 
-// ovverride this in subclass
+// override this in subclass
 
 - (void)pressedTitle:(id)sender
 {

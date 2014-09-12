@@ -20,6 +20,7 @@
 #import "WCAddCityViewController.h"
 #import "WCTempFormatter.h"
 #import "WCForecastCollectionViewCell.h"
+#import "UIViewController+BlurredSnapshot.h"
 
 #import <Parse/Parse.h>
 
@@ -168,13 +169,6 @@
 {
     self.titleButtonText = city.name;
     [self getWeatherDataWithCityID:[city.cityID stringValue]];
-}
-
-- (UIImage *)blurredImageOfCurrentView
-{
-    UIImage *snap = [self.view convertViewToImage];
-    UIImage *blurred = [snap applyBlurWithRadius:20 tintColor:[UIColor colorWithWhite:0 alpha:0.5] saturationDeltaFactor:1.3 maskImage:nil];
-    return blurred;
 }
 
 - (void)reloadBlurredBackgroundOnPresentedViewController

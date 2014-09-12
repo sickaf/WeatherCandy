@@ -60,9 +60,12 @@
 		820114B419B35EFF00F44D0B /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 820114AA19B35EFF00F44D0B /* Security.framework */; };
 		820114B519B35EFF00F44D0B /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 820114AB19B35EFF00F44D0B /* StoreKit.framework */; };
 		820114B619B35EFF00F44D0B /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 820114AC19B35EFF00F44D0B /* SystemConfiguration.framework */; };
+		8247D5E019C2C58100341A24 /* UILabel+WhiteDatePickerLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8247D5DF19C2C58100341A24 /* UILabel+WhiteDatePickerLabel.m */; };
 		8282844119BDE01E005AA449 /* WCPlainCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8282844019BDE01E005AA449 /* WCPlainCell.m */; };
 		8282844619BDF2C3005AA449 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8282844519BDF2C3005AA449 /* MessageUI.framework */; };
 		8282844F19BE0B94005AA449 /* WCNotificationsSwitchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8282844E19BE0B94005AA449 /* WCNotificationsSwitchCell.m */; };
+		8283B7EB19C2A1FF00DB1979 /* UIViewController+BlurredSnapshot.m in Sources */ = {isa = PBXBuildFile; fileRef = 8283B7EA19C2A1FF00DB1979 /* UIViewController+BlurredSnapshot.m */; };
+		8283B7EE19C2AC8500DB1979 /* WCNotificationBlurViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8283B7ED19C2AC8500DB1979 /* WCNotificationBlurViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -168,11 +171,17 @@
 		820114AA19B35EFF00F44D0B /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		820114AB19B35EFF00F44D0B /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		820114AC19B35EFF00F44D0B /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		8247D5DE19C2C58100341A24 /* UILabel+WhiteDatePickerLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+WhiteDatePickerLabel.h"; sourceTree = "<group>"; };
+		8247D5DF19C2C58100341A24 /* UILabel+WhiteDatePickerLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+WhiteDatePickerLabel.m"; sourceTree = "<group>"; };
 		8282843F19BDE01E005AA449 /* WCPlainCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WCPlainCell.h; sourceTree = "<group>"; };
 		8282844019BDE01E005AA449 /* WCPlainCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCPlainCell.m; sourceTree = "<group>"; };
 		8282844519BDF2C3005AA449 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		8282844D19BE0B94005AA449 /* WCNotificationsSwitchCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WCNotificationsSwitchCell.h; sourceTree = "<group>"; };
 		8282844E19BE0B94005AA449 /* WCNotificationsSwitchCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCNotificationsSwitchCell.m; sourceTree = "<group>"; };
+		8283B7E919C2A1FF00DB1979 /* UIViewController+BlurredSnapshot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+BlurredSnapshot.h"; sourceTree = "<group>"; };
+		8283B7EA19C2A1FF00DB1979 /* UIViewController+BlurredSnapshot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+BlurredSnapshot.m"; sourceTree = "<group>"; };
+		8283B7EC19C2AC8500DB1979 /* WCNotificationBlurViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WCNotificationBlurViewController.h; sourceTree = "<group>"; };
+		8283B7ED19C2AC8500DB1979 /* WCNotificationBlurViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCNotificationBlurViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -242,6 +251,8 @@
 				8282844E19BE0B94005AA449 /* WCNotificationsSwitchCell.m */,
 				7FB123AF19BDE56900EFAAC3 /* WCForecastCollectionViewCell.h */,
 				7FB123B019BDE56900EFAAC3 /* WCForecastCollectionViewCell.m */,
+				8283B7E919C2A1FF00DB1979 /* UIViewController+BlurredSnapshot.h */,
+				8283B7EA19C2A1FF00DB1979 /* UIViewController+BlurredSnapshot.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -346,8 +357,12 @@
 				7F14C61C19B5EC69001FA062 /* WCAddCityViewController.m */,
 				7FDB143819B6EF7500790272 /* WCSettingsViewController.h */,
 				7FDB143919B6EF7500790272 /* WCSettingsViewController.m */,
+				8247D5DE19C2C58100341A24 /* UILabel+WhiteDatePickerLabel.h */,
+				8247D5DF19C2C58100341A24 /* UILabel+WhiteDatePickerLabel.m */,
 				7FAE69E319B5B2040061B1BD /* WCNavigationController.h */,
 				7FAE69E419B5B2040061B1BD /* WCNavigationController.m */,
+				8283B7EC19C2AC8500DB1979 /* WCNotificationBlurViewController.h */,
+				8283B7ED19C2AC8500DB1979 /* WCNotificationBlurViewController.m */,
 				7FDB144419B759EE00790272 /* WCTitleButtonViewController.h */,
 				7FDB144519B759EE00790272 /* WCTitleButtonViewController.m */,
 				8201148519B3548A00F44D0B /* Main.storyboard */,
@@ -534,13 +549,16 @@
 				7F14C62319B60EF0001FA062 /* WCCity.m in Sources */,
 				7FB123A819BD7BF500EFAAC3 /* WCTempFormatter.m in Sources */,
 				7FDB144A19B7683E00790272 /* UIImage+ImageEffects.m in Sources */,
+				8283B7EE19C2AC8500DB1979 /* WCNotificationBlurViewController.m in Sources */,
 				8201147E19B3548A00F44D0B /* main.m in Sources */,
 				8282844119BDE01E005AA449 /* WCPlainCell.m in Sources */,
 				7FAE69E519B5B2040061B1BD /* WCNavigationController.m in Sources */,
+				8283B7EB19C2A1FF00DB1979 /* UIViewController+BlurredSnapshot.m in Sources */,
 				7F14C62719B61A29001FA062 /* WCCityCell.m in Sources */,
 				7FAE69FB19B5B42D0061B1BD /* AFHTTPRequestOperationManager.m in Sources */,
 				7FDB145C19B8AED500790272 /* RMDisplayLabel.m in Sources */,
 				7FDB144D19B769B100790272 /* UIView+Snapshot.m in Sources */,
+				8247D5E019C2C58100341A24 /* UILabel+WhiteDatePickerLabel.m in Sources */,
 				7FDB145019B85D7E00790272 /* WCLabel.m in Sources */,
 				7FDB145D19B8AED500790272 /* RMDownloadIndicator.m in Sources */,
 				7FAE69FE19B5B42D0061B1BD /* AFSecurityPolicy.m in Sources */,

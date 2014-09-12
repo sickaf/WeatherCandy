@@ -13,11 +13,17 @@
 #import "WCPlainCell.h"
 #import "WCContactUsCell.h"
 #import "WCNotificationsSwitchCell.h"
+#import "UIViewController+BlurredSnapshot.h"
+#import "WCNotificationBlurViewController.h"
+
+#import "WCAddCityViewController.h"
+
 
 @interface WCSettingsViewController ()
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) MFMailComposeViewController *mailComposer;
+@property (weak, nonatomic) IBOutlet UIImageView *settingsBlurImageView;
 
 @end
 
@@ -46,21 +52,36 @@
 
 - (IBAction)notificationsSwitchChanged:(UISwitch *)sender {
     
-    if (sender.isOn) {
+    if (sender.isOn) {//Switched on
+        
         UIUserNotificationSettings *notificationSettings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert|UIUserNotificationTypeBadge|UIUserNotificationTypeSound categories:nil];
         [[UIApplication sharedApplication] registerUserNotificationSettings:notificationSettings];
+        UIRemoteNotificationType types = [[UIApplication sharedApplication] enabledRemoteNotificationTypes];
         
-        NSDate *dateTmw = [NSDate date];
+        //User opted in to notifications and wants to turn on notifs
+        if (YES){ // TODO: finish this
+            
+            WCNotificationBlurViewController *vc = [[UIStoryboard storyboardWithName:@"Settings" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"NotificationDatePicker"];
+            vc.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+            vc.blurImg = [self blurredImageOfCurrentViewWithAlpha:0.7 withRadius:15 withSaturation:2];
+            self.navigationController.delegate = self;
+            [self presentViewController:vc animated:YES completion:nil];
+        }
+        else {
+            NSLog(@"user already opted out of notifications");
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Enable notifications"
+                                                                   message:@"Turn on notifications for Weather Candy in settings"
+                                                                  delegate:self
+                                                         cancelButtonTitle:@"oaight"
+                                                         otherButtonTitles:nil];
+            [alert show];
+            // TODO: make sure switch is off
+            //[[WCSettings sharedSettings] setNotificationsOn:NO];
+            return;
+        }
         
-        UILocalNotification *localNotification = [[UILocalNotification alloc] init];
-        localNotification.fireDate = dateTmw;
-        localNotification.alertBody = @"Check the weather!";
-        localNotification.repeatInterval = NSDayCalendarUnit;
-        [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
-        
-    } else {
-        [[UIApplication sharedApplication] setApplicationIconBadgeNumber: 0];
-        [[UIApplication sharedApplication] cancelAllLocalNotifications]; //TODO call this when app is opened
+    } else {//Switched off
+        [[UIApplication sharedApplication] cancelAllLocalNotifications]; // TODO: call this when app is opened
     }
     [[WCSettings sharedSettings] setNotificationsOn:sender.isOn];
     NSLog(@"notifications are: %@", [[WCSettings sharedSettings] notificationsOn] ? @"ON" : @"OFF");
