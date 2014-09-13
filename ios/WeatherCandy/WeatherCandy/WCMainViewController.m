@@ -157,17 +157,16 @@
         _locationManager = manager;
     }
     
+    // Reset the delegate since I set this to nil after last time
+    self.locationManager.delegate = self;
+    
     // Check if we need to use iOS8 methods
     if ([self.locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)]) {
         // Request to use location
         if ([self hasLocationAccess]) {
-            // Reset the delegate since I set this to nil after last time
-            self.locationManager.delegate = self;
             [_locationManager startUpdatingLocation];
         }
         else {
-            // Reset the delegate since I set this to nil after last time
-            self.locationManager.delegate = self;
             [_locationManager requestWhenInUseAuthorization];
         }
     }
