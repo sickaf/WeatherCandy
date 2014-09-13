@@ -8,6 +8,8 @@
 
 #import "WCCategoryViewController.h"
 #import "WCCategoryCell.h"
+#import "WCSettings.h"
+
 
 
 @interface WCCategoryViewController ()
@@ -48,6 +50,16 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath   *)indexPath
 {
     [tableView cellForRowAtIndexPath:indexPath].accessoryType = UITableViewCellAccessoryCheckmark;
+    //
+    if(indexPath.row == 0)
+    {
+        [[WCSettings sharedSettings] setSelectedImageCategory:WCImageCategoryGirl];
+    }
+    else if(indexPath.row == 1)
+    {
+        [[WCSettings sharedSettings] setSelectedImageCategory:WCImageCategoryAnimal];
+    }
+        
 }
 
 -(void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -61,9 +73,9 @@
     WCCategoryCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CategoryCell" forIndexPath:indexPath];
     if(indexPath.row == 0)
     {
-        cell.textLabel.text =@"the baby animals";
+        cell.textLabel.text =@"girls";
     } else if (indexPath.row == 1) {
-        cell.textLabel.text = @"girls";
+        cell.textLabel.text = @"the baby animals";
     }
     return cell;
 }

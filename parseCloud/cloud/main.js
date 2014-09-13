@@ -52,7 +52,10 @@ function getWeatherCandyData(request, response) {
 
   var dateString = currentDate.yyyymmdd();
   var IGPhotoQuery = new Parse.Query("IGPhoto");
-  IGPhotoQuery.equalTo("forDate", dateString).equalTo("imageCategory", imageCategory);
+  IGPhotoQuery.equalTo("forDate", dateString);
+  if (imageCategory !== undefined) {
+    IGPhotoQuery.equalTo("imageCategory", imageCategory);
+  }
 
   return IGPhotoQuery.find().then(function(results) //process the results
   {

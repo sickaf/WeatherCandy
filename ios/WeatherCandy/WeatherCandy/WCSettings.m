@@ -8,8 +8,9 @@
 
 #import "WCSettings.h"
 
-static NSString *const kWCTemperatureTypeKey    = @"WCTemperatureType";
-static NSString *const kWCNotificationsKey      = @"WCNotificationsKey";
+static NSString *const kWCTemperatureTypeKey = @"WCTemperatureType";
+static NSString *const kWCNotificationsKey   = @"WCNotificationsKey";
+static NSString *const kWCCategoryKey        = @"WCCategoryKey";
 
 @implementation WCSettings
 
@@ -32,16 +33,24 @@ static NSString *const kWCNotificationsKey      = @"WCNotificationsKey";
         
         // Get the last set temp unit from storage
         WCTemperatureUnit unit = kWCCelsius;
-        if ([ud objectForKey:kWCTemperatureTypeKey]) {
+        if ([ud objectForKey:kWCTemperatureTypeKey])
+        {
             unit = [[ud objectForKey:kWCTemperatureTypeKey] intValue];
         }
-        
-        // Set the property
-        self.tempUnit = unit;
+        self.tempUnit = unit; // Set the property
+
+        //get the category from storage
+        WCImageCategory cat = WCImageCategoryAnimal;
+        if ([ud objectForKey:kWCCategoryKey])
+        {
+            cat = [[ud objectForKey:kWCCategoryKey] intValue];
+        }
+        self.selectedImageCategory = cat; // Set the property
         
         // Get the bool from storage
         BOOL notifications = NO;
-        if ([ud boolForKey:kWCNotificationsKey]) {
+        if ([ud boolForKey:kWCNotificationsKey])
+        {
             notifications = [ud boolForKey:kWCNotificationsKey];
         }
         
@@ -58,6 +67,14 @@ static NSString *const kWCNotificationsKey      = @"WCNotificationsKey";
     _tempUnit = tempUnit;
     NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
     [ud setObject:[NSNumber numberWithInt:tempUnit] forKey:kWCTemperatureTypeKey];
+    [ud synchronize];
+}
+
+- (void)setSelectedImageCategory:(WCImageCategory)selectedImageCategory
+{
+    _selectedImageCategory = selectedImageCategory;
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+    [ud setObject:[NSNumber numberWithInt:selectedImageCategory] forKey:kWCCategoryKey];
     [ud synchronize];
 }
 

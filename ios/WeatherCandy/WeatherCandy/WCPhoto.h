@@ -8,6 +8,9 @@
 
 #import <Foundation/Foundation.h>
 
+
+
+
 @interface WCPhoto : NSObject
 
 @property (nonatomic, strong) NSString *photoURL;

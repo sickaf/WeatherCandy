@@ -144,6 +144,23 @@
     return nil;
 }
 
+- (NSString*)formatTypeToString:(WCImageCategory)formatType {
+    NSString *result = nil;
+    
+    switch(formatType) {
+        case 0:
+            result = @"0";
+            break;
+        case 1:
+            result = @"1";
+            break;
+        default:
+            [NSException raise:NSGenericException format:@"Unexpected FormatType."];
+    }
+    
+    return result;
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if(indexPath.section == 0)
@@ -172,6 +189,10 @@
         {
             WCPlainCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PlainCell" forIndexPath:indexPath];
             cell.mainLabel.text = @"Category";
+            
+            NSNumber *myNum = [NSNumber numberWithInt:[[WCSettings sharedSettings] selectedImageCategory]];
+            NSString *myStr = [myNum stringValue];
+            cell.mainLabel.text = myStr;
             return cell;
         }
 
