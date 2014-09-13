@@ -10,14 +10,21 @@
 #import "UIImageViewAligned.h"
 #import "WCTitleButtonViewController.h"
 
+typedef enum {
+    WCBackgroundTypeBlue = 1,
+    WCBackgroundTypePurple,
+    WCBackgroundTypeOrange,
+} WCBackgroundType;
+
 @interface WCMainViewController : UIViewController <UICollectionViewDataSource, UICollectionViewDelegate, UINavigationControllerDelegate, UIActionSheetDelegate, UIViewControllerTransitioningDelegate, UIScrollViewDelegate>
 
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
-@property (weak, nonatomic) IBOutlet UIImageViewAligned *imageView;
 
 @property (weak, nonatomic) IBOutlet UILabel *mainTempLabel;
 @property (weak, nonatomic) IBOutlet UILabel *descriptionLabel;
 @property (weak, nonatomic) IBOutlet UIButton *settingsButton;
+@property (weak, nonatomic) IBOutlet UIImageView *bgGradientImageView;
+@property (weak, nonatomic) IBOutlet UIImageView *topGradientImageView;
 
 @end
 

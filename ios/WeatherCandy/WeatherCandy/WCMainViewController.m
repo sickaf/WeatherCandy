@@ -21,6 +21,7 @@
 #import "WCTempFormatter.h"
 #import "WCForecastCollectionViewCell.h"
 #import "UIViewController+BlurredSnapshot.h"
+#import "WCForecastWeather.h"
 
 #import <Parse/Parse.h>
 
@@ -30,6 +31,7 @@
     NSArray *_forecastData;
     UIImageView *_blurImageView;
     NSDateFormatter *_dateFormatter;
+    WCWeather *_currentWeather;
 }
 
 //@property (weak, nonatomic) IBOutlet UIScrollView *outerScrollView;
@@ -47,13 +49,27 @@
 {
     [super viewDidLoad];
     
+    // Status bar
+    
     [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:NO];
+    
+    // Setup
     
     _imgData = @[];
     _currentWeatherData = @{};
     
-    self.imageView.image = [self.imageView.image imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-    self.imageView.alignBottom = YES;
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cityChanged:) name:kCityChangedNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tempUnitToggled:) name:kReloadTempLabelsNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(imageDownloaded:) name:kImageDownloadedNotification object:nil];
+    
+    _dateFormatter = [[NSDateFormatter alloc] init];
+    [_dateFormatter setDateStyle:NSDateFormatterNoStyle];
+    [_dateFormatter setTimeStyle:NSDateFormatterShortStyle];
+    [_dateFormatter setDateFormat:@"ha"];
+    [_dateFormatter setLocale:[[NSLocale alloc] initWithLocaleIdentifier:@"en_US"]];
+    [_dateFormatter setTimeZone:[NSTimeZone systemTimeZone]];
+    
+    // UI
     
     _spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhite];
     _spinner.hidesWhenStopped = YES;
@@ -64,12 +80,11 @@
     self.mainTempLabel.font = kDefaultFontUltraLight(100);
     self.descriptionLabel.font = kDefaultFontBold(40);
     
-    _dateFormatter = [[NSDateFormatter alloc] init];
-    [_dateFormatter setDateStyle:NSDateFormatterNoStyle];
-    [_dateFormatter setTimeStyle:NSDateFormatterShortStyle];
-    [_dateFormatter setDateFormat:@"ha"];
-    [_dateFormatter setLocale:[[NSLocale alloc] initWithLocaleIdentifier:@"en_US"]];
-    [_dateFormatter setTimeZone:[NSTimeZone systemTimeZone]];
+    [self changeToBackgroundForType:WCBackgroundTypeBlue];
+    
+    self.forecastCollectionView.backgroundColor = [UIColor clearColor];
+    
+    // Switch to current city
     
     NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
     NSData *dataRepresentingCity = [ud objectForKey:kLastSelectedCity];
@@ -78,12 +93,6 @@
         WCCity *lastCity = [NSKeyedUnarchiver unarchiveObjectWithData:dataRepresentingCity];
         [self changeToCity:lastCity];
     }
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cityChanged:) name:kCityChangedNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tempUnitToggled:) name:kReloadTempLabelsNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(imageDownloaded:) name:kImageDownloadedNotification object:nil];
-    
-    self.forecastCollectionView.backgroundColor = [UIColor clearColor];
 }
 
 - (void)dealloc
@@ -104,6 +113,7 @@
         self.forecastCollectionView.alpha = 0;
         self.mainTempLabel.alpha = 0;
         self.descriptionLabel.alpha = 0;
+        self.topGradientImageView.alpha = 0;
     }
     else {
         [_spinner stopAnimating];
@@ -112,6 +122,7 @@
             self.forecastCollectionView.alpha = 1;
             self.mainTempLabel.alpha = 1;
             self.descriptionLabel.alpha = 1;
+            self.topGradientImageView.alpha = 1;
         }];
         [self.collectionView reloadData];
     }
@@ -126,22 +137,9 @@
     
     self.loading = YES;
     
-    NSDateFormatter *df = [NSDateFormatter new];
-    [df setDateFormat:@"dd/MM/yyyy HH:mm"];
-    
-    // Create a date for GMT time
-    NSDate *date = [NSDate date];
-    NSString *gmtString = [df stringFromDate:date];
-    
-    //Create a date string in the local timezone
-    df.timeZone = [NSTimeZone systemTimeZone];
-    NSDate *localDate = [df dateFromString:gmtString];
-    
     [PFCloud callFunctionInBackground:@"getWeatherCandyData"
-                       withParameters:@{@"cityID": cityID, @"date":localDate}
+                       withParameters:@{@"cityID": cityID, @"date":[NSDate date]}
                                 block:^(NSDictionary *result, NSError *error) {
-                                    
-                                    self.loading = NO;
                                     
                                     if (!error) {
                                         
@@ -161,23 +159,77 @@
                                         _imgData = [temp sortedArrayUsingDescriptors:@[sortDescriptor]];
                                         [self.collectionView reloadData];
                                         
-                                        _currentWeatherData = result[@"currentWeather"];
-                                        _forecastData = result[@"forecastList"];
+                                        NSDictionary *currentWeatherDict = result[@"currentWeather"];
+                                        
+                                        float currentTemp = [currentWeatherDict[@"temperature"] floatValue];
+                                        NSTimeInterval sunrise = [currentWeatherDict[@"sunrise"] longLongValue];
+                                        NSTimeInterval sunset = [currentWeatherDict[@"sunset"] longLongValue];
+                                        NSTimeInterval localTime = [currentWeatherDict[@"dt"] longLongValue];
+                                        NSInteger condition = [currentWeatherDict[@"condition"] integerValue];
+                                        
+                                        WCWeather *newCurrentWeather = [WCWeather new];
+                                        newCurrentWeather.temperature = currentTemp;
+                                        newCurrentWeather.sunrise = sunrise;
+                                        newCurrentWeather.sunset = sunset;
+                                        newCurrentWeather.currentLocalTime = localTime;
+                                        newCurrentWeather.condition = condition;
+                                        _currentWeather = newCurrentWeather;
+                                        
+                                        for (NSDictionary *dict in result[@"forecastList"]) {
+                                            WCForecastWeather *forecastWeather = [WCForecastWeather new];
+                                            forecastWeather.temperature = [dict[@"temperature"] floatValue];
+                                            forecastWeather.forecastTime = [dict[@"dt"] longLongValue];
+                                            forecastWeather.condition = [dict[@"condition"] integerValue];
+                                        }
         
-                                        [self refreshTempLabels];
+                                        [self refreshTempUI];
                                         [self.forecastCollectionView reloadData];
                                     }
+                                    
+                                    self.loading = NO;
                                 }];
 }
 
-- (void)refreshTempLabels
+- (void)refreshTempUI
 {
-    WCTempFormatter *formatter = [WCTempFormatter new];
+    self.mainTempLabel.text = [_currentWeather getTempString];
+    self.descriptionLabel.text = [_currentWeather getDescriptionString];
     
-    NSNumber *curTemp = _currentWeatherData[@"main"][@"temp"];
-    NSString *description = _currentWeatherData[@"weather"][0][@"description"];
-    self.mainTempLabel.text = [formatter formattedStringWithKelvin:[curTemp floatValue]];
-    self.descriptionLabel.text = description;
+    if ([_currentWeather isDayTime]) {
+        [self changeToBackgroundForType:WCBackgroundTypeBlue];
+    }
+    else {
+        [self changeToBackgroundForType:WCBackgroundTypePurple];
+    }
+}
+
+- (void)changeToBackgroundForType:(WCBackgroundType)type
+{
+    NSString *imgName = @"";
+    UIColor *bgColor;
+    
+    switch (type) {
+        case WCBackgroundTypeBlue:
+            imgName = kBackgroundImageNameBlue;
+            bgColor = kBackgroundColorBlue;
+            break;
+        case WCBackgroundTypeOrange:
+            imgName = kBackgroundImageNameOrange;
+            bgColor = kBackgroundColorOrange;
+            break;
+        case WCBackgroundTypePurple:
+            imgName = kBackgroundImageNamePurple;
+            bgColor = kBackgroundColorPurple;
+            break;
+        default:
+            imgName = kBackgroundImageNameBlue;
+            bgColor = kBackgroundColorBlue;
+            break;
+    }
+    
+    self.view.backgroundColor = bgColor;
+    self.collectionView.backgroundColor = bgColor;
+    self.bgGradientImageView.image = [UIImage imageNamed:imgName];
 }
 
 - (void)openProfileForIndexPath:(NSIndexPath *)indexPath
@@ -213,7 +265,7 @@
 
 - (void)tempUnitToggled:(NSNotification *)note
 {
-    [self refreshTempLabels];
+    [self refreshTempUI];
     [self.forecastCollectionView reloadData];
 }
 
@@ -277,14 +329,14 @@
     }
     
     WCForecastCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"ForecastCell" forIndexPath:indexPath];
-    WCTempFormatter *tf = [WCTempFormatter new];
     
     NSInteger ind = indexPath.row + 4 * indexPath.section;
     
     if (ind < _forecastData.count) {
-        NSDictionary *data = _forecastData[indexPath.row + 4 * indexPath.section];
-        cell.tempLabel.text = [tf formattedStringWithKelvin:[data[@"main"][@"temp"] floatValue]];
-        NSDate *date = [NSDate dateWithTimeIntervalSince1970:[data[@"dt"] longLongValue]];
+        
+        WCForecastWeather *forecastWeather = _forecastData[indexPath.row + 4 * indexPath.section];
+        cell.tempLabel.text = [forecastWeather getTempString];
+        NSDate *date = [NSDate dateWithTimeIntervalSince1970:forecastWeather.forecastTime];
         cell.timeLabel.text = [[_dateFormatter stringFromDate:date] lowercaseString];
     }
     else {
@@ -350,56 +402,33 @@
     return slide;
 }
 
-#pragma mark - Scroll view delegate
-
-- (void)blurCurrentImageWithScrollOffset:(CGPoint)offset
-{
-    if (self.collectionView.visibleCells.count <= 0) return;
-    
-    WCCollectionViewCell *currentImageCell = self.collectionView.visibleCells[0];
-    UIImage *currentImage = currentImageCell.imageView.image;
-    
-    if (!currentImage) return;
-    
-    if (offset.y > 0) {
-        if (!_blurImageView) {
-            _blurImageView = [[UIImageView alloc] initWithFrame:currentImageCell.contentView.bounds];
-            _blurImageView.alpha = 0;
-            UIImage *blurred = [currentImage applyBlurWithRadius:20 tintColor:[UIColor colorWithWhite:0 alpha:0.3] saturationDeltaFactor:1.3 maskImage:nil];
-            _blurImageView.image = blurred;
-            [currentImageCell.contentView insertSubview:_blurImageView atIndex:1];
-        }
-    }
-    else {
-        [_blurImageView removeFromSuperview];
-        _blurImageView.image = nil;
-        _blurImageView = nil;
-    }
-    
-    _blurImageView.alpha = offset.y / self.view.bounds.size.height * 5;
-}
-
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView
-{
-//    if (![scrollView isEqual:self.outerScrollView]) return;
+//#pragma mark - Scroll view delegate
+//
+//- (void)blurCurrentImageWithScrollOffset:(CGPoint)offset
+//{
+//    if (self.collectionView.visibleCells.count <= 0) return;
 //    
-//    CGFloat yOffset = scrollView.contentOffset.y;
-//    CGFloat upperScrollLimit = 180;
+//    WCCollectionViewCell *currentImageCell = self.collectionView.visibleCells[0];
+//    UIImage *currentImage = currentImageCell.imageView.image;
 //    
-//    if (yOffset >= 0) {
-//        self.innerScrollView.contentOffset = CGPointMake(0, -yOffset);
-//        if (yOffset < upperScrollLimit) {
-//            self.collectionView.userInteractionEnabled = scrollView.contentOffset.y <= 0;
-//        }
-//        else {
-//            self.innerScrollView.contentOffset = CGPointMake(0, -upperScrollLimit);
+//    if (!currentImage) return;
+//    
+//    if (offset.y > 0) {
+//        if (!_blurImageView) {
+//            _blurImageView = [[UIImageView alloc] initWithFrame:currentImageCell.contentView.bounds];
+//            _blurImageView.alpha = 0;
+//            UIImage *blurred = [currentImage applyBlurWithRadius:20 tintColor:[UIColor colorWithWhite:0 alpha:0.3] saturationDeltaFactor:1.3 maskImage:nil];
+//            _blurImageView.image = blurred;
+//            [currentImageCell.contentView insertSubview:_blurImageView atIndex:1];
 //        }
 //    }
 //    else {
-//        self.innerScrollView.contentOffset = scrollView.contentOffset;
+//        [_blurImageView removeFromSuperview];
+//        _blurImageView.image = nil;
+//        _blurImageView = nil;
 //    }
 //    
-//    [self blurCurrentImageWithScrollOffset:scrollView.contentOffset];
-}
+//    _blurImageView.alpha = offset.y / self.view.bounds.size.height * 5;
+//}
 
 @end

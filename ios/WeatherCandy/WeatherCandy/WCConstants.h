@@ -14,6 +14,14 @@
 #define kDefaultFontUltraLight(s)		[UIFont fontWithName:@"AvenirNextCondensed-UltraLight" size:s]
 #define kDefaultFontMedium(s)           [UIFont fontWithName:@"AvenirNextCondensed-Medium" size:s]
 
+#define kBackgroundImageNameBlue    @"cloudy_plus"
+#define kBackgroundImageNameOrange  @"sunny_plus"
+#define kBackgroundImageNamePurple  @"night_plus"
+#define kBackgroundColorBlue        [UIColor colorWithRed:0.146 green:0.293 blue:0.434 alpha:1.000]
+#define kBackgroundColorOrange      [UIColor colorWithRed:0.886 green:0.256 blue:0.252 alpha:1.000]
+#define kBackgroundColorPurple      [UIColor colorWithRed:0.115 green:0.000 blue:0.359 alpha:1.000]
+
+
 static NSString *const kCityChangedNotification         = @"WCCityChangedNotification";
 static NSString *const kReloadTempLabelsNotification    = @"WCReloadTempLabelsNotification";
 static NSString *const kImageDownloadedNotification     = @"WCImageDownloadedNotification";
