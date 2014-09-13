@@ -116,7 +116,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if(section == 0) {
-        return 3;
+        return 4;
     }
     return 2;
 }
@@ -168,6 +168,13 @@
             cell.mainLabel.text = @"Clear saved cities";
             return cell;
         }
+        else if (indexPath.row == 3) //category
+        {
+            WCPlainCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PlainCell" forIndexPath:indexPath];
+            cell.mainLabel.text = @"Category";
+            return cell;
+        }
+
     }
     else if (indexPath.section == 1)  //Sick.af section
     {
@@ -192,11 +199,26 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    if (indexPath.section == 0 && indexPath.row == 2) { //Clear saved cities
+    if (indexPath.section == 0 && indexPath.row == 2)  //Clear saved cities
+    {
         [[WCSettings sharedSettings] clearSavedCities];
     }
+    else if (indexPath.section == 0 && indexPath.row == 3) //category
+    {
+        //Get rid of back button label for the about section
+        UIBarButtonItem *backButton = [[UIBarButtonItem alloc]
+                                       initWithTitle: @""
+                                       style: UIBarButtonItemStyleBordered
+                                       target: nil action: nil];
+        [self.navigationItem setBackBarButtonItem: backButton];
+        
+        //grab and push view controller
+        WCAboutViewController *vc = [[UIStoryboard storyboardWithName:@"Settings" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"CategoryViewController"];
+        [self.navigationController pushViewController:vc animated:YES];
+    }
 
-    if (indexPath.section == 1 && indexPath.row == 0){ //About
+    else if (indexPath.section == 1 && indexPath.row == 0) //About
+    {
         
         //Get rid of back button label for the about section
         UIBarButtonItem *backButton = [[UIBarButtonItem alloc]
@@ -209,7 +231,8 @@
         WCAboutViewController *vc = [[UIStoryboard storyboardWithName:@"Settings" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"About"];
         [self.navigationController pushViewController:vc animated:YES];
     }
-    else if(indexPath.section == 1 && indexPath.row == 1) { // Contact us
+    else if(indexPath.section == 1 && indexPath.row == 1)  // Contact us
+    {
         
         if ([MFMailComposeViewController canSendMail])
         {

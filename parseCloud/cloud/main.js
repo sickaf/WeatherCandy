@@ -34,7 +34,7 @@ function getWeatherCandyData(request, response) {
   var forecastQueryString ="api.openweathermap.org/data/2.5/forecast?";
   
   //build weatherQueryString with parameters the client sent us
-  if ( cityID !== undefined ) { 
+  if (cityID !== undefined ) { 
     console.log("got cityID="+cityID);
     weatherQueryString = weatherQueryString+"id="+cityID;
     forecastQueryString = forecastQueryString+"id="+cityID;
@@ -81,7 +81,7 @@ function getWeatherCandyData(request, response) {
 
         Parse.Cloud.httpRequest({
           url:forecastQueryString,
-          success: function(forecastResponse) 
+          success: function(forecastResponse)  //add the forecast data
           {
             var forecastResponse = JSON.parse(forecastResponse.text);
 
