@@ -11,6 +11,7 @@
 #import "WCCity.h"
 #import "WCCityCell.h"
 #import "AFNetworking.h"
+#import "WCSettings.h"
 
 @interface WCAddCityViewController ()
 
@@ -30,9 +31,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    // Hack to hide the back button without weird animation bug when dismissing
-    self.navigationItem.leftBarButtonItem = [[UIBarButtonItem alloc] initWithTitle:@"" style:UIBarButtonItemStylePlain target:self action:@selector(blankMethod)];
     
     _savedCities = [NSMutableArray new];
     _searchResults = [NSMutableArray new];
@@ -83,11 +81,6 @@
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
-- (void)blankMethod
-{
-    // Bruh obviously nothing happens here
-}
-
 #pragma mark - Helpers
 
 - (void)getSavedCityData
@@ -101,11 +94,17 @@
         [_savedCities addObjectsFromArray:oldSavedArray];
     }
     
+    WCCity *currentLocation = [WCCity new];
+    currentLocation.name = @"Current Location";
+    currentLocation.currentLocation = YES;
+    [_savedCities insertObject:currentLocation atIndex:0];
+    
     [self.tableView reloadData];
 }
 
 - (void)saveCityData
 {
+    [_savedCities removeObjectAtIndex:0];
     NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
     [ud removeObjectForKey:@"cities"];
     [ud setObject:[NSKeyedArchiver archivedDataWithRootObject:_savedCities] forKey:@"cities"];
@@ -178,7 +177,15 @@
     NSString *adminName = city.adminName;
     NSString *countryCode = city.country;
     
-    NSString *wholeString = [NSString stringWithFormat:@"%@, %@ (%@)", cityName, adminName, countryCode];
+    NSString *wholeString;
+    
+    if (!city.currentLocation) {
+        wholeString = [NSString stringWithFormat:@"%@, %@ (%@)", cityName, adminName, countryCode];
+    }
+    else {
+        wholeString = [NSString stringWithFormat:@"%@", cityName];
+    }
+    
     cell.textLabel.text = wholeString;
 }
 
@@ -201,9 +208,9 @@
     if (_searchResults.count > 0) {
         
         selectedCity = _searchResults[indexPath.row];
-        [_savedCities insertObject:selectedCity atIndex:0];
+        [_savedCities insertObject:selectedCity atIndex:1];
         
-        if (_savedCities.count > 6) {
+        if (_savedCities.count > 7) {
             [_savedCities removeLastObject];
         }
         
@@ -215,13 +222,28 @@
     }
     else {
         selectedCity = _savedCities[indexPath.row];
+        
+        // Check if we selected the current location
+        if (selectedCity.currentLocation && ![[WCSettings sharedSettings] locationEnabled]) {
+            [self handleNoLocationError];
+            return;
+        }
+    }
+    
+    // If we did not select current location, save this as the last chosen city
+    if (!selectedCity.currentLocation) {
+        [self saveLastSelectedCity:selectedCity];
     }
     
     [[NSNotificationCenter defaultCenter] postNotificationName:kCityChangedNotification object:nil userInfo:@{@"city": selectedCity}];
     
-    [self saveLastSelectedCity:selectedCity];
-    
     [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)handleNoLocationError
+{
+    UIAlertView *err = [[UIAlertView alloc] initWithTitle:@"Sorry" message:@"Location services isn't currently enabled for this app. Please turn on location services to use this feature." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    [err show];
 }
 
 #pragma mark - Search Bar Delegate

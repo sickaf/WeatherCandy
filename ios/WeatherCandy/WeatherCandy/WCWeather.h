@@ -7,7 +7,7 @@
 //
 
 typedef enum {
-    WCWeatherConditionThunderstorm = 1,
+    WCWeatherConditionThunderstorm = 0,
     WCWeatherConditionDrizzle,
     WCWeatherConditionRain,
     WCWeatherConditionSnow,

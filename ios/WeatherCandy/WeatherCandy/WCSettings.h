@@ -17,6 +17,7 @@ typedef enum {
 
 @property (nonatomic, assign) WCTemperatureUnit tempUnit;
 @property (nonatomic, assign) BOOL notificationsOn;
+@property (nonatomic, assign) BOOL locationEnabled;
 
 + (id)sharedSettings;
 

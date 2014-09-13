@@ -7,6 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
+#import <CoreLocation/CoreLocation.h>
+
 #import "UIImageViewAligned.h"
 #import "WCTitleButtonViewController.h"
 
@@ -16,7 +18,7 @@ typedef enum {
     WCBackgroundTypeOrange,
 } WCBackgroundType;
 
-@interface WCMainViewController : UIViewController <UICollectionViewDataSource, UICollectionViewDelegate, UINavigationControllerDelegate, UIActionSheetDelegate, UIViewControllerTransitioningDelegate, UIScrollViewDelegate>
+@interface WCMainViewController : UIViewController <UICollectionViewDataSource, UICollectionViewDelegate, UINavigationControllerDelegate, UIActionSheetDelegate, UIViewControllerTransitioningDelegate, CLLocationManagerDelegate>
 
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 
