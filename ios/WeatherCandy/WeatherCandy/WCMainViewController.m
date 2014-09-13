@@ -125,6 +125,7 @@
             self.topGradientImageView.alpha = 1;
         }];
         [self.collectionView reloadData];
+        [self.forecastCollectionView reloadData];
     }
 }
 
@@ -186,7 +187,6 @@
                                         _forecastData = [NSArray arrayWithArray:newForecastData];
         
                                         [self refreshTempUI];
-                                        [self.forecastCollectionView reloadData];
                                     }
                                     
                                     self.loading = NO;
@@ -199,7 +199,12 @@
     self.descriptionLabel.text = [_currentWeather weatherDescription];
     
     if ([_currentWeather isDayTime]) {
-        [self changeToBackgroundForType:WCBackgroundTypeBlue];
+        if ([_currentWeather condition] == WCWeatherConditionClear) {
+            [self changeToBackgroundForType:WCBackgroundTypeOrange];
+        }
+        else {
+            [self changeToBackgroundForType:WCBackgroundTypeBlue];
+        }
     }
     else {
         [self changeToBackgroundForType:WCBackgroundTypePurple];
