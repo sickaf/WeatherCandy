@@ -172,15 +172,18 @@
                                         newCurrentWeather.sunrise = sunrise;
                                         newCurrentWeather.sunset = sunset;
                                         newCurrentWeather.currentLocalTime = localTime;
-                                        newCurrentWeather.condition = condition;
+                                        newCurrentWeather.condition = (int)condition;
                                         _currentWeather = newCurrentWeather;
                                         
+                                        NSMutableArray *newForecastData = [NSMutableArray new];
                                         for (NSDictionary *dict in result[@"forecastList"]) {
                                             WCForecastWeather *forecastWeather = [WCForecastWeather new];
                                             forecastWeather.temperature = [dict[@"temperature"] floatValue];
                                             forecastWeather.forecastTime = [dict[@"dt"] longLongValue];
-                                            forecastWeather.condition = [dict[@"condition"] integerValue];
+                                            forecastWeather.condition = (int)[dict[@"condition"] integerValue];
+                                            [newForecastData addObject:forecastWeather];
                                         }
+                                        _forecastData = [NSArray arrayWithArray:newForecastData];
         
                                         [self refreshTempUI];
                                         [self.forecastCollectionView reloadData];
@@ -192,8 +195,8 @@
 
 - (void)refreshTempUI
 {
-    self.mainTempLabel.text = [_currentWeather getTempString];
-    self.descriptionLabel.text = [_currentWeather getDescriptionString];
+    self.mainTempLabel.text = [_currentWeather tempString];
+    self.descriptionLabel.text = [_currentWeather weatherDescription];
     
     if ([_currentWeather isDayTime]) {
         [self changeToBackgroundForType:WCBackgroundTypeBlue];
@@ -335,9 +338,10 @@
     if (ind < _forecastData.count) {
         
         WCForecastWeather *forecastWeather = _forecastData[indexPath.row + 4 * indexPath.section];
-        cell.tempLabel.text = [forecastWeather getTempString];
+        cell.tempLabel.text = [forecastWeather tempString];
         NSDate *date = [NSDate dateWithTimeIntervalSince1970:forecastWeather.forecastTime];
         cell.timeLabel.text = [[_dateFormatter stringFromDate:date] lowercaseString];
+        cell.iconImage = [UIImage imageNamed:[forecastWeather iconNameForCurrentCondition]];
     }
     else {
         cell.tempLabel.text = @"-";

@@ -18,4 +18,11 @@
     self.timeLabel.alpha = 0.5;
 }
 
+- (void)setIconImage:(UIImage *)iconImage{
+    if (_iconImage == iconImage) return;
+    _iconImage = iconImage;
+    
+    self.iconImageView.image = [_iconImage imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
+}
+
 @end

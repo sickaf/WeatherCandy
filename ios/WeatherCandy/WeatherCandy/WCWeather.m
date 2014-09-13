@@ -22,52 +22,59 @@
     return self;
 }
 
-- (NSString *)getTempString
+- (NSString *)tempString
 {
     return [_tempFormatter formattedStringWithKelvin:self.temperature];
 }
 
-- (NSString *)getDescriptionString
+- (NSString *)weatherDescription
 {
-    return [self stringWithWeatherCondition:self.condition];
+    return [self descriptionStringWithWeatherCondition:self.condition];
 }
 
-- (NSString *)stringWithWeatherCondition:(WCWeatherCondition)condition
+- (NSString *)iconNameForCurrentCondition
+{
+    return @"";
+}
+
+- (NSString *)descriptionStringWithWeatherCondition:(WCWeatherCondition)condition
 {
     switch (condition) {
         case WCWeatherConditionThunderstorm:
-            return @"Thunderstorms";
+            return kConditionStringThunderstorm;
             break;
         case WCWeatherConditionDrizzle:
-            return @"Drizzle";
+            return kConditionStringDrizzle;
             break;
         case WCWeatherConditionRain:
-            return @"Raining";
+            return kConditionStringRaining;
             break;
         case WCWeatherConditionClear: {
             if ([self isDayTime]) {
-                return @"Sunny";
+                return kConditionStringClearDay;
             }
-            return @"Clear";
+            return kConditionStringClearNight;
             break;
         }
         case WCWeatherConditionHaze:
-            return @"Haze";
+            return kConditionStringHaze;
             break;
         case WCWeatherConditionOvercast:
-            return  @"Cloudy";
+            return  kConditionStringCloudy;
             break;
         case WCWeatherConditionPartyCloudy:
-            return @"Party Cloudy";
+            return kConditionStringPartlyCloudy;
             break;
         case WCWeatherConditionSnow:
-            return @"Snowing";
+            return kConditionStringSnow;
             break;
         default:
-            return @"Unknown";
+            return kConditionStringUnknown;
             break;
     }
 }
+
+
 
 - (BOOL)isDayTime
 {

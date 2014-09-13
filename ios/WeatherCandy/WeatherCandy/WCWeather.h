@@ -19,6 +19,7 @@ typedef enum {
 
 #import <Foundation/Foundation.h>
 #import "WCSettings.h"
+#import "WCConstants.h"
 
 @interface WCWeather : NSObject
 
@@ -28,8 +29,8 @@ typedef enum {
 @property (nonatomic, assign) NSTimeInterval sunrise;
 @property (nonatomic, assign) NSTimeInterval sunset;
 
-- (NSString *)getTempString;
-- (NSString *)getDescriptionString;
+- (NSString *)tempString;
+- (NSString *)weatherDescription;
 - (BOOL)isDayTime;
 
 @end

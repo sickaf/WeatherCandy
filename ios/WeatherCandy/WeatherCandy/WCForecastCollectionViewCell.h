@@ -7,13 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "WCLabel.h"
 #import "WCTintedImageView.h"
 
 @interface WCForecastCollectionViewCell : UICollectionViewCell
 
-@property (weak, nonatomic) IBOutlet WCLabel *tempLabel;
+@property (weak, nonatomic) IBOutlet UILabel *tempLabel;
 @property (weak, nonatomic) IBOutlet WCTintedImageView *iconImageView;
-@property (weak, nonatomic) IBOutlet WCLabel *timeLabel;
+@property (weak, nonatomic) IBOutlet UILabel *timeLabel;
+
+@property (strong, nonatomic) UIImage *iconImage;
 
 @end

@@ -56,6 +56,7 @@
     self.imageView.image = nil;
     self.reflectionView.image = nil;
     self.imageURL = nil;
+    [self.downloadIndicator updateWithTotalBytes:0.0f downloadedBytes:10.0f];
 }
 
 @end

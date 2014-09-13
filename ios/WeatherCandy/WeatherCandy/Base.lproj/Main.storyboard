@@ -101,7 +101,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="70" height="118"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="clouds-128" translatesAutoresizingMaskIntoConstraints="NO" id="RYP-qI-ctH" customClass="WCTintedImageView">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="fog_day" translatesAutoresizingMaskIntoConstraints="NO" id="RYP-qI-ctH" customClass="WCTintedImageView">
                                                     <rect key="frame" x="18" y="15" width="35" height="35"/>
                                                     <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </imageView>
@@ -165,7 +165,7 @@
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eVU-6v-0PE">
                                 <rect key="frame" x="16" y="23" width="32" height="32"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <state key="normal" image="Image">
+                                <state key="normal" image="settings">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -294,8 +294,8 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Image" width="17" height="17"/>
-        <image name="clouds-128" width="64" height="64"/>
+        <image name="fog_day" width="50" height="50"/>
+        <image name="settings" width="17" height="17"/>
         <image name="sunny_plus" width="540" height="960"/>
         <image name="top" width="320" height="110"/>
     </resources>

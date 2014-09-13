@@ -21,6 +21,29 @@
 #define kBackgroundColorOrange      [UIColor colorWithRed:0.886 green:0.256 blue:0.252 alpha:1.000]
 #define kBackgroundColorPurple      [UIColor colorWithRed:0.115 green:0.000 blue:0.359 alpha:1.000]
 
+#define kConditionStringThunderstorm    @"storming"
+#define kConditionStringDrizzle         @"drizzle"
+#define kConditionStringRaining         @"raining"
+#define kConditionStringClearDay        @"sunny"
+#define kConditionStringClearNight      @"clear"
+#define kConditionStringHaze            @"haze"
+#define kConditionStringCloudy          @"cloudy"
+#define kConditionStringPartlyCloudy    @"partly cloudy"
+#define kConditionStringSnow            @"snowing"
+#define kConditionStringUnknown         @"unknown"
+
+
+#define kIconNameClouds             @"clouds"
+#define kIconNameFogDay             @"fog_day"
+#define kIconNameFogNight           @"fog_night"
+#define kIconNameDrizzle            @"little_rain"
+#define kIconNameClearNight         @"moon"
+#define kIconNamePartlyCloudyDay    @"partly_cloudy_day"
+#define kIconNamePartlyCloudyNight  @"partly_cloudy_night"
+#define kIconNameRain               @"rain"
+#define kIconNameSnow               @"snow"
+#define kIconNameStorm              @"storm"
+#define kIconNameClearDay           @"sun"
 
 static NSString *const kCityChangedNotification         = @"WCCityChangedNotification";
 static NSString *const kReloadTempLabelsNotification    = @"WCReloadTempLabelsNotification";

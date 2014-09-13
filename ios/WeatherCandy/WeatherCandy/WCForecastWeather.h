@@ -12,4 +12,6 @@
 
 @property (nonatomic, assign) NSTimeInterval forecastTime;
 
+- (NSString *)iconNameForCurrentCondition;
+
 @end
