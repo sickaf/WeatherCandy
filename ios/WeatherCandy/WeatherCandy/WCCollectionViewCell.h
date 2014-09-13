@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import "RMDownloadIndicator.h"
-#import "WCAlphaGradientView.h"
 
 @interface WCCollectionViewCell : UICollectionViewCell
 

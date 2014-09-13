@@ -14,8 +14,9 @@
 		7F14C62019B5F349001FA062 /* WCSlideDownModalAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F14C61F19B5F349001FA062 /* WCSlideDownModalAnimation.m */; };
 		7F14C62319B60EF0001FA062 /* WCCity.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F14C62219B60EF0001FA062 /* WCCity.m */; };
 		7F14C62719B61A29001FA062 /* WCCityCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F14C62619B61A29001FA062 /* WCCityCell.m */; };
+		7F1BEE6819C4143300D2AA70 /* WCWeather.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F1BEE6719C4143300D2AA70 /* WCWeather.m */; };
+		7F1BEE6B19C41A3D00D2AA70 /* WCForecastWeather.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F1BEE6A19C41A3D00D2AA70 /* WCForecastWeather.m */; };
 		7FAE69D819B5A6BA0061B1BD /* WCCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FAE69D719B5A6BA0061B1BD /* WCCollectionViewCell.m */; };
-		7FAE69DE19B5AD370061B1BD /* WCAlphaGradientView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FAE69DD19B5AD370061B1BD /* WCAlphaGradientView.m */; };
 		7FAE69DF19B5AD640061B1BD /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 820114A919B35EFF00F44D0B /* QuartzCore.framework */; };
 		7FAE69E519B5B2040061B1BD /* WCNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FAE69E419B5B2040061B1BD /* WCNavigationController.m */; };
 		7FAE69FA19B5B42D0061B1BD /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FAE69E819B5B42D0061B1BD /* AFHTTPRequestOperation.m */; };
@@ -39,7 +40,6 @@
 		7FDB144619B759EE00790272 /* WCTitleButtonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FDB144519B759EE00790272 /* WCTitleButtonViewController.m */; };
 		7FDB144A19B7683E00790272 /* UIImage+ImageEffects.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FDB144919B7683E00790272 /* UIImage+ImageEffects.m */; };
 		7FDB144D19B769B100790272 /* UIView+Snapshot.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FDB144C19B769B100790272 /* UIView+Snapshot.m */; };
-		7FDB145019B85D7E00790272 /* WCLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FDB144F19B85D7E00790272 /* WCLabel.m */; };
 		7FDB145619B8A0D300790272 /* WCTintedImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FDB145519B8A0D300790272 /* WCTintedImageView.m */; };
 		7FDB145C19B8AED500790272 /* RMDisplayLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FDB145919B8AED500790272 /* RMDisplayLabel.m */; };
 		7FDB145D19B8AED500790272 /* RMDownloadIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FDB145B19B8AED500790272 /* RMDownloadIndicator.m */; };
@@ -92,10 +92,12 @@
 		7F14C62219B60EF0001FA062 /* WCCity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCCity.m; sourceTree = "<group>"; };
 		7F14C62519B61A29001FA062 /* WCCityCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WCCityCell.h; sourceTree = "<group>"; };
 		7F14C62619B61A29001FA062 /* WCCityCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCCityCell.m; sourceTree = "<group>"; };
+		7F1BEE6619C4143300D2AA70 /* WCWeather.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WCWeather.h; sourceTree = "<group>"; };
+		7F1BEE6719C4143300D2AA70 /* WCWeather.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCWeather.m; sourceTree = "<group>"; };
+		7F1BEE6919C41A3D00D2AA70 /* WCForecastWeather.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WCForecastWeather.h; sourceTree = "<group>"; };
+		7F1BEE6A19C41A3D00D2AA70 /* WCForecastWeather.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCForecastWeather.m; sourceTree = "<group>"; };
 		7FAE69D619B5A6BA0061B1BD /* WCCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WCCollectionViewCell.h; sourceTree = "<group>"; };
 		7FAE69D719B5A6BA0061B1BD /* WCCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCCollectionViewCell.m; sourceTree = "<group>"; };
-		7FAE69DC19B5AD370061B1BD /* WCAlphaGradientView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WCAlphaGradientView.h; sourceTree = "<group>"; };
-		7FAE69DD19B5AD370061B1BD /* WCAlphaGradientView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCAlphaGradientView.m; sourceTree = "<group>"; };
 		7FAE69E119B5B0230061B1BD /* WCConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WCConstants.h; sourceTree = "<group>"; };
 		7FAE69E319B5B2040061B1BD /* WCNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WCNavigationController.h; sourceTree = "<group>"; };
 		7FAE69E419B5B2040061B1BD /* WCNavigationController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCNavigationController.m; sourceTree = "<group>"; };
@@ -141,8 +143,6 @@
 		7FDB144919B7683E00790272 /* UIImage+ImageEffects.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ImageEffects.m"; sourceTree = "<group>"; };
 		7FDB144B19B769B100790272 /* UIView+Snapshot.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Snapshot.h"; sourceTree = "<group>"; };
 		7FDB144C19B769B100790272 /* UIView+Snapshot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Snapshot.m"; sourceTree = "<group>"; };
-		7FDB144E19B85D7E00790272 /* WCLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WCLabel.h; sourceTree = "<group>"; };
-		7FDB144F19B85D7E00790272 /* WCLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCLabel.m; sourceTree = "<group>"; };
 		7FDB145419B8A0D300790272 /* WCTintedImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WCTintedImageView.h; sourceTree = "<group>"; };
 		7FDB145519B8A0D300790272 /* WCTintedImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCTintedImageView.m; sourceTree = "<group>"; };
 		7FDB145819B8AED500790272 /* RMDisplayLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMDisplayLabel.h; sourceTree = "<group>"; };
@@ -236,14 +236,10 @@
 				7FB123A419BD734700EFAAC3 /* UIImageView+AFNetworking.m */,
 				7FAE69D619B5A6BA0061B1BD /* WCCollectionViewCell.h */,
 				7FAE69D719B5A6BA0061B1BD /* WCCollectionViewCell.m */,
-				7FAE69DC19B5AD370061B1BD /* WCAlphaGradientView.h */,
-				7FAE69DD19B5AD370061B1BD /* WCAlphaGradientView.m */,
 				7F14C62519B61A29001FA062 /* WCCityCell.h */,
 				7F14C62619B61A29001FA062 /* WCCityCell.m */,
 				7FDB144B19B769B100790272 /* UIView+Snapshot.h */,
 				7FDB144C19B769B100790272 /* UIView+Snapshot.m */,
-				7FDB144E19B85D7E00790272 /* WCLabel.h */,
-				7FDB144F19B85D7E00790272 /* WCLabel.m */,
 				7FDB145419B8A0D300790272 /* WCTintedImageView.h */,
 				7FDB145519B8A0D300790272 /* WCTintedImageView.m */,
 				7FB123AC19BD877800EFAAC3 /* WCToggleCell.h */,
@@ -275,6 +271,10 @@
 				7FB123A719BD7BF500EFAAC3 /* WCTempFormatter.m */,
 				7FB123A919BD7C6400EFAAC3 /* WCSettings.h */,
 				7FB123AA19BD7C6400EFAAC3 /* WCSettings.m */,
+				7F1BEE6619C4143300D2AA70 /* WCWeather.h */,
+				7F1BEE6719C4143300D2AA70 /* WCWeather.m */,
+				7F1BEE6919C41A3D00D2AA70 /* WCForecastWeather.h */,
+				7F1BEE6A19C41A3D00D2AA70 /* WCForecastWeather.m */,
 			);
 			name = Objects;
 			sourceTree = "<group>";
@@ -537,7 +537,6 @@
 				7FDB143219B6E29200790272 /* WCPhoto.m in Sources */,
 				7FAE6A0219B5B42D0061B1BD /* AFURLSessionManager.m in Sources */,
 				7FDB143519B6EBB400790272 /* WCSlideBehindModalAnimation.m in Sources */,
-				7FAE69DE19B5AD370061B1BD /* WCAlphaGradientView.m in Sources */,
 				7FB123AE19BD877800EFAAC3 /* WCToggleCell.m in Sources */,
 				8201148419B3548A00F44D0B /* WCMainViewController.m in Sources */,
 				7FAE69FD19B5B42D0061B1BD /* AFNetworkReachabilityManager.m in Sources */,
@@ -550,6 +549,7 @@
 				7FAE69D819B5A6BA0061B1BD /* WCCollectionViewCell.m in Sources */,
 				7FDB145619B8A0D300790272 /* WCTintedImageView.m in Sources */,
 				7FB123AB19BD7C6400EFAAC3 /* WCSettings.m in Sources */,
+				7F1BEE6819C4143300D2AA70 /* WCWeather.m in Sources */,
 				7F14C61D19B5EC69001FA062 /* WCAddCityViewController.m in Sources */,
 				7F14C62319B60EF0001FA062 /* WCCity.m in Sources */,
 				7FB123A819BD7BF500EFAAC3 /* WCTempFormatter.m in Sources */,
@@ -558,13 +558,13 @@
 				8201147E19B3548A00F44D0B /* main.m in Sources */,
 				8282844119BDE01E005AA449 /* WCPlainCell.m in Sources */,
 				7FAE69E519B5B2040061B1BD /* WCNavigationController.m in Sources */,
+				7F1BEE6B19C41A3D00D2AA70 /* WCForecastWeather.m in Sources */,
 				8283B7EB19C2A1FF00DB1979 /* UIViewController+BlurredSnapshot.m in Sources */,
 				7F14C62719B61A29001FA062 /* WCCityCell.m in Sources */,
 				7FAE69FB19B5B42D0061B1BD /* AFHTTPRequestOperationManager.m in Sources */,
 				7FDB145C19B8AED500790272 /* RMDisplayLabel.m in Sources */,
 				7FDB144D19B769B100790272 /* UIView+Snapshot.m in Sources */,
 				8247D5E019C2C58100341A24 /* UILabel+WhiteDatePickerLabel.m in Sources */,
-				7FDB145019B85D7E00790272 /* WCLabel.m in Sources */,
 				7FDB145D19B8AED500790272 /* RMDownloadIndicator.m in Sources */,
 				7FAE69FE19B5B42D0061B1BD /* AFSecurityPolicy.m in Sources */,
 				7FAE6A0119B5B42D0061B1BD /* AFURLResponseSerialization.m in Sources */,
