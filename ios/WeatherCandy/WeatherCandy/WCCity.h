@@ -15,4 +15,6 @@
 @property (nonatomic, strong) NSString *adminName;
 @property (nonatomic, strong) NSString *country;
 
+@property (nonatomic, assign) BOOL currentLocation;
+
 @end

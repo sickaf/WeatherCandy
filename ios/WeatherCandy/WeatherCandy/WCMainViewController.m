@@ -6,6 +6,8 @@
 //  Copyright (c) 2014 sickaf. All rights reserved.
 //
 
+#import <Parse/Parse.h>
+
 #import "WCMainViewController.h"
 #import "WCCollectionViewCell.h"
 #import "WCConstants.h"
@@ -23,8 +25,6 @@
 #import "UIViewController+BlurredSnapshot.h"
 #import "WCForecastWeather.h"
 
-#import <Parse/Parse.h>
-
 @interface WCMainViewController () {
     NSArray *_imgData;
     NSDictionary *_currentWeatherData;
@@ -32,6 +32,7 @@
     UIImageView *_blurImageView;
     NSDateFormatter *_dateFormatter;
     WCWeather *_currentWeather;
+    BOOL _currentLocation;
 }
 
 //@property (weak, nonatomic) IBOutlet UIScrollView *outerScrollView;
@@ -39,7 +40,9 @@
 @property (weak, nonatomic) IBOutlet UICollectionView *forecastCollectionView;
 @property (strong, nonatomic) UIActivityIndicatorView *spinner;
 @property (assign, nonatomic) BOOL loading;
+@property (assign, nonatomic) BOOL gettingData;
 @property (weak, nonatomic) IBOutlet UIButton *titleButton;
+@property (strong, nonatomic) CLLocationManager *locationManager;
 
 @end
 
@@ -61,6 +64,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cityChanged:) name:kCityChangedNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tempUnitToggled:) name:kReloadTempLabelsNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(imageDownloaded:) name:kImageDownloadedNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appBecameActive:) name:UIApplicationDidBecomeActiveNotification object:nil];
     
     _dateFormatter = [[NSDateFormatter alloc] init];
     [_dateFormatter setDateStyle:NSDateFormatterNoStyle];
@@ -85,13 +89,16 @@
     self.forecastCollectionView.backgroundColor = [UIColor clearColor];
     
     // Switch to current city
-    
     NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
     NSData *dataRepresentingCity = [ud objectForKey:kLastSelectedCity];
     if (dataRepresentingCity)
     {
         WCCity *lastCity = [NSKeyedUnarchiver unarchiveObjectWithData:dataRepresentingCity];
         [self changeToCity:lastCity];
+    }
+    else {
+        // No last city saved, update from current location
+        [self loadDataFromCurrentLocation];
     }
 }
 
@@ -115,15 +122,22 @@
         self.descriptionLabel.alpha = 0;
         self.topGradientImageView.alpha = 0;
     }
-    else {
+}
+
+- (void)setGettingData:(BOOL)gettingData
+{
+    _gettingData = gettingData;
+    
+    if (!_gettingData) {
         [_spinner stopAnimating];
-        [UIView animateWithDuration:0.2 animations:^{
+        [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
             self.collectionView.alpha = 1;
             self.forecastCollectionView.alpha = 1;
             self.mainTempLabel.alpha = 1;
             self.descriptionLabel.alpha = 1;
             self.topGradientImageView.alpha = 1;
-        }];
+        } completion:nil];
+        
         [self.collectionView reloadData];
         [self.forecastCollectionView reloadData];
     }
@@ -131,15 +145,85 @@
 
 #pragma mark - Helpers
 
-- (void)getWeatherDataWithCityID:(NSString *)cityID
+- (void)loadDataFromCurrentLocation
 {
-    
-    if (_loading) return;
-    
     self.loading = YES;
     
+    if (!_locationManager) {
+        CLLocationManager *manager = [CLLocationManager new];
+        manager.desiredAccuracy = kCLLocationAccuracyHundredMeters;
+        _locationManager = manager;
+    }
+    
+    // Check if we need to use iOS8 methods
+    if ([self.locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)]) {
+        // Request to use location
+        if ([self hasLocationAccess]) {
+            // Reset the delegate since I set this to nil after last time
+            self.locationManager.delegate = self;
+            [_locationManager startUpdatingLocation];
+        }
+        else {
+            // Reset the delegate since I set this to nil after last time
+            self.locationManager.delegate = self;
+            [_locationManager requestWhenInUseAuthorization];
+        }
+    }
+    else {
+        // Check if location service are enabled on iOS7
+        if ([CLLocationManager locationServicesEnabled]) {
+            [_locationManager startUpdatingLocation];
+        }
+        else {
+            [self handleLocationTurnedOff];
+        }
+    }
+}
+
+- (BOOL)hasLocationAccess
+{
+    BOOL enabled = NO;
+    
+    if (!_locationManager) {
+        CLLocationManager *manager = [CLLocationManager new];
+        manager.desiredAccuracy = kCLLocationAccuracyHundredMeters;
+        _locationManager = manager;
+    }
+    
+    CLAuthorizationStatus status = [CLLocationManager authorizationStatus];
+
+    if ([self.locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)]) {
+        enabled = (status == kCLAuthorizationStatusAuthorizedAlways || status == kCLAuthorizationStatusAuthorizedWhenInUse);
+        return enabled;
+    }
+    
+    enabled = (status == kCLAuthorizationStatusAuthorized);
+    
+    return enabled;
+}
+
+- (void)getWeatherDataWithCityID:(NSString *)cityID longitude:(double)longitude latitude:(double)latitude
+{
+    self.loading = YES;
+    self.gettingData = YES;
+    
+    NSTimeZone *tz = [NSTimeZone systemTimeZone];
+    
+    NSDictionary *params = @{};
+    if (cityID) {
+        params = @{@"cityID": cityID,
+                   @"date":[NSDate date],
+                   @"timezone":@(tz.secondsFromGMT)};
+    }
+    else {
+        params = @{@"lat": @(latitude),
+                   @"lon": @(longitude),
+                   @"date":[NSDate date],
+                   @"timezone":@(tz.secondsFromGMT)};
+    }
+    
     [PFCloud callFunctionInBackground:@"getWeatherCandyData"
-                       withParameters:@{@"cityID": cityID, @"date":[NSDate date]}
+                       withParameters:params
                                 block:^(NSDictionary *result, NSError *error) {
                                     
                                     if (!error) {
@@ -182,14 +266,25 @@
                                             forecastWeather.temperature = [dict[@"temperature"] floatValue];
                                             forecastWeather.forecastTime = [dict[@"dt"] longLongValue];
                                             forecastWeather.condition = (int)[dict[@"condition"] integerValue];
+                                            forecastWeather.sunrise = sunrise;
+                                            forecastWeather.sunset = sunset;
                                             [newForecastData addObject:forecastWeather];
                                         }
                                         _forecastData = [NSArray arrayWithArray:newForecastData];
-        
+                                        
+                                        // Make sure to change the title to the retrieved name if we're using current location
+                                        if (_currentLocation) {
+                                            NSString *currentCityName = currentWeatherDict[@"cityName"];
+                                            [self.titleButton setTitle:currentCityName forState:UIControlStateNormal];
+                                        }
+                                        
+                                        // Refresh all of the UI
                                         [self refreshTempUI];
                                     }
                                     
                                     self.loading = NO;
+                                    self.gettingData = NO;
+                                    _currentLocation = NO;
                                 }];
 }
 
@@ -238,6 +333,13 @@
     self.view.backgroundColor = bgColor;
     self.collectionView.backgroundColor = bgColor;
     self.bgGradientImageView.image = [UIImage imageNamed:imgName];
+    
+    CATransition *transition = [CATransition animation];
+    transition.duration = 0.3f;
+    transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut];
+    transition.type = kCATransitionFade;
+    
+    [self.bgGradientImageView.layer addAnimation:transition forKey:nil];
 }
 
 - (void)openProfileForIndexPath:(NSIndexPath *)indexPath
@@ -251,7 +353,13 @@
 - (void)changeToCity:(WCCity *)city
 {
     [self.titleButton setTitle:city.name forState:UIControlStateNormal];
-    [self getWeatherDataWithCityID:[city.cityID stringValue]];
+    if (!city.currentLocation) {
+        [self getWeatherDataWithCityID:[city.cityID stringValue] longitude:0 latitude:0];
+    }
+    else {
+        _currentLocation = YES;
+        [self loadDataFromCurrentLocation];
+    }
 }
 
 - (void)reloadBlurredBackgroundOnPresentedViewController
@@ -282,6 +390,12 @@
 //    [self blurCurrentImageWithScrollOffset:self.outerScrollView.contentOffset];
 }
 
+- (void)appBecameActive:(NSNotification *)note
+{
+    WCSettings *shared = [WCSettings sharedSettings];
+    shared.locationEnabled = [self hasLocationAccess];
+}
+
 #pragma mark - Actions
 
 - (IBAction)pressedSettings:(id)sender
@@ -295,6 +409,8 @@
 
 - (IBAction)pressedTitle:(id)sender
 {
+    if (_gettingData || _loading) return;
+    
     UINavigationController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"AddCityNavController"];
     WCAddCityViewController *addCity = (WCAddCityViewController *)vc.topViewController;
     addCity.titleButtonText = self.titleButton.titleLabel.text;
@@ -439,5 +555,85 @@
 //    
 //    _blurImageView.alpha = offset.y / self.view.bounds.size.height * 5;
 //}
+
+#pragma mark - Location Delegate
+
+- (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status
+{
+    BOOL enabled = NO;
+    
+    switch (status) {
+        case kCLAuthorizationStatusNotDetermined:
+            NSLog(@"location not determined");
+            break;
+        case kCLAuthorizationStatusDenied:
+            NSLog(@"location denied");
+            break;
+        case kCLAuthorizationStatusRestricted:
+            NSLog(@"location restricted");
+            break;
+        case kCLAuthorizationStatusAuthorized:
+            NSLog(@"location authorized");
+            enabled = YES;
+            break;
+        case kCLAuthorizationStatusAuthorizedWhenInUse:
+            NSLog(@"location authorized when in use");
+            enabled = YES;
+            break;
+        default:
+            break;
+    }
+    
+    WCSettings *settings = [WCSettings sharedSettings];
+    [settings setLocationEnabled:enabled];
+    
+    if (enabled) {
+        if (!_gettingData) {
+            // Location available, start updating if not already
+            [_locationManager startUpdatingLocation];
+        }
+    }
+    else {
+        [self handleLocationTurnedOff];
+    }
+}
+
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
+{
+    CLLocation *location = locations.lastObject;
+    CLLocationCoordinate2D coord = location.coordinate;
+    _currentLocation = YES;
+    [self getWeatherDataWithCityID:nil longitude:coord.longitude latitude:coord.latitude];
+    [manager stopUpdatingLocation];
+    manager.delegate = nil;
+}
+
+- (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
+{
+    dispatch_async(dispatch_get_main_queue(), ^{
+        UIAlertView *err = [[UIAlertView alloc] initWithTitle:@"Sorry" message:@"There was an error finding your current location. You can search for a city by tapping the city name above." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [err show];
+        [self handleNoLocation];
+    });
+}
+
+- (void)handleLocationTurnedOff
+{
+    // No location, show weather for hard coded city
+    dispatch_async(dispatch_get_main_queue(), ^{
+        UIAlertView *err = [[UIAlertView alloc] initWithTitle:@"Sorry" message:@"There was an error finding your current location. Please turn on location services for this app." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [err show];
+        [self handleNoLocation];
+    });
+}
+
+- (void)handleNoLocation
+{
+    // Load weather for newport beach
+    WCCity *np = [WCCity new];
+    np.name = @"Newport Beach";
+    np.cityID = @(5376890);
+    [self changeToCity:np];
+}
 
 @end

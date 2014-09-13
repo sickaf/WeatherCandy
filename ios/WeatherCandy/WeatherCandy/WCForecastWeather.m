@@ -61,4 +61,13 @@
     }
 }
 
+- (BOOL)isDayTime
+{
+    if (self.forecastTime > self.sunrise && self.forecastTime < self.sunset) {
+        return YES;
+    }
+    
+    return NO;
+}
+
 @end
