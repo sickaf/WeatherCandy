@@ -23,8 +23,8 @@
     
     [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
     
-    
     // TODO: clean this up
+    /*
     //if iOS8, use registerForRemoteNotifications
     if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0)
     {
@@ -37,7 +37,7 @@
         // use registerUserNotificationSettings
         UIUserNotificationSettings *notificationSettings= [UIUserNotificationSettings settingsForTypes:(UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge) categories:nil];
         [application registerUserNotificationSettings:notificationSettings];
-    }
+    }*/
     
     // Override point for customization after application launch.
     return YES;
