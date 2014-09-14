@@ -65,63 +65,59 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:kReloadTempLabelsNotification object:nil];
 }
 
-//- (IBAction)notificationsSwitchChanged:(UISwitch *)sender
-//{
-//    //UIRemoteNotificationType *types = [[UIApplication sharedApplication] enabledRemoteNotificationTypes];
-//
-//    if (sender.isOn) {//Switched on
-//        
-//        if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0) {
-//            NSLog(@"using ios8!");
-//
-//        } else {
-//            NSLog(@"not using ios8!");
-//        }
-//
-//        
-//        //[[UIApplication sharedApplication] registerForRemoteNotificationTypes:notificationTypes];
-//        
-//        /*
-//        UIUserNotificationSettings *notificationSettings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert|UIUserNotificationTypeBadge|UIUserNotificationTypeSound categories:nil];
-//        [[UIApplication sharedApplication] registerUserNotificationSettings:notificationSettings];
-//         */
-//        NSLog(@"about to tell you if the user is registered for notifications but only on iOS8");
-//        BOOL myBool = [[UIApplication sharedApplication] isRegisteredForRemoteNotifications];
-//        if(myBool){
-//            NSLog(@"it is!");
-//        } else {
-//            NSLog(@"it is not!");
-//        }
-//        
-//        UIRemoteNotificationType types = [[UIApplication sharedApplication] enabledRemoteNotificationTypes];
-//        
-//        if (types & UIRemoteNotificationTypeAlert) //user has opted OUT
-//        {
-//            NSLog(@"user already opted out of notifications");
-//            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Enable notifications"
-//                                                            message:@"Turn on notifications for Weather Candy in settings"
-//                                                            delegate:self
-//                                                            cancelButtonTitle:@"Ok"
-//                                                            otherButtonTitles:nil];
-//            [alert show];
-//            [sender setOn:NO animated:YES];
-//            [[WCSettings sharedSettings] setNotificationsOn:NO]; // TODO: I dont know if I really use this
-//            return;
-//        }
-//        else //User has opted IN to notifications
-//        {
-//            WCNotificationBlurViewController *vc = [[UIStoryboard storyboardWithName:@"Settings" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"NotificationDatePicker"];
-//            vc.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-//            vc.blurImg = [self blurredImageOfCurrentViewWithAlpha:0.7 withRadius:15 withSaturation:2];
-//            [self presentViewController:vc animated:YES completion:nil];
-//        }
-//        
-//    } else {//Switched off
-//        [[UIApplication sharedApplication] cancelAllLocalNotifications]; // TODO: call this when app is opened
-//    }
-//    [[WCSettings sharedSettings] setNotificationsOn:sender.isOn]; // TODO: I dont know if I really use this
-//    NSLog(@"notifications are: %@", [[WCSettings sharedSettings] notificationsOn] ? @"ON" : @"OFF");
-//}
+
+//////////////////
+- (IBAction)notificationsSwitchChanged:(UISwitch *)sender
+{
+    //UIRemoteNotificationType *types = [[UIApplication sharedApplication] enabledRemoteNotificationTypes];
+
+    if (sender.isOn) {//Switched on
+                
+        //[[UIApplication sharedApplication] registerForRemoteNotificationTypes:notificationTypes];
+        
+        /*
+        UIUserNotificationSettings *notificationSettings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert|UIUserNotificationTypeBadge|UIUserNotificationTypeSound categories:nil];
+        [[UIApplication sharedApplication] registerUserNotificationSettings:notificationSettings];
+         */
+        NSLog(@"about to tell you if the user is registered for notifications but only on iOS8");
+        BOOL myBool = [[UIApplication sharedApplication] isRegisteredForRemoteNotifications];
+        if(myBool){
+            NSLog(@"it is!");
+        } else {
+            NSLog(@"it is not!");
+        }
+        
+        UIRemoteNotificationType types = [[UIApplication sharedApplication] enabledRemoteNotificationTypes];
+        
+        if (types & UIRemoteNotificationTypeAlert) //user has opted OUT
+        {
+            NSLog(@"user already opted out of notifications");
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Enable notifications"
+                                                            message:@"Turn on notifications for Weather Candy in settings"
+                                                            delegate:self
+                                                            cancelButtonTitle:@"Ok"
+                                                            otherButtonTitles:nil];
+            [alert show];
+            [sender setOn:NO animated:YES];
+            [[WCSettings sharedSettings] setNotificationsOn:NO]; // TODO: I dont know if I really use this
+            return;
+        }
+        else //User has opted IN to notifications
+        {
+            WCNotificationBlurViewController *vc = [[UIStoryboard storyboardWithName:@"Settings" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"NotificationDatePicker"];
+            vc.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+            vc.blurImg = [self blurredImageOfCurrentViewWithAlpha:0.7 withRadius:15 withSaturation:2];
+            [self presentViewController:vc animated:YES completion:nil];
+        }
+        
+    } else {//Switched off
+        [[UIApplication sharedApplication] cancelAllLocalNotifications]; // TODO: call this when app is opened
+    }
+    [[WCSettings sharedSettings] setNotificationsOn:sender.isOn]; // TODO: I dont know if I really use this
+    NSLog(@"notifications are: %@", [[WCSettings sharedSettings] notificationsOn] ? @"ON" : @"OFF");
+}
+
+////////////////////////////
 
 #pragma mark - Table view data source
 
@@ -240,14 +236,14 @@
             cell.mainLabel.textColor = [UIColor whiteColor];
             return cell;
         }
-//        else if (indexPath.row == 1)  //Notifications cell
-//        {
-//            WCNotificationsSwitchCell *cell = [tableView dequeueReusableCellWithIdentifier:@"NotificationsSwitchCell" forIndexPath:indexPath];
-//            cell.notificationsSwitch.on = [[WCSettings sharedSettings] notificationsOn];
-//            cell.selectionStyle = UITableViewCellSelectionStyleNone;
-//            cell.backgroundColor = kDefaultBackgroundColor;
-//            return cell;
-//        }
+        else if (indexPath.row == 1)  //Notifications cell
+        {
+            WCNotificationsSwitchCell *cell = [tableView dequeueReusableCellWithIdentifier:@"NotificationsSwitchCell" forIndexPath:indexPath];
+            cell.notificationsSwitch.on = [[WCSettings sharedSettings] notificationsOn];
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            cell.backgroundColor = kDefaultBackgroundColor;
+            return cell;
+        }
         else if (indexPath.row == 1) //category
         {
             WCCategoryCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CategoryCell" forIndexPath:indexPath];
