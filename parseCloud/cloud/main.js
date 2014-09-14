@@ -63,7 +63,7 @@ function getWeatherCandyData(request, response) {
   {
     var myIGPhotoSet = [];
         for (i = 0; i < results.length; i++) {
-          myIGPhotoSet.push({ "PhotoNum":i,
+          myIGPhotoSet.push({ "PhotoNum":results[i].get("PhotoNum"),
                               "IGUsername":results[i].get("IGUsername"),
                               "IGUrl":results[i].get("URL"), 
                               "IGForDate":results[i].get("forDate"),
