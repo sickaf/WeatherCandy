@@ -155,17 +155,21 @@
         _locationManager = manager;
     }
     
-    // Reset the delegate since I set this to nil after last time
-    self.locationManager.delegate = self;
-    
     // Check if we need to use iOS8 methods
     if ([self.locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)]) {
-        // Request to use location
-        if ([self hasLocationAccess]) {
-            [_locationManager startUpdatingLocation];
+        
+        if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusNotDetermined) {
+            self.locationManager.delegate = self;
+            [_locationManager requestWhenInUseAuthorization];
         }
         else {
-            [_locationManager requestWhenInUseAuthorization];
+            if ([self hasLocationAccess]) {
+                self.locationManager.delegate = self;
+                [_locationManager startUpdatingLocation];
+            }
+            else {
+                [self handleLocationTurnedOff];
+            }
         }
     }
     else {
@@ -559,61 +563,64 @@
 
 - (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status
 {
-    BOOL enabled = NO;
-    
     switch (status) {
         case kCLAuthorizationStatusNotDetermined:
             NSLog(@"location not determined");
             break;
-        case kCLAuthorizationStatusDenied:
-            NSLog(@"location denied");
+        case kCLAuthorizationStatusDenied: {
+            WCSettings *settings = [WCSettings sharedSettings];
+            [settings setLocationEnabled:NO];
+            [self handleLocationTurnedOff];
             break;
-        case kCLAuthorizationStatusRestricted:
-            NSLog(@"location restricted");
+        }
+        case kCLAuthorizationStatusRestricted: {
+            WCSettings *settings = [WCSettings sharedSettings];
+            [settings setLocationEnabled:NO];
+            [self handleLocationTurnedOff];
             break;
-        case kCLAuthorizationStatusAuthorized:
-            NSLog(@"location authorized");
-            enabled = YES;
-            break;
-        case kCLAuthorizationStatusAuthorizedWhenInUse:
-            NSLog(@"location authorized when in use");
-            enabled = YES;
-            break;
-        default:
-            break;
-    }
-    
-    WCSettings *settings = [WCSettings sharedSettings];
-    [settings setLocationEnabled:enabled];
-    
-    if (enabled) {
-        if (!_gettingData) {
+        }
+        case kCLAuthorizationStatusAuthorized: {
+            WCSettings *settings = [WCSettings sharedSettings];
+            [settings setLocationEnabled:YES];
             // Location available, start updating if not already
             [_locationManager startUpdatingLocation];
+            break;
         }
-    }
-    else {
-        [self handleLocationTurnedOff];
+        case kCLAuthorizationStatusAuthorizedWhenInUse: {
+            WCSettings *settings = [WCSettings sharedSettings];
+            [settings setLocationEnabled:YES];
+            // Location available, start updating if not already
+            [_locationManager startUpdatingLocation];
+            break;
+        }
+        default:
+            break;
     }
 }
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
 {
-    CLLocation *location = locations.lastObject;
-    CLLocationCoordinate2D coord = location.coordinate;
-    _currentLocation = YES;
-    [self getWeatherDataWithCityID:nil longitude:coord.longitude latitude:coord.latitude];
-    [manager stopUpdatingLocation];
-    manager.delegate = nil;
+    if (!_gettingData) {
+        CLLocation *location = locations.lastObject;
+        CLLocationCoordinate2D coord = location.coordinate;
+        _currentLocation = YES;
+        [self getWeatherDataWithCityID:nil longitude:coord.longitude latitude:coord.latitude];
+        [self.locationManager stopUpdatingLocation];
+        self.locationManager.delegate = nil;
+    }
 }
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
 {
-    dispatch_async(dispatch_get_main_queue(), ^{
-        UIAlertView *err = [[UIAlertView alloc] initWithTitle:@"Sorry" message:@"There was an error finding your current location. You can search for a city by tapping the city name above." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-        [err show];
-        [self handleNoLocation];
-    });
+    if (error != kCLErrorLocationUnknown) {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            UIAlertView *err = [[UIAlertView alloc] initWithTitle:@"Sorry" message:@"There was an error finding your current location. You can search for a city by tapping the city name above." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [err show];
+            [self handleNoLocation];
+            [self.locationManager stopUpdatingLocation];
+            self.locationManager.delegate = nil;
+        });
+    }
 }
 
 - (void)handleLocationTurnedOff
@@ -623,11 +630,15 @@
         UIAlertView *err = [[UIAlertView alloc] initWithTitle:@"Sorry" message:@"There was an error finding your current location. Please turn on location services for this app." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [err show];
         [self handleNoLocation];
+        [self.locationManager stopUpdatingLocation];
+        self.locationManager.delegate = nil;
     });
 }
 
 - (void)handleNoLocation
 {
+    // Remove delegate so that it doesn't respond anymore
+    self.locationManager.delegate = nil;
     // Load weather for newport beach
     WCCity *np = [WCCity new];
     np.name = @"Newport Beach";
