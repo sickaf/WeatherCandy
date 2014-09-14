@@ -39,6 +39,13 @@
     self.tableView.backgroundColor = [UIColor colorWithWhite:0.200 alpha:1.000];
     self.tableView.tintColor = [UIColor whiteColor];
     self.tableView.separatorColor = [UIColor colorWithWhite:0.2 alpha:1.000];
+    
+    //Get rid of back button label for view controllers being pushed
+    UIBarButtonItem *backButton = [[UIBarButtonItem alloc]
+                                   initWithTitle: @""
+                                   style: UIBarButtonItemStyleBordered
+                                   target: nil action: nil];
+    [self.navigationItem setBackBarButtonItem: backButton];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -292,13 +299,6 @@
     }
     else if (indexPath.section == 0 && indexPath.row == 1) //category
     {
-        //Get rid of back button label for the about section
-        UIBarButtonItem *backButton = [[UIBarButtonItem alloc]
-                                       initWithTitle: @""
-                                       style: UIBarButtonItemStyleBordered
-                                       target: nil action: nil];
-        [self.navigationItem setBackBarButtonItem: backButton];
-        
         //grab and push view controller
         UIViewController *vc = [[UIStoryboard storyboardWithName:@"Settings" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"CategoryViewController"];
         [self.navigationController pushViewController:vc animated:YES];
@@ -306,14 +306,6 @@
 
     else if (indexPath.section == 1 && indexPath.row == 0) //About
     {
-        
-        //Get rid of back button label for the about section
-        UIBarButtonItem *backButton = [[UIBarButtonItem alloc]
-                                       initWithTitle: @""
-                                       style: UIBarButtonItemStyleBordered
-                                       target: nil action: nil];
-        [self.navigationItem setBackBarButtonItem: backButton];
-
         //grab and push view controller
         WCAboutViewController *vc = [[UIStoryboard storyboardWithName:@"Settings" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"About"];
         [self.navigationController pushViewController:vc animated:YES];
@@ -327,11 +319,12 @@
             {
                 MFMailComposeViewController *mailer = [[MFMailComposeViewController alloc] init];
                 mailer.mailComposeDelegate = self;
-                [mailer setSubject:@"Hi!"];
+                [mailer setSubject:@"What's Good"];
                 NSArray *toRecipients = [NSArray arrayWithObjects:@"whatsgood@sick.af", nil];
                 [mailer setToRecipients:toRecipients];
-                [self presentViewController:self.mailComposer animated:YES completion:NULL];
+                self.mailComposer = mailer;
             }
+            [self presentViewController:self.mailComposer animated:YES completion:NULL];
         }
         else
         {
@@ -341,7 +334,6 @@
                                                          cancelButtonTitle:@"Ok"
                                                          otherButtonTitles:nil];
             [noEmailAlert show];
-            NSLog(@"This device cannot send email");
         }
     }
 }
@@ -352,6 +344,8 @@
 {
     [controller dismissViewControllerAnimated:YES completion:nil];
 }
+
+#pragma mark - Alert view
 
 - (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
 {
