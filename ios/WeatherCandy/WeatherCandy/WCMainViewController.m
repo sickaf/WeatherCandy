@@ -436,6 +436,12 @@
     vc.transitioningDelegate = self;
     [self presentViewController:vc animated:YES completion:nil];
 }
+- (IBAction)pressedAction:(id)sender
+{
+    UICollectionViewCell *current = [[self.collectionView visibleCells] firstObject];
+    NSIndexPath *currentInd = [self.collectionView indexPathForCell:current];
+    [self openProfileForIndexPath:currentInd];
+}
 
 #pragma mark - Collection view data source
 

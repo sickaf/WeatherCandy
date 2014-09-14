@@ -133,8 +133,8 @@
                                     <outlet property="delegate" destination="KGR-o3-BCs" id="N57-1Z-b4r"/>
                                 </connections>
                             </collectionView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="y9u-eb-bwV">
-                                <rect key="frame" x="103" y="24" width="115" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="y9u-eb-bwV">
+                                <rect key="frame" x="78" y="18" width="165" height="45"/>
                                 <state key="normal" title="Current Location">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -161,14 +161,24 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eVU-6v-0PE">
-                                <rect key="frame" x="16" y="23" width="32" height="32"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eVU-6v-0PE" customClass="WCTintedButton">
+                                <rect key="frame" x="11" y="18" width="42" height="42"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <state key="normal" image="settings">
+                                <state key="normal" image="icon-settings">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
                                     <action selector="pressedSettings:" destination="KGR-o3-BCs" eventType="touchUpInside" id="1hF-nQ-IRY"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5NC-KF-jNf" customClass="WCTintedButton">
+                                <rect key="frame" x="272" y="18" width="42" height="42"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <state key="normal" image="icon-action">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="pressedAction:" destination="KGR-o3-BCs" eventType="touchUpInside" id="SMr-Dz-ref"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -183,8 +193,6 @@
                             <constraint firstItem="ji7-YF-yeX" firstAttribute="width" secondItem="ET4-fh-jNa" secondAttribute="width" id="Zpg-Fa-rOF"/>
                             <constraint firstItem="QkM-Zp-UH4" firstAttribute="top" secondItem="8lJ-gY-qbR" secondAttribute="bottom" constant="5" id="dHM-zn-aJN"/>
                             <constraint firstAttribute="centerX" secondItem="NuI-Cp-B7Z" secondAttribute="centerX" id="dKi-Ty-RWr"/>
-                            <constraint firstAttribute="centerX" secondItem="y9u-eb-bwV" secondAttribute="centerX" id="lHY-5J-F0G"/>
-                            <constraint firstItem="y9u-eb-bwV" firstAttribute="top" secondItem="EmQ-E6-9Ik" secondAttribute="bottom" constant="4" id="lzL-9P-VVY"/>
                             <constraint firstAttribute="width" secondItem="NuI-Cp-B7Z" secondAttribute="width" id="mLx-zU-052"/>
                             <constraint firstItem="8lJ-gY-qbR" firstAttribute="trailing" secondItem="ET4-fh-jNa" secondAttribute="trailingMargin" id="oeA-R7-Gpy"/>
                             <constraint firstAttribute="centerX" secondItem="QkM-Zp-UH4" secondAttribute="centerX" id="qhe-A3-f2l"/>
@@ -294,7 +302,8 @@
     </scenes>
     <resources>
         <image name="fog_day" width="50" height="50"/>
-        <image name="settings" width="17" height="17"/>
+        <image name="icon-action" width="17" height="17"/>
+        <image name="icon-settings" width="17" height="17"/>
         <image name="sunny_plus" width="540" height="960"/>
         <image name="top" width="320" height="110"/>
     </resources>
