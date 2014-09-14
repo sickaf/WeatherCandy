@@ -11,5 +11,6 @@
 @interface WCToggleCell : UITableViewCell
 
 @property (weak, nonatomic) IBOutlet UISegmentedControl *tempToggle;
+@property (weak, nonatomic) IBOutlet UILabel *mainLabel;
 
 @end

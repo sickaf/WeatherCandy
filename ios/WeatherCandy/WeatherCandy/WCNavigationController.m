@@ -19,10 +19,10 @@
 {
     [super viewDidLoad];
     
-    self.navigationBar.barTintColor = [UIColor colorWithWhite:0.1 alpha:1];
+    self.navigationBar.barTintColor = kDefaultBackgroundColor;
     self.navigationBar.tintColor = [UIColor whiteColor];
     
-    self.navigationBar.titleTextAttributes = @{NSFontAttributeName: kDefaultTitleFont, NSForegroundColorAttributeName : [UIColor blackColor]};
+    self.navigationBar.titleTextAttributes = @{NSFontAttributeName: kDefaultFontMedium(18), NSForegroundColorAttributeName : [UIColor whiteColor]};
 }
 
 @end

@@ -7,8 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "WCPlainCell.h"
 
-@interface WCCategoryCell : UITableViewCell
+@interface WCCategoryCell : WCPlainCell
+
 @property (strong, nonatomic) IBOutlet UILabel *categoryLabel;
 
 @end

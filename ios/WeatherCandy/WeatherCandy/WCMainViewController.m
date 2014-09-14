@@ -411,8 +411,6 @@
 {
     UIStoryboard *st = [UIStoryboard storyboardWithName:@"Settings" bundle:[NSBundle mainBundle]];
     UIViewController *vc = [st instantiateViewControllerWithIdentifier:@"Settings"];
-    vc.modalPresentationStyle = UIModalPresentationCustom;
-    vc.transitioningDelegate = self;
     [self presentViewController:vc animated:YES completion:nil];
 }
 
@@ -535,35 +533,6 @@
     slide.presenting = YES;
     return slide;
 }
-
-//#pragma mark - Scroll view delegate
-//
-//- (void)blurCurrentImageWithScrollOffset:(CGPoint)offset
-//{
-//    if (self.collectionView.visibleCells.count <= 0) return;
-//    
-//    WCCollectionViewCell *currentImageCell = self.collectionView.visibleCells[0];
-//    UIImage *currentImage = currentImageCell.imageView.image;
-//    
-//    if (!currentImage) return;
-//    
-//    if (offset.y > 0) {
-//        if (!_blurImageView) {
-//            _blurImageView = [[UIImageView alloc] initWithFrame:currentImageCell.contentView.bounds];
-//            _blurImageView.alpha = 0;
-//            UIImage *blurred = [currentImage applyBlurWithRadius:20 tintColor:[UIColor colorWithWhite:0 alpha:0.3] saturationDeltaFactor:1.3 maskImage:nil];
-//            _blurImageView.image = blurred;
-//            [currentImageCell.contentView insertSubview:_blurImageView atIndex:1];
-//        }
-//    }
-//    else {
-//        [_blurImageView removeFromSuperview];
-//        _blurImageView.image = nil;
-//        _blurImageView = nil;
-//    }
-//    
-//    _blurImageView.alpha = offset.y / self.view.bounds.size.height * 5;
-//}
 
 #pragma mark - Location Delegate
 
