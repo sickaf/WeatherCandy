@@ -47,6 +47,10 @@
 @property (weak, nonatomic) IBOutlet UIButton *titleButton;
 @property (strong, nonatomic) CLLocationManager *locationManager;
 
+@property (strong, nonatomic) UIPushBehavior *pushBehavior;
+@property (strong,nonatomic) UIGravityBehavior *gravityBehavior;
+@property (strong, nonatomic) UIDynamicAnimator *animator;
+
 @end
 
 @implementation WCMainViewController
@@ -434,6 +438,7 @@
     vc.transitioningDelegate = self;
     [self presentViewController:vc animated:YES completion:nil];
 }
+
 - (IBAction)pressedAction:(id)sender
 {
     if (_gettingData || _loading) return;
@@ -507,7 +512,39 @@
 
 - (BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    if ([collectionView isEqual:self.forecastCollectionView]) return NO;
+    if ([collectionView isEqual:self.forecastCollectionView]) {
+        
+        // Bump animation
+        if (!self.animator) {
+            
+            self.animator = [[UIDynamicAnimator alloc] initWithReferenceView:self.view];
+            
+            UICollisionBehavior *collisionBehaviour = [[UICollisionBehavior alloc] initWithItems:@[self.forecastCollectionView]];
+            [collisionBehaviour setTranslatesReferenceBoundsIntoBoundaryWithInsets:UIEdgeInsetsMake(0, -100, 0, 0)];
+            [self.animator addBehavior:collisionBehaviour];
+            
+            self.gravityBehavior = [[UIGravityBehavior alloc] initWithItems:@[self.forecastCollectionView]];
+            [self.animator addBehavior:self.gravityBehavior];
+            
+            self.pushBehavior = [[UIPushBehavior alloc] initWithItems:@[self.forecastCollectionView] mode:UIPushBehaviorModeInstantaneous];
+            self.pushBehavior.magnitude = 0.0f;
+            self.pushBehavior.angle = 0.0f;
+            [self.animator addBehavior:self.pushBehavior];
+            
+            UIDynamicItemBehavior *itemBehaviour = [[UIDynamicItemBehavior alloc] initWithItems:@[self.forecastCollectionView]];
+            itemBehaviour.elasticity = 0.45f;
+            [self.animator addBehavior:itemBehaviour];
+        }
+        
+        if (collectionView.frame.origin.x >= 0 && !indexPath.section) {
+            self.gravityBehavior.gravityDirection = CGVectorMake(1.0f, 0.0f);
+            self.pushBehavior.pushDirection = CGVectorMake(-7.0f, 0.0f);
+            self.pushBehavior.active = YES;
+        }
+        
+        return NO;
+    }
+
     
     WCPhoto *p = _imgData[indexPath.row];
     return p.username != nil;
