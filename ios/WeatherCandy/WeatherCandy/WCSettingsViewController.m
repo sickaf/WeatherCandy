@@ -241,7 +241,7 @@
             cell.mainLabel.textColor = [UIColor whiteColor];
             return cell;
         }
-        else if (indexPath.row == 1)  //Notifications cell
+        else if (indexPath.row == 2)  //Notifications cell
         {
             WCNotificationsSwitchCell *cell = [tableView dequeueReusableCellWithIdentifier:@"NotificationsSwitchCell" forIndexPath:indexPath];
             cell.label.font = kDefaultFontMedium(18);
@@ -262,7 +262,7 @@
             }
             return cell;
         }
-        else if (indexPath.row == 3) //category
+        else if (indexPath.row == 1) //category
         {
             WCCategoryCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CategoryCell" forIndexPath:indexPath];
             cell.mainLabel.text = @"Category";
@@ -273,7 +273,7 @@
             
             return cell;
         }
-        else if (indexPath.row == 2) //clear saved cities
+        else if (indexPath.row == 3) //clear saved cities
         {
             WCPlainCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PlainCell" forIndexPath:indexPath];
             cell.mainLabel.text = @"Clear saved cities";
@@ -324,7 +324,6 @@
     }
     else if(indexPath.section == 1 && indexPath.row == 1)  // Contact us
     {
-        
         if ([MFMailComposeViewController canSendMail])
         {
             if (!self.mailComposer)
