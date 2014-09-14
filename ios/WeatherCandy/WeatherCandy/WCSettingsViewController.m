@@ -59,66 +59,63 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:kReloadTempLabelsNotification object:nil];
 }
 
-
-- (IBAction)notificationsSwitchChanged:(UISwitch *)sender
-{
-    //UIRemoteNotificationType *types = [[UIApplication sharedApplication] enabledRemoteNotificationTypes];
-  
-    
-    
-    if (sender.isOn) {//Switched on
-        
-        if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0) {
-            NSLog(@"using ios8!");
-
-        } else {
-            NSLog(@"not using ios8!");
-        }
-
-        
-        //[[UIApplication sharedApplication] registerForRemoteNotificationTypes:notificationTypes];
-        
-        /*
-        UIUserNotificationSettings *notificationSettings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert|UIUserNotificationTypeBadge|UIUserNotificationTypeSound categories:nil];
-        [[UIApplication sharedApplication] registerUserNotificationSettings:notificationSettings];
-         */
-        NSLog(@"about to tell you if the user is registered for notifications but only on iOS8");
-        BOOL myBool = [[UIApplication sharedApplication] isRegisteredForRemoteNotifications];
-        if(myBool){
-            NSLog(@"it is!");
-        } else {
-            NSLog(@"it is not!");
-        }
-        
-        UIRemoteNotificationType types = [[UIApplication sharedApplication] enabledRemoteNotificationTypes];
-        
-        if (types & UIRemoteNotificationTypeAlert) //user has opted OUT
-        {
-            NSLog(@"user already opted out of notifications");
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Enable notifications"
-                                                            message:@"Turn on notifications for Weather Candy in settings"
-                                                            delegate:self
-                                                            cancelButtonTitle:@"Ok"
-                                                            otherButtonTitles:nil];
-            [alert show];
-            [sender setOn:NO animated:YES];
-            [[WCSettings sharedSettings] setNotificationsOn:NO]; // TODO: I dont know if I really use this
-            return;
-        }
-        else //User has opted IN to notifications
-        {
-            WCNotificationBlurViewController *vc = [[UIStoryboard storyboardWithName:@"Settings" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"NotificationDatePicker"];
-            vc.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-            vc.blurImg = [self blurredImageOfCurrentViewWithAlpha:0.7 withRadius:15 withSaturation:2];
-            [self presentViewController:vc animated:YES completion:nil];
-        }
-        
-    } else {//Switched off
-        [[UIApplication sharedApplication] cancelAllLocalNotifications]; // TODO: call this when app is opened
-    }
-    [[WCSettings sharedSettings] setNotificationsOn:sender.isOn]; // TODO: I dont know if I really use this
-    NSLog(@"notifications are: %@", [[WCSettings sharedSettings] notificationsOn] ? @"ON" : @"OFF");
-}
+//- (IBAction)notificationsSwitchChanged:(UISwitch *)sender
+//{
+//    //UIRemoteNotificationType *types = [[UIApplication sharedApplication] enabledRemoteNotificationTypes];
+//
+//    if (sender.isOn) {//Switched on
+//        
+//        if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0) {
+//            NSLog(@"using ios8!");
+//
+//        } else {
+//            NSLog(@"not using ios8!");
+//        }
+//
+//        
+//        //[[UIApplication sharedApplication] registerForRemoteNotificationTypes:notificationTypes];
+//        
+//        /*
+//        UIUserNotificationSettings *notificationSettings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert|UIUserNotificationTypeBadge|UIUserNotificationTypeSound categories:nil];
+//        [[UIApplication sharedApplication] registerUserNotificationSettings:notificationSettings];
+//         */
+//        NSLog(@"about to tell you if the user is registered for notifications but only on iOS8");
+//        BOOL myBool = [[UIApplication sharedApplication] isRegisteredForRemoteNotifications];
+//        if(myBool){
+//            NSLog(@"it is!");
+//        } else {
+//            NSLog(@"it is not!");
+//        }
+//        
+//        UIRemoteNotificationType types = [[UIApplication sharedApplication] enabledRemoteNotificationTypes];
+//        
+//        if (types & UIRemoteNotificationTypeAlert) //user has opted OUT
+//        {
+//            NSLog(@"user already opted out of notifications");
+//            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Enable notifications"
+//                                                            message:@"Turn on notifications for Weather Candy in settings"
+//                                                            delegate:self
+//                                                            cancelButtonTitle:@"Ok"
+//                                                            otherButtonTitles:nil];
+//            [alert show];
+//            [sender setOn:NO animated:YES];
+//            [[WCSettings sharedSettings] setNotificationsOn:NO]; // TODO: I dont know if I really use this
+//            return;
+//        }
+//        else //User has opted IN to notifications
+//        {
+//            WCNotificationBlurViewController *vc = [[UIStoryboard storyboardWithName:@"Settings" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"NotificationDatePicker"];
+//            vc.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
+//            vc.blurImg = [self blurredImageOfCurrentViewWithAlpha:0.7 withRadius:15 withSaturation:2];
+//            [self presentViewController:vc animated:YES completion:nil];
+//        }
+//        
+//    } else {//Switched off
+//        [[UIApplication sharedApplication] cancelAllLocalNotifications]; // TODO: call this when app is opened
+//    }
+//    [[WCSettings sharedSettings] setNotificationsOn:sender.isOn]; // TODO: I dont know if I really use this
+//    NSLog(@"notifications are: %@", [[WCSettings sharedSettings] notificationsOn] ? @"ON" : @"OFF");
+//}
 
 #pragma mark - Table view data source
 
@@ -145,26 +142,79 @@
     return title;
 }
 
-- (NSString *)tableView:(UITableView *)tableView titleForFooterInSection:(NSInteger)section {
-    if (section == 1) {
-        return @"Get in touch if you want to have your photos featured in Weather Candy";
-    }
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    if (section != 1) return 0;
     
-    return nil;
+    return 60;
 }
 
-- (NSString*)formatTypeToString:(WCImageCategory)formatType {
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    return 50;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section
+{
+    if (section != 1) return nil;
+    
+    UIView *container = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 50)];
+    container.backgroundColor = [UIColor clearColor];
+    
+    UILabel *new = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, self.view.bounds.size.width - 40, 60)];
+    new.font = kDefaultFontMedium(15);
+    new.textColor = [UIColor colorWithWhite:1.0 alpha:0.5];
+    new.textAlignment = NSTextAlignmentCenter;
+    new.numberOfLines = 0;
+    new.lineBreakMode = NSLineBreakByWordWrapping;
+    new.text = @"Get in touch if you want to have your photos featured in Weather Candy";
+    
+    [container addSubview:new];
+    return container;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section
+{
+    
+    UIView *container = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 50)];
+    container.backgroundColor = [UIColor clearColor];
+    
+    UILabel *new = [[UILabel alloc] initWithFrame:CGRectMake(15, 10, self.view.bounds.size.width - 20, 40)];
+    new.font = kDefaultFontMedium(18);
+    new.textColor = [UIColor colorWithWhite:1.0 alpha:0.5];
+    new.textAlignment = NSTextAlignmentLeft;
+    new.numberOfLines = 0;
+    new.lineBreakMode = NSLineBreakByWordWrapping;
+    
+    NSString *st;
+    
+    if (section == 0) {
+        st = @"Options";
+    }
+    else {
+        st = @"sick.af";
+    }
+    new.text = st;
+    
+    [container addSubview:new];
+    return container;
+}
+
+- (NSString *)formatTypeToString:(WCImageCategory)formatType
+{
+   
     NSString *result = nil;
     
     switch(formatType) {
         case 0:
-            result = @"0";
+            result = @"Hot Girls";
             break;
         case 1:
-            result = @"1";
+            result = @"Cute Animals";
             break;
         default:
-            [NSException raise:NSGenericException format:@"Unexpected FormatType."];
+            result = @"Hot Girls";
+            break;
     }
     
     return result;
@@ -199,18 +249,7 @@
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             
             WCImageCategory cat = [[WCSettings sharedSettings] selectedImageCategory];
-            
-            if(cat == WCImageCategoryGirl) {
-                cell.categoryLabel.text = @"Hot Girls";
-            }
-            else if(cat == WCImageCategoryAnimal)
-            {
-                cell.categoryLabel.text = @"Cute Animals";
-            }
-            else
-            {
-                NSLog(@"error loading category");
-            }
+            cell.categoryLabel.text = [self formatTypeToString:cat];
             
             return cell;
         }
