@@ -27,6 +27,7 @@ function getWeatherCandyData(request, response) {
   var lat = request.params.lat;
   var lon = request.params.lon;
   var imageCategory = request.params.imageCategory;
+  console.log("imageCategory is "+imageCategory);
   var currentDate = request.params.date;
   var cityName = request.params.cityName;
   var cityID = request.params.cityID;
@@ -54,6 +55,7 @@ function getWeatherCandyData(request, response) {
   var IGPhotoQuery = new Parse.Query("IGPhoto");
   IGPhotoQuery.equalTo("forDate", dateString);
   if (imageCategory !== undefined) {
+    console.log("imageCategory is not undefined: "+imageCategory);
     IGPhotoQuery.equalTo("imageCategory", imageCategory);
   }
 
