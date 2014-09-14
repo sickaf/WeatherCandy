@@ -303,12 +303,12 @@
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    if (indexPath.section == 0 && indexPath.row == 2)  //Clear saved cities
+    if (indexPath.section == 0 && indexPath.row == 3)  //Clear saved cities
     {
         UIAlertView *al = [[UIAlertView alloc] initWithTitle:@"Are you sure?" message:@"Are you sure you want to clear your list of saved cities?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Yes", nil];
         [al show];
     }
-    else if (indexPath.section == 0 && indexPath.row == 4) //category
+    else if (indexPath.section == 0 && indexPath.row == 1) //category
     {
         //grab and push view controller
         UIViewController *vc = [[UIStoryboard storyboardWithName:@"Settings" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"CategoryViewController"];
