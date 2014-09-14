@@ -26,6 +26,8 @@
 #import "WCForecastWeather.h"
 #import "WCSettings.h"
 
+#define EARLIER_IOS_8    ([[[UIDevice currentDevice] systemVersion] floatValue] < 8.0)
+
 
 @interface WCMainViewController () {
     NSArray *_imgData;
@@ -102,6 +104,13 @@
     {
         WCCity *lastCity = [NSKeyedUnarchiver unarchiveObjectWithData:dataRepresentingCity];
         [self changeToCity:lastCity];
+    }
+    else if (EARLIER_IOS_8) {
+        // Load weather for newport beach
+        WCCity *np = [WCCity new];
+        np.name = @"Newport Beach";
+        np.cityID = @(5376890);
+        [self changeToCity:np];
     }
     else {
         // No last city saved, update from current location
