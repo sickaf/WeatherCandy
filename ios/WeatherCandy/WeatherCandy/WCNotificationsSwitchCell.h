@@ -10,5 +10,6 @@
 
 @interface WCNotificationsSwitchCell : UITableViewCell
 @property (weak, nonatomic) IBOutlet UISwitch *notificationsSwitch;
+@property (strong, nonatomic) IBOutlet UILabel *label;
 
 @end

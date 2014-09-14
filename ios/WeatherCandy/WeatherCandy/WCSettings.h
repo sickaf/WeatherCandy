@@ -23,6 +23,7 @@ typedef enum {
 
 @property (nonatomic, assign) WCTemperatureUnit tempUnit;
 @property (nonatomic, assign) BOOL notificationsOn;
+@property (nonatomic, assign) BOOL notificationsAllowed;
 @property (nonatomic, assign) BOOL locationEnabled;
 @property (nonatomic, assign) WCImageCategory selectedImageCategory;
 

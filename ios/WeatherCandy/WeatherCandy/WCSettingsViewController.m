@@ -17,7 +17,6 @@
 #import "WCNotificationBlurViewController.h"
 #import "WCAboutViewController.h"
 #import "WCCategoryCell.h"
-
 #import "WCAddCityViewController.h"
 
 
@@ -39,6 +38,8 @@
     self.tableView.tintColor = [UIColor whiteColor];
     self.tableView.separatorColor = [UIColor colorWithWhite:0.2 alpha:1.000];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appBecameActive:) name:UIApplicationDidBecomeActiveNotification object:nil];
+
     //Get rid of back button label for view controllers being pushed
     UIBarButtonItem *backButton = [[UIBarButtonItem alloc]
                                    initWithTitle: @""
@@ -49,7 +50,31 @@
 
 - (void)viewWillAppear:(BOOL)animated {
     [super viewWillAppear:animated];
+    [self updateNotificationStatus];
     [self.tableView reloadData]; // to reload selected cell
+    
+}
+
+- (void)appBecameActive:(NSNotification *)note
+{
+    [self updateNotificationStatus];
+    [self.tableView reloadData];
+}
+
+- (void)updateNotificationStatus
+{
+    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0)
+    {
+        UIUserNotificationSettings *currentSettings = [[UIApplication sharedApplication] currentUserNotificationSettings];
+        UIUserNotificationType enabledTypes = currentSettings.types;
+        [[WCSettings sharedSettings] setNotificationsAllowed:(enabledTypes != UIUserNotificationTypeNone)];
+    }
+    else
+    {
+        UIRemoteNotificationType types = [[UIApplication sharedApplication] enabledRemoteNotificationTypes];
+        [[WCSettings sharedSettings] setNotificationsAllowed: (types != UIRemoteNotificationTypeNone)];
+    }
+
 }
 
 #pragma mark - Actions
@@ -66,65 +91,45 @@
 }
 
 
-//////////////////
 - (IBAction)notificationsSwitchChanged:(UISwitch *)sender
 {
-    //UIRemoteNotificationType *types = [[UIApplication sharedApplication] enabledRemoteNotificationTypes];
-
-    if (sender.isOn) {//Switched on
-                
-        //[[UIApplication sharedApplication] registerForRemoteNotificationTypes:notificationTypes];
-        
-        /*
-        UIUserNotificationSettings *notificationSettings = [UIUserNotificationSettings settingsForTypes:UIUserNotificationTypeAlert|UIUserNotificationTypeBadge|UIUserNotificationTypeSound categories:nil];
-        [[UIApplication sharedApplication] registerUserNotificationSettings:notificationSettings];
-         */
-        NSLog(@"about to tell you if the user is registered for notifications but only on iOS8");
-        BOOL myBool = [[UIApplication sharedApplication] isRegisteredForRemoteNotifications];
-        if(myBool){
-            NSLog(@"it is!");
-        } else {
-            NSLog(@"it is not!");
-        }
-        
-        UIRemoteNotificationType types = [[UIApplication sharedApplication] enabledRemoteNotificationTypes];
-        
-        if (types & UIRemoteNotificationTypeAlert) //user has opted OUT
+    if (sender.isOn) //Switched on
+    {
+        if ([[WCSettings sharedSettings] notificationsAllowed]) //app has permission
         {
-            NSLog(@"user already opted out of notifications");
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Enable notifications"
-                                                            message:@"Turn on notifications for Weather Candy in settings"
-                                                            delegate:self
-                                                            cancelButtonTitle:@"Ok"
-                                                            otherButtonTitles:nil];
-            [alert show];
-            [sender setOn:NO animated:YES];
-            [[WCSettings sharedSettings] setNotificationsOn:NO]; // TODO: I dont know if I really use this
-            return;
-        }
-        else //User has opted IN to notifications
-        {
+            [[WCSettings sharedSettings] setNotificationsOn:YES];
             WCNotificationBlurViewController *vc = [[UIStoryboard storyboardWithName:@"Settings" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"NotificationDatePicker"];
             vc.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
             vc.blurImg = [self blurredImageOfCurrentViewWithAlpha:0.7 withRadius:15 withSaturation:2];
             [self presentViewController:vc animated:YES completion:nil];
         }
+        else //opted out
+        {
+            [sender setOn:NO animated:YES];
+            NSLog(@"not going to let user turn on notifications");
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Notifications disabled"
+                                                            message:@"Go to Settings to turn on notifications for Weather Candy"
+                                                           delegate:self
+                                                  cancelButtonTitle:@"Ok"
+                                                  otherButtonTitles:nil];
+            [alert show];
+        }
         
     } else {//Switched off
-        [[UIApplication sharedApplication] cancelAllLocalNotifications]; // TODO: call this when app is opened
+        NSLog(@"cancelling notifications");
+        [[WCSettings sharedSettings] setNotificationsOn:NO];
+        [[UIApplication sharedApplication] cancelAllLocalNotifications];
     }
-    [[WCSettings sharedSettings] setNotificationsOn:sender.isOn]; // TODO: I dont know if I really use this
-    NSLog(@"notifications are: %@", [[WCSettings sharedSettings] notificationsOn] ? @"ON" : @"OFF");
+
 }
 
-////////////////////////////
 
 #pragma mark - Table view data source
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if(section == 0) {
-        return 3;
+        return 4;
     }
     return 2;
 }
@@ -239,12 +244,25 @@
         else if (indexPath.row == 1)  //Notifications cell
         {
             WCNotificationsSwitchCell *cell = [tableView dequeueReusableCellWithIdentifier:@"NotificationsSwitchCell" forIndexPath:indexPath];
-            cell.notificationsSwitch.on = [[WCSettings sharedSettings] notificationsOn];
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            cell.label.font = kDefaultFontMedium(18);
+            cell.label.textColor = [UIColor whiteColor];
             cell.backgroundColor = kDefaultBackgroundColor;
+            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+
+
+            if([[WCSettings sharedSettings] notificationsAllowed] && [[WCSettings sharedSettings] notificationsOn])
+            {
+                [cell.notificationsSwitch setOn:YES];
+            }
+            else
+            {
+                [[WCSettings sharedSettings] setNotificationsOn:NO];
+                [cell.notificationsSwitch setOn:NO];
+                [[UIApplication sharedApplication] cancelAllLocalNotifications];
+            }
             return cell;
         }
-        else if (indexPath.row == 1) //category
+        else if (indexPath.row == 3) //category
         {
             WCCategoryCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CategoryCell" forIndexPath:indexPath];
             cell.mainLabel.text = @"Category";
@@ -259,8 +277,6 @@
         {
             WCPlainCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PlainCell" forIndexPath:indexPath];
             cell.mainLabel.text = @"Clear saved cities";
-            cell.mainLabel.font = kDefaultFontMedium(18);
-            cell.mainLabel.textColor = [UIColor whiteColor];
             return cell;
         }
     }
@@ -292,12 +308,13 @@
         UIAlertView *al = [[UIAlertView alloc] initWithTitle:@"Are you sure?" message:@"Are you sure you want to clear your list of saved cities?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Yes", nil];
         [al show];
     }
-    else if (indexPath.section == 0 && indexPath.row == 1) //category
+    else if (indexPath.section == 0 && indexPath.row == 4) //category
     {
         //grab and push view controller
         UIViewController *vc = [[UIStoryboard storyboardWithName:@"Settings" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"CategoryViewController"];
         [self.navigationController pushViewController:vc animated:YES];
     }
+    
 
     else if (indexPath.section == 1 && indexPath.row == 0) //About
     {

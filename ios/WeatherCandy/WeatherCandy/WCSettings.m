@@ -10,6 +10,7 @@
 
 static NSString *const kWCTemperatureTypeKey = @"WCTemperatureType";
 static NSString *const kWCNotificationsKey   = @"WCNotificationsKey";
+static NSString *const kWCNotificationsAllowedKey   = @"WCNotificationsAllowedKey";
 static NSString *const kWCCategoryKey        = @"WCCategoryKey";
 
 @implementation WCSettings
@@ -57,6 +58,16 @@ static NSString *const kWCCategoryKey        = @"WCCategoryKey";
         // Set the property
         self.notificationsOn = notifications;
         
+        // Get the bool from storage
+        BOOL notificationsAllowed = NO;
+        if ([ud boolForKey:kWCNotificationsAllowedKey])
+        {
+            notificationsAllowed = [ud boolForKey:kWCNotificationsAllowedKey];
+        }
+        
+        // Set the property
+        self.notificationsAllowed = notificationsAllowed;
+        
     }
     return self;
 }
@@ -85,6 +96,15 @@ static NSString *const kWCCategoryKey        = @"WCCategoryKey";
     [ud setBool:notificationsOn forKey:kWCNotificationsKey];
     [ud synchronize];
 }
+
+- (void)setNotificationsAllowed:(BOOL)notificationsAllowed
+{
+    _notificationsAllowed = notificationsAllowed;
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+    [ud setBool:notificationsAllowed forKey:kWCNotificationsAllowedKey];
+    [ud synchronize];
+}
+
 
 - (void)clearSavedCities
 {

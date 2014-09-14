@@ -92,7 +92,7 @@
                                                         <action selector="notificationsSwitchChanged:" destination="2hT-1a-ywd" eventType="valueChanged" id="yBK-6w-uWW"/>
                                                     </connections>
                                                 </switch>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Daily Notifications" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I0e-Yt-hat">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Daily notifications" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I0e-Yt-hat">
                                                     <rect key="frame" x="16" y="15" width="172" height="21"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -101,6 +101,7 @@
                                             </subviews>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="label" destination="I0e-Yt-hat" id="yGW-lP-Pfr"/>
                                             <outlet property="notificationsSwitch" destination="Rfy-9d-bVB" id="P8W-Ju-5KS"/>
                                         </connections>
                                     </tableViewCell>
