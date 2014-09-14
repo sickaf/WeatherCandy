@@ -208,10 +208,9 @@
     self.loading = YES;
     self.gettingData = YES;
     
-    [[WCSettings sharedSettings] setSelectedImageCategory:WCImageCategoryGirl];
-    
     NSTimeZone *tz = [NSTimeZone systemTimeZone];
     WCImageCategory category = [[WCSettings sharedSettings] selectedImageCategory];
+    NSLog(@"category is %u",category);
     
     NSDictionary *params = @{};
     if (cityID) {

@@ -37,6 +37,11 @@
     self.tableView.contentInset = UIEdgeInsetsMake(10, 0, 0, 0);
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.tableView reloadData]; // to reload selected cell
+}
+
 #pragma mark - Actions
 
 - (IBAction)pressedDone:(id)sender
@@ -190,9 +195,20 @@
             WCPlainCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PlainCell" forIndexPath:indexPath];
             cell.mainLabel.text = @"Category";
             
-            NSNumber *myNum = [NSNumber numberWithInt:[[WCSettings sharedSettings] selectedImageCategory]];
-            NSString *myStr = [myNum stringValue];
-            cell.mainLabel.text = myStr;
+            WCImageCategory cat = [[WCSettings sharedSettings] selectedImageCategory];
+            
+            if(cat == WCImageCategoryGirl) {
+                cell.mainLabel.text = @"Girls";
+            }
+            else if(cat == WCImageCategoryAnimal)
+            {
+                cell.mainLabel.text = @"The Baby Animals";
+            }
+            else
+            {
+                NSLog(@"error loading category");
+            }
+
             return cell;
         }
 
@@ -278,8 +294,6 @@
             NSLog(@"This device cannot send email");
         }
     }
-    
-
 }
 
 #pragma mark - Mail compose delegate
