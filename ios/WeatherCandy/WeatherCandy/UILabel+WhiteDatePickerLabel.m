@@ -16,7 +16,7 @@
     dispatch_once(&onceToken, ^{
         [self swizzleInstanceSelector:@selector(setTextColor:)
                       withNewSelector:@selector(swizzledSetTextColor:)];
-        [self swizzleInstanceSelector:@selector(willMoveToSuperview::)
+        [self swizzleInstanceSelector:@selector(swizzledWillMoveToSuperview:)
                       withNewSelector:@selector(swizzledWillMoveToSuperview:)];
     });
 }

@@ -40,12 +40,12 @@ static NSString *const kWCCategoryKey        = @"WCCategoryKey";
         self.tempUnit = unit; // Set the property
 
         //get the category from storage
-        WCImageCategory cat = WCImageCategoryAnimal;
-        if ([ud objectForKey:kWCCategoryKey])
+        WCImageCategory category = WCImageCategoryGirl;
+        if ([ud integerForKey:kWCCategoryKey])
         {
-            cat = [[ud objectForKey:kWCCategoryKey] intValue];
+            category = [ud integerForKey:kWCCategoryKey];
         }
-        self.selectedImageCategory = cat; // Set the property
+        self.selectedImageCategory = category; // Set the property
         
         // Get the bool from storage
         BOOL notifications = NO;
@@ -74,7 +74,7 @@ static NSString *const kWCCategoryKey        = @"WCCategoryKey";
 {
     _selectedImageCategory = selectedImageCategory;
     NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
-    [ud setObject:[NSNumber numberWithInt:selectedImageCategory] forKey:kWCCategoryKey];
+    [ud setInteger:_selectedImageCategory forKey:kWCCategoryKey];
     [ud synchronize];
 }
 
