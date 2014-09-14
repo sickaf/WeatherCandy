@@ -13,6 +13,7 @@
 
 @interface WCCategoryViewController () {
     WCImageCategory _previousImageCategory;
+    WCImageCategory _chosenImageCategory;
 }
 
 @end
@@ -27,11 +28,7 @@
     self.tableView.separatorColor = [UIColor colorWithWhite:0.2 alpha:1.000];
     
     _previousImageCategory = [[WCSettings sharedSettings] selectedImageCategory];
-}
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    _chosenImageCategory = _previousImageCategory;
 }
 
 - (void)dealloc
@@ -53,20 +50,13 @@
     return 2;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath   *)indexPath
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
     [tableView cellForRowAtIndexPath:indexPath].accessoryType = UITableViewCellAccessoryCheckmark;
-
-    if(indexPath.row == 0)
-    {
-        [[WCSettings sharedSettings] setSelectedImageCategory:WCImageCategoryGirl];
-    }
-    else if(indexPath.row == 1)
-    {
-        [[WCSettings sharedSettings] setSelectedImageCategory:WCImageCategoryAnimal];
-    }
-    
-    [tableView reloadData];
+    [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:_chosenImageCategory inSection:0]].accessoryType = UITableViewCellAccessoryNone;
+    _chosenImageCategory = indexPath.row;
+    [[WCSettings sharedSettings] setSelectedImageCategory:indexPath.row];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
@@ -74,6 +64,10 @@
     WCCategoryCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CategoryCell" forIndexPath:indexPath];
     WCImageCategory cat = [[WCSettings sharedSettings] selectedImageCategory];
     cell.accessoryType = UITableViewCellAccessoryNone;
+    
+    if (_chosenImageCategory == indexPath.row) {
+        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+    }
 
     if(indexPath.row == 0)
     {

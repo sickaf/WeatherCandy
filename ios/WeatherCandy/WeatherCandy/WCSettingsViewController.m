@@ -168,10 +168,10 @@
     UIView *container = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 50)];
     container.backgroundColor = [UIColor clearColor];
     
-    UILabel *new = [[UILabel alloc] initWithFrame:CGRectMake(20, 0, self.view.bounds.size.width - 40, 60)];
+    UILabel *new = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, self.view.bounds.size.width - 30, 60)];
     new.font = kDefaultFontMedium(15);
     new.textColor = [UIColor colorWithWhite:1.0 alpha:0.5];
-    new.textAlignment = NSTextAlignmentCenter;
+    new.textAlignment = NSTextAlignmentLeft;
     new.numberOfLines = 0;
     new.lineBreakMode = NSLineBreakByWordWrapping;
     new.text = @"Get in touch if you want to have your photos featured in Weather Candy";
@@ -324,7 +324,7 @@
                 [mailer setToRecipients:toRecipients];
                 self.mailComposer = mailer;
             }
-            [self presentViewController:self.mailComposer animated:YES completion:NULL];
+            [self presentViewController:self.mailComposer animated:YES completion:nil];
         }
         else
         {
@@ -342,7 +342,7 @@
 
 - (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error
 {
-    [controller dismissViewControllerAnimated:YES completion:nil];
+    [self.mailComposer dismissViewControllerAnimated:YES completion:nil];
 }
 
 #pragma mark - Alert view
