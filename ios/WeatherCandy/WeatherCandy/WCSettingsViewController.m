@@ -25,7 +25,6 @@
 
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
 @property (strong, nonatomic) MFMailComposeViewController *mailComposer;
-@property (weak, nonatomic) IBOutlet UIImageView *settingsBlurImageView;
 
 @end
 
@@ -318,12 +317,12 @@
             if (!self.mailComposer)
             {
                 MFMailComposeViewController *mailer = [[MFMailComposeViewController alloc] init];
-                mailer.mailComposeDelegate = self;
                 [mailer setSubject:@"What's Good"];
                 NSArray *toRecipients = [NSArray arrayWithObjects:@"whatsgood@sick.af", nil];
                 [mailer setToRecipients:toRecipients];
                 self.mailComposer = mailer;
             }
+            [self.mailComposer setMailComposeDelegate:self];
             [self presentViewController:self.mailComposer animated:YES completion:nil];
         }
         else
