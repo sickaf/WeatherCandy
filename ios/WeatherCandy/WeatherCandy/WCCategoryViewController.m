@@ -8,6 +8,8 @@
 
 #import "WCCategoryViewController.h"
 #import "WCCategoryCell.h"
+#import "WCSettings.h"
+
 
 
 @interface WCCategoryViewController ()
@@ -47,25 +49,47 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath   *)indexPath
 {
+    //[tableView deselectRowAtIndexPath:indexPath animated:YES];
     [tableView cellForRowAtIndexPath:indexPath].accessoryType = UITableViewCellAccessoryCheckmark;
+
+    if(indexPath.row == 0)
+    {
+        [[WCSettings sharedSettings] setSelectedImageCategory:WCImageCategoryGirl];
+    }
+    else if(indexPath.row == 1)
+    {
+        [[WCSettings sharedSettings] setSelectedImageCategory:WCImageCategoryAnimal];
+    }
+    [tableView reloadData];
 }
 
+/*
 -(void)tableView:(UITableView *)tableView didDeselectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView cellForRowAtIndexPath:indexPath].accessoryType = UITableViewCellAccessoryNone;
-}
+
+}*/
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     
     WCCategoryCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CategoryCell" forIndexPath:indexPath];
+    WCImageCategory cat = [[WCSettings sharedSettings] selectedImageCategory];
+    cell.accessoryType = UITableViewCellAccessoryNone;
+
     if(indexPath.row == 0)
     {
-        cell.textLabel.text =@"the baby animals";
+        cell.textLabel.text =@"girls";
+        if(cat == WCImageCategoryGirl) {
+            cell.accessoryType = UITableViewCellAccessoryCheckmark;
+        }
     } else if (indexPath.row == 1) {
-        cell.textLabel.text = @"girls";
+        cell.textLabel.text = @"the baby animals";
+        if(cat == WCImageCategoryAnimal) {
+            cell.accessoryType = UITableViewCellAccessoryCheckmark;
+        }
     }
-    return cell;
+      return cell;
 }
 
 /*

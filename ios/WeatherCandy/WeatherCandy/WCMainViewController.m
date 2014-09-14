@@ -24,6 +24,8 @@
 #import "WCForecastCollectionViewCell.h"
 #import "UIViewController+BlurredSnapshot.h"
 #import "WCForecastWeather.h"
+#import "WCSettings.h"
+
 
 @interface WCMainViewController () {
     NSArray *_imgData;
@@ -211,11 +213,14 @@
     self.gettingData = YES;
     
     NSTimeZone *tz = [NSTimeZone systemTimeZone];
+    WCImageCategory category = [[WCSettings sharedSettings] selectedImageCategory];
+    NSLog(@"category is %u",category);
     
     NSDictionary *params = @{};
     if (cityID) {
         params = @{@"cityID": cityID,
                    @"date":[NSDate date],
+                   @"imageCategory":@(category),
                    @"timezone":@(tz.secondsFromGMT)};
     }
     else {

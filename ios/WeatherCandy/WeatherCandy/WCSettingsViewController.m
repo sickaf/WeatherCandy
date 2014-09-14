@@ -37,6 +37,11 @@
     self.tableView.contentInset = UIEdgeInsetsMake(10, 0, 0, 0);
 }
 
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    [self.tableView reloadData]; // to reload selected cell
+}
+
 #pragma mark - Actions
 
 - (IBAction)pressedDone:(id)sender
@@ -144,6 +149,23 @@
     return nil;
 }
 
+- (NSString*)formatTypeToString:(WCImageCategory)formatType {
+    NSString *result = nil;
+    
+    switch(formatType) {
+        case 0:
+            result = @"0";
+            break;
+        case 1:
+            result = @"1";
+            break;
+        default:
+            [NSException raise:NSGenericException format:@"Unexpected FormatType."];
+    }
+    
+    return result;
+}
+
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if(indexPath.section == 0)
@@ -172,6 +194,21 @@
         {
             WCPlainCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PlainCell" forIndexPath:indexPath];
             cell.mainLabel.text = @"Category";
+            
+            WCImageCategory cat = [[WCSettings sharedSettings] selectedImageCategory];
+            
+            if(cat == WCImageCategoryGirl) {
+                cell.mainLabel.text = @"Girls";
+            }
+            else if(cat == WCImageCategoryAnimal)
+            {
+                cell.mainLabel.text = @"The Baby Animals";
+            }
+            else
+            {
+                NSLog(@"error loading category");
+            }
+
             return cell;
         }
 
@@ -257,8 +294,6 @@
             NSLog(@"This device cannot send email");
         }
     }
-    
-
 }
 
 #pragma mark - Mail compose delegate
