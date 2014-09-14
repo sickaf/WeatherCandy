@@ -100,7 +100,7 @@
             [[WCSettings sharedSettings] setNotificationsOn:YES];
             WCNotificationBlurViewController *vc = [[UIStoryboard storyboardWithName:@"Settings" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"NotificationDatePicker"];
             vc.modalTransitionStyle = UIModalTransitionStyleCrossDissolve;
-            vc.blurImg = [self blurredImageOfCurrentViewWithAlpha:0.7 withRadius:15 withSaturation:2];
+            vc.blurImg = [self.navigationController blurredImageOfCurrentViewWithAlpha:0.7 withRadius:15 withSaturation:2];
             [self presentViewController:vc animated:YES completion:nil];
         }
         else //opted out
