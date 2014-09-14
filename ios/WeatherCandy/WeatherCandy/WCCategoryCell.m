@@ -7,17 +7,19 @@
 //
 
 #import "WCCategoryCell.h"
+#import "WCConstants.h"
 
 @implementation WCCategoryCell
 
-- (void)awakeFromNib {
-    // Initialization code
-}
-
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
+- (void)awakeFromNib
+{
+    [super awakeFromNib];
+    self.categoryLabel.font = kDefaultFontMedium(18);
+    self.categoryLabel.textColor = [UIColor colorWithWhite:1.0 alpha:0.5];
+    self.backgroundColor = kDefaultBackgroundColor;
+    
+    self.textLabel.font = kDefaultFontMedium(18);
+    self.textLabel.textColor = [UIColor whiteColor];
 }
 
 @end

@@ -7,7 +7,30 @@
 //
 
 #import "WCPlainCell.h"
+#import "WCConstants.h"
 
 @implementation WCPlainCell
+
+- (id)initWithCoder:(NSCoder *)aDecoder
+{
+    self = [super initWithCoder:aDecoder];
+    if (self) {
+        [self setup];
+    }
+    return self;
+}
+
+- (void)awakeFromNib
+{
+    [self setup];
+}
+
+- (void)setup
+{
+    self.mainLabel.font = kDefaultFontMedium(18);
+    self.mainLabel.textColor = [UIColor whiteColor];
+    self.backgroundColor = kDefaultBackgroundColor;
+    self.tintColor = [UIColor whiteColor];
+}
 
 @end

@@ -235,9 +235,9 @@
         [self saveLastSelectedCity:selectedCity];
     }
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:kCityChangedNotification object:nil userInfo:@{@"city": selectedCity}];
-    
     [self dismissViewControllerAnimated:YES completion:nil];
+    
+    [[NSNotificationCenter defaultCenter] postNotificationName:kCityChangedNotification object:nil userInfo:@{@"city": selectedCity}];
 }
 
 - (void)handleNoLocationError

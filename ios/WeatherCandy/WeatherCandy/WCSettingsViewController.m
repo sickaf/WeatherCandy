@@ -16,6 +16,7 @@
 #import "UIViewController+BlurredSnapshot.h"
 #import "WCNotificationBlurViewController.h"
 #import "WCAboutViewController.h"
+#import "WCCategoryCell.h"
 
 #import "WCAddCityViewController.h"
 
@@ -35,6 +36,9 @@
     [super viewDidLoad];
     
     self.tableView.contentInset = UIEdgeInsetsMake(10, 0, 0, 0);
+    self.tableView.backgroundColor = [UIColor colorWithWhite:0.200 alpha:1.000];
+    self.tableView.tintColor = [UIColor whiteColor];
+    self.tableView.separatorColor = [UIColor colorWithWhite:0.2 alpha:1.000];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -121,7 +125,7 @@
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     if(section == 0) {
-        return 4;
+        return 3;
     }
     return 2;
 }
@@ -175,43 +179,49 @@
             WCToggleCell *cell = [tableView dequeueReusableCellWithIdentifier:@"ToggleCell" forIndexPath:indexPath];
             cell.tempToggle.selectedSegmentIndex = [[WCSettings sharedSettings] tempUnit];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            cell.backgroundColor = kDefaultBackgroundColor;
+            cell.mainLabel.font = kDefaultFontMedium(18);
+            cell.mainLabel.textColor = [UIColor whiteColor];
             return cell;
         }
-        else if (indexPath.row == 1)  //Notifications cell
+//        else if (indexPath.row == 1)  //Notifications cell
+//        {
+//            WCNotificationsSwitchCell *cell = [tableView dequeueReusableCellWithIdentifier:@"NotificationsSwitchCell" forIndexPath:indexPath];
+//            cell.notificationsSwitch.on = [[WCSettings sharedSettings] notificationsOn];
+//            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+//            cell.backgroundColor = kDefaultBackgroundColor;
+//            return cell;
+//        }
+        else if (indexPath.row == 1) //category
         {
-            WCNotificationsSwitchCell *cell = [tableView dequeueReusableCellWithIdentifier:@"NotificationsSwitchCell" forIndexPath:indexPath];
-            cell.notificationsSwitch.on = [[WCSettings sharedSettings] notificationsOn];
-            cell.selectionStyle = UITableViewCellSelectionStyleNone;
+            WCCategoryCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CategoryCell" forIndexPath:indexPath];
+            cell.mainLabel.text = @"Category";
+            cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+            
+            WCImageCategory cat = [[WCSettings sharedSettings] selectedImageCategory];
+            
+            if(cat == WCImageCategoryGirl) {
+                cell.categoryLabel.text = @"Hot Girls";
+            }
+            else if(cat == WCImageCategoryAnimal)
+            {
+                cell.categoryLabel.text = @"Cute Animals";
+            }
+            else
+            {
+                NSLog(@"error loading category");
+            }
+            
             return cell;
         }
         else if (indexPath.row == 2) //clear saved cities
         {
             WCPlainCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PlainCell" forIndexPath:indexPath];
             cell.mainLabel.text = @"Clear saved cities";
+            cell.mainLabel.font = kDefaultFontMedium(18);
+            cell.mainLabel.textColor = [UIColor whiteColor];
             return cell;
         }
-        else if (indexPath.row == 3) //category
-        {
-            WCPlainCell *cell = [tableView dequeueReusableCellWithIdentifier:@"PlainCell" forIndexPath:indexPath];
-            cell.mainLabel.text = @"Category";
-            
-            WCImageCategory cat = [[WCSettings sharedSettings] selectedImageCategory];
-            
-            if(cat == WCImageCategoryGirl) {
-                cell.mainLabel.text = @"Girls";
-            }
-            else if(cat == WCImageCategoryAnimal)
-            {
-                cell.mainLabel.text = @"The Baby Animals";
-            }
-            else
-            {
-                NSLog(@"error loading category");
-            }
-
-            return cell;
-        }
-
     }
     else if (indexPath.section == 1)  //Sick.af section
     {
@@ -238,9 +248,10 @@
     
     if (indexPath.section == 0 && indexPath.row == 2)  //Clear saved cities
     {
-        [[WCSettings sharedSettings] clearSavedCities];
+        UIAlertView *al = [[UIAlertView alloc] initWithTitle:@"Are you sure?" message:@"Are you sure you want to clear your list of saved cities?" delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"Yes", nil];
+        [al show];
     }
-    else if (indexPath.section == 0 && indexPath.row == 3) //category
+    else if (indexPath.section == 0 && indexPath.row == 1) //category
     {
         //Get rid of back button label for the about section
         UIBarButtonItem *backButton = [[UIBarButtonItem alloc]
@@ -250,7 +261,7 @@
         [self.navigationItem setBackBarButtonItem: backButton];
         
         //grab and push view controller
-        WCAboutViewController *vc = [[UIStoryboard storyboardWithName:@"Settings" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"CategoryViewController"];
+        UIViewController *vc = [[UIStoryboard storyboardWithName:@"Settings" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"CategoryViewController"];
         [self.navigationController pushViewController:vc animated:YES];
     }
 
@@ -301,6 +312,13 @@
 - (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error
 {
     [controller dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex
+{
+    if (buttonIndex == 1) {
+        [[WCSettings sharedSettings] clearSavedCities];
+    }
 }
 
 @end
