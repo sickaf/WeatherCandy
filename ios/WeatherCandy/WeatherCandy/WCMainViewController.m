@@ -66,7 +66,6 @@
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cityChanged:) name:kCityChangedNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tempUnitToggled:) name:kReloadTempLabelsNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(imageDownloaded:) name:kImageDownloadedNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appBecameActive:) name:UIApplicationDidBecomeActiveNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshImages:) name:kReloadImagesNotification object:nil];
     
@@ -292,6 +291,10 @@
                                         // Refresh all of the UI
                                         [self refreshTempUI];
                                     }
+                                    else {
+                                        UIAlertView *al = [[UIAlertView alloc] initWithTitle:@"Uh oh" message:@"There was an error finding the weather. Please try again but tapping the city name" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+                                        [al show];
+                                    }
                                     
                                     self.loading = NO;
                                     self.gettingData = NO;
@@ -398,11 +401,6 @@
     [self.forecastCollectionView reloadData];
 }
 
-- (void)imageDownloaded:(NSNotification *)note
-{
-//    [self blurCurrentImageWithScrollOffset:self.outerScrollView.contentOffset];
-}
-
 - (void)appBecameActive:(NSNotification *)note
 {
     WCSettings *shared = [WCSettings sharedSettings];
@@ -438,6 +436,8 @@
 }
 - (IBAction)pressedAction:(id)sender
 {
+    if (_gettingData || _loading) return;
+
     UICollectionViewCell *current = [[self.collectionView visibleCells] firstObject];
     NSIndexPath *currentInd = [self.collectionView indexPathForCell:current];
     [self openProfileForIndexPath:currentInd];
@@ -524,11 +524,16 @@
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
-    if (buttonIndex == 0) {
+    if (buttonIndex == 0)
+    {
         NSString *st = [NSString stringWithFormat:@"instagram://user?username=%@", actionSheet.title];
         NSURL *instagramURL = [NSURL URLWithString:st];
         if ([[UIApplication sharedApplication] canOpenURL:instagramURL]) {
             [[UIApplication sharedApplication] openURL:instagramURL];
+        }
+        else {
+            UIAlertView *sry = [[UIAlertView alloc] initWithTitle:@"Uh oh" message:@"You don't have Instagram installed. Please install it and try again." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+            [sry show];
         }
     }
 }
@@ -594,6 +599,7 @@
         CLLocation *location = locations.lastObject;
         CLLocationCoordinate2D coord = location.coordinate;
         _currentLocation = YES;
+        
         [self getWeatherDataWithCityID:nil longitude:coord.longitude latitude:coord.latitude];
         [self.locationManager stopUpdatingLocation];
         self.locationManager.delegate = nil;
@@ -609,6 +615,11 @@
             [self handleNoLocation];
             [self.locationManager stopUpdatingLocation];
             self.locationManager.delegate = nil;
+            
+            WCCity *c = [WCCity new];
+            c.currentLocation = YES;
+            c.name = @"Current Location";
+            _currentCity = c;
         });
     }
 }

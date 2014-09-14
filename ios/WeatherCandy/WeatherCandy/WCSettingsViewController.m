@@ -61,7 +61,7 @@
 
 - (IBAction)segmentChanged:(UISegmentedControl *)sender
 {
-    [[WCSettings sharedSettings] setTempUnit:sender.selectedSegmentIndex];
+    [[WCSettings sharedSettings] setTempUnit:(int)sender.selectedSegmentIndex];
     [[NSNotificationCenter defaultCenter] postNotificationName:kReloadTempLabelsNotification object:nil];
 }
 
