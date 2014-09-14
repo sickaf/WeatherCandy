@@ -8,7 +8,8 @@
 
 #import <UIKit/UIKit.h>
 
-@interface WCAboutViewController : UIViewController
+@interface WCAboutViewController : UIViewController <UIWebViewDelegate>
+
 @property (strong, nonatomic) IBOutlet UIWebView *aboutWebView;
 
 @end

@@ -25,7 +25,9 @@
                             <outlet property="delegate" destination="XJe-pL-VTD" id="YIf-wG-Fv2"/>
                         </connections>
                     </tableView>
+                    <toolbarItems/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="TAl-NK-CYD" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
