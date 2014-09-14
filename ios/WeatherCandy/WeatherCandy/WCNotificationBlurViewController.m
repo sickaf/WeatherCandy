@@ -25,18 +25,14 @@
 }
 
 - (IBAction)doneChoosingTimeButton:(UIButton *)sender {
-    
-    NSDate *fireDate = self.notificationDatePicker.date;
-    fireDate  = [fireDate dateByAddingTimeInterval:5]; //for Testing
-    
+        
     UILocalNotification *localNotification = [[UILocalNotification alloc] init];
-    localNotification.fireDate = fireDate;
+    localNotification.fireDate = self.notificationDatePicker.date;
     localNotification.alertBody = @"Check the weather!";
 
-    localNotification.repeatInterval = NSMinuteCalendarUnit;
+    localNotification.repeatInterval = NSDayCalendarUnit;
     [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
     NSLog(@"Just scheduled a notification for %@", localNotification.fireDate.description);
-    //[self.navigationController dismissViewControllerAnimated:YES completion:nil];
     [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
 
 
