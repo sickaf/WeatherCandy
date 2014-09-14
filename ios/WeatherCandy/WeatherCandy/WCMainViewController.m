@@ -227,6 +227,7 @@
         params = @{@"lat": @(latitude),
                    @"lon": @(longitude),
                    @"date":[NSDate date],
+                   @"imageCategory":@(category),
                    @"timezone":@(tz.secondsFromGMT)};
     }
     
