@@ -341,7 +341,10 @@
 
 - (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error
 {
-    [self.mailComposer dismissViewControllerAnimated:YES completion:nil];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [self.mailComposer dismissViewControllerAnimated:YES completion:nil];
+        self.mailComposer = nil;
+    });
 }
 
 #pragma mark - Alert view
