@@ -67,6 +67,10 @@
         return YES;
     }
     
+    if (self.forecastTime > (self.sunrise + 24*60*60) && self.forecastTime < (self.sunset + 24*60*60)) {
+        return YES;
+    }
+    
     return NO;
 }
 
