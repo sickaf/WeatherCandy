@@ -11,7 +11,9 @@
 #import "WCSettings.h"
 #import "WCConstants.h"
 
-@interface WCCategoryViewController ()
+@interface WCCategoryViewController () {
+    WCImageCategory _previousImageCategory;
+}
 
 @end
 
@@ -23,11 +25,20 @@
     self.title = @"Categories";
     self.tableView.backgroundColor = [UIColor colorWithWhite:0.200 alpha:1.000];
     self.tableView.separatorColor = [UIColor colorWithWhite:0.2 alpha:1.000];
+    
+    _previousImageCategory = [[WCSettings sharedSettings] selectedImageCategory];
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+- (void)dealloc
+{
+    if ([[WCSettings sharedSettings] selectedImageCategory] != _previousImageCategory) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:kReloadImagesNotification object:nil];
+    }
 }
 
 #pragma mark - Table view data source

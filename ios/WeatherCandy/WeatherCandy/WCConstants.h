@@ -47,6 +47,7 @@
 
 static NSString *const kCityChangedNotification         = @"WCCityChangedNotification";
 static NSString *const kReloadTempLabelsNotification    = @"WCReloadTempLabelsNotification";
+static NSString *const kReloadImagesNotification        = @"WCReloadImages";
 static NSString *const kImageDownloadedNotification     = @"WCImageDownloadedNotification";
 
 static NSString *const kLastSelectedCity = @"WCLastSelectedCity";

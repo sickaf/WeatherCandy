@@ -34,6 +34,7 @@
     UIImageView *_blurImageView;
     NSDateFormatter *_dateFormatter;
     WCWeather *_currentWeather;
+    WCCity *_currentCity;
     BOOL _currentLocation;
 }
 
@@ -67,6 +68,7 @@
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tempUnitToggled:) name:kReloadTempLabelsNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(imageDownloaded:) name:kImageDownloadedNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appBecameActive:) name:UIApplicationDidBecomeActiveNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshImages:) name:kReloadImagesNotification object:nil];
     
     _dateFormatter = [[NSDateFormatter alloc] init];
     [_dateFormatter setDateStyle:NSDateFormatterNoStyle];
@@ -369,6 +371,8 @@
         _currentLocation = YES;
         [self loadDataFromCurrentLocation];
     }
+    
+    _currentCity = city;
 }
 
 - (void)reloadBlurredBackgroundOnPresentedViewController
@@ -403,6 +407,11 @@
 {
     WCSettings *shared = [WCSettings sharedSettings];
     shared.locationEnabled = [self hasLocationAccess];
+}
+
+- (void)refreshImages:(NSNotification *)note
+{
+    [self changeToCity:_currentCity];
 }
 
 #pragma mark - Actions
