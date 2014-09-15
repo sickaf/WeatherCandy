@@ -89,7 +89,6 @@
     _spinner.center = self.view.center;
     [self.view addSubview:_spinner];
     
-    [self.titleButton.titleLabel setFont:kDefaultFontMedium(18)];
     self.mainTempLabel.font = kDefaultFontUltraLight(100);
     self.descriptionLabel.font = kDefaultFontBold(40);
     
@@ -450,7 +449,7 @@
 
 - (IBAction)pressedAction:(id)sender
 {
-    if (_gettingData || _loading) return;
+    if (_gettingData || _loading || !_imgData.count) return;
 
     UICollectionViewCell *current = [[self.collectionView visibleCells] firstObject];
     NSIndexPath *currentInd = [self.collectionView indexPathForCell:current];

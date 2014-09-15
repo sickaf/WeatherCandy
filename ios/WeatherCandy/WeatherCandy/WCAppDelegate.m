@@ -23,23 +23,19 @@
     
     [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
     
-    // TODO: clean this up
-    /*
-    //if iOS8, use registerForRemoteNotifications
-    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0)
-    {
-        // use registerForRemoteNotifications
-        [[UIApplication sharedApplication] registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:(UIUserNotificationTypeSound | UIUserNotificationTypeAlert | UIUserNotificationTypeBadge) categories:nil]];
-        [[UIApplication sharedApplication] registerForRemoteNotifications];
+#ifdef __IPHONE_8_0
+    //Right, that is the point
+    if(NSFoundationVersionNumber > NSFoundationVersionNumber_iOS_7_1) {
+        UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:(UIRemoteNotificationTypeBadge
+                                                                                             |UIRemoteNotificationTypeSound
+                                                                                             |UIRemoteNotificationTypeAlert) categories:nil];
+        [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
     }
-    else
-    {
-        // use registerUserNotificationSettings
-        UIUserNotificationSettings *notificationSettings= [UIUserNotificationSettings settingsForTypes:(UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge) categories:nil];
-        [application registerUserNotificationSettings:notificationSettings];
-    }*/
+#endif
+    //register to receive notifications
+    UIRemoteNotificationType myTypes = UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeSound;
+    [[UIApplication sharedApplication] registerForRemoteNotificationTypes:myTypes];
     
-    // Override point for customization after application launch.
     return YES;
 }
 
@@ -65,10 +61,23 @@
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
--(void)application:(UIApplication *)application didReceiveLocalNotification:(UILocalNotification *)notification {
-    NSLog(@"Just received a notification");
+- (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
+{
+    // Store the deviceToken in the current installation and save it to Parse.
+    PFInstallation *currentInstallation = [PFInstallation currentInstallation];
+    [currentInstallation setDeviceTokenFromData:deviceToken];
+    currentInstallation.channels = @[@"global"];
+    [currentInstallation saveInBackground];
 }
 
+#ifdef __IPHONE_8_0
+- (void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings
+{
+    //register to receive notifications
+    [application registerForRemoteNotifications];
+}
+
+#endif
 
 
 @end

@@ -8,10 +8,11 @@
 
 #import "WCTitleButtonViewController.h"
 #import "WCConstants.h"
+#import "WCTitleButton.h"
 
 @interface WCTitleButtonViewController ()
 
-@property (nonatomic, strong) UIButton *titleButton;
+@property (nonatomic, strong) WCTitleButton *titleButton;
 
 @end
 
@@ -23,21 +24,17 @@
     
     self.view.backgroundColor = kDefaultBackgroundColor;
 
-    UIButton *butt = [UIButton buttonWithType:UIButtonTypeCustom];
+    WCTitleButton *butt = [WCTitleButton new];
+    butt.frame = CGRectMake(0, 0, self.navigationController.navigationBar.frame.size.width, self.navigationController.navigationBar.frame.size.height);
+    [butt setImage:[UIImage imageNamed:@"up_arrow"] forState:UIControlStateNormal];
     [butt setTitle:_titleButtonText forState:UIControlStateNormal];
-    [butt setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
-    [butt setTitleColor:[UIColor colorWithWhite:1 alpha:0.6] forState:UIControlStateHighlighted];
-    butt.titleLabel.font = kDefaultFontMedium(18);
+    
+    butt.titleEdgeInsets = UIEdgeInsetsMake(0, -butt.imageView.frame.size.width - 5, 0, butt.imageView.frame.size.width + 5);
+    butt.imageEdgeInsets = UIEdgeInsetsMake(0, butt.titleLabel.frame.size.width, 0, -butt.titleLabel.frame.size.width);
+    
     [butt addTarget:self action:@selector(pressedTitle:) forControlEvents:UIControlEventTouchUpInside];
     self.navigationItem.titleView = butt;
     _titleButton = butt;
-}
-
-- (void)setTitleButtonText:(NSString *)titleButtonText
-{
-    if (_titleButtonText == titleButtonText) return;
-    _titleButtonText = titleButtonText;
-    [_titleButton setTitle:_titleButtonText forState:UIControlStateNormal];
 }
 
 #pragma mark - Actions
