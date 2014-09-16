@@ -249,7 +249,6 @@
             cell.backgroundColor = kDefaultBackgroundColor;
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
 
-
             if([[WCSettings sharedSettings] notificationsAllowed] && [[WCSettings sharedSettings] notificationsOn])
             {
                 [cell.notificationsSwitch setOn:YES];
