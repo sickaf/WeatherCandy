@@ -301,7 +301,7 @@
         </scene>
     </scenes>
     <resources>
-        <image name="down_arrow" width="10" height="6"/>
+        <image name="down_arrow" width="7" height="5"/>
         <image name="fog_day" width="50" height="50"/>
         <image name="icon-action" width="17" height="17"/>
         <image name="icon-settings" width="17" height="17"/>
