@@ -67,7 +67,12 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
-    [tableView cellForRowAtIndexPath:indexPath].accessoryType = UITableViewCellAccessoryCheckmark;
+    
+    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    
+    if (cell.accessoryType == UITableViewCellAccessoryCheckmark) return;
+    
+    cell.accessoryType = UITableViewCellAccessoryCheckmark;
     [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:_chosenImageCategory inSection:0]].accessoryType = UITableViewCellAccessoryNone;
     _chosenImageCategory = indexPath.row;
     [[WCSettings sharedSettings] setSelectedImageCategory:indexPath.row];
