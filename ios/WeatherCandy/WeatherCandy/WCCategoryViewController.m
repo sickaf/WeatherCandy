@@ -97,7 +97,7 @@
     } else if (indexPath.row == 1)
     {
         cell.textLabel.text = @"Hot guys";
-        if(cat == WCImageCategoryAnimal) {
+        if(cat == WCImageCategoryGuy) {
             cell.accessoryType = UITableViewCellAccessoryCheckmark;
         }
     }
