@@ -104,10 +104,11 @@
 
 - (void)saveCityData
 {
-    [_savedCities removeObjectAtIndex:0];
+    NSMutableArray *cityArray = [NSMutableArray arrayWithArray:_savedCities];
+    [cityArray removeObjectAtIndex:0];
     NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
     [ud removeObjectForKey:@"cities"];
-    [ud setObject:[NSKeyedArchiver archivedDataWithRootObject:_savedCities] forKey:@"cities"];
+    [ud setObject:[NSKeyedArchiver archivedDataWithRootObject:cityArray] forKey:@"cities"];
     [ud synchronize];
 }
 
@@ -196,6 +197,37 @@
     return !(_searching || (_showSearchResults && !_searchResults.count));
 }
 
+- (void) tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (editingStyle == UITableViewCellEditingStyleDelete)
+    {
+        [_savedCities removeObjectAtIndex:indexPath.row];
+        [self.tableView deleteRowsAtIndexPaths:[NSArray arrayWithObject:indexPath] withRowAnimation:YES];
+        [self saveCityData];
+        //[self.tableView reloadData];
+
+    }
+}
+
+//keep user from deleting current location
+
+- (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath.section == 0 && indexPath.row < 2)
+        return UITableViewCellEditingStyleNone;
+    else
+        return UITableViewCellEditingStyleDelete;
+}
+
+- (BOOL)cityIsSaved:(WCCity *)city
+{
+    for (WCCity *savedCity in _savedCities) {
+        if (savedCity.cityID == city.cityID)
+            return YES;
+    }
+    return NO;
+}
+
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -208,8 +240,10 @@
     if (_searchResults.count > 0) {
         
         selectedCity = _searchResults[indexPath.row];
-        [_savedCities insertObject:selectedCity atIndex:1];
-        
+        if (![self cityIsSaved:selectedCity]) {
+            [_savedCities insertObject:selectedCity atIndex:1];
+        }
+
         if (_savedCities.count > 7) {
             [_savedCities removeLastObject];
         }
