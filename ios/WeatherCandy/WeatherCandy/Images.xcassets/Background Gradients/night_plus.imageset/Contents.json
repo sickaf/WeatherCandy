@@ -7,7 +7,12 @@
     {
       "idiom" : "universal",
       "scale" : "2x",
-      "filename" : "night_plus.png"
+      "filename" : "night.png"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "3x",
+      "filename" : "night_plus-1.png"
     }
   ],
   "info" : {

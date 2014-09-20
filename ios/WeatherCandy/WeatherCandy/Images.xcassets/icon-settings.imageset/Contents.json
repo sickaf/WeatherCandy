@@ -8,6 +8,11 @@
       "idiom" : "universal",
       "scale" : "2x",
       "filename" : "icon-settings.png"
+    },
+    {
+      "idiom" : "universal",
+      "scale" : "3x",
+      "filename" : "icon-settings@3x.png"
     }
   ],
   "info" : {
