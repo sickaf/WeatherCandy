@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="KGR-o3-BCs">
     <dependencies>
+        <deployment defaultVersion="1808" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -18,7 +19,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <collectionView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Ce6-Ww-ZQs">
+                            <collectionView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" minimumZoomScale="0.0" maximumZoomScale="0.0" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Ce6-Ww-ZQs">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                                 <color key="backgroundColor" red="0.1764705926" green="0.36862745879999997" blue="0.50196081400000003" alpha="1" colorSpace="deviceRGB"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="0.0" minimumInteritemSpacing="0.0" id="a3k-bz-ARy">
@@ -151,8 +152,12 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eVU-6v-0PE" customClass="WCTintedButton">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eVU-6v-0PE" customClass="WCTintedButton">
                                 <rect key="frame" x="11" y="18" width="42" height="42"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="42" id="1fF-T0-JRC"/>
+                                    <constraint firstAttribute="width" constant="42" id="djG-8p-H2C"/>
+                                </constraints>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <state key="normal" image="icon-settings">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -161,8 +166,12 @@
                                     <action selector="pressedSettings:" destination="KGR-o3-BCs" eventType="touchUpInside" id="1hF-nQ-IRY"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5NC-KF-jNf" customClass="WCTintedButton">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5NC-KF-jNf" customClass="WCTintedButton">
                                 <rect key="frame" x="272" y="18" width="42" height="42"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="42" id="6rm-5w-XQb"/>
+                                    <constraint firstAttribute="height" constant="42" id="DZi-xp-oST"/>
+                                </constraints>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <state key="normal" image="icon-action">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -171,8 +180,11 @@
                                     <action selector="pressedAction:" destination="KGR-o3-BCs" eventType="touchUpInside" id="SMr-Dz-ref"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="y9u-eb-bwV" customClass="WCTitleButton">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="y9u-eb-bwV" customClass="WCTitleButton">
                                 <rect key="frame" x="61" y="26" width="203" height="26"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="26" id="6cd-Nv-3gV"/>
+                                </constraints>
                                 <state key="normal" title="Current Location" image="down_arrow">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -184,22 +196,33 @@
                         </subviews>
                         <color key="backgroundColor" red="0.1764705926" green="0.36862745879999997" blue="0.50196081400000003" alpha="1" colorSpace="deviceRGB"/>
                         <constraints>
-                            <constraint firstAttribute="height" secondItem="NuI-Cp-B7Z" secondAttribute="height" id="6k9-RA-WyT"/>
+                            <constraint firstItem="eVU-6v-0PE" firstAttribute="top" secondItem="EmQ-E6-9Ik" secondAttribute="bottom" constant="-2" id="1tI-ic-SaI"/>
+                            <constraint firstItem="NuI-Cp-B7Z" firstAttribute="width" secondItem="ET4-fh-jNa" secondAttribute="width" id="3et-7e-mh8"/>
                             <constraint firstItem="c8e-zr-BRP" firstAttribute="top" secondItem="QkM-Zp-UH4" secondAttribute="bottom" constant="8" id="8LB-Zb-MhN"/>
-                            <constraint firstAttribute="centerY" secondItem="NuI-Cp-B7Z" secondAttribute="centerY" id="A4q-KP-a4y"/>
                             <constraint firstAttribute="width" secondItem="QkM-Zp-UH4" secondAttribute="width" id="FDu-vI-fwu"/>
+                            <constraint firstAttribute="height" secondItem="Ce6-Ww-ZQs" secondAttribute="height" id="H54-5H-QFh"/>
+                            <constraint firstItem="5NC-KF-jNf" firstAttribute="top" secondItem="EmQ-E6-9Ik" secondAttribute="bottom" constant="-2" id="MML-zm-3pU"/>
                             <constraint firstItem="OBV-ge-0WM" firstAttribute="trailing" secondItem="ET4-fh-jNa" secondAttribute="trailingMargin" id="PYe-z9-Vxx"/>
                             <constraint firstItem="ji7-YF-yeX" firstAttribute="top" secondItem="EmQ-E6-9Ik" secondAttribute="bottom" constant="-20" id="RgB-IR-sYB"/>
                             <constraint firstItem="ji7-YF-yeX" firstAttribute="width" secondItem="ET4-fh-jNa" secondAttribute="width" id="Zpg-Fa-rOF"/>
+                            <constraint firstItem="eVU-6v-0PE" firstAttribute="leading" secondItem="ET4-fh-jNa" secondAttribute="leadingMargin" constant="-5" id="box-3a-sEo"/>
+                            <constraint firstAttribute="width" secondItem="Ce6-Ww-ZQs" secondAttribute="width" id="csv-Hl-gDP"/>
                             <constraint firstItem="QkM-Zp-UH4" firstAttribute="top" secondItem="8lJ-gY-qbR" secondAttribute="bottom" constant="5" id="dHM-zn-aJN"/>
-                            <constraint firstAttribute="centerX" secondItem="NuI-Cp-B7Z" secondAttribute="centerX" id="dKi-Ty-RWr"/>
-                            <constraint firstAttribute="width" secondItem="NuI-Cp-B7Z" secondAttribute="width" id="mLx-zU-052"/>
+                            <constraint firstAttribute="centerX" secondItem="NuI-Cp-B7Z" secondAttribute="centerX" id="iLB-nS-TyC"/>
+                            <constraint firstAttribute="centerX" secondItem="Ce6-Ww-ZQs" secondAttribute="centerX" id="kDM-ZW-idn"/>
+                            <constraint firstItem="y9u-eb-bwV" firstAttribute="leading" secondItem="eVU-6v-0PE" secondAttribute="trailing" constant="8" id="mHt-F9-6Ge"/>
                             <constraint firstItem="8lJ-gY-qbR" firstAttribute="trailing" secondItem="ET4-fh-jNa" secondAttribute="trailingMargin" id="oeA-R7-Gpy"/>
+                            <constraint firstAttribute="centerY" secondItem="Ce6-Ww-ZQs" secondAttribute="centerY" id="pYE-Oe-728"/>
+                            <constraint firstItem="NuI-Cp-B7Z" firstAttribute="height" secondItem="ET4-fh-jNa" secondAttribute="height" id="qdx-IO-QeY"/>
                             <constraint firstAttribute="centerX" secondItem="QkM-Zp-UH4" secondAttribute="centerX" id="qhe-A3-f2l"/>
                             <constraint firstItem="OBV-ge-0WM" firstAttribute="leading" secondItem="ET4-fh-jNa" secondAttribute="leadingMargin" id="tDV-fm-DCW"/>
+                            <constraint firstAttribute="centerY" secondItem="NuI-Cp-B7Z" secondAttribute="centerY" id="umv-kR-eAW"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="5NC-KF-jNf" secondAttribute="trailing" constant="-10" id="vGA-TB-xRL"/>
                             <constraint firstItem="8lJ-gY-qbR" firstAttribute="top" secondItem="OBV-ge-0WM" secondAttribute="bottom" id="vfh-4S-Qzb"/>
                             <constraint firstItem="8lJ-gY-qbR" firstAttribute="leading" secondItem="ET4-fh-jNa" secondAttribute="leadingMargin" id="voJ-nH-IDD"/>
+                            <constraint firstItem="y9u-eb-bwV" firstAttribute="top" secondItem="EmQ-E6-9Ik" secondAttribute="bottom" constant="6" id="wW1-Ke-lYK"/>
                             <constraint firstAttribute="centerX" secondItem="ji7-YF-yeX" secondAttribute="centerX" id="xwD-X1-pA4"/>
+                            <constraint firstItem="5NC-KF-jNf" firstAttribute="leading" secondItem="y9u-eb-bwV" secondAttribute="trailing" constant="8" id="y4k-Iz-Bc4"/>
                         </constraints>
                     </view>
                     <connections>

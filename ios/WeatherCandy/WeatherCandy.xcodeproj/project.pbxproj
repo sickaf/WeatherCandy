@@ -14,6 +14,7 @@
 		7F14C62019B5F349001FA062 /* WCSlideDownModalAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F14C61F19B5F349001FA062 /* WCSlideDownModalAnimation.m */; };
 		7F14C62319B60EF0001FA062 /* WCCity.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F14C62219B60EF0001FA062 /* WCCity.m */; };
 		7F14C62719B61A29001FA062 /* WCCityCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F14C62619B61A29001FA062 /* WCCityCell.m */; };
+		7F15E83A19CBD64B002539A5 /* WCErrorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F15E83919CBD64B002539A5 /* WCErrorView.m */; };
 		7F1BEE6819C4143300D2AA70 /* WCWeather.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F1BEE6719C4143300D2AA70 /* WCWeather.m */; };
 		7F1BEE6B19C41A3D00D2AA70 /* WCForecastWeather.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F1BEE6A19C41A3D00D2AA70 /* WCForecastWeather.m */; };
 		7FAE69D819B5A6BA0061B1BD /* WCCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FAE69D719B5A6BA0061B1BD /* WCCollectionViewCell.m */; };
@@ -45,6 +46,7 @@
 		7FDB145619B8A0D300790272 /* WCTintedImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FDB145519B8A0D300790272 /* WCTintedImageView.m */; };
 		7FDB145C19B8AED500790272 /* RMDisplayLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FDB145919B8AED500790272 /* RMDisplayLabel.m */; };
 		7FDB145D19B8AED500790272 /* RMDownloadIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FDB145B19B8AED500790272 /* RMDownloadIndicator.m */; };
+		7FE6389F19CD646B00EB1A52 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7FE6389E19CD646B00EB1A52 /* Crashlytics.framework */; };
 		7FF217DD19C3563A00D045BF /* Avenir Next.ttc in Resources */ = {isa = PBXBuildFile; fileRef = 7FF217DC19C3563A00D045BF /* Avenir Next.ttc */; };
 		8201147E19B3548A00F44D0B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8201147D19B3548A00F44D0B /* main.m */; };
 		8201148119B3548A00F44D0B /* WCAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8201148019B3548A00F44D0B /* WCAppDelegate.m */; };
@@ -96,6 +98,8 @@
 		7F14C62219B60EF0001FA062 /* WCCity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCCity.m; sourceTree = "<group>"; };
 		7F14C62519B61A29001FA062 /* WCCityCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WCCityCell.h; sourceTree = "<group>"; };
 		7F14C62619B61A29001FA062 /* WCCityCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCCityCell.m; sourceTree = "<group>"; };
+		7F15E83819CBD64B002539A5 /* WCErrorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WCErrorView.h; sourceTree = "<group>"; };
+		7F15E83919CBD64B002539A5 /* WCErrorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCErrorView.m; sourceTree = "<group>"; };
 		7F1BEE6619C4143300D2AA70 /* WCWeather.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WCWeather.h; sourceTree = "<group>"; };
 		7F1BEE6719C4143300D2AA70 /* WCWeather.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCWeather.m; sourceTree = "<group>"; };
 		7F1BEE6919C41A3D00D2AA70 /* WCForecastWeather.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WCForecastWeather.h; sourceTree = "<group>"; };
@@ -157,6 +161,7 @@
 		7FDB145919B8AED500790272 /* RMDisplayLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMDisplayLabel.m; sourceTree = "<group>"; };
 		7FDB145A19B8AED500790272 /* RMDownloadIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMDownloadIndicator.h; sourceTree = "<group>"; };
 		7FDB145B19B8AED500790272 /* RMDownloadIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMDownloadIndicator.m; sourceTree = "<group>"; };
+		7FE6389E19CD646B00EB1A52 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Crashlytics.framework; path = Frameworks/Crashlytics.framework; sourceTree = "<group>"; };
 		7FF217DC19C3563A00D045BF /* Avenir Next.ttc */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Avenir Next.ttc"; sourceTree = "<group>"; };
 		8201147819B3548A00F44D0B /* WeatherCandy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeatherCandy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8201147C19B3548A00F44D0B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -210,6 +215,7 @@
 				7F0C772F19BF229800E2C44C /* Bolts.framework in Frameworks */,
 				820114AF19B35EFF00F44D0B /* CoreGraphics.framework in Frameworks */,
 				820114B019B35EFF00F44D0B /* CoreLocation.framework in Frameworks */,
+				7FE6389F19CD646B00EB1A52 /* Crashlytics.framework in Frameworks */,
 				7F0C773019BF229800E2C44C /* Parse.framework in Frameworks */,
 				820114B119B35EFF00F44D0B /* libz.dylib in Frameworks */,
 				820114B219B35EFF00F44D0B /* MobileCoreServices.framework in Frameworks */,
@@ -244,6 +250,8 @@
 		7F14C61A19B5E79F001FA062 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				8247D5DE19C2C58100341A24 /* UILabel+WhiteDatePickerLabel.h */,
+				8247D5DF19C2C58100341A24 /* UILabel+WhiteDatePickerLabel.m */,
 				7FB123A319BD734700EFAAC3 /* UIImageView+AFNetworking.h */,
 				7FB123A419BD734700EFAAC3 /* UIImageView+AFNetworking.m */,
 				7FAE69D619B5A6BA0061B1BD /* WCCollectionViewCell.h */,
@@ -270,6 +278,8 @@
 				7FBE0F5119C5C11B00319B9C /* WCTintedButton.m */,
 				7FBE0F6619C6DCEA00319B9C /* WCTitleButton.h */,
 				7FBE0F6719C6DCEA00319B9C /* WCTitleButton.m */,
+				7F15E83819CBD64B002539A5 /* WCErrorView.h */,
+				7F15E83919CBD64B002539A5 /* WCErrorView.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -382,8 +392,6 @@
 				8201148319B3548A00F44D0B /* WCMainViewController.m */,
 				7FDB143819B6EF7500790272 /* WCSettingsViewController.h */,
 				7FDB143919B6EF7500790272 /* WCSettingsViewController.m */,
-				8247D5DE19C2C58100341A24 /* UILabel+WhiteDatePickerLabel.h */,
-				8247D5DF19C2C58100341A24 /* UILabel+WhiteDatePickerLabel.m */,
 				7FAE69E319B5B2040061B1BD /* WCNavigationController.h */,
 				7FAE69E419B5B2040061B1BD /* WCNavigationController.m */,
 				8283B7EC19C2AC8500DB1979 /* WCNotificationBlurViewController.h */,
@@ -429,6 +437,7 @@
 		820114A219B35C0100F44D0B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7FE6389E19CD646B00EB1A52 /* Crashlytics.framework */,
 				7F0C773119BF22AD00E2C44C /* UIImageViewAligned */,
 				7F0C772D19BF229800E2C44C /* Bolts.framework */,
 				7F0C772E19BF229800E2C44C /* Parse.framework */,
@@ -460,6 +469,7 @@
 				8201147419B3548A00F44D0B /* Sources */,
 				8201147519B3548A00F44D0B /* Frameworks */,
 				8201147619B3548A00F44D0B /* Resources */,
+				7FE6389B19CD638300EB1A52 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -547,6 +557,22 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		7FE6389B19CD638300EB1A52 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "./Frameworks/Crashlytics.framework/run 7ce2c109a52bd76cf97eacb387877d4289329a2d 199906d0b9345c29f128f1ce38882ab47412ace28fb4ed51871a3812916c1fe4";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		8201147419B3548A00F44D0B /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -569,6 +595,7 @@
 				7FAE6A0019B5B42D0061B1BD /* AFURLRequestSerialization.m in Sources */,
 				7FAE69D819B5A6BA0061B1BD /* WCCollectionViewCell.m in Sources */,
 				7FDB145619B8A0D300790272 /* WCTintedImageView.m in Sources */,
+				7F15E83A19CBD64B002539A5 /* WCErrorView.m in Sources */,
 				7FB123AB19BD7C6400EFAAC3 /* WCSettings.m in Sources */,
 				7F1BEE6819C4143300D2AA70 /* WCWeather.m in Sources */,
 				7F14C61D19B5EC69001FA062 /* WCAddCityViewController.m in Sources */,

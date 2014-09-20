@@ -8,7 +8,7 @@
 
 #import "WCAppDelegate.h"
 #import <Parse/Parse.h>
-
+#import <Crashlytics/Crashlytics.h>
 
 @interface WCAppDelegate ()
 
@@ -22,6 +22,8 @@
                   clientKey:@"1XJhUPLe2s8FFDiNHG7izpTxnU173WsGA4MRGmdh"];
     
     [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
+    
+    [Crashlytics startWithAPIKey:@"7ce2c109a52bd76cf97eacb387877d4289329a2d"];
     
 #ifdef __IPHONE_8_0
     //Right, that is the point

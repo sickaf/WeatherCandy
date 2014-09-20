@@ -24,33 +24,33 @@
 #import "UIViewController+BlurredSnapshot.h"
 #import "WCForecastWeather.h"
 #import "WCSettings.h"
+#import "WCErrorView.h"
 
 #define EARLIER_IOS_8    ([[[UIDevice currentDevice] systemVersion] floatValue] < 8.0)
 
 
 @interface WCMainViewController () {
     NSArray *_imgData;
-    NSDictionary *_currentWeatherData;
     NSArray *_forecastData;
-    UIImageView *_blurImageView;
     NSDateFormatter *_dateFormatter;
     WCWeather *_currentWeather;
     WCCity *_currentCity;
-    BOOL _currentLocation;
 }
 
-//@property (weak, nonatomic) IBOutlet UIScrollView *outerScrollView;
-//@property (weak, nonatomic) IBOutlet UIScrollView *innerScrollView;
 @property (weak, nonatomic) IBOutlet UICollectionView *forecastCollectionView;
 @property (strong, nonatomic) UIActivityIndicatorView *spinner;
 @property (assign, nonatomic) BOOL loading;
 @property (assign, nonatomic) BOOL gettingData;
+@property (assign, nonatomic) BOOL error;
+@property (assign, nonatomic) BOOL currentLocation;
 @property (weak, nonatomic) IBOutlet UIButton *titleButton;
 @property (strong, nonatomic) CLLocationManager *locationManager;
 
 @property (strong, nonatomic) UIPushBehavior *pushBehavior;
 @property (strong,nonatomic) UIGravityBehavior *gravityBehavior;
 @property (strong, nonatomic) UIDynamicAnimator *animator;
+
+@property (strong, nonatomic) WCErrorView *errorView;
 
 @end
 
@@ -67,7 +67,6 @@
     // Setup
     
     _imgData = @[];
-    _currentWeatherData = @{};
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cityChanged:) name:kCityChangedNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tempUnitToggled:) name:kReloadTempLabelsNotification object:nil];
@@ -92,9 +91,49 @@
     self.descriptionLabel.font = kDefaultFontBold(40);
     
     [self changeToBackgroundForType:WCBackgroundTypeBlue];
+        
+    self.titleButton.titleEdgeInsets = UIEdgeInsetsMake(0, -self.titleButton.imageView.frame.size.width - 5, 0, self.titleButton.imageView.frame.size.width + 5);
+    self.titleButton.imageEdgeInsets = UIEdgeInsetsMake(0, self.titleButton.titleLabel.frame.size.width, 0, -self.titleButton.titleLabel.frame.size.width);
     
-    self.forecastCollectionView.backgroundColor = [UIColor clearColor];
+    // Get data
+    [self getInitialData];
+}
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+#pragma mark - Properties
+
+- (void)setLoading:(BOOL)loading
+{
+    _loading = loading;
     
+    if (_loading) {
+        [self enableLoadingState];
+    }
+}
+
+- (void)setGettingData:(BOOL)gettingData
+{
+    _gettingData = gettingData;
+    
+    if (!_gettingData) {
+        
+        if (self.error) {
+            [self enableErrorState];
+        }
+        else {
+            [self disableLoadingState];
+        }
+    }
+}
+
+#pragma mark - Helpers
+
+- (void)getInitialData
+{
     // Switch to current city
     NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
     NSData *dataRepresentingCity = [ud objectForKey:kLastSelectedCity];
@@ -116,48 +155,58 @@
     }
 }
 
-- (void)dealloc
+- (void)enableLoadingState
 {
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    [_spinner startAnimating];
+    _spinner.hidden = NO;
+    self.collectionView.alpha = 0;
+    self.forecastCollectionView.alpha = 0;
+    self.mainTempLabel.alpha = 0;
+    self.descriptionLabel.alpha = 0;
+    self.topGradientImageView.alpha = 0;
+    self.errorView.alpha = 0;
+    _errorView.alpha = 0;
 }
 
-#pragma mark - Properties
-
-- (void)setLoading:(BOOL)loading
+- (void)disableLoadingState
 {
-    _loading = loading;
+    [_spinner stopAnimating];
+    [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        self.collectionView.alpha = 1;
+        self.forecastCollectionView.alpha = 1;
+        self.mainTempLabel.alpha = 1;
+        self.descriptionLabel.alpha = 1;
+        self.topGradientImageView.alpha = 1;
+    } completion:nil];
     
-    if (_loading) {
-        [_spinner startAnimating];
-        _spinner.hidden = NO;
-        self.collectionView.alpha = 0;
-        self.forecastCollectionView.alpha = 0;
-        self.mainTempLabel.alpha = 0;
-        self.descriptionLabel.alpha = 0;
-        self.topGradientImageView.alpha = 0;
-    }
+    [self.collectionView reloadData];
+    [self.forecastCollectionView reloadData];
 }
 
-- (void)setGettingData:(BOOL)gettingData
+- (void)enableErrorState
 {
-    _gettingData = gettingData;
-    
-    if (!_gettingData) {
-        [_spinner stopAnimating];
-        [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
-            self.collectionView.alpha = 1;
-            self.forecastCollectionView.alpha = 1;
-            self.mainTempLabel.alpha = 1;
-            self.descriptionLabel.alpha = 1;
-            self.topGradientImageView.alpha = 1;
-        } completion:nil];
+    if (!_errorView) {
         
-        [self.collectionView reloadData];
-        [self.forecastCollectionView reloadData];
+        WCErrorView *err = [[WCErrorView alloc] initWithFrame:self.view.bounds];
+        err.userInteractionEnabled = YES;
+        err.translatesAutoresizingMaskIntoConstraints = NO;
+        [err.butt addTarget:self action:@selector(pressedRetry:) forControlEvents:UIControlEventTouchUpInside];
+        self.errorView = err;
+        [self.view addSubview:self.errorView];
+        
+        NSArray *constraints = [NSLayoutConstraint constraintsWithVisualFormat:@"|[err]|" options: NSLayoutFormatAlignAllCenterX metrics:nil views:@{@"err": _errorView}];
+        constraints = [constraints arrayByAddingObjectsFromArray:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(60)-[err]-|" options:NSLayoutFormatAlignAllCenterY metrics:nil views:@{@"err": _errorView}]];
+        
+        _errorView.alpha = 0;
+        [self.view addConstraints:constraints];
     }
+    
+    [_spinner stopAnimating];
+    
+    [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
+        _errorView.alpha = 1;
+    } completion:nil];
 }
-
-#pragma mark - Helpers
 
 - (void)loadDataFromCurrentLocation
 {
@@ -223,6 +272,7 @@
 {
     self.loading = YES;
     self.gettingData = YES;
+    self.error = NO;
     
     NSTimeZone *tz = [NSTimeZone systemTimeZone];
     WCImageCategory category = [[WCSettings sharedSettings] selectedImageCategory];
@@ -294,7 +344,7 @@
                                         _forecastData = [NSArray arrayWithArray:newForecastData];
                                         
                                         // Make sure to change the title to the retrieved name if we're using current location
-                                        if (_currentLocation) {
+                                        if (self.currentLocation) {
                                             NSString *currentCityName = currentWeatherDict[@"cityName"];
                                             [self.titleButton setTitle:currentCityName forState:UIControlStateNormal];
                                         }
@@ -303,13 +353,12 @@
                                         [self refreshTempUI];
                                     }
                                     else {
-                                        UIAlertView *al = [[UIAlertView alloc] initWithTitle:@"Uh oh" message:@"There was an error finding the weather. Please try again but tapping the city name" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-                                        [al show];
+                                        self.error = YES;
                                     }
                                     
                                     self.loading = NO;
                                     self.gettingData = NO;
-                                    _currentLocation = NO;
+                                    self.currentLocation = NO;
                                 }];
 }
 
@@ -467,6 +516,11 @@
     NSIndexPath *currentInd = [self.collectionView indexPathForCell:current];
     
     [self openProfileForIndexPath:currentInd];
+}
+
+- (void)pressedRetry:(id)sender
+{
+    [self getInitialData];
 }
 
 #pragma mark - Collection view data source
@@ -720,7 +774,7 @@
 - (void)handleLocationTurnedOff
 {
     // No location, show weather for hard coded city
-    dispatch_async(dispatch_get_main_queue(), ^{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         UIAlertView *err = [[UIAlertView alloc] initWithTitle:@"Sorry" message:@"There was an error finding your current location. Please turn on location services for this app." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [err show];
         [self handleNoLocation];
