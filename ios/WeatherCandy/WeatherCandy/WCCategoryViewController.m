@@ -10,6 +10,7 @@
 #import "WCCategoryCell.h"
 #import "WCSettings.h"
 #import "WCConstants.h"
+#import <Parse/Parse.h>
 
 @interface WCCategoryViewController () {
     WCImageCategory _previousImageCategory;
@@ -33,7 +34,20 @@
 
 - (void)dealloc
 {
-    if ([[WCSettings sharedSettings] selectedImageCategory] != _previousImageCategory) {
+    WCImageCategory selectedCategory = [[WCSettings sharedSettings] selectedImageCategory];
+    if (selectedCategory != _previousImageCategory) {
+        
+        //analytics
+        NSDictionary *analyticsDimensions = @{
+                                                @"didChangeCategory" : @"1",
+                                                @"previousCategory" : [NSString stringWithFormat:@"%d", _previousImageCategory],
+                                                @"selectedCategory" : [NSString stringWithFormat:@"%d", selectedCategory],
+                                                @"notificationsOn" : [NSString stringWithFormat:@"%d", [[WCSettings sharedSettings] notificationsOn]]
+                                                };
+
+        // Send the dimensions to Parse
+        [PFAnalytics trackEvent:@"categoryEvent_Test" dimensions:analyticsDimensions];
+
         [[NSNotificationCenter defaultCenter] postNotificationName:kReloadImagesNotification object:nil];
     }
 }
@@ -47,7 +61,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     // Return the number of rows in the section.
-    return 2;
+    return 3;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
@@ -76,16 +90,24 @@
 
     if(indexPath.row == 0)
     {
-        cell.textLabel.text = @"Hot Girls";
+        cell.textLabel.text = @"Models";
         if(cat == WCImageCategoryGirl) {
             cell.accessoryType = UITableViewCellAccessoryCheckmark;
         }
-    } else if (indexPath.row == 1) {
-        cell.textLabel.text = @"Cute Animals";
-        if(cat == WCImageCategoryAnimal) {
+    } else if (indexPath.row == 1)
+    {
+        cell.textLabel.text = @"Hot guys";
+        if(cat == WCImageCategoryGuy) {
             cell.accessoryType = UITableViewCellAccessoryCheckmark;
         }
     }
+    else if (indexPath.row == 2)
+    {
+    cell.textLabel.text = @"Cute animals";
+    if(cat == WCImageCategoryAnimal) {
+        cell.accessoryType = UITableViewCellAccessoryCheckmark;
+    }
+}
       return cell;
 }
 

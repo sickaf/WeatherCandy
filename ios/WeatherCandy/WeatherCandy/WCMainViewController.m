@@ -7,7 +7,6 @@
 //
 
 #import <Parse/Parse.h>
-
 #import "WCMainViewController.h"
 #import "WCCollectionViewCell.h"
 #import "WCConstants.h"
@@ -419,10 +418,23 @@
 - (void)openProfileForIndexPath:(NSIndexPath *)indexPath
 {
     WCPhoto *p = _imgData[indexPath.row];
+
+    //analytics
+    NSString *rowStr = [NSString stringWithFormat:@"%ld", (long)indexPath.row];
+    NSDictionary *analyticsDimensions = @{
+                                            @"didTapPhoto" : @"1",
+                                            @"category" : [NSString stringWithFormat:@"%d", [[WCSettings sharedSettings] selectedImageCategory]],
+                                            @"notificationsOn" : [NSString stringWithFormat:@"%d", [[WCSettings sharedSettings] notificationsOn]],
+                                            @"username" : p.username,
+                                            @"photoIndex": rowStr
+                                          };
+    [PFAnalytics trackEvent:@"photoEvent_Test" dimensions:analyticsDimensions];
+    
     
     UIActionSheet *as = [[UIActionSheet alloc] initWithTitle:p.username delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Instagram Profile", nil];
     [as showInView:self.view];
 }
+
 
 - (void)changeToCity:(WCCity *)city
 {
@@ -501,6 +513,7 @@
 
     UICollectionViewCell *current = [[self.collectionView visibleCells] firstObject];
     NSIndexPath *currentInd = [self.collectionView indexPathForCell:current];
+    
     [self openProfileForIndexPath:currentInd];
 }
 
@@ -544,8 +557,8 @@
     
     NSInteger ind = indexPath.row + 4 * indexPath.section;
     
-    if (ind < _forecastData.count) {
-        
+    if (ind < _forecastData.count)
+    {
         WCForecastWeather *forecastWeather = _forecastData[indexPath.row + 4 * indexPath.section];
         cell.tempLabel.text = [forecastWeather tempString];
         NSDate *date = [NSDate dateWithTimeIntervalSince1970:forecastWeather.forecastTime];
@@ -573,7 +586,18 @@
 
 - (BOOL)collectionView:(UICollectionView *)collectionView shouldSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    if ([collectionView isEqual:self.forecastCollectionView]) {
+    if ([collectionView isEqual:self.forecastCollectionView])
+    {
+        //Analytics
+        NSDictionary *analyticsDimensions = @{
+                                              @"didTapForecast" : @"1",
+                                              @"category" : [NSString stringWithFormat:@"%d", [[WCSettings sharedSettings] selectedImageCategory]],
+                                              @"currentTemperatureUnit" : [NSString stringWithFormat:@"%d", [[WCSettings sharedSettings] tempUnit]],
+                                              @"notificationsOn" : [NSString stringWithFormat:@"%d", [[WCSettings sharedSettings] notificationsOn]],
+                                              };
+        // Send the dimensions to Parse
+        [PFAnalytics trackEvent:@"weatherEvent_Test" dimensions:analyticsDimensions];
+
         
         // Bump animation
         if (!self.animator) {
@@ -614,7 +638,6 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     [collectionView deselectItemAtIndexPath:indexPath animated:NO];
-    
     [self openProfileForIndexPath:indexPath];
 }
 
@@ -622,6 +645,8 @@
 
 - (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
 {
+    NSDictionary *analyticsDimensions = nil;
+    
     if (buttonIndex == 0)
     {
         NSString *st = [NSString stringWithFormat:@"instagram://user?username=%@", actionSheet.title];
@@ -633,7 +658,30 @@
             UIAlertView *sry = [[UIAlertView alloc] initWithTitle:@"Uh oh" message:@"You don't have Instagram installed. Please install it and try again." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
             [sry show];
         }
+        
+        //Analytics
+        analyticsDimensions = @{
+                                @"didGoToInstagram" : @"1",
+                                @"category" : [NSString stringWithFormat:@"%d", [[WCSettings sharedSettings] selectedImageCategory]],
+                                @"notificationsOn" : [NSString stringWithFormat:@"%d", [[WCSettings sharedSettings] notificationsOn]],
+                                @"username" : actionSheet.title,
+                                };
+        
+        // Send the dimensions to Parse
     }
+    else //cancelled action sheet
+    {
+        //analytics
+        analyticsDimensions = @{
+                                @"didCancelActionSheet" : @"1",
+                                @"category" : [NSString stringWithFormat:@"%d", [[WCSettings sharedSettings] selectedImageCategory]],
+                                @"notificationsOn" : [NSString stringWithFormat:@"%d", [[WCSettings sharedSettings] notificationsOn]],
+                                @"username" : actionSheet.title,
+                                };
+
+    }
+    [PFAnalytics trackEvent:@"photoEvent_Test" dimensions:analyticsDimensions];
+
 }
 
 #pragma mark - animation delegate

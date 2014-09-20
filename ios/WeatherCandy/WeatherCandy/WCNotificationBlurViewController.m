@@ -7,6 +7,9 @@
 //
 
 #import "WCNotificationBlurViewController.h"
+#import "WCSettings.h"
+#import <Parse/Parse.h>
+
 
 @interface WCNotificationBlurViewController ()
 @property (weak, nonatomic) IBOutlet UIImageView *blurImageView;
@@ -29,6 +32,22 @@
     UILocalNotification *localNotification = [[UILocalNotification alloc] init];
     localNotification.fireDate = self.notificationDatePicker.date;
     localNotification.alertBody = @"Check the weather!";
+    
+    
+    //Analytics
+    NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
+    [dateFormatter setDateFormat:@"HH:mm"];
+    NSString *dateString = [dateFormatter stringFromDate:self.notificationDatePicker.date];
+    NSString *categoryString = [NSString stringWithFormat:@"%d", [[WCSettings sharedSettings] selectedImageCategory]];
+    NSDictionary *analyticsDimensions = @{
+                                 @"didTurnOn" : @"1",
+                                 @"attemptedToTurnOn": @"1",
+                                 @"timeSetFor": dateString,
+                                 @"imageCategory" : categoryString
+                                 };
+    // Send the dimensions to Parse
+    [PFAnalytics trackEvent:@"notificationEvent_Test" dimensions:analyticsDimensions];
+    
 
     localNotification.repeatInterval = NSDayCalendarUnit;
     [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];

@@ -16,6 +16,7 @@ typedef enum {
 
 typedef enum {
     WCImageCategoryGirl = 0,
+    WCImageCategoryGuy,
     WCImageCategoryAnimal,
 } WCImageCategory;
 
