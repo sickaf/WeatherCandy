@@ -46,6 +46,7 @@
 		7FDB145619B8A0D300790272 /* WCTintedImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FDB145519B8A0D300790272 /* WCTintedImageView.m */; };
 		7FDB145C19B8AED500790272 /* RMDisplayLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FDB145919B8AED500790272 /* RMDisplayLabel.m */; };
 		7FDB145D19B8AED500790272 /* RMDownloadIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FDB145B19B8AED500790272 /* RMDownloadIndicator.m */; };
+		7FE6389F19CD646B00EB1A52 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7FE6389E19CD646B00EB1A52 /* Crashlytics.framework */; };
 		7FF217DD19C3563A00D045BF /* Avenir Next.ttc in Resources */ = {isa = PBXBuildFile; fileRef = 7FF217DC19C3563A00D045BF /* Avenir Next.ttc */; };
 		8201147E19B3548A00F44D0B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 8201147D19B3548A00F44D0B /* main.m */; };
 		8201148119B3548A00F44D0B /* WCAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 8201148019B3548A00F44D0B /* WCAppDelegate.m */; };
@@ -160,6 +161,7 @@
 		7FDB145919B8AED500790272 /* RMDisplayLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMDisplayLabel.m; sourceTree = "<group>"; };
 		7FDB145A19B8AED500790272 /* RMDownloadIndicator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMDownloadIndicator.h; sourceTree = "<group>"; };
 		7FDB145B19B8AED500790272 /* RMDownloadIndicator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RMDownloadIndicator.m; sourceTree = "<group>"; };
+		7FE6389E19CD646B00EB1A52 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Crashlytics.framework; path = Frameworks/Crashlytics.framework; sourceTree = "<group>"; };
 		7FF217DC19C3563A00D045BF /* Avenir Next.ttc */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Avenir Next.ttc"; sourceTree = "<group>"; };
 		8201147819B3548A00F44D0B /* WeatherCandy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeatherCandy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8201147C19B3548A00F44D0B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -213,6 +215,7 @@
 				7F0C772F19BF229800E2C44C /* Bolts.framework in Frameworks */,
 				820114AF19B35EFF00F44D0B /* CoreGraphics.framework in Frameworks */,
 				820114B019B35EFF00F44D0B /* CoreLocation.framework in Frameworks */,
+				7FE6389F19CD646B00EB1A52 /* Crashlytics.framework in Frameworks */,
 				7F0C773019BF229800E2C44C /* Parse.framework in Frameworks */,
 				820114B119B35EFF00F44D0B /* libz.dylib in Frameworks */,
 				820114B219B35EFF00F44D0B /* MobileCoreServices.framework in Frameworks */,
@@ -434,6 +437,7 @@
 		820114A219B35C0100F44D0B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7FE6389E19CD646B00EB1A52 /* Crashlytics.framework */,
 				7F0C773119BF22AD00E2C44C /* UIImageViewAligned */,
 				7F0C772D19BF229800E2C44C /* Bolts.framework */,
 				7F0C772E19BF229800E2C44C /* Parse.framework */,
@@ -465,6 +469,7 @@
 				8201147419B3548A00F44D0B /* Sources */,
 				8201147519B3548A00F44D0B /* Frameworks */,
 				8201147619B3548A00F44D0B /* Resources */,
+				7FE6389B19CD638300EB1A52 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -551,6 +556,22 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		7FE6389B19CD638300EB1A52 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "./Crashlytics.framework/run 7ce2c109a52bd76cf97eacb387877d4289329a2d 199906d0b9345c29f128f1ce38882ab47412ace28fb4ed51871a3812916c1fe4";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		8201147419B3548A00F44D0B /* Sources */ = {
