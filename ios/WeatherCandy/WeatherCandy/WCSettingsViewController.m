@@ -6,6 +6,7 @@
 //  Copyright (c) 2014 sickaf. All rights reserved.
 //
 
+#import <Parse/Parse.h>
 #import "WCSettingsViewController.h"
 #import "WCConstants.h"
 #import "WCSettings.h"
@@ -87,12 +88,30 @@
 - (IBAction)segmentChanged:(UISegmentedControl *)sender
 {
     [[WCSettings sharedSettings] setTempUnit:(int)sender.selectedSegmentIndex];
+    
+    //Analytics
+    NSDictionary *analyticsDimensions = @{
+                                          @"didChangeTemperatureUnit" : @"1",
+                                          @"currentTemperatureUnit" : [NSString stringWithFormat:@"%d", [[WCSettings sharedSettings] tempUnit]],
+                                          @"category" : [NSString stringWithFormat:@"%d", [[WCSettings sharedSettings] selectedImageCategory]],
+                                          @"notificationsOn" : [NSString stringWithFormat:@"%d", [[WCSettings sharedSettings] notificationsOn]],
+                                          };
+    // Send the dimensions to Parse
+    [PFAnalytics trackEvent:@"weatherEvent_Test" dimensions:analyticsDimensions];
+
+    
     [[NSNotificationCenter defaultCenter] postNotificationName:kReloadTempLabelsNotification object:nil];
 }
 
 
 - (IBAction)notificationsSwitchChanged:(UISwitch *)sender
 {
+    //analytics
+    NSDictionary *analyticsDimensions = nil;
+    NSString *categoryString = [NSString stringWithFormat:@"%d", [[WCSettings sharedSettings] selectedImageCategory]];
+    
+
+    
     if (sender.isOn) //Switched on
     {
         if ([[WCSettings sharedSettings] notificationsAllowed]) //app has permission
@@ -103,10 +122,17 @@
             vc.blurImg = [self.navigationController blurredImageOfCurrentViewWithAlpha:0.7 withRadius:15 withSaturation:2];
             [self presentViewController:vc animated:YES completion:nil];
         }
-        else //opted out
+        else //no permission
         {
+            //analytics
+            analyticsDimensions = @{
+                                     @"didTurnOn" : @"0",
+                                     @"attemptedToTurnOn": @"1",
+                                     @"imageCategory" : categoryString
+                                                  };
+            
+            
             [sender setOn:NO animated:YES];
-            NSLog(@"not going to let user turn on notifications");
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Notifications disabled"
                                                             message:@"Go to Settings to turn on notifications for Weather Candy"
                                                            delegate:self
@@ -115,11 +141,21 @@
             [alert show];
         }
         
-    } else {//Switched off
-        NSLog(@"cancelling notifications");
+    }
+    else //Switched off
+    {
+        //analytics
+        analyticsDimensions = @{
+                                @"didTurnOn" : @"0",
+                                @"attemptedToTurnOn": @"0",
+                                @"imageCategory" : categoryString
+                                              };
         [[WCSettings sharedSettings] setNotificationsOn:NO];
         [[UIApplication sharedApplication] cancelAllLocalNotifications];
     }
+    
+    // Send the dimensions to Parse
+    [PFAnalytics trackEvent:@"notificationEvent_Test" dimensions:analyticsDimensions];
 
 }
 
@@ -214,10 +250,13 @@
     
     switch(formatType) {
         case 0:
-            result = @"Hot Girls";
+            result = @"Girls";
             break;
         case 1:
-            result = @"Cute Animals";
+            result = @"Guys";
+            break;
+        case 2:
+            result = @"Animals";
             break;
         default:
             result = @"Hot Girls";

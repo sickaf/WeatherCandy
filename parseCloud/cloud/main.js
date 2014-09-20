@@ -55,7 +55,7 @@ function getWeatherCandyData(request, response) {
   var IGPhotoQuery = new Parse.Query("IGPhoto");
   IGPhotoQuery.equalTo("forDate", dateString);
   if (imageCategory !== undefined) {
-    console.log("imageCategory is not undefined: "+imageCategory);
+    console.log("imageCategory is: "+imageCategory);
     IGPhotoQuery.equalTo("imageCategory", imageCategory);
   }
 

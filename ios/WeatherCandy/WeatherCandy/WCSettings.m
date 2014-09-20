@@ -105,7 +105,6 @@ static NSString *const kWCCategoryKey        = @"WCCategoryKey";
     [ud synchronize];
 }
 
-
 - (void)clearSavedCities
 {
     NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
