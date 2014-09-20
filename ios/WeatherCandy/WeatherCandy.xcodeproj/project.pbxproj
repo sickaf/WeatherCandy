@@ -247,6 +247,8 @@
 		7F14C61A19B5E79F001FA062 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				8247D5DE19C2C58100341A24 /* UILabel+WhiteDatePickerLabel.h */,
+				8247D5DF19C2C58100341A24 /* UILabel+WhiteDatePickerLabel.m */,
 				7FB123A319BD734700EFAAC3 /* UIImageView+AFNetworking.h */,
 				7FB123A419BD734700EFAAC3 /* UIImageView+AFNetworking.m */,
 				7FAE69D619B5A6BA0061B1BD /* WCCollectionViewCell.h */,
@@ -387,8 +389,6 @@
 				8201148319B3548A00F44D0B /* WCMainViewController.m */,
 				7FDB143819B6EF7500790272 /* WCSettingsViewController.h */,
 				7FDB143919B6EF7500790272 /* WCSettingsViewController.m */,
-				8247D5DE19C2C58100341A24 /* UILabel+WhiteDatePickerLabel.h */,
-				8247D5DF19C2C58100341A24 /* UILabel+WhiteDatePickerLabel.m */,
 				7FAE69E319B5B2040061B1BD /* WCNavigationController.h */,
 				7FAE69E419B5B2040061B1BD /* WCNavigationController.m */,
 				8283B7EC19C2AC8500DB1979 /* WCNotificationBlurViewController.h */,

@@ -91,8 +91,9 @@
     self.descriptionLabel.font = kDefaultFontBold(40);
     
     [self changeToBackgroundForType:WCBackgroundTypeBlue];
-    
-    self.forecastCollectionView.backgroundColor = [UIColor clearColor];
+        
+    self.titleButton.titleEdgeInsets = UIEdgeInsetsMake(0, -self.titleButton.imageView.frame.size.width - 5, 0, self.titleButton.imageView.frame.size.width + 5);
+    self.titleButton.imageEdgeInsets = UIEdgeInsetsMake(0, self.titleButton.titleLabel.frame.size.width, 0, -self.titleButton.titleLabel.frame.size.width);
     
     // Get data
     [self getInitialData];
