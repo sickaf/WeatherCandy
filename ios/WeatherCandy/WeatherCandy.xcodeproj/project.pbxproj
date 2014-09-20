@@ -14,6 +14,7 @@
 		7F14C62019B5F349001FA062 /* WCSlideDownModalAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F14C61F19B5F349001FA062 /* WCSlideDownModalAnimation.m */; };
 		7F14C62319B60EF0001FA062 /* WCCity.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F14C62219B60EF0001FA062 /* WCCity.m */; };
 		7F14C62719B61A29001FA062 /* WCCityCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F14C62619B61A29001FA062 /* WCCityCell.m */; };
+		7F15E83A19CBD64B002539A5 /* WCErrorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F15E83919CBD64B002539A5 /* WCErrorView.m */; };
 		7F1BEE6819C4143300D2AA70 /* WCWeather.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F1BEE6719C4143300D2AA70 /* WCWeather.m */; };
 		7F1BEE6B19C41A3D00D2AA70 /* WCForecastWeather.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F1BEE6A19C41A3D00D2AA70 /* WCForecastWeather.m */; };
 		7FAE69D819B5A6BA0061B1BD /* WCCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FAE69D719B5A6BA0061B1BD /* WCCollectionViewCell.m */; };
@@ -96,6 +97,8 @@
 		7F14C62219B60EF0001FA062 /* WCCity.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCCity.m; sourceTree = "<group>"; };
 		7F14C62519B61A29001FA062 /* WCCityCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WCCityCell.h; sourceTree = "<group>"; };
 		7F14C62619B61A29001FA062 /* WCCityCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCCityCell.m; sourceTree = "<group>"; };
+		7F15E83819CBD64B002539A5 /* WCErrorView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WCErrorView.h; sourceTree = "<group>"; };
+		7F15E83919CBD64B002539A5 /* WCErrorView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCErrorView.m; sourceTree = "<group>"; };
 		7F1BEE6619C4143300D2AA70 /* WCWeather.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WCWeather.h; sourceTree = "<group>"; };
 		7F1BEE6719C4143300D2AA70 /* WCWeather.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCWeather.m; sourceTree = "<group>"; };
 		7F1BEE6919C41A3D00D2AA70 /* WCForecastWeather.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WCForecastWeather.h; sourceTree = "<group>"; };
@@ -270,6 +273,8 @@
 				7FBE0F5119C5C11B00319B9C /* WCTintedButton.m */,
 				7FBE0F6619C6DCEA00319B9C /* WCTitleButton.h */,
 				7FBE0F6719C6DCEA00319B9C /* WCTitleButton.m */,
+				7F15E83819CBD64B002539A5 /* WCErrorView.h */,
+				7F15E83919CBD64B002539A5 /* WCErrorView.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -569,6 +574,7 @@
 				7FAE6A0019B5B42D0061B1BD /* AFURLRequestSerialization.m in Sources */,
 				7FAE69D819B5A6BA0061B1BD /* WCCollectionViewCell.m in Sources */,
 				7FDB145619B8A0D300790272 /* WCTintedImageView.m in Sources */,
+				7F15E83A19CBD64B002539A5 /* WCErrorView.m in Sources */,
 				7FB123AB19BD7C6400EFAAC3 /* WCSettings.m in Sources */,
 				7F1BEE6819C4143300D2AA70 /* WCWeather.m in Sources */,
 				7F14C61D19B5EC69001FA062 /* WCAddCityViewController.m in Sources */,
