@@ -142,13 +142,13 @@
         WCCity *lastCity = [NSKeyedUnarchiver unarchiveObjectWithData:dataRepresentingCity];
         [self changeToCity:lastCity];
     }
-    else if (EARLIER_IOS_8) {
-        // Load weather for newport beach
-        WCCity *np = [WCCity new];
-        np.name = @"Newport Beach";
-        np.cityID = @(5376890);
-        [self changeToCity:np];
-    }
+//    else if (EARLIER_IOS_8) {
+//        // Load weather for newport beach
+//        WCCity *np = [WCCity new];
+//        np.name = @"Newport Beach";
+//        np.cityID = @(5376890);
+//        [self changeToCity:np];
+//    }
     else {
         // No last city saved, update from current location
         [self loadDataFromCurrentLocation];
@@ -236,6 +236,7 @@
         }
     }
     else {
+        self.locationManager.delegate = self;
         // Check if location service are enabled on iOS7
         if ([CLLocationManager locationServicesEnabled]) {
             [_locationManager startUpdatingLocation];
@@ -755,7 +756,7 @@
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error
 {
-    if (error != kCLErrorLocationUnknown) {
+    if ([error code] != kCLErrorLocationUnknown && [error code] != kCLErrorDenied) {
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             UIAlertView *err = [[UIAlertView alloc] initWithTitle:@"Sorry" message:@"There was an error finding your current location. You can search for a city by tapping the city name above." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
             [err show];
