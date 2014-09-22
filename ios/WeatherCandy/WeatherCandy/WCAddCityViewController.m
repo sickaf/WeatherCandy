@@ -213,7 +213,7 @@
 
 - (UITableViewCellEditingStyle)tableView:(UITableView *)tableView editingStyleForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    if (indexPath.section == 0 && indexPath.row < 2)
+    if (indexPath.section == 0 && indexPath.row == 0)
         return UITableViewCellEditingStyleNone;
     else
         return UITableViewCellEditingStyleDelete;
