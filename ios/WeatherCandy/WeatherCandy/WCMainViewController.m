@@ -743,6 +743,11 @@
         [self getWeatherDataWithCityID:nil longitude:coord.longitude latitude:coord.latitude];
         [self.locationManager stopUpdatingLocation];
         self.locationManager.delegate = nil;
+        
+        WCCity *c = [WCCity new];
+        c.currentLocation = YES;
+        c.name = @"Current Location";
+        _currentCity = c;
     }
 }
 
