@@ -7,6 +7,7 @@
 //
 
 #import "WCAppDelegate.h"
+#import "WCSettings.h"
 #import "Apsalar.h"
 #import <Parse/Parse.h>
 #import <Crashlytics/Crashlytics.h>
@@ -18,7 +19,13 @@
 @implementation WCAppDelegate
             
 
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
+{
+    // Status bar
+    
+    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:NO];
+    
+    // Parse
     [Parse setApplicationId:@"p8AF2BKCLQ7fr3oJXPg43fOL6LXAK3mwAb5Ywnke"
                   clientKey:@"1XJhUPLe2s8FFDiNHG7izpTxnU173WsGA4MRGmdh"];
     
@@ -39,6 +46,23 @@
     UIRemoteNotificationType myTypes = UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeSound;
     [[UIApplication sharedApplication] registerForRemoteNotificationTypes:myTypes];
     
+    
+    UIViewController *mainVC;
+    
+    if (![[WCSettings sharedSettings] hasChosenCategory]) {
+        UIStoryboard *oobe = [UIStoryboard storyboardWithName:@"OOBE" bundle:[NSBundle mainBundle]];
+        UIViewController *choose = [oobe instantiateViewControllerWithIdentifier:@"OOBE"];
+        mainVC = choose;
+    }
+    else {
+        UIStoryboard *mainSB = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
+        UIViewController *main = [mainSB instantiateInitialViewController];
+        mainVC = main;
+    }
+    
+    self.window.rootViewController = mainVC;
+    [self.window makeKeyAndVisible];
+    
     return YES;
 }
 
@@ -56,7 +80,8 @@
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
 }
 
-- (void)applicationDidBecomeActive:(UIApplication *)application {
+- (void)applicationDidBecomeActive:(UIApplication *)application
+{
     [Apsalar startSession:@"sickaf" withKey:@"JOrEiHc9"];
     [Apsalar setBatchesEvents:YES];
 }

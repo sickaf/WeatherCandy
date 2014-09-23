@@ -8,10 +8,11 @@
 
 #import "WCSettings.h"
 
-static NSString *const kWCTemperatureTypeKey = @"WCTemperatureType";
-static NSString *const kWCNotificationsKey   = @"WCNotificationsKey";
+static NSString *const kWCTemperatureTypeKey        = @"WCTemperatureType";
+static NSString *const kWCNotificationsKey          = @"WCNotificationsKey";
 static NSString *const kWCNotificationsAllowedKey   = @"WCNotificationsAllowedKey";
-static NSString *const kWCCategoryKey        = @"WCCategoryKey";
+static NSString *const kWCCategoryKey               = @"WCCategoryKey";
+static NSString *const kWCHasChosenCategoryKey      = @"WCChosenCategory";
 
 @implementation WCSettings
 
@@ -47,6 +48,15 @@ static NSString *const kWCCategoryKey        = @"WCCategoryKey";
             category = (int)[ud integerForKey:kWCCategoryKey];
         }
         self.selectedImageCategory = category; // Set the property
+        
+        // Check if the user has chosen a category already
+        BOOL hasChosenCategory = NO;
+        if ([ud boolForKey:kWCHasChosenCategoryKey])
+        {
+            hasChosenCategory = [ud boolForKey:kWCHasChosenCategoryKey];
+        }
+        
+        self.hasChosenCategory = hasChosenCategory;
         
         // Get the bool from storage
         BOOL notifications = NO;
@@ -102,6 +112,14 @@ static NSString *const kWCCategoryKey        = @"WCCategoryKey";
     _notificationsAllowed = notificationsAllowed;
     NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
     [ud setBool:notificationsAllowed forKey:kWCNotificationsAllowedKey];
+    [ud synchronize];
+}
+
+- (void)setHasChosenCategory:(BOOL)hasChosenCategory
+{
+    _hasChosenCategory = hasChosenCategory;
+    NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
+    [ud setBool:hasChosenCategory forKey:kWCHasChosenCategoryKey];
     [ud synchronize];
 }
 

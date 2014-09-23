@@ -25,6 +25,7 @@
 #import "WCForecastWeather.h"
 #import "WCSettings.h"
 #import "WCErrorView.h"
+#import "WCChooseCategoryViewController.h"
 #import "Apsalar.h"
 
 @interface WCMainViewController () {
@@ -58,10 +59,6 @@
 {
     [super viewDidLoad];
     
-    // Status bar
-    
-    [[UIApplication sharedApplication] setStatusBarStyle:UIStatusBarStyleLightContent animated:NO];
-    
     // Setup
     
     _imgData = @[];
@@ -93,8 +90,11 @@
     self.titleButton.titleEdgeInsets = UIEdgeInsetsMake(0, -self.titleButton.imageView.frame.size.width - 5, 0, self.titleButton.imageView.frame.size.width + 5);
     self.titleButton.imageEdgeInsets = UIEdgeInsetsMake(0, self.titleButton.titleLabel.frame.size.width, 0, -self.titleButton.titleLabel.frame.size.width);
     
-    // Get data
-    [self getInitialData];
+    // User has already chosen a category, startup as usual
+    if ([[WCSettings sharedSettings] hasChosenCategory]) {
+        // Get data
+        [self getInitialData];
+    }
 }
 
 - (void)dealloc
