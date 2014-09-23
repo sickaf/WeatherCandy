@@ -56,7 +56,7 @@
     self.imageView.image = nil;
     self.reflectionView.image = nil;
     self.imageURL = nil;
-    [self.downloadIndicator updateWithTotalBytes:100.0f downloadedBytes:10.0f];
+    [self.downloadIndicator updateWithTotalBytes:100.0f downloadedBytes:0.0f];
 }
 
 - (void)layoutSubviews
