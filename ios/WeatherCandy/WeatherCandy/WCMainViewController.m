@@ -300,7 +300,7 @@
                                     
                                     if (!error) {
                                         
-                                        NSLog(@"%@", result);
+                                        //NSLog(@"%@", result);
                                         
                                         NSMutableArray *temp = [NSMutableArray new];
                                         for (NSDictionary *dict in result[@"IGPhotoSet"]) {

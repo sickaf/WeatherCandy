@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6206.9" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="dpQ-Rs-ncB">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="dpQ-Rs-ncB">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7026.1"/>
+        <deployment defaultVersion="1808" identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Category View Controller-->
@@ -56,8 +58,12 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <segmentedControl opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="kaL-fC-jO2">
+                                                <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="kaL-fC-jO2">
                                                     <rect key="frame" x="147" y="12" width="165" height="29"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="28" id="aeg-Dc-VwB"/>
+                                                        <constraint firstAttribute="width" constant="165" id="lqn-Al-6PB"/>
+                                                    </constraints>
                                                     <segments>
                                                         <segment title="C"/>
                                                         <segment title="F"/>
@@ -66,13 +72,23 @@
                                                         <action selector="segmentChanged:" destination="2hT-1a-ywd" eventType="valueChanged" id="INg-yH-1VX"/>
                                                     </connections>
                                                 </segmentedControl>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Units" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="29T-zB-MAC">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Units" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="29T-zB-MAC">
                                                     <rect key="frame" x="16" y="17" width="123" height="21"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="21" id="doF-ID-yvB"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="centerY" secondItem="29T-zB-MAC" secondAttribute="centerY" constant="-1.5" id="2FO-VU-xp2"/>
+                                                <constraint firstItem="29T-zB-MAC" firstAttribute="leading" secondItem="z1m-uG-Fcx" secondAttribute="leadingMargin" constant="8" id="5Tr-DO-DbK"/>
+                                                <constraint firstItem="kaL-fC-jO2" firstAttribute="leading" secondItem="29T-zB-MAC" secondAttribute="trailing" constant="8" id="LbO-zp-owu"/>
+                                                <constraint firstAttribute="centerY" secondItem="kaL-fC-jO2" secondAttribute="centerY" id="OXQ-ii-TvE"/>
+                                                <constraint firstItem="kaL-fC-jO2" firstAttribute="trailing" secondItem="z1m-uG-Fcx" secondAttribute="trailingMargin" id="TMq-s3-4qm"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="mainLabel" destination="29T-zB-MAC" id="TaC-CW-h6f"/>
@@ -86,19 +102,33 @@
                                             <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Rfy-9d-bVB">
-                                                    <rect key="frame" x="263" y="9" width="51" height="31"/>
+                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Rfy-9d-bVB">
+                                                    <rect key="frame" x="263" y="10" width="51" height="31"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="49" id="YSD-Is-lEg"/>
+                                                        <constraint firstAttribute="height" constant="31" id="nn9-WC-VOA"/>
+                                                    </constraints>
                                                     <connections>
                                                         <action selector="notificationsSwitchChanged:" destination="2hT-1a-ywd" eventType="valueChanged" id="yBK-6w-uWW"/>
                                                     </connections>
                                                 </switch>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Daily notifications" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I0e-Yt-hat">
-                                                    <rect key="frame" x="16" y="15" width="172" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Daily notifications" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I0e-Yt-hat">
+                                                    <rect key="frame" x="16" y="16" width="228" height="21"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="21" id="QeK-El-fc5"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstItem="Rfy-9d-bVB" firstAttribute="leading" secondItem="I0e-Yt-hat" secondAttribute="trailing" constant="19" id="1oq-7o-jnD"/>
+                                                <constraint firstAttribute="centerY" secondItem="I0e-Yt-hat" secondAttribute="centerY" constant="-1.5" id="BD5-OT-jny"/>
+                                                <constraint firstAttribute="centerY" secondItem="Rfy-9d-bVB" secondAttribute="centerY" constant="-0.5" id="kan-JX-zcD"/>
+                                                <constraint firstItem="Rfy-9d-bVB" firstAttribute="trailing" secondItem="PNv-DV-GGt" secondAttribute="trailingMargin" id="oem-vC-0Mt"/>
+                                                <constraint firstItem="I0e-Yt-hat" firstAttribute="leading" secondItem="PNv-DV-GGt" secondAttribute="leadingMargin" constant="8" id="qf0-A2-28R"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="label" destination="I0e-Yt-hat" id="yGW-lP-Pfr"/>
@@ -137,13 +167,20 @@
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ahG-Lh-bEB">
-                                                    <rect key="frame" x="138" y="15" width="152" height="21"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ahG-Lh-bEB">
+                                                    <rect key="frame" x="170" y="14" width="142" height="21"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" constant="142" id="jg4-ur-dkq"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="centerY" secondItem="ahG-Lh-bEB" secondAttribute="centerY" id="Tsp-he-QBN"/>
+                                                <constraint firstItem="ahG-Lh-bEB" firstAttribute="trailing" secondItem="ajN-ap-69p" secondAttribute="trailingMargin" id="lMc-JA-ZLl"/>
+                                            </constraints>
                                         </tableViewCellContentView>
                                         <connections>
                                             <outlet property="categoryLabel" destination="ahG-Lh-bEB" id="EIi-uv-sSE"/>
@@ -179,7 +216,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Fon-gb-Prw" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-377" y="707"/>
+            <point key="canvasLocation" x="-377" y="705"/>
         </scene>
         <!--Notification Blur View Controller-->
         <scene sceneID="weY-VS-RdC">
@@ -283,9 +320,6 @@
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
-        <simulatedScreenMetrics key="destination" type="retina4">
-            <size key="portraitSize" width="320" height="568"/>
-            <size key="landscapeSize" width="568" height="320"/>
-        </simulatedScreenMetrics>
+        <simulatedScreenMetrics key="destination" type="retina4"/>
     </simulatedMetricsContainer>
 </document>
