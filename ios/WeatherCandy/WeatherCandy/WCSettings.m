@@ -44,7 +44,7 @@ static NSString *const kWCCategoryKey        = @"WCCategoryKey";
         WCImageCategory category = WCImageCategoryGirl;
         if ([ud integerForKey:kWCCategoryKey])
         {
-            category = [ud integerForKey:kWCCategoryKey];
+            category = (int)[ud integerForKey:kWCCategoryKey];
         }
         self.selectedImageCategory = category; // Set the property
         

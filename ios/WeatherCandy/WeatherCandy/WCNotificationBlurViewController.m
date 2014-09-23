@@ -8,6 +8,7 @@
 
 #import "WCNotificationBlurViewController.h"
 #import "WCSettings.h"
+#import "Apsalar.h"
 #import <Parse/Parse.h>
 
 
@@ -46,7 +47,7 @@
                                  @"imageCategory" : categoryString
                                  };
     // Send the dimensions to Parse
-    [PFAnalytics trackEvent:@"notificationEvent_Test" dimensions:analyticsDimensions];
+    [Apsalar event:@"notificationEvent_Test" withArgs:analyticsDimensions];
     
 
     localNotification.repeatInterval = NSDayCalendarUnit;

@@ -17,6 +17,9 @@
 		7F15E83A19CBD64B002539A5 /* WCErrorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F15E83919CBD64B002539A5 /* WCErrorView.m */; };
 		7F1BEE6819C4143300D2AA70 /* WCWeather.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F1BEE6719C4143300D2AA70 /* WCWeather.m */; };
 		7F1BEE6B19C41A3D00D2AA70 /* WCForecastWeather.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F1BEE6A19C41A3D00D2AA70 /* WCForecastWeather.m */; };
+		7FAACE4019D14D170018A92D /* Apsalar.js in Resources */ = {isa = PBXBuildFile; fileRef = 7FAACE3E19D14D170018A92D /* Apsalar.js */; };
+		7FAACE4119D14D170018A92D /* libApsalar.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7FAACE3F19D14D170018A92D /* libApsalar.a */; };
+		7FAACE4319D14D540018A92D /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7FAACE4219D14D540018A92D /* libsqlite3.0.dylib */; };
 		7FAE69D819B5A6BA0061B1BD /* WCCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FAE69D719B5A6BA0061B1BD /* WCCollectionViewCell.m */; };
 		7FAE69DF19B5AD640061B1BD /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 820114A919B35EFF00F44D0B /* QuartzCore.framework */; };
 		7FAE69E519B5B2040061B1BD /* WCNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FAE69E419B5B2040061B1BD /* WCNavigationController.m */; };
@@ -106,6 +109,10 @@
 		7F1BEE6719C4143300D2AA70 /* WCWeather.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCWeather.m; sourceTree = "<group>"; };
 		7F1BEE6919C41A3D00D2AA70 /* WCForecastWeather.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WCForecastWeather.h; sourceTree = "<group>"; };
 		7F1BEE6A19C41A3D00D2AA70 /* WCForecastWeather.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCForecastWeather.m; sourceTree = "<group>"; };
+		7FAACE3D19D14D170018A92D /* Apsalar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Apsalar.h; sourceTree = "<group>"; };
+		7FAACE3E19D14D170018A92D /* Apsalar.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = Apsalar.js; sourceTree = "<group>"; };
+		7FAACE3F19D14D170018A92D /* libApsalar.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libApsalar.a; sourceTree = "<group>"; };
+		7FAACE4219D14D540018A92D /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
 		7FAE69D619B5A6BA0061B1BD /* WCCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WCCollectionViewCell.h; sourceTree = "<group>"; };
 		7FAE69D719B5A6BA0061B1BD /* WCCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCCollectionViewCell.m; sourceTree = "<group>"; };
 		7FAE69E119B5B0230061B1BD /* WCConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WCConstants.h; sourceTree = "<group>"; };
@@ -214,8 +221,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				7FAACE4319D14D540018A92D /* libsqlite3.0.dylib in Frameworks */,
 				8282844619BDF2C3005AA449 /* MessageUI.framework in Frameworks */,
 				820114AD19B35EFF00F44D0B /* AudioToolbox.framework in Frameworks */,
+				7FAACE4119D14D170018A92D /* libApsalar.a in Frameworks */,
 				820114AE19B35EFF00F44D0B /* CFNetwork.framework in Frameworks */,
 				7F0C772F19BF229800E2C44C /* Bolts.framework in Frameworks */,
 				820114AF19B35EFF00F44D0B /* CoreGraphics.framework in Frameworks */,
@@ -310,6 +319,17 @@
 				7F1BEE6A19C41A3D00D2AA70 /* WCForecastWeather.m */,
 			);
 			name = Objects;
+			sourceTree = "<group>";
+		};
+		7FAACE3C19D14D170018A92D /* Apsalar */ = {
+			isa = PBXGroup;
+			children = (
+				7FAACE3D19D14D170018A92D /* Apsalar.h */,
+				7FAACE3E19D14D170018A92D /* Apsalar.js */,
+				7FAACE3F19D14D170018A92D /* libApsalar.a */,
+			);
+			name = Apsalar;
+			path = Frameworks/Apsalar;
 			sourceTree = "<group>";
 		};
 		7FAE69E619B5B42D0061B1BD /* AFNetworking */ = {
@@ -445,6 +465,8 @@
 		820114A219B35C0100F44D0B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7FAACE4219D14D540018A92D /* libsqlite3.0.dylib */,
+				7FAACE3C19D14D170018A92D /* Apsalar */,
 				7FE6389E19CD646B00EB1A52 /* Crashlytics.framework */,
 				7F0C773119BF22AD00E2C44C /* UIImageViewAligned */,
 				7F0C772D19BF229800E2C44C /* Bolts.framework */,
@@ -551,6 +573,7 @@
 			files = (
 				7FF217DD19C3563A00D045BF /* Avenir Next.ttc in Resources */,
 				8201148719B3548A00F44D0B /* Main.storyboard in Resources */,
+				7FAACE4019D14D170018A92D /* Apsalar.js in Resources */,
 				8201148919B3548A00F44D0B /* Images.xcassets in Resources */,
 				7FDB143719B6ECEE00790272 /* Settings.storyboard in Resources */,
 				82F4CB6519D143C100156D69 /* OOBE.storyboard in Resources */,
@@ -756,6 +779,10 @@
 				INFOPLIST_FILE = WeatherCandy/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Frameworks/Apsalar",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "f11b7dc2-2ef4-4a04-85a0-59d548095705";
 			};
@@ -775,6 +802,10 @@
 				INFOPLIST_FILE = WeatherCandy/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Frameworks/Apsalar",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "f11b7dc2-2ef4-4a04-85a0-59d548095705";
 			};

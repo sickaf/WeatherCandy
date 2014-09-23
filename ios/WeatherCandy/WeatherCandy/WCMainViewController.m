@@ -25,6 +25,7 @@
 #import "WCForecastWeather.h"
 #import "WCSettings.h"
 #import "WCErrorView.h"
+#import "Apsalar.h"
 
 @interface WCMainViewController () {
     NSArray *_imgData;
@@ -420,7 +421,7 @@
                                             @"username" : p.username,
                                             @"photoIndex": rowStr
                                           };
-    [PFAnalytics trackEvent:@"photoEvent_Test" dimensions:analyticsDimensions];
+    [Apsalar event:@"photoEvent_Test" withArgs:analyticsDimensions];
     
     
     UIActionSheet *as = [[UIActionSheet alloc] initWithTitle:p.username delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Instagram Profile", nil];
@@ -589,7 +590,7 @@
                                               @"notificationsOn" : [NSString stringWithFormat:@"%d", [[WCSettings sharedSettings] notificationsOn]],
                                               };
         // Send the dimensions to Parse
-        [PFAnalytics trackEvent:@"weatherEvent_Test" dimensions:analyticsDimensions];
+        [Apsalar event:@"weatherEvent_Test" withArgs:analyticsDimensions];
         
         if (collectionView.frame.origin.x >= 0 && !indexPath.section) {
             
@@ -673,7 +674,7 @@
                                 };
 
     }
-    [PFAnalytics trackEvent:@"photoEvent_Test" dimensions:analyticsDimensions];
+    [Apsalar event:@"photoEvent_Test" withArgs:analyticsDimensions];
 
 }
 
@@ -742,6 +743,11 @@
         [self getWeatherDataWithCityID:nil longitude:coord.longitude latitude:coord.latitude];
         [self.locationManager stopUpdatingLocation];
         self.locationManager.delegate = nil;
+        
+        WCCity *c = [WCCity new];
+        c.currentLocation = YES;
+        c.name = @"Current Location";
+        _currentCity = c;
     }
 }
 

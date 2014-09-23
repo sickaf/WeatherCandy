@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" initialViewController="dpQ-Rs-ncB">
     <dependencies>
+        <deployment version="1792" defaultVersion="1808" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Category View Controller-->
@@ -72,7 +72,7 @@
                                                     </connections>
                                                 </segmentedControl>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Units" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="29T-zB-MAC">
-                                                    <rect key="frame" x="16" y="17" width="123" height="21"/>
+                                                    <rect key="frame" x="16" y="15" width="139" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="21" id="doF-ID-yvB"/>
                                                     </constraints>
@@ -82,11 +82,11 @@
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="centerY" secondItem="29T-zB-MAC" secondAttribute="centerY" constant="-1.5" id="2FO-VU-xp2"/>
-                                                <constraint firstItem="29T-zB-MAC" firstAttribute="leading" secondItem="z1m-uG-Fcx" secondAttribute="leadingMargin" constant="8" id="5Tr-DO-DbK"/>
-                                                <constraint firstItem="kaL-fC-jO2" firstAttribute="leading" secondItem="29T-zB-MAC" secondAttribute="trailing" constant="8" id="LbO-zp-owu"/>
+                                                <constraint firstAttribute="centerY" secondItem="29T-zB-MAC" secondAttribute="centerY" constant="0.5" id="2FO-VU-xp2"/>
+                                                <constraint firstItem="29T-zB-MAC" firstAttribute="leading" secondItem="z1m-uG-Fcx" secondAttribute="leading" constant="16" id="5Tr-DO-DbK"/>
+                                                <constraint firstItem="kaL-fC-jO2" firstAttribute="leading" secondItem="29T-zB-MAC" secondAttribute="trailing" constant="-8" id="LbO-zp-owu"/>
                                                 <constraint firstAttribute="centerY" secondItem="kaL-fC-jO2" secondAttribute="centerY" id="OXQ-ii-TvE"/>
-                                                <constraint firstItem="kaL-fC-jO2" firstAttribute="trailing" secondItem="z1m-uG-Fcx" secondAttribute="trailingMargin" id="TMq-s3-4qm"/>
+                                                <constraint firstItem="kaL-fC-jO2" firstAttribute="trailing" secondItem="z1m-uG-Fcx" secondAttribute="trailing" constant="-8" id="TMq-s3-4qm"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
@@ -112,7 +112,7 @@
                                                     </connections>
                                                 </switch>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Daily notifications" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I0e-Yt-hat">
-                                                    <rect key="frame" x="16" y="16" width="228" height="21"/>
+                                                    <rect key="frame" x="16" y="15" width="244" height="21"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="21" id="QeK-El-fc5"/>
                                                     </constraints>
@@ -122,11 +122,11 @@
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstItem="Rfy-9d-bVB" firstAttribute="leading" secondItem="I0e-Yt-hat" secondAttribute="trailing" constant="19" id="1oq-7o-jnD"/>
+                                                <constraint firstItem="Rfy-9d-bVB" firstAttribute="leading" secondItem="I0e-Yt-hat" secondAttribute="trailing" constant="3" id="1oq-7o-jnD"/>
                                                 <constraint firstAttribute="centerY" secondItem="I0e-Yt-hat" secondAttribute="centerY" constant="-1.5" id="BD5-OT-jny"/>
                                                 <constraint firstAttribute="centerY" secondItem="Rfy-9d-bVB" secondAttribute="centerY" constant="-0.5" id="kan-JX-zcD"/>
-                                                <constraint firstItem="Rfy-9d-bVB" firstAttribute="trailing" secondItem="PNv-DV-GGt" secondAttribute="trailingMargin" id="oem-vC-0Mt"/>
-                                                <constraint firstItem="I0e-Yt-hat" firstAttribute="leading" secondItem="PNv-DV-GGt" secondAttribute="leadingMargin" constant="8" id="qf0-A2-28R"/>
+                                                <constraint firstItem="Rfy-9d-bVB" firstAttribute="trailing" secondItem="PNv-DV-GGt" secondAttribute="trailing" constant="-8" id="oem-vC-0Mt"/>
+                                                <constraint firstItem="I0e-Yt-hat" firstAttribute="leading" secondItem="PNv-DV-GGt" secondAttribute="leading" constant="16" id="qf0-A2-28R"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
@@ -169,7 +169,7 @@
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ahG-Lh-bEB">
                                                     <rect key="frame" x="170" y="14" width="142" height="21"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" constant="142" id="jg4-ur-dkq"/>
+                                                        <constraint firstAttribute="width" constant="142" id="9Mo-Df-G6e"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -177,8 +177,8 @@
                                                 </label>
                                             </subviews>
                                             <constraints>
-                                                <constraint firstAttribute="centerY" secondItem="ahG-Lh-bEB" secondAttribute="centerY" id="Tsp-he-QBN"/>
-                                                <constraint firstItem="ahG-Lh-bEB" firstAttribute="trailing" secondItem="ajN-ap-69p" secondAttribute="trailingMargin" id="lMc-JA-ZLl"/>
+                                                <constraint firstItem="ahG-Lh-bEB" firstAttribute="trailing" secondItem="ajN-ap-69p" secondAttribute="trailing" constant="-8" id="b1M-R3-Asj"/>
+                                                <constraint firstAttribute="centerY" secondItem="ahG-Lh-bEB" secondAttribute="centerY" id="ueE-NX-CtJ"/>
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
@@ -229,23 +229,34 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="cJM-KQ-cEH">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="cJM-KQ-cEH">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                             </imageView>
-                            <datePicker contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="time" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="Hf6-FQ-axy">
+                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="time" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="Hf6-FQ-axy">
                                 <rect key="frame" x="0.0" y="186" width="320" height="162"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="162" id="Fdh-rY-MyB"/>
+                                </constraints>
                                 <date key="date" timeIntervalSinceReferenceDate="432189218.401802">
                                     <!--2014-09-12 04:33:38 +0000-->
                                 </date>
                             </datePicker>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="What time do you want to be notified every day?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="QFq-i3-Ya5">
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="What time do you want to be notified every day?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="190" translatesAutoresizingMaskIntoConstraints="NO" id="QFq-i3-Ya5">
                                 <rect key="frame" x="65" y="114" width="190" height="64"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="64" id="PDJ-X6-Lwd"/>
+                                    <constraint firstAttribute="width" constant="190" id="toM-X3-ftV"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" cocoaTouchSystemColor="lightTextColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5DN-of-GE3">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5DN-of-GE3">
                                 <rect key="frame" x="131" y="373" width="59" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="Gi7-PU-esb"/>
+                                    <constraint firstAttribute="width" constant="59" id="lbG-N6-VAt"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <state key="normal" title="Done">
                                     <color key="titleColor" cocoaTouchSystemColor="lightTextColor"/>
@@ -257,6 +268,19 @@
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="centerX" secondItem="cJM-KQ-cEH" secondAttribute="centerX" id="9OV-fg-YqF"/>
+                            <constraint firstItem="QFq-i3-Ya5" firstAttribute="centerX" secondItem="Hf6-FQ-axy" secondAttribute="centerX" id="CS8-K5-pX0"/>
+                            <constraint firstItem="5DN-of-GE3" firstAttribute="top" secondItem="Hf6-FQ-axy" secondAttribute="bottom" constant="25" id="Grn-Jw-Hze"/>
+                            <constraint firstAttribute="centerX" secondItem="Hf6-FQ-axy" secondAttribute="centerX" id="Lzx-4i-MRN"/>
+                            <constraint firstItem="cJM-KQ-cEH" firstAttribute="width" secondItem="ygX-ut-hbs" secondAttribute="width" id="Tul-tB-zy8"/>
+                            <constraint firstAttribute="centerY" secondItem="Hf6-FQ-axy" secondAttribute="centerY" constant="17" id="WdF-ZI-IKQ"/>
+                            <constraint firstItem="cJM-KQ-cEH" firstAttribute="width" secondItem="Hf6-FQ-axy" secondAttribute="width" id="cGl-uf-fPm"/>
+                            <constraint firstItem="Hf6-FQ-axy" firstAttribute="centerX" secondItem="5DN-of-GE3" secondAttribute="centerX" constant="-0.5" id="fCs-Vy-BKl"/>
+                            <constraint firstItem="Hf6-FQ-axy" firstAttribute="top" secondItem="QFq-i3-Ya5" secondAttribute="bottom" constant="8" id="gPs-Yz-Un2"/>
+                            <constraint firstAttribute="centerY" secondItem="cJM-KQ-cEH" secondAttribute="centerY" id="x5e-oO-CHo"/>
+                            <constraint firstItem="cJM-KQ-cEH" firstAttribute="height" secondItem="ygX-ut-hbs" secondAttribute="height" id="xLn-aN-DDt"/>
+                        </constraints>
                     </view>
                     <connections>
                         <outlet property="blurImageView" destination="cJM-KQ-cEH" id="6Cp-fF-pIi"/>
