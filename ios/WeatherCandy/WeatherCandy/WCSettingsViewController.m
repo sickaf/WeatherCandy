@@ -53,7 +53,6 @@
     [super viewWillAppear:animated];
     [self updateNotificationStatus];
     [self.tableView reloadData]; // to reload selected cell
-    
 }
 
 - (void)appBecameActive:(NSNotification *)note
@@ -250,16 +249,16 @@
     
     switch(formatType) {
         case 0:
-            result = @"Girls";
+            result = @"Hot girls";
             break;
         case 1:
-            result = @"Guys";
+            result = @"Hot guys";
             break;
         case 2:
-            result = @"Animals";
+            result = @"Cute animals";
             break;
         default:
-            result = @"Hot Girls";
+            result = @"default";
             break;
     }
     

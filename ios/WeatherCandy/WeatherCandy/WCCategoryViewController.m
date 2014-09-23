@@ -90,7 +90,7 @@
 
     if(indexPath.row == 0)
     {
-        cell.textLabel.text = @"Models";
+        cell.textLabel.text = @"Hot girls";
         if(cat == WCImageCategoryGirl) {
             cell.accessoryType = UITableViewCellAccessoryCheckmark;
         }
