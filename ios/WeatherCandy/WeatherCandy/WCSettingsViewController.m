@@ -220,7 +220,7 @@
     
     UIView *container = [[UIView alloc] initWithFrame:CGRectMake(0, 0, self.view.bounds.size.width, 50)];
     container.backgroundColor = [UIColor clearColor];
-    
+
     UILabel *new = [[UILabel alloc] initWithFrame:CGRectMake(15, 10, self.view.bounds.size.width - 20, 40)];
     new.font = kDefaultFontMedium(18);
     new.textColor = [UIColor colorWithWhite:1.0 alpha:0.5];
@@ -261,7 +261,6 @@
             result = @"default";
             break;
     }
-    
     return result;
 }
 
@@ -348,7 +347,7 @@
     else if (indexPath.section == 0 && indexPath.row == 1) //category
     {
         //grab and push view controller
-        UIViewController *vc = [[UIStoryboard storyboardWithName:@"Settings" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"CategoryViewController"];
+      UIViewController *vc = [[UIStoryboard storyboardWithName:@"Settings" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"CategoryViewController"];
         [self.navigationController pushViewController:vc animated:YES];
     }
     

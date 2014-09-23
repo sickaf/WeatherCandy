@@ -28,6 +28,8 @@
     self.tableView.backgroundColor = [UIColor colorWithWhite:0.200 alpha:1.000];
     self.tableView.separatorColor = [UIColor colorWithWhite:0.2 alpha:1.000];
     
+    
+    
     _previousImageCategory = [[WCSettings sharedSettings] selectedImageCategory];
     _chosenImageCategory = _previousImageCategory;
 }

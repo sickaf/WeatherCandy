@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
+    </dependencies>
+    <scenes>
+        <!--Navigation Controller-->
+        <scene sceneID="JLB-Io-SjZ">
+            <objects>
+                <navigationController storyboardIdentifier="OOBE" id="wse-1F-2YU" customClass="WCNavigationController" sceneMemberID="viewController">
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina4"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="9DC-3l-EX1">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="7aI-x8-k9y" kind="relationship" relationship="rootViewController" id="WYY-LP-sE6"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="L5Y-TO-GfE" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-368" y="-623"/>
+        </scene>
+        <!--Choose a theme-->
+        <scene sceneID="xtd-po-xuh">
+            <objects>
+                <viewController storyboardIdentifier="ChooseCategoryViewController" id="7aI-x8-k9y" customClass="WCChooseCategoryViewController" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Diu-Db-0uS"/>
+                        <viewControllerLayoutGuide type="bottom" id="WZP-At-dI4"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="0ba-jn-Psk">
+                        <rect key="frame" x="0.0" y="64" width="320" height="504"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="girl" translatesAutoresizingMaskIntoConstraints="NO" id="8Cf-fV-eNe">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="168"/>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="guy" translatesAutoresizingMaskIntoConstraints="NO" id="RwH-gX-VXh">
+                                <rect key="frame" x="0.0" y="168" width="320" height="168"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SSp-yb-nEa">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="168"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="50"/>
+                                <state key="normal" title="Hot girls">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="girlButton:" destination="7aI-x8-k9y" eventType="touchUpInside" id="5kQ-Ei-jxo"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ouO-tf-vXA">
+                                <rect key="frame" x="0.0" y="168" width="320" height="168"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="50"/>
+                                <state key="normal" title="Hot guys">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="guyButton:" destination="7aI-x8-k9y" eventType="touchUpInside" id="RWY-B6-IlP"/>
+                                </connections>
+                            </button>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="animal" translatesAutoresizingMaskIntoConstraints="NO" id="RPw-gI-0jG">
+                                <rect key="frame" x="0.0" y="336" width="320" height="168"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SId-dE-sEv">
+                                <rect key="frame" x="0.0" y="336" width="320" height="168"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="50"/>
+                                <state key="normal" title="Cute animals">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="0.59999999999999998" colorSpace="calibratedRGB"/>
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="animalButton:" destination="7aI-x8-k9y" eventType="touchUpInside" id="aqY-4A-fSN"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Choose a theme" id="SsN-01-ik9"/>
+                    <connections>
+                        <outlet property="animalButtonOutlet" destination="SId-dE-sEv" id="IXv-7w-CPn"/>
+                        <outlet property="chooseAnimalsImageView" destination="RPw-gI-0jG" id="9V2-Yh-XQY"/>
+                        <outlet property="chooseGirlsImageView" destination="8Cf-fV-eNe" id="fjf-Zl-Yxn"/>
+                        <outlet property="chooseGuysImageView" destination="RwH-gX-VXh" id="kcO-3S-RN4"/>
+                        <outlet property="girlButtonOutlet" destination="SSp-yb-nEa" id="jd8-mL-hAM"/>
+                        <outlet property="guyButtonOutlet" destination="ouO-tf-vXA" id="Sty-KW-VNm"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Rtf-hR-io4" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="137" y="-623"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="animal" width="636" height="353"/>
+        <image name="girl" width="490" height="350"/>
+        <image name="guy" width="1138" height="667"/>
+    </resources>
+</document>

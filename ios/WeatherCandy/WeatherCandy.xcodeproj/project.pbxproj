@@ -64,6 +64,7 @@
 		820114B419B35EFF00F44D0B /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 820114AA19B35EFF00F44D0B /* Security.framework */; };
 		820114B519B35EFF00F44D0B /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 820114AB19B35EFF00F44D0B /* StoreKit.framework */; };
 		820114B619B35EFF00F44D0B /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 820114AC19B35EFF00F44D0B /* SystemConfiguration.framework */; };
+		8207B64B19D0FD3400C752FB /* WCChooseCategoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8207B64A19D0FD3400C752FB /* WCChooseCategoryViewController.m */; };
 		8247D5E019C2C58100341A24 /* UILabel+WhiteDatePickerLabel.m in Sources */ = {isa = PBXBuildFile; fileRef = 8247D5DF19C2C58100341A24 /* UILabel+WhiteDatePickerLabel.m */; };
 		8247D5E319C3306000341A24 /* WCAboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8247D5E219C3306000341A24 /* WCAboutViewController.m */; };
 		8247D5EF19C4576F00341A24 /* WCCategoryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8247D5EE19C4576F00341A24 /* WCCategoryViewController.m */; };
@@ -73,6 +74,7 @@
 		8282844F19BE0B94005AA449 /* WCNotificationsSwitchCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 8282844E19BE0B94005AA449 /* WCNotificationsSwitchCell.m */; };
 		8283B7EB19C2A1FF00DB1979 /* UIViewController+BlurredSnapshot.m in Sources */ = {isa = PBXBuildFile; fileRef = 8283B7EA19C2A1FF00DB1979 /* UIViewController+BlurredSnapshot.m */; };
 		8283B7EE19C2AC8500DB1979 /* WCNotificationBlurViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 8283B7ED19C2AC8500DB1979 /* WCNotificationBlurViewController.m */; };
+		82F4CB6519D143C100156D69 /* OOBE.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 82F4CB6419D143C100156D69 /* OOBE.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -185,6 +187,8 @@
 		820114AA19B35EFF00F44D0B /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		820114AB19B35EFF00F44D0B /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		820114AC19B35EFF00F44D0B /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		8207B64919D0FD3400C752FB /* WCChooseCategoryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WCChooseCategoryViewController.h; sourceTree = "<group>"; };
+		8207B64A19D0FD3400C752FB /* WCChooseCategoryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCChooseCategoryViewController.m; sourceTree = "<group>"; };
 		8247D5DE19C2C58100341A24 /* UILabel+WhiteDatePickerLabel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UILabel+WhiteDatePickerLabel.h"; sourceTree = "<group>"; };
 		8247D5DF19C2C58100341A24 /* UILabel+WhiteDatePickerLabel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UILabel+WhiteDatePickerLabel.m"; sourceTree = "<group>"; };
 		8247D5E119C3306000341A24 /* WCAboutViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WCAboutViewController.h; sourceTree = "<group>"; };
@@ -202,6 +206,7 @@
 		8283B7EA19C2A1FF00DB1979 /* UIViewController+BlurredSnapshot.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+BlurredSnapshot.m"; sourceTree = "<group>"; };
 		8283B7EC19C2AC8500DB1979 /* WCNotificationBlurViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WCNotificationBlurViewController.h; sourceTree = "<group>"; };
 		8283B7ED19C2AC8500DB1979 /* WCNotificationBlurViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCNotificationBlurViewController.m; sourceTree = "<group>"; };
+		82F4CB6419D143C100156D69 /* OOBE.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = OOBE.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -388,6 +393,8 @@
 				7F14C61C19B5EC69001FA062 /* WCAddCityViewController.m */,
 				8247D5ED19C4576F00341A24 /* WCCategoryViewController.h */,
 				8247D5EE19C4576F00341A24 /* WCCategoryViewController.m */,
+				8207B64919D0FD3400C752FB /* WCChooseCategoryViewController.h */,
+				8207B64A19D0FD3400C752FB /* WCChooseCategoryViewController.m */,
 				8201148219B3548A00F44D0B /* WCMainViewController.h */,
 				8201148319B3548A00F44D0B /* WCMainViewController.m */,
 				7FDB143819B6EF7500790272 /* WCSettingsViewController.h */,
@@ -400,6 +407,7 @@
 				7FDB144519B759EE00790272 /* WCTitleButtonViewController.m */,
 				8201148519B3548A00F44D0B /* Main.storyboard */,
 				7FDB143619B6ECEE00790272 /* Settings.storyboard */,
+				82F4CB6419D143C100156D69 /* OOBE.storyboard */,
 				8201148819B3548A00F44D0B /* Images.xcassets */,
 				8201147B19B3548A00F44D0B /* Supporting Files */,
 			);
@@ -545,6 +553,7 @@
 				8201148719B3548A00F44D0B /* Main.storyboard in Resources */,
 				8201148919B3548A00F44D0B /* Images.xcassets in Resources */,
 				7FDB143719B6ECEE00790272 /* Settings.storyboard in Resources */,
+				82F4CB6519D143C100156D69 /* OOBE.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -619,6 +628,7 @@
 				7FDB145D19B8AED500790272 /* RMDownloadIndicator.m in Sources */,
 				7FAE69FE19B5B42D0061B1BD /* AFSecurityPolicy.m in Sources */,
 				7FAE6A0119B5B42D0061B1BD /* AFURLResponseSerialization.m in Sources */,
+				8207B64B19D0FD3400C752FB /* WCChooseCategoryViewController.m in Sources */,
 				7F0C773419BF22AD00E2C44C /* UIImageViewAligned.m in Sources */,
 				7FDB144619B759EE00790272 /* WCTitleButtonViewController.m in Sources */,
 				7F14C62019B5F349001FA062 /* WCSlideDownModalAnimation.m in Sources */,
