@@ -15,7 +15,7 @@
 
 - (void)awakeFromNib
 {
-    RMDownloadIndicator *closedIndicator = [[RMDownloadIndicator alloc]initWithFrame:CGRectMake((CGRectGetWidth(self.bounds) - 40)/2, (CGRectGetHeight(self.bounds) - 40)/2 - 10, 40, 40) type:kRMClosedIndicator];
+    RMDownloadIndicator *closedIndicator = [[RMDownloadIndicator alloc]initWithFrame:CGRectMake(100, 100, 40, 40) type:kRMClosedIndicator];
     [closedIndicator setBackgroundColor:[UIColor clearColor]];
     [closedIndicator setFillColor:[UIColor colorWithWhite:0.400 alpha:1.000]];
     [closedIndicator setStrokeColor:[UIColor whiteColor]];
@@ -57,6 +57,12 @@
     self.reflectionView.image = nil;
     self.imageURL = nil;
     [self.downloadIndicator updateWithTotalBytes:0.0f downloadedBytes:10.0f];
+}
+
+- (void)layoutSubviews
+{
+    _downloadIndicator.center = CGPointMake(CGRectGetMidX(self.bounds), self.imageView.center.y + 40);
+    [super layoutSubviews];
 }
 
 @end
