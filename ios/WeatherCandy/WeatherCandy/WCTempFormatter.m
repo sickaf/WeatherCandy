@@ -22,7 +22,7 @@
         formattedTemp = 1.8 * (temp - 273) + 32;
     }
     
-    return [NSString stringWithFormat:@"%i", formattedTemp];
+    return [NSString stringWithFormat:@"%li", (long)formattedTemp];
 }
 
 @end

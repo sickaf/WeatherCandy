@@ -19,7 +19,7 @@
 #import "WCAboutViewController.h"
 #import "WCCategoryCell.h"
 #import "WCAddCityViewController.h"
-
+#import "Apsalar.h"
 
 @interface WCSettingsViewController ()
 
@@ -96,7 +96,7 @@
                                           @"notificationsOn" : [NSString stringWithFormat:@"%d", [[WCSettings sharedSettings] notificationsOn]],
                                           };
     // Send the dimensions to Parse
-    [PFAnalytics trackEvent:@"weatherEvent_Test" dimensions:analyticsDimensions];
+    [Apsalar event:@"weatherEvent_Test" withArgs:analyticsDimensions];
 
     
     [[NSNotificationCenter defaultCenter] postNotificationName:kReloadTempLabelsNotification object:nil];
@@ -154,7 +154,7 @@
     }
     
     // Send the dimensions to Parse
-    [PFAnalytics trackEvent:@"notificationEvent_Test" dimensions:analyticsDimensions];
+    [Apsalar event:@"notificationEvent_Test" withArgs:analyticsDimensions];
 
 }
 

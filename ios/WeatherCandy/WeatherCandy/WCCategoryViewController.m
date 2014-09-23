@@ -10,6 +10,7 @@
 #import "WCCategoryCell.h"
 #import "WCSettings.h"
 #import "WCConstants.h"
+#import "Apsalar.h"
 #import <Parse/Parse.h>
 
 @interface WCCategoryViewController () {
@@ -46,7 +47,7 @@
                                                 };
 
         // Send the dimensions to Parse
-        [PFAnalytics trackEvent:@"categoryEvent_Test" dimensions:analyticsDimensions];
+        [Apsalar event:@"categoryEvent_Test" withArgs:analyticsDimensions];
 
         [[NSNotificationCenter defaultCenter] postNotificationName:kReloadImagesNotification object:nil];
     }
@@ -74,8 +75,8 @@
     
     cell.accessoryType = UITableViewCellAccessoryCheckmark;
     [tableView cellForRowAtIndexPath:[NSIndexPath indexPathForRow:_chosenImageCategory inSection:0]].accessoryType = UITableViewCellAccessoryNone;
-    _chosenImageCategory = indexPath.row;
-    [[WCSettings sharedSettings] setSelectedImageCategory:indexPath.row];
+    _chosenImageCategory = (int)indexPath.row;
+    [[WCSettings sharedSettings] setSelectedImageCategory:(int)indexPath.row];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
