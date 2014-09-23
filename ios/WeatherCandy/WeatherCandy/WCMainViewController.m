@@ -26,9 +26,6 @@
 #import "WCSettings.h"
 #import "WCErrorView.h"
 
-#define EARLIER_IOS_8    ([[[UIDevice currentDevice] systemVersion] floatValue] < 8.0)
-
-
 @interface WCMainViewController () {
     NSArray *_imgData;
     NSArray *_forecastData;
@@ -142,13 +139,6 @@
         WCCity *lastCity = [NSKeyedUnarchiver unarchiveObjectWithData:dataRepresentingCity];
         [self changeToCity:lastCity];
     }
-//    else if (EARLIER_IOS_8) {
-//        // Load weather for newport beach
-//        WCCity *np = [WCCity new];
-//        np.name = @"Newport Beach";
-//        np.cityID = @(5376890);
-//        [self changeToCity:np];
-//    }
     else {
         // No last city saved, update from current location
         [self loadDataFromCurrentLocation];
@@ -570,6 +560,7 @@
     else {
         cell.tempLabel.text = @"-";
         cell.timeLabel.text = @"-";
+        cell.iconImage = [UIImage imageNamed:kIconNameFogDay];
     }
    
     return cell;
@@ -581,7 +572,7 @@
         return self.view.bounds.size;
     }
     
-    return CGSizeMake((self.view.bounds.size.width - 50) / 4, 118);
+    return CGSizeMake((self.view.bounds.size.width - 40) / 4, 118);
 }
 
 #pragma mark - Collection view delegate
@@ -599,31 +590,31 @@
                                               };
         // Send the dimensions to Parse
         [PFAnalytics trackEvent:@"weatherEvent_Test" dimensions:analyticsDimensions];
-
-        
-        // Bump animation
-        if (!self.animator) {
-            
-            self.animator = [[UIDynamicAnimator alloc] initWithReferenceView:self.view];
-            
-            UICollisionBehavior *collisionBehaviour = [[UICollisionBehavior alloc] initWithItems:@[self.forecastCollectionView]];
-            [collisionBehaviour setTranslatesReferenceBoundsIntoBoundaryWithInsets:UIEdgeInsetsMake(0, -100, 0, 0)];
-            [self.animator addBehavior:collisionBehaviour];
-            
-            self.gravityBehavior = [[UIGravityBehavior alloc] initWithItems:@[self.forecastCollectionView]];
-            [self.animator addBehavior:self.gravityBehavior];
-            
-            self.pushBehavior = [[UIPushBehavior alloc] initWithItems:@[self.forecastCollectionView] mode:UIPushBehaviorModeInstantaneous];
-            self.pushBehavior.magnitude = 0.0f;
-            self.pushBehavior.angle = 0.0f;
-            [self.animator addBehavior:self.pushBehavior];
-            
-            UIDynamicItemBehavior *itemBehaviour = [[UIDynamicItemBehavior alloc] initWithItems:@[self.forecastCollectionView]];
-            itemBehaviour.elasticity = 0.45f;
-            [self.animator addBehavior:itemBehaviour];
-        }
         
         if (collectionView.frame.origin.x >= 0 && !indexPath.section) {
+            
+            // Bump animation
+            if (!self.animator) {
+                
+                self.animator = [[UIDynamicAnimator alloc] initWithReferenceView:self.view];
+                
+                UICollisionBehavior *collisionBehaviour = [[UICollisionBehavior alloc] initWithItems:@[self.forecastCollectionView]];
+                [collisionBehaviour setTranslatesReferenceBoundsIntoBoundaryWithInsets:UIEdgeInsetsMake(0, -100, 0, 0)];
+                [self.animator addBehavior:collisionBehaviour];
+                
+                self.gravityBehavior = [[UIGravityBehavior alloc] initWithItems:@[self.forecastCollectionView]];
+                [self.animator addBehavior:self.gravityBehavior];
+                
+                self.pushBehavior = [[UIPushBehavior alloc] initWithItems:@[self.forecastCollectionView] mode:UIPushBehaviorModeInstantaneous];
+                self.pushBehavior.magnitude = 0.0f;
+                self.pushBehavior.angle = 0.0f;
+                [self.animator addBehavior:self.pushBehavior];
+                
+                UIDynamicItemBehavior *itemBehaviour = [[UIDynamicItemBehavior alloc] initWithItems:@[self.forecastCollectionView]];
+                itemBehaviour.elasticity = 0.45f;
+                [self.animator addBehavior:itemBehaviour];
+            }
+            
             self.gravityBehavior.gravityDirection = CGVectorMake(1.0f, 0.0f);
             self.pushBehavior.pushDirection = CGVectorMake(-7.0f, 0.0f);
             self.pushBehavior.active = YES;

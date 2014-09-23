@@ -38,6 +38,7 @@
     self.bgImgView.image = self.bgImg;
     
     self.tableView.backgroundColor = [UIColor clearColor];
+    self.tableView.separatorColor = [UIColor colorWithWhite:1 alpha:0.6];
     self.searchBar.searchBarStyle = UISearchBarStyleMinimal;
     self.searchBar.tintColor = [UIColor whiteColor];
     

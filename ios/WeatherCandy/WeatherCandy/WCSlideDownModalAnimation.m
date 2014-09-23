@@ -7,6 +7,7 @@
 //
 
 #import "WCSlideDownModalAnimation.h"
+#import "WCConstants.h"
 
 @implementation WCSlideDownModalAnimation
 
@@ -19,7 +20,7 @@
     // Grab the from and to view controllers from the context
     UIViewController *fromViewController = [transitionContext viewControllerForKey:UITransitionContextFromViewControllerKey];
     UIViewController *toViewController = [transitionContext viewControllerForKey:UITransitionContextToViewControllerKey];
-
+    
     if (self.presenting) {
         
         [transitionContext.containerView addSubview:toViewController.view];
@@ -28,6 +29,7 @@
         // Set our ending frame. We'll modify this later if we have to
         CGRect endFrame = fromViewController.view.frame;
         endFrame.origin.y -= endFrame.size.height;
+        
         
         // Animate
         [UIView animateWithDuration:[self transitionDuration:transitionContext] delay:0
@@ -50,14 +52,23 @@
         // Set our ending frame. We'll modify this later if we have to
         CGRect endFrame = fromViewController.view.frame;
         
-        // Animate
-        [UIView animateWithDuration:[self transitionDuration:transitionContext] delay:0
-             usingSpringWithDamping:1.0f initialSpringVelocity:0.3f
-                            options:0 animations:^{
-                                toViewController.view.frame = endFrame;
-                            } completion:^(BOOL finished) {
-                                [transitionContext completeTransition:YES];
-                            }];
+        if (EARLIER_IOS_8) {
+            [UIView animateWithDuration:0.3 animations:^{
+                toViewController.view.frame = endFrame;
+            } completion:^(BOOL finished) {
+                [transitionContext completeTransition:YES];
+            }];
+        }
+        else {
+            // Animate
+            [UIView animateWithDuration:[self transitionDuration:transitionContext] delay:0
+                 usingSpringWithDamping:1.0f initialSpringVelocity:0.3f
+                                options:0 animations:^{
+                                    toViewController.view.frame = endFrame;
+                                } completion:^(BOOL finished) {
+                                    [transitionContext completeTransition:YES];
+                                }];
+        }
     }
 }
 
