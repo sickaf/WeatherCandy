@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6245" systemVersion="13E28" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
     <dependencies>
+        <deployment defaultVersion="1808" identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6238"/>
+        <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
     </dependencies>
     <scenes>
         <!--Navigation Controller-->
@@ -33,13 +35,16 @@
                         <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="girl" translatesAutoresizingMaskIntoConstraints="NO" id="8Cf-fV-eNe">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="girl" translatesAutoresizingMaskIntoConstraints="NO" id="8Cf-fV-eNe">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="168"/>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="guy" translatesAutoresizingMaskIntoConstraints="NO" id="RwH-gX-VXh">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="guy" translatesAutoresizingMaskIntoConstraints="NO" id="RwH-gX-VXh">
                                 <rect key="frame" x="0.0" y="168" width="320" height="168"/>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SSp-yb-nEa">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="animal" translatesAutoresizingMaskIntoConstraints="NO" id="RPw-gI-0jG">
+                                <rect key="frame" x="0.0" y="336" width="320" height="168"/>
+                            </imageView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SSp-yb-nEa">
                                 <rect key="frame" x="0.0" y="0.0" width="320" height="168"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="50"/>
                                 <state key="normal" title="Hot girls">
@@ -50,7 +55,7 @@
                                     <action selector="girlButton:" destination="7aI-x8-k9y" eventType="touchUpInside" id="5kQ-Ei-jxo"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ouO-tf-vXA">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ouO-tf-vXA">
                                 <rect key="frame" x="0.0" y="168" width="320" height="168"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="50"/>
                                 <state key="normal" title="Hot guys">
@@ -61,10 +66,7 @@
                                     <action selector="guyButton:" destination="7aI-x8-k9y" eventType="touchUpInside" id="RWY-B6-IlP"/>
                                 </connections>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="animal" translatesAutoresizingMaskIntoConstraints="NO" id="RPw-gI-0jG">
-                                <rect key="frame" x="0.0" y="336" width="320" height="168"/>
-                            </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SId-dE-sEv">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SId-dE-sEv">
                                 <rect key="frame" x="0.0" y="336" width="320" height="168"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="50"/>
                                 <state key="normal" title="Cute animals">
@@ -77,6 +79,32 @@
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="height" secondItem="RwH-gX-VXh" secondAttribute="height" multiplier="3:1" id="2wD-Sk-68N"/>
+                            <constraint firstItem="RPw-gI-0jG" firstAttribute="top" secondItem="RwH-gX-VXh" secondAttribute="bottom" id="3Ex-xL-xMV"/>
+                            <constraint firstItem="RwH-gX-VXh" firstAttribute="top" secondItem="8Cf-fV-eNe" secondAttribute="bottom" id="5b7-2d-ab4"/>
+                            <constraint firstItem="8Cf-fV-eNe" firstAttribute="top" secondItem="Diu-Db-0uS" secondAttribute="bottom" id="AJf-3Q-bAD"/>
+                            <constraint firstAttribute="height" secondItem="8Cf-fV-eNe" secondAttribute="height" multiplier="3:1" id="AMy-y3-wz5"/>
+                            <constraint firstItem="RPw-gI-0jG" firstAttribute="bottom" secondItem="SId-dE-sEv" secondAttribute="bottom" id="CJD-B5-KGL"/>
+                            <constraint firstItem="RwH-gX-VXh" firstAttribute="trailing" secondItem="ouO-tf-vXA" secondAttribute="trailing" id="EBL-Q0-baV"/>
+                            <constraint firstItem="SSp-yb-nEa" firstAttribute="top" secondItem="8Cf-fV-eNe" secondAttribute="top" id="F2W-c7-c7e"/>
+                            <constraint firstItem="RwH-gX-VXh" firstAttribute="top" secondItem="ouO-tf-vXA" secondAttribute="top" id="F7Z-Mf-IIm"/>
+                            <constraint firstAttribute="centerX" secondItem="8Cf-fV-eNe" secondAttribute="centerX" id="KQx-HG-OQw"/>
+                            <constraint firstItem="RPw-gI-0jG" firstAttribute="top" secondItem="SId-dE-sEv" secondAttribute="top" id="L53-i4-CHf"/>
+                            <constraint firstItem="RwH-gX-VXh" firstAttribute="leading" secondItem="ouO-tf-vXA" secondAttribute="leading" id="LyQ-dr-OXg"/>
+                            <constraint firstItem="RPw-gI-0jG" firstAttribute="trailing" secondItem="SId-dE-sEv" secondAttribute="trailing" id="N8E-Xf-yQ3"/>
+                            <constraint firstAttribute="centerX" secondItem="RwH-gX-VXh" secondAttribute="centerX" id="QNL-bK-lpU"/>
+                            <constraint firstAttribute="width" secondItem="8Cf-fV-eNe" secondAttribute="width" id="Sgy-dJ-gcL"/>
+                            <constraint firstAttribute="height" secondItem="RPw-gI-0jG" secondAttribute="height" multiplier="3:1" id="jP3-bC-ZDh"/>
+                            <constraint firstItem="SSp-yb-nEa" firstAttribute="leading" secondItem="8Cf-fV-eNe" secondAttribute="leading" id="jUY-ww-hsG"/>
+                            <constraint firstItem="SSp-yb-nEa" firstAttribute="bottom" secondItem="8Cf-fV-eNe" secondAttribute="bottom" id="oRI-uS-Vuk"/>
+                            <constraint firstItem="RPw-gI-0jG" firstAttribute="leading" secondItem="SId-dE-sEv" secondAttribute="leading" id="ohG-DC-BkA"/>
+                            <constraint firstItem="RwH-gX-VXh" firstAttribute="width" secondItem="0ba-jn-Psk" secondAttribute="width" id="oi1-yj-AUF"/>
+                            <constraint firstItem="SSp-yb-nEa" firstAttribute="trailing" secondItem="8Cf-fV-eNe" secondAttribute="trailing" id="rTN-xJ-hYv"/>
+                            <constraint firstItem="RPw-gI-0jG" firstAttribute="width" secondItem="0ba-jn-Psk" secondAttribute="width" id="rcr-ZU-gRI"/>
+                            <constraint firstItem="RwH-gX-VXh" firstAttribute="bottom" secondItem="ouO-tf-vXA" secondAttribute="bottom" id="wKC-tO-9nU"/>
+                            <constraint firstAttribute="centerX" secondItem="RPw-gI-0jG" secondAttribute="centerX" id="wfG-57-O4Q"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Choose a theme" id="SsN-01-ik9"/>
                     <connections>

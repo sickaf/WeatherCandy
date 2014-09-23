@@ -30,27 +30,28 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
- 
     self.girlButtonOutlet.titleLabel.font = kDefaultFontMedium(50);
     self.guyButtonOutlet.titleLabel.font = kDefaultFontMedium(50);
     self.animalButtonOutlet.titleLabel.font = kDefaultFontMedium(50);
     
-    [self addGradientToView: self.chooseGirlsImageView];
-    [self addGradientToView: self.chooseGuysImageView];
-    [self addGradientToView: self.chooseAnimalsImageView];
-        
 }
 
-- (void)addGradientToView:(UIView *)parentView {
-    UIView *view = [[UIView alloc] initWithFrame:parentView.bounds];
+- (void) viewDidLayoutSubviews
+{
+    //toss on the gradients
+    [self addGradientView:self.chooseGirlsImageView];
+    [self addGradientView:self.chooseGuysImageView];
+    [self addGradientView:self.chooseAnimalsImageView];
+}
+
+- (void)addGradientView:(UIView *)parentView {
+    
     CAGradientLayer *gradient = [CAGradientLayer layer];
-    gradient.frame = view.bounds;
-    UIColor *top = [kDefaultBackgroundColor colorWithAlphaComponent:0.6];
+    gradient.frame = parentView.bounds;
+    UIColor *top = [kDefaultBackgroundColor colorWithAlphaComponent:0.5];
     UIColor *bottom = [kDefaultBackgroundColor colorWithAlphaComponent:0.8];
     gradient.colors = [NSArray arrayWithObjects:(id)[top CGColor], (id)[bottom CGColor], nil];
-    [view.layer insertSublayer:gradient atIndex:0];
-    [parentView addSubview: view];
+    [parentView.layer insertSublayer:gradient atIndex:0];
 }
 
 - (void)didReceiveMemoryWarning {
