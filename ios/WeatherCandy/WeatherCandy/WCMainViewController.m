@@ -26,9 +26,6 @@
 #import "WCSettings.h"
 #import "WCErrorView.h"
 
-#define EARLIER_IOS_8    ([[[UIDevice currentDevice] systemVersion] floatValue] < 8.0)
-
-
 @interface WCMainViewController () {
     NSArray *_imgData;
     NSArray *_forecastData;

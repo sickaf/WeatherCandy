@@ -6,6 +6,8 @@
 //  Copyright (c) 2014 sickaf. All rights reserved.
 //
 
+#define EARLIER_IOS_8    ([[[UIDevice currentDevice] systemVersion] floatValue] < 8.0)
+
 #define kDefaultBackgroundColor       [UIColor colorWithWhite:0.15 alpha:1.000]
 #define kDefaultFont            [UIFont fontWithName:@"HelveticaNeue-Light" size:16]
 #define kDefaultTitleFont       [UIFont fontWithName:@"HelveticaNeue" size:15]
