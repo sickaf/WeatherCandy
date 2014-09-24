@@ -25,7 +25,6 @@
 #import "WCForecastWeather.h"
 #import "WCSettings.h"
 #import "WCErrorView.h"
-#import "WCChooseCategoryViewController.h"
 #import "Apsalar.h"
 
 @interface WCMainViewController () {
@@ -50,6 +49,8 @@
 @property (strong, nonatomic) UIDynamicAnimator *animator;
 
 @property (strong, nonatomic) WCErrorView *errorView;
+
+@property (strong, nonatomic) UINavigationController *categoryChooser;
 
 @end
 
@@ -91,9 +92,37 @@
     self.titleButton.imageEdgeInsets = UIEdgeInsetsMake(0, self.titleButton.titleLabel.frame.size.width, 0, -self.titleButton.titleLabel.frame.size.width);
     
     // User has already chosen a category, startup as usual
-    if ([[WCSettings sharedSettings] hasChosenCategory]) {
+    
+    WCSettings *settings = [WCSettings sharedSettings];
+    
+    if ([settings hasChosenCategory]) {
         // Get data
         [self getInitialData];
+    }
+    else {
+        // Add OOBE as a child view controller
+        UIStoryboard *oobe = [UIStoryboard storyboardWithName:@"OOBE" bundle:[NSBundle mainBundle]];
+        UINavigationController *choose = [oobe instantiateViewControllerWithIdentifier:@"OOBE"];
+        choose.view.frame = self.view.bounds;
+        
+        _categoryChooser = choose;
+        WCChooseCategoryViewController *chooseVC = (WCChooseCategoryViewController *)[_categoryChooser topViewController];
+        chooseVC.delegate = self;
+        
+        [self.view addSubview:_categoryChooser.view];
+        [self addChildViewController:_categoryChooser];
+        [_categoryChooser didMoveToParentViewController:self];
+        
+    }
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    if ([[[self.navigationController viewControllers] firstObject] isKindOfClass:[WCChooseCategoryViewController class]])
+    {
+        [self.navigationController setNavigationBarHidden:YES animated:animated];
     }
 }
 
@@ -633,6 +662,24 @@
 {
     [collectionView deselectItemAtIndexPath:indexPath animated:NO];
     [self openProfileForIndexPath:indexPath];
+}
+
+#pragma mark - Choose category delegate
+
+- (void)userDidChooseCategory
+{
+    // Get initial data
+    [self getInitialData];
+    
+    // Animate out the category chooser
+    [UIView animateWithDuration:0.2 animations:^{
+        [_categoryChooser.view setAlpha:0];
+    } completion:^(BOOL finished) {
+        [_categoryChooser willMoveToParentViewController:nil];
+        [_categoryChooser.view removeFromSuperview];
+        [_categoryChooser removeFromParentViewController];
+        _categoryChooser = nil;
+    }];
 }
 
 #pragma mark - Action sheet delegate

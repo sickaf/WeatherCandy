@@ -119,7 +119,7 @@ static NSString *const kWCHasChosenCategoryKey      = @"WCChosenCategory";
 {
     _hasChosenCategory = hasChosenCategory;
     NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
-    [ud setBool:hasChosenCategory forKey:kWCHasChosenCategoryKey];
+    [ud setBool:_hasChosenCategory forKey:kWCHasChosenCategoryKey];
     [ud synchronize];
 }
 

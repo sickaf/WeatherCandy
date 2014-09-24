@@ -46,23 +46,6 @@
     UIRemoteNotificationType myTypes = UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeSound;
     [[UIApplication sharedApplication] registerForRemoteNotificationTypes:myTypes];
     
-    
-    UIViewController *mainVC;
-    
-    if (![[WCSettings sharedSettings] hasChosenCategory]) {
-        UIStoryboard *oobe = [UIStoryboard storyboardWithName:@"OOBE" bundle:[NSBundle mainBundle]];
-        UIViewController *choose = [oobe instantiateViewControllerWithIdentifier:@"OOBE"];
-        mainVC = choose;
-    }
-    else {
-        UIStoryboard *mainSB = [UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]];
-        UIViewController *main = [mainSB instantiateInitialViewController];
-        mainVC = main;
-    }
-    
-    self.window.rootViewController = mainVC;
-    [self.window makeKeyAndVisible];
-    
     return YES;
 }
 

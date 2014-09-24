@@ -8,6 +8,16 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol WCChooseCategoryProtocol;
+
 @interface WCChooseCategoryViewController : UIViewController
+
+@property (nonatomic, weak) id<WCChooseCategoryProtocol> delegate;
+
+@end
+
+@protocol WCChooseCategoryProtocol <NSObject>
+
+- (void)userDidChooseCategory;
 
 @end

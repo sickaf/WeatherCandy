@@ -11,6 +11,7 @@
 
 #import "UIImageViewAligned.h"
 #import "WCTitleButtonViewController.h"
+#import "WCChooseCategoryViewController.h"
 
 typedef enum {
     WCBackgroundTypeBlue = 1,
@@ -18,7 +19,7 @@ typedef enum {
     WCBackgroundTypeOrange,
 } WCBackgroundType;
 
-@interface WCMainViewController : UIViewController <UICollectionViewDataSource, UICollectionViewDelegate, UINavigationControllerDelegate, UIActionSheetDelegate, UIViewControllerTransitioningDelegate, CLLocationManagerDelegate>
+@interface WCMainViewController : UIViewController <UICollectionViewDataSource, UICollectionViewDelegate, UINavigationControllerDelegate, UIActionSheetDelegate, UIViewControllerTransitioningDelegate, CLLocationManagerDelegate, WCChooseCategoryProtocol>
 
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 
