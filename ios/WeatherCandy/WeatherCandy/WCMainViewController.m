@@ -26,6 +26,7 @@
 #import "WCSettings.h"
 #import "WCErrorView.h"
 #import "Apsalar.h"
+#import "WCNetworkManager.h"
 
 @interface WCMainViewController () {
     NSArray *_imgData;
@@ -297,91 +298,46 @@
     self.gettingData = YES;
     self.error = NO;
     
-    NSTimeZone *tz = [NSTimeZone systemTimeZone];
-    WCImageCategory category = [[WCSettings sharedSettings] selectedImageCategory];
+    void (^completion)(WCData *data, NSError *error) = ^void(WCData *data, NSError *error)
+    {
+        if (!error) {
+            
+            // Instagram photos
+            
+            _imgData = data.IGPhotos;
+            [self.collectionView reloadData];
+            
+            // Weather
+            
+            _currentWeather = data.currentWeather;
+            
+            // Forecast
+            
+            _forecastData = data.forecastData;
+            
+            // Make sure to change the title to the retrieved name if we're using current location
+            if (self.currentLocation) {
+                [self.titleButton setTitle:data.cityName forState:UIControlStateNormal];
+            }
+            
+            // Refresh all of the UI
+            [self refreshTempUI];
+        }
+        else {
+            self.error = YES;
+        }
+        
+        self.loading = NO;
+        self.gettingData = NO;
+        self.currentLocation = NO;
+    };
     
-    NSDictionary *params = @{};
     if (cityID) {
-        params = @{@"cityID": cityID,
-                   @"date":[NSDate date],
-                   @"imageCategory":@(category),
-                   @"timezone":@(tz.secondsFromGMT)};
+        [[WCNetworkManager sharedManager] getDataWithCityID:cityID completion:completion];
     }
     else {
-        params = @{@"lat": @(latitude),
-                   @"lon": @(longitude),
-                   @"date":[NSDate date],
-                   @"imageCategory":@(category),
-                   @"timezone":@(tz.secondsFromGMT)};
+        [[WCNetworkManager sharedManager] getDataWithLon:longitude lat:latitude completion:completion];
     }
-    
-    [PFCloud callFunctionInBackground:@"getWeatherCandyData"
-                       withParameters:params
-                                block:^(NSDictionary *result, NSError *error) {
-                                    
-                                    if (!error) {
-                                        
-                                        //NSLog(@"%@", result);
-                                        
-                                        NSMutableArray *temp = [NSMutableArray new];
-                                        for (NSDictionary *dict in result[@"IGPhotoSet"]) {
-                                            WCPhoto *newPhoto = [WCPhoto new];
-                                            newPhoto.photoURL = dict[@"IGUrl"];
-                                            newPhoto.username = dict[@"IGUsername"];
-                                            newPhoto.index = dict[@"PhotoNum"];
-                                            [temp addObject:newPhoto];
-                                        }
-                                        
-                                        NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"index" ascending:YES];
-
-                                        _imgData = [temp sortedArrayUsingDescriptors:@[sortDescriptor]];
-                                        [self.collectionView reloadData];
-                                        
-                                        NSDictionary *currentWeatherDict = result[@"currentWeather"];
-                                        
-                                        float currentTemp = [currentWeatherDict[@"temperature"] floatValue];
-                                        NSTimeInterval sunrise = [currentWeatherDict[@"sunrise"] longLongValue];
-                                        NSTimeInterval sunset = [currentWeatherDict[@"sunset"] longLongValue];
-                                        NSTimeInterval localTime = [currentWeatherDict[@"dt"] longLongValue];
-                                        NSInteger condition = [currentWeatherDict[@"condition"] integerValue];
-                                        
-                                        WCWeather *newCurrentWeather = [WCWeather new];
-                                        newCurrentWeather.temperature = currentTemp;
-                                        newCurrentWeather.sunrise = sunrise;
-                                        newCurrentWeather.sunset = sunset;
-                                        newCurrentWeather.currentLocalTime = localTime;
-                                        newCurrentWeather.condition = (int)condition;
-                                        _currentWeather = newCurrentWeather;
-                                        
-                                        NSMutableArray *newForecastData = [NSMutableArray new];
-                                        for (NSDictionary *dict in result[@"forecastList"]) {
-                                            WCForecastWeather *forecastWeather = [WCForecastWeather new];
-                                            forecastWeather.temperature = [dict[@"temperature"] floatValue];
-                                            forecastWeather.forecastTime = [dict[@"dt"] longLongValue];
-                                            forecastWeather.condition = (int)[dict[@"condition"] integerValue];
-                                            forecastWeather.sunrise = sunrise;
-                                            forecastWeather.sunset = sunset;
-                                            [newForecastData addObject:forecastWeather];
-                                        }
-                                        _forecastData = [NSArray arrayWithArray:newForecastData];
-                                        
-                                        // Make sure to change the title to the retrieved name if we're using current location
-                                        if (self.currentLocation) {
-                                            NSString *currentCityName = currentWeatherDict[@"cityName"];
-                                            [self.titleButton setTitle:currentCityName forState:UIControlStateNormal];
-                                        }
-                                        
-                                        // Refresh all of the UI
-                                        [self refreshTempUI];
-                                    }
-                                    else {
-                                        self.error = YES;
-                                    }
-                                    
-                                    self.loading = NO;
-                                    self.gettingData = NO;
-                                    self.currentLocation = NO;
-                                }];
 }
 
 - (void)refreshTempUI
@@ -485,6 +441,8 @@
 
 - (void)cityChanged:(NSNotification *)note
 {
+    [[WCNetworkManager sharedManager] cancelAllWeatherRequests];
+    
     NSDictionary *info = note.userInfo;
     WCCity *city = info[@"city"];
     [self changeToCity:city];
@@ -518,8 +476,6 @@
 
 - (IBAction)pressedTitle:(id)sender
 {
-    if (_gettingData || _loading) return;
-    
     UINavigationController *vc = [[UIStoryboard storyboardWithName:@"Main" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"AddCityNavController"];
     WCAddCityViewController *addCity = (WCAddCityViewController *)vc.topViewController;
     addCity.titleButtonText = self.titleButton.titleLabel.text;

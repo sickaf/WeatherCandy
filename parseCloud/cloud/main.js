@@ -12,6 +12,10 @@ Parse.Cloud.define("getWeatherCandyData", function(request, response) {
   getWeatherCandyData(request, response);
 });
 
+Parse.Cloud.define("hahatest", function(request, response) {
+  response.success("hello world");
+});
+
 Date.prototype.yyyymmdd = function() {
    var yyyy = this.getFullYear().toString();
    var mm = (this.getMonth()+1).toString(); // getMonth() is zero-based
@@ -24,9 +28,9 @@ function getWeatherCandyData(request, response) {
   var objForClient = new Object();
   var lat = request.params.lat;
   var lon = request.params.lon;
-  var imageCategory = request.params.imageCategory;
+  var imageCategory = Number(request.params.imageCategory);
   console.log("imageCategory is "+imageCategory);
-  var currentDate = request.params.date;
+  var currentDate = new Date(request.params.date*1000);
   var cityName = request.params.cityName;
   var cityID = request.params.cityID;
   var weatherQueryString ="api.openweathermap.org/data/2.5/weather?";
@@ -50,6 +54,7 @@ function getWeatherCandyData(request, response) {
   }
 
   var dateString = currentDate.yyyymmdd();
+  console.log('looking for instagram photos for: ' + dateString);
   var IGPhotoQuery = new Parse.Query("IGPhoto");
   IGPhotoQuery.equalTo("forDate", dateString);
   if (imageCategory !== undefined) {

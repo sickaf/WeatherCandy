@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "WCData.h"
 
 @interface WCNetworkManager : NSObject
 
@@ -16,6 +17,9 @@
 
 // Returns an array of WCCity objects
 - (void)findCitiesWithSearchText:(NSString *)text completion:(void (^)(NSArray *cities, NSError *error))completion;
+- (void)getDataWithCityID:(NSString *)cityID completion:(void (^)(WCData *data, NSError *error))completion;
+- (void)getDataWithLon:(double)lon lat:(double)lat completion:(void (^)(WCData *data, NSError *error))completion;
+
 
 // Canceling
 

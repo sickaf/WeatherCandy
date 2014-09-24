@@ -9,8 +9,13 @@
 #import "WCNetworkManager.h"
 #import "AFNetworking.h"
 #import "WCCity.h"
+#import "WCSettings.h"
 
 #define kFindCityURL @"http://api.geonames.org/searchJSON"
+#define kGetWeatherURL @"https://api.parse.com/1/functions/getWeatherCandyData"
+
+#define kParseAppID @"p8AF2BKCLQ7fr3oJXPg43fOL6LXAK3mwAb5Ywnke"
+#define kParseAPIKey @"v8C3jQHw0b8JkoCMy3Vn9QgqLdl3F7TxptAKfSVx"
 
 @interface WCNetworkManager ()
 
@@ -81,6 +86,128 @@
     }];
 }
 
+- (void)getDataWithCityID:(NSString *)cityID
+               completion:(void (^)(WCData *data, NSError *error))completion
+{
+    [[WCNetworkManager sharedManager] getDataWithLon:0 lat:0 cityID:cityID completion:completion];
+}
+
+- (void)getDataWithLon:(double)lon lat:(double)lat
+            completion:(void (^)(WCData *data, NSError *error))completion;
+{
+    [[WCNetworkManager sharedManager] getDataWithLon:lon lat:lat cityID:nil completion:completion];
+}
+
+- (void)getDataWithLon:(double)lon
+                    lat:(double)lat
+                      cityID:(NSString *)cityID
+                  completion:(void (^)(WCData *data, NSError *error))completion
+{
+    NSTimeZone *tz = [NSTimeZone systemTimeZone];
+    WCImageCategory category = [[WCSettings sharedSettings] selectedImageCategory];
+    
+    NSString *dateString = [NSString stringWithFormat:@"%i", (int)[[NSDate date] timeIntervalSince1970]];
+    NSString *tzString = [NSString stringWithFormat:@"%li", (long)tz.secondsFromGMT];
+    NSString *categoryString = [NSString stringWithFormat:@"%i",category];
+    
+    NSDictionary *params;
+    
+    if (cityID) {
+        params = @{@"cityID": cityID,
+                                 @"date": dateString,
+                                 @"imageCategory": categoryString,
+                                 @"timezone": tzString};
+    }
+    else {
+        params = @{@"lat": [NSString stringWithFormat:@"%f",lat],
+                   @"lon": [NSString stringWithFormat:@"%f",lon],
+                   @"date":dateString,
+                   @"imageCategory":categoryString,
+                   @"timezone":tzString};
+    }
+    
+    
+    AFHTTPRequestSerializer *serializer = self.mainManager.requestSerializer;
+    NSMutableURLRequest *request = [serializer requestWithMethod:@"POST" URLString:kGetWeatherURL parameters:nil error:nil];
+    NSData *data = [NSJSONSerialization dataWithJSONObject:params options:0 error:nil];
+    request.HTTPBody = data;
+    
+    AFHTTPRequestOperation *op = [self.mainManager HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        NSDictionary *result = responseObject[@"result"];
+        
+        // Instagram
+        
+        NSMutableArray *temp = [NSMutableArray new];
+        for (NSDictionary *dict in result[@"IGPhotoSet"]) {
+            WCPhoto *newPhoto = [WCPhoto new];
+            newPhoto.photoURL = dict[@"IGUrl"];
+            newPhoto.username = dict[@"IGUsername"];
+            newPhoto.index = dict[@"PhotoNum"];
+            [temp addObject:newPhoto];
+        }
+        
+        NSSortDescriptor *sortDescriptor = [NSSortDescriptor sortDescriptorWithKey:@"index" ascending:YES];
+        NSArray *finalImgData = [temp sortedArrayUsingDescriptors:@[sortDescriptor]];
+        
+        // Current weather
+        
+        NSDictionary *currentWeatherDict = result[@"currentWeather"];
+        
+        float currentTemp = [currentWeatherDict[@"temperature"] floatValue];
+        NSTimeInterval sunrise = [currentWeatherDict[@"sunrise"] longLongValue];
+        NSTimeInterval sunset = [currentWeatherDict[@"sunset"] longLongValue];
+        NSTimeInterval localTime = [currentWeatherDict[@"dt"] longLongValue];
+        NSInteger condition = [currentWeatherDict[@"condition"] integerValue];
+        
+        WCWeather *newCurrentWeather = [WCWeather new];
+        newCurrentWeather.temperature = currentTemp;
+        newCurrentWeather.sunrise = sunrise;
+        newCurrentWeather.sunset = sunset;
+        newCurrentWeather.currentLocalTime = localTime;
+        newCurrentWeather.condition = (int)condition;
+        
+        // Forecast data
+        
+        NSMutableArray *newForecastData = [NSMutableArray new];
+        for (NSDictionary *dict in result[@"forecastList"]) {
+            WCForecastWeather *forecastWeather = [WCForecastWeather new];
+            forecastWeather.temperature = [dict[@"temperature"] floatValue];
+            forecastWeather.forecastTime = [dict[@"dt"] longLongValue];
+            forecastWeather.condition = (int)[dict[@"condition"] integerValue];
+            forecastWeather.sunrise = sunrise;
+            forecastWeather.sunset = sunset;
+            [newForecastData addObject:forecastWeather];
+        }
+        
+        NSArray *finalForecastData = [NSArray arrayWithArray:newForecastData];
+        
+        // City name
+        
+        NSString *currentCityName = currentWeatherDict[@"cityName"];
+        
+        // Call completion handler
+        
+        WCData *dataToReturn = [WCData new];
+        dataToReturn.IGPhotos = finalImgData;
+        dataToReturn.currentWeather = newCurrentWeather;
+        dataToReturn.forecastData = finalForecastData;
+        dataToReturn.cityName = currentCityName;
+        
+        if (!operation.isCancelled) {
+            if (completion) completion(dataToReturn, nil);
+        }
+        
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        if (!operation.isCancelled) {
+            if (completion) completion(nil, error);
+        }
+    }];
+    
+    [self.mainManager.operationQueue addOperation:op];
+}
+
+
 - (void)cancelAllWeatherRequests
 {
     [self.mainManager.operationQueue cancelAllOperations];
@@ -97,7 +224,14 @@
 {
     if (!_mainManager) {
         _mainManager = [AFHTTPRequestOperationManager manager];
-        [_mainManager.operationQueue setMaxConcurrentOperationCount:1];
+        
+        AFHTTPRequestSerializer *serializer = [AFHTTPRequestSerializer serializer];
+        [serializer setValue:kParseAppID forHTTPHeaderField:@"X-Parse-Application-Id"];
+        [serializer setValue:kParseAPIKey forHTTPHeaderField:@"X-Parse-REST-API-Key"];
+        [serializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+        
+        _mainManager.requestSerializer = serializer;
+        _mainManager.responseSerializer = [AFJSONResponseSerializer serializer];
     }
     
     return _mainManager;
