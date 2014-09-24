@@ -191,6 +191,7 @@
 - (void)disableLoadingState
 {
     [_spinner stopAnimating];
+    [self.forecastCollectionView scrollToItemAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:NO];
     [UIView animateWithDuration:0.3 delay:0 options:UIViewAnimationOptionCurveEaseInOut animations:^{
         self.collectionView.alpha = 1;
         self.forecastCollectionView.alpha = 1;
@@ -198,9 +199,10 @@
         self.descriptionLabel.alpha = 1;
         self.topGradientImageView.alpha = 1;
     } completion:nil];
-    
     [self.collectionView reloadData];
     [self.forecastCollectionView reloadData];
+    [self bumpForecast];
+
 }
 
 - (void)enableErrorState
@@ -297,7 +299,6 @@
     
     NSTimeZone *tz = [NSTimeZone systemTimeZone];
     WCImageCategory category = [[WCSettings sharedSettings] selectedImageCategory];
-    NSLog(@"category is %u",category);
     
     NSDictionary *params = @{};
     if (cityID) {
@@ -611,52 +612,57 @@
 {
     if ([collectionView isEqual:self.forecastCollectionView])
     {
-        //Analytics
-        NSDictionary *analyticsDimensions = @{
-                                              @"didTapForecast" : @"1",
-                                              @"category" : [NSString stringWithFormat:@"%d", [[WCSettings sharedSettings] selectedImageCategory]],
-                                              @"currentTemperatureUnit" : [NSString stringWithFormat:@"%d", [[WCSettings sharedSettings] tempUnit]],
-                                              @"notificationsOn" : [NSString stringWithFormat:@"%d", [[WCSettings sharedSettings] notificationsOn]],
-                                              };
-        // Send the dimensions to Parse
-        [Apsalar event:@"weatherEvent_Test" withArgs:analyticsDimensions];
         
         if (collectionView.frame.origin.x >= 0 && !indexPath.section) {
             
-            // Bump animation
-            if (!self.animator) {
-                
-                self.animator = [[UIDynamicAnimator alloc] initWithReferenceView:self.view];
-                
-                UICollisionBehavior *collisionBehaviour = [[UICollisionBehavior alloc] initWithItems:@[self.forecastCollectionView]];
-                [collisionBehaviour setTranslatesReferenceBoundsIntoBoundaryWithInsets:UIEdgeInsetsMake(0, -100, 0, 0)];
-                [self.animator addBehavior:collisionBehaviour];
-                
-                self.gravityBehavior = [[UIGravityBehavior alloc] initWithItems:@[self.forecastCollectionView]];
-                [self.animator addBehavior:self.gravityBehavior];
-                
-                self.pushBehavior = [[UIPushBehavior alloc] initWithItems:@[self.forecastCollectionView] mode:UIPushBehaviorModeInstantaneous];
-                self.pushBehavior.magnitude = 0.0f;
-                self.pushBehavior.angle = 0.0f;
-                [self.animator addBehavior:self.pushBehavior];
-                
-                UIDynamicItemBehavior *itemBehaviour = [[UIDynamicItemBehavior alloc] initWithItems:@[self.forecastCollectionView]];
-                itemBehaviour.elasticity = 0.45f;
-                [self.animator addBehavior:itemBehaviour];
-            }
-            
-            self.gravityBehavior.gravityDirection = CGVectorMake(1.0f, 0.0f);
-            self.pushBehavior.pushDirection = CGVectorMake(-7.0f, 0.0f);
-            self.pushBehavior.active = YES;
+            //Analytics
+            NSDictionary *analyticsDimensions = @{
+                                                  @"didTapForecast" : @"1",
+                                                  @"category" : [NSString stringWithFormat:@"%d", [[WCSettings sharedSettings] selectedImageCategory]],
+                                                  @"currentTemperatureUnit" : [NSString stringWithFormat:@"%d", [[WCSettings sharedSettings] tempUnit]],
+                                                  @"notificationsOn" : [NSString stringWithFormat:@"%d", [[WCSettings sharedSettings] notificationsOn]],
+                                                  };
+            // Send the dimensions to Parse
+            [Apsalar event:@"weatherEvent_Test" withArgs:analyticsDimensions];
+
+            [self bumpForecast];
         }
         
         return NO;
     }
-
     
     WCPhoto *p = _imgData[indexPath.row];
     return p.username != nil;
 }
+
+- (void)bumpForecast {
+    if (!self.animator) {
+        
+        self.animator = [[UIDynamicAnimator alloc] initWithReferenceView:self.view];
+        
+        UICollisionBehavior *collisionBehaviour = [[UICollisionBehavior alloc] initWithItems:@[self.forecastCollectionView]];
+        [collisionBehaviour setTranslatesReferenceBoundsIntoBoundaryWithInsets:UIEdgeInsetsMake(0, -100, 0, 0)];
+        [self.animator addBehavior:collisionBehaviour];
+        
+        self.gravityBehavior = [[UIGravityBehavior alloc] initWithItems:@[self.forecastCollectionView]];
+        [self.animator addBehavior:self.gravityBehavior];
+        
+        self.pushBehavior = [[UIPushBehavior alloc] initWithItems:@[self.forecastCollectionView] mode:UIPushBehaviorModeInstantaneous];
+        self.pushBehavior.magnitude = 0.0f;
+        self.pushBehavior.angle = 0.0f;
+        [self.animator addBehavior:self.pushBehavior];
+        
+        UIDynamicItemBehavior *itemBehaviour = [[UIDynamicItemBehavior alloc] initWithItems:@[self.forecastCollectionView]];
+        itemBehaviour.elasticity = 0.45f;
+        [self.animator addBehavior:itemBehaviour];
+    }
+    
+    self.gravityBehavior.gravityDirection = CGVectorMake(1.0f, 0.0f);
+    self.pushBehavior.pushDirection = CGVectorMake(-7.0f, 0.0f);
+    self.pushBehavior.active = YES;
+}
+
+
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
