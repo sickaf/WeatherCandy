@@ -536,6 +536,8 @@
     UICollectionViewCell *current = [[self.collectionView visibleCells] firstObject];
     NSIndexPath *currentInd = [self.collectionView indexPathForCell:current];
     
+    [Apsalar event:@"didPressActionButton"];
+    
     [self openProfileForIndexPath:currentInd];
 }
 
@@ -660,6 +662,8 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    [Apsalar event:@"didTapPhoto"];
+
     [collectionView deselectItemAtIndexPath:indexPath animated:NO];
     [self openProfileForIndexPath:indexPath];
 }

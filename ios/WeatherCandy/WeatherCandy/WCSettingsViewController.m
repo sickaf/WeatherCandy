@@ -357,9 +357,13 @@
         //grab and push view controller
         WCAboutViewController *vc = [[UIStoryboard storyboardWithName:@"Settings" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"About"];
         [self.navigationController pushViewController:vc animated:YES];
+        
+        [Apsalar event:@"didPressAbout_Settings"];
     }
     else if(indexPath.section == 1 && indexPath.row == 1)  // Contact us
     {
+        [Apsalar event:@"didPressMail_Settings"];
+
         if ([MFMailComposeViewController canSendMail])
         {
             if (!self.mailComposer)

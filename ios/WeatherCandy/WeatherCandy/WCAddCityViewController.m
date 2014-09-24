@@ -12,6 +12,7 @@
 #import "WCCityCell.h"
 #import "AFNetworking.h"
 #import "WCSettings.h"
+#import "WCNetworkManager.h"
 
 @interface WCAddCityViewController ()
 
@@ -19,7 +20,6 @@
 @property (weak, nonatomic) IBOutlet UIImageView *bgImgView;
 @property (strong, nonatomic) NSMutableArray *savedCities;
 @property (strong, nonatomic) NSMutableArray *searchResults;
-@property (strong, nonatomic) AFHTTPRequestOperationManager *manager;
 
 @property (assign, nonatomic) BOOL searching;
 @property (assign, nonatomic) BOOL showSearchResults;
@@ -60,9 +60,6 @@
     // Change search bar text color
     [[UITextField appearanceWhenContainedIn:[UISearchBar class], nil] setTextColor:[UIColor whiteColor]];
     
-    _manager = [AFHTTPRequestOperationManager manager];
-    [_manager.operationQueue setMaxConcurrentOperationCount:1];
-    
     [self getSavedCityData];
 }
 
@@ -78,7 +75,7 @@
 
 - (void)pressedTitle:(id)sender
 {
-    [_manager.operationQueue cancelAllOperations];
+    [[WCNetworkManager sharedManager] cancelAllAddCityRequests];
     [self dismissViewControllerAnimated:YES completion:nil];
 }
 
@@ -291,7 +288,7 @@
 - (void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
 {
     // Cancel all requests so far
-    [_manager.operationQueue cancelAllOperations];
+    [[WCNetworkManager sharedManager] cancelAllAddCityRequests];
     
     if (!searchText.length) {
         [self stopSearching];
@@ -304,34 +301,16 @@
     // remove all search objects first
     [self.searchResults removeAllObjects];
     
-    NSDictionary *params = @{@"name": searchBar.text, @"name_startsWith": searchBar.text, @"cities": @"cities1000", @"maxRows": @"50", @"isNameRequired": @"true", @"orderby": @"relevance", @"featureClass":@"P", @"username": @"codyko"};
-    
     __weak id weakSelf = self;
     
-    [_manager GET:@"http://api.geonames.org/searchJSON" parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        
+    [[WCNetworkManager sharedManager] findCitiesWithSearchText:searchText completion:^(NSArray *cities, NSError *error) {
         __strong WCAddCityViewController *strongSelf = weakSelf;
+
+        if (!error) {
+            strongSelf.searchResults = [NSMutableArray arrayWithArray:cities];
+        }
         
-        if (!operation.isCancelled) {
-            NSDictionary *dict = responseObject;
-            
-            for (NSDictionary *cityDict in dict[@"geonames"]) {
-                WCCity *newCity = [WCCity new];
-                newCity.cityID = cityDict[@"geonameId"];
-                newCity.name = cityDict[@"name"];
-                newCity.adminName = cityDict[@"adminName1"];
-                newCity.country = cityDict[@"countryCode"];
-                
-                [strongSelf.searchResults addObject:newCity];
-            }
-            
-            strongSelf.searching = NO;
-        }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        if (!operation.isCancelled) {
-            __strong WCAddCityViewController *strongSelf = weakSelf;
-            strongSelf.searching = NO;
-        }
+        strongSelf.searching = NO;
     }];
 }
 

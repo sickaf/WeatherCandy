@@ -17,6 +17,7 @@
 		7F15E83A19CBD64B002539A5 /* WCErrorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F15E83919CBD64B002539A5 /* WCErrorView.m */; };
 		7F1BEE6819C4143300D2AA70 /* WCWeather.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F1BEE6719C4143300D2AA70 /* WCWeather.m */; };
 		7F1BEE6B19C41A3D00D2AA70 /* WCForecastWeather.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F1BEE6A19C41A3D00D2AA70 /* WCForecastWeather.m */; };
+		7FA92D1D19D2804200202D1D /* WCNetworkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FA92D1C19D2804200202D1D /* WCNetworkManager.m */; };
 		7FAACE4019D14D170018A92D /* Apsalar.js in Resources */ = {isa = PBXBuildFile; fileRef = 7FAACE3E19D14D170018A92D /* Apsalar.js */; };
 		7FAACE4119D14D170018A92D /* libApsalar.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7FAACE3F19D14D170018A92D /* libApsalar.a */; };
 		7FAACE4319D14D540018A92D /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 7FAACE4219D14D540018A92D /* libsqlite3.0.dylib */; };
@@ -109,6 +110,8 @@
 		7F1BEE6719C4143300D2AA70 /* WCWeather.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCWeather.m; sourceTree = "<group>"; };
 		7F1BEE6919C41A3D00D2AA70 /* WCForecastWeather.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WCForecastWeather.h; sourceTree = "<group>"; };
 		7F1BEE6A19C41A3D00D2AA70 /* WCForecastWeather.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCForecastWeather.m; sourceTree = "<group>"; };
+		7FA92D1B19D2804200202D1D /* WCNetworkManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WCNetworkManager.h; sourceTree = "<group>"; };
+		7FA92D1C19D2804200202D1D /* WCNetworkManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCNetworkManager.m; sourceTree = "<group>"; };
 		7FAACE3D19D14D170018A92D /* Apsalar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Apsalar.h; sourceTree = "<group>"; };
 		7FAACE3E19D14D170018A92D /* Apsalar.js */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.javascript; path = Apsalar.js; sourceTree = "<group>"; };
 		7FAACE3F19D14D170018A92D /* libApsalar.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libApsalar.a; sourceTree = "<group>"; };
@@ -317,6 +320,8 @@
 				7F1BEE6719C4143300D2AA70 /* WCWeather.m */,
 				7F1BEE6919C41A3D00D2AA70 /* WCForecastWeather.h */,
 				7F1BEE6A19C41A3D00D2AA70 /* WCForecastWeather.m */,
+				7FA92D1B19D2804200202D1D /* WCNetworkManager.h */,
+				7FA92D1C19D2804200202D1D /* WCNetworkManager.m */,
 			);
 			name = Objects;
 			sourceTree = "<group>";
@@ -622,6 +627,7 @@
 				7FBE0F5219C5C11B00319B9C /* WCTintedButton.m in Sources */,
 				7FDB143A19B6EF7500790272 /* WCSettingsViewController.m in Sources */,
 				7FAE69FF19B5B42D0061B1BD /* AFURLConnectionOperation.m in Sources */,
+				7FA92D1D19D2804200202D1D /* WCNetworkManager.m in Sources */,
 				7FB123B119BDE56900EFAAC3 /* WCForecastCollectionViewCell.m in Sources */,
 				7FAE69FC19B5B42D0061B1BD /* AFHTTPSessionManager.m in Sources */,
 				7FAE6A0019B5B42D0061B1BD /* AFURLRequestSerialization.m in Sources */,
