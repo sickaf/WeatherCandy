@@ -249,16 +249,16 @@
     
     switch(formatType) {
         case 0:
-            result = @"Hot girls";
+            result = @"Girls";
             break;
         case 1:
-            result = @"Hot guys";
+            result = @"Guys";
             break;
         case 2:
-            result = @"Cute animals";
+            result = @"Cute Animals";
             break;
         default:
-            result = @"default";
+            result = @"Girls";
             break;
     }
     return result;
@@ -301,7 +301,7 @@
         else if (indexPath.row == 1) //category
         {
             WCCategoryCell *cell = [tableView dequeueReusableCellWithIdentifier:@"CategoryCell" forIndexPath:indexPath];
-            cell.mainLabel.text = @"Category";
+            cell.mainLabel.text = @"Theme";
             cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
             
             WCImageCategory cat = [[WCSettings sharedSettings] selectedImageCategory];

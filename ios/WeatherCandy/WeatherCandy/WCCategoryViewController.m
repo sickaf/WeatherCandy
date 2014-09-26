@@ -25,7 +25,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.title = @"Categories";
+    self.title = @"Themes";
     self.tableView.backgroundColor = [UIColor colorWithWhite:0.200 alpha:1.000];
     self.tableView.separatorColor = [UIColor colorWithWhite:0.2 alpha:1.000];
     
@@ -93,13 +93,13 @@
 
     if(indexPath.row == 0)
     {
-        cell.textLabel.text = @"Hot girls";
+        cell.textLabel.text = @"Girls";
         if(cat == WCImageCategoryGirl) {
             cell.accessoryType = UITableViewCellAccessoryCheckmark;
         }
     } else if (indexPath.row == 1)
     {
-        cell.textLabel.text = @"Hot guys";
+        cell.textLabel.text = @"Guys";
         if(cat == WCImageCategoryGuy) {
             cell.accessoryType = UITableViewCellAccessoryCheckmark;
         }
