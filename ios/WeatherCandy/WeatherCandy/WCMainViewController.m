@@ -12,7 +12,6 @@
 #import "WCConstants.h"
 #import "AFNetworking.h"
 #import "WCSlideDownModalAnimation.h"
-#import "WCSlideBehindModalAnimation.h"
 #import "WCNavigationController.h"
 #import "WCCity.h"
 #import "WCPhoto.h"

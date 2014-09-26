@@ -43,7 +43,6 @@
 		7FBE0F5219C5C11B00319B9C /* WCTintedButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FBE0F5119C5C11B00319B9C /* WCTintedButton.m */; };
 		7FBE0F6819C6DCEA00319B9C /* WCTitleButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FBE0F6719C6DCEA00319B9C /* WCTitleButton.m */; };
 		7FDB143219B6E29200790272 /* WCPhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FDB143119B6E29200790272 /* WCPhoto.m */; };
-		7FDB143519B6EBB400790272 /* WCSlideBehindModalAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FDB143419B6EBB400790272 /* WCSlideBehindModalAnimation.m */; };
 		7FDB143719B6ECEE00790272 /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7FDB143619B6ECEE00790272 /* Settings.storyboard */; };
 		7FDB143A19B6EF7500790272 /* WCSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FDB143919B6EF7500790272 /* WCSettingsViewController.m */; };
 		7FDB144619B759EE00790272 /* WCTitleButtonViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FDB144519B759EE00790272 /* WCTitleButtonViewController.m */; };
@@ -162,8 +161,6 @@
 		7FBE0F6719C6DCEA00319B9C /* WCTitleButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCTitleButton.m; sourceTree = "<group>"; };
 		7FDB143019B6E29200790272 /* WCPhoto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WCPhoto.h; sourceTree = "<group>"; };
 		7FDB143119B6E29200790272 /* WCPhoto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCPhoto.m; sourceTree = "<group>"; };
-		7FDB143319B6EBB400790272 /* WCSlideBehindModalAnimation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WCSlideBehindModalAnimation.h; sourceTree = "<group>"; };
-		7FDB143419B6EBB400790272 /* WCSlideBehindModalAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCSlideBehindModalAnimation.m; sourceTree = "<group>"; };
 		7FDB143619B6ECEE00790272 /* Settings.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Settings.storyboard; sourceTree = "<group>"; };
 		7FDB143819B6EF7500790272 /* WCSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WCSettingsViewController.h; sourceTree = "<group>"; };
 		7FDB143919B6EF7500790272 /* WCSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCSettingsViewController.m; sourceTree = "<group>"; };
@@ -314,8 +311,6 @@
 			children = (
 				7F14C61E19B5F349001FA062 /* WCSlideDownModalAnimation.h */,
 				7F14C61F19B5F349001FA062 /* WCSlideDownModalAnimation.m */,
-				7FDB143319B6EBB400790272 /* WCSlideBehindModalAnimation.h */,
-				7FDB143419B6EBB400790272 /* WCSlideBehindModalAnimation.m */,
 				7F14C62119B60EF0001FA062 /* WCCity.h */,
 				7F14C62219B60EF0001FA062 /* WCCity.m */,
 				7FDB143019B6E29200790272 /* WCPhoto.h */,
@@ -629,7 +624,6 @@
 				7FB123A519BD734700EFAAC3 /* UIImageView+AFNetworking.m in Sources */,
 				7FDB143219B6E29200790272 /* WCPhoto.m in Sources */,
 				7FAE6A0219B5B42D0061B1BD /* AFURLSessionManager.m in Sources */,
-				7FDB143519B6EBB400790272 /* WCSlideBehindModalAnimation.m in Sources */,
 				7FB123AE19BD877800EFAAC3 /* WCToggleCell.m in Sources */,
 				8201148419B3548A00F44D0B /* WCMainViewController.m in Sources */,
 				7FAE69FD19B5B42D0061B1BD /* AFNetworkReachabilityManager.m in Sources */,
