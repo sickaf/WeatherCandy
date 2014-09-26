@@ -201,9 +201,9 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="y9u-eb-bwV" customClass="WCTitleButton">
-                                <rect key="frame" x="62" y="28" width="196" height="26"/>
+                                <rect key="frame" x="62" y="19" width="196" height="44"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="26" id="6cd-Nv-3gV"/>
+                                    <constraint firstAttribute="height" constant="44" id="6cd-Nv-3gV"/>
                                 </constraints>
                                 <state key="normal" title="Current Location" image="down_arrow">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -240,7 +240,7 @@
                             <constraint firstAttribute="trailing" secondItem="5NC-KF-jNf" secondAttribute="trailing" id="vGA-TB-xRL"/>
                             <constraint firstItem="8lJ-gY-qbR" firstAttribute="top" secondItem="OBV-ge-0WM" secondAttribute="bottom" constant="18" id="vfh-4S-Qzb"/>
                             <constraint firstItem="8lJ-gY-qbR" firstAttribute="leading" secondItem="ET4-fh-jNa" secondAttribute="leading" constant="16" id="voJ-nH-IDD"/>
-                            <constraint firstItem="y9u-eb-bwV" firstAttribute="top" secondItem="EmQ-E6-9Ik" secondAttribute="bottom" constant="8" id="wW1-Ke-lYK"/>
+                            <constraint firstItem="y9u-eb-bwV" firstAttribute="top" secondItem="EmQ-E6-9Ik" secondAttribute="bottom" constant="-1" id="wW1-Ke-lYK"/>
                             <constraint firstAttribute="centerX" secondItem="ji7-YF-yeX" secondAttribute="centerX" id="xwD-X1-pA4"/>
                             <constraint firstItem="5NC-KF-jNf" firstAttribute="leading" secondItem="y9u-eb-bwV" secondAttribute="trailing" constant="12" id="y4k-Iz-Bc4"/>
                         </constraints>
