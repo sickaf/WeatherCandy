@@ -255,7 +255,7 @@
             result = @"Guys";
             break;
         case 2:
-            result = @"Cute Animals";
+            result = @"Cute animals";
             break;
         default:
             result = @"Girls";
