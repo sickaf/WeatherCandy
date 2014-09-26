@@ -34,7 +34,7 @@ static NSString *const kWCHasChosenCategoryKey      = @"WCChosenCategory";
         NSUserDefaults *ud = [NSUserDefaults standardUserDefaults];
         
         // Get the last set temp unit from storage
-        WCTemperatureUnit unit = kWCCelsius;
+        WCTemperatureUnit unit = kWCFahrenheit;
         if ([ud objectForKey:kWCTemperatureTypeKey])
         {
             unit = [[ud objectForKey:kWCTemperatureTypeKey] intValue];
