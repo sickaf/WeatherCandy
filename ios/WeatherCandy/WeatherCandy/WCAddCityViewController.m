@@ -41,6 +41,7 @@
     self.tableView.separatorColor = [UIColor colorWithWhite:1 alpha:0.6];
     self.searchBar.searchBarStyle = UISearchBarStyleMinimal;
     self.searchBar.tintColor = [UIColor whiteColor];
+    self.tableView.contentInset = UIEdgeInsetsMake(10, 0, 0, 0);
     
     // Change the keyboard return key to done
     for (UIView *subview in self.searchBar.subviews)
