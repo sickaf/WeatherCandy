@@ -14,11 +14,11 @@
 - (void)awakeFromNib
 {
     [super awakeFromNib];
-    self.categoryLabel.font = kDefaultFontMedium(18);
+    self.categoryLabel.font = kDefaultFontMedium(16);
     self.categoryLabel.textColor = [UIColor colorWithWhite:1.0 alpha:0.5];
     self.backgroundColor = kDefaultBackgroundColor;
     
-    self.textLabel.font = kDefaultFontMedium(18);
+    self.textLabel.font = kDefaultFontMedium(16);
     self.textLabel.textColor = [UIColor whiteColor];
 }
 

@@ -51,7 +51,7 @@
 
 @property (strong, nonatomic) WCErrorView *errorView;
 
-@property (strong, nonatomic) UINavigationController *categoryChooser;
+@property (strong, nonatomic) WCChooseCategoryViewController *categoryChooser;
 
 @end
 
@@ -103,12 +103,11 @@
     else {
         // Add OOBE as a child view controller
         UIStoryboard *oobe = [UIStoryboard storyboardWithName:@"OOBE" bundle:[NSBundle mainBundle]];
-        UINavigationController *choose = [oobe instantiateViewControllerWithIdentifier:@"OOBE"];
+        WCChooseCategoryViewController *choose = (WCChooseCategoryViewController *)[oobe instantiateViewControllerWithIdentifier:@"OOBE"];
         choose.view.frame = self.view.bounds;
+        choose.delegate = self;
         
         _categoryChooser = choose;
-        WCChooseCategoryViewController *chooseVC = (WCChooseCategoryViewController *)[_categoryChooser topViewController];
-        chooseVC.delegate = self;
         
         [self.view addSubview:_categoryChooser.view];
         [self addChildViewController:_categoryChooser];
@@ -237,37 +236,19 @@
     
     if (!_locationManager) {
         CLLocationManager *manager = [CLLocationManager new];
-        manager.desiredAccuracy = kCLLocationAccuracyHundredMeters;
-        _locationManager = manager;
+        manager.desiredAccuracy = kCLLocationAccuracyThreeKilometers;
+        self.locationManager = manager;
     }
     
     // Check if we need to use iOS8 methods
     if ([self.locationManager respondsToSelector:@selector(requestWhenInUseAuthorization)]) {
-        
         if ([CLLocationManager authorizationStatus] == kCLAuthorizationStatusNotDetermined) {
-            self.locationManager.delegate = self;
-            [_locationManager requestWhenInUseAuthorization];
-        }
-        else {
-            if ([self hasLocationAccess]) {
-                self.locationManager.delegate = self;
-                [_locationManager startUpdatingLocation];
-            }
-            else {
-                [self handleLocationTurnedOff];
-            }
+            [self.locationManager requestWhenInUseAuthorization];
         }
     }
-    else {
-        self.locationManager.delegate = self;
-        // Check if location service are enabled on iOS7
-        if ([CLLocationManager locationServicesEnabled]) {
-            [_locationManager startUpdatingLocation];
-        }
-        else {
-            [self handleLocationTurnedOff];
-        }
-    }
+    
+    self.locationManager.delegate = self;
+    [self.locationManager startUpdatingLocation];
 }
 
 - (BOOL)hasLocationAccess
@@ -276,8 +257,8 @@
     
     if (!_locationManager) {
         CLLocationManager *manager = [CLLocationManager new];
-        manager.desiredAccuracy = kCLLocationAccuracyHundredMeters;
-        _locationManager = manager;
+        manager.desiredAccuracy = kCLLocationAccuracyThreeKilometers;
+        self.locationManager = manager;
     }
     
     CLAuthorizationStatus status = [CLLocationManager authorizationStatus];
@@ -294,6 +275,9 @@
 
 - (void)getWeatherDataWithCityID:(NSString *)cityID longitude:(double)longitude latitude:(double)latitude
 {
+    // Cancel requests for current place weather
+    [[WCNetworkManager sharedManager] cancelAllWeatherRequests];
+
     self.loading = YES;
     self.gettingData = YES;
     self.error = NO;
@@ -441,8 +425,6 @@
 
 - (void)cityChanged:(NSNotification *)note
 {
-    [[WCNetworkManager sharedManager] cancelAllWeatherRequests];
-    
     NSDictionary *info = note.userInfo;
     WCCity *city = info[@"city"];
     [self changeToCity:city];
@@ -593,7 +575,8 @@
     return p.username != nil;
 }
 
-- (void)bumpForecast {
+- (void)bumpForecast
+{
     if (!self.animator) {
         
         self.animator = [[UIDynamicAnimator alloc] initWithReferenceView:self.view];
@@ -619,8 +602,6 @@
     self.pushBehavior.pushDirection = CGVectorMake(-7.0f, 0.0f);
     self.pushBehavior.active = YES;
 }
-
-
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -748,20 +729,18 @@
 
 - (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
 {
-    if (!_gettingData) {
-        CLLocation *location = locations.lastObject;
-        CLLocationCoordinate2D coord = location.coordinate;
-        _currentLocation = YES;
-        
-        [self getWeatherDataWithCityID:nil longitude:coord.longitude latitude:coord.latitude];
-        [self.locationManager stopUpdatingLocation];
-        self.locationManager.delegate = nil;
-        
-        WCCity *c = [WCCity new];
-        c.currentLocation = YES;
-        c.name = @"Current Location";
-        _currentCity = c;
-    }
+    CLLocation *location = locations.lastObject;
+    CLLocationCoordinate2D coord = location.coordinate;
+    _currentLocation = YES;
+    
+    WCCity *c = [WCCity new];
+    c.currentLocation = YES;
+    c.name = @"Current Location";
+    _currentCity = c;
+    
+    [self getWeatherDataWithCityID:nil longitude:coord.longitude latitude:coord.latitude];
+    [self.locationManager stopUpdatingLocation];
+    self.locationManager.delegate = nil;
 }
 
 - (void)locationManager:(CLLocationManager *)manager didFailWithError:(NSError *)error

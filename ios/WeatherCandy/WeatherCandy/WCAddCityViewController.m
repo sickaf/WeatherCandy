@@ -52,6 +52,7 @@
                 UITextField *textField = (UITextField *)subSubview;
                 [textField setKeyboardAppearance: UIKeyboardAppearanceAlert];
                 textField.returnKeyType = UIReturnKeyDone;
+                textField.font = kDefaultFontMedium(14);
                 break;
             }
         }

@@ -12,9 +12,9 @@
 #define kDefaultFont            [UIFont fontWithName:@"HelveticaNeue-Light" size:16]
 #define kDefaultTitleFont       [UIFont fontWithName:@"HelveticaNeue" size:15]
 
-#define kDefaultFontBold(s)             [UIFont fontWithName:@"AvenirNextCondensed-Bold" size:s]
-#define kDefaultFontUltraLight(s)		[UIFont fontWithName:@"AvenirNextCondensed-UltraLight" size:s]
-#define kDefaultFontMedium(s)           [UIFont fontWithName:@"AvenirNextCondensed-Medium" size:s]
+#define kDefaultFontBold(s)             [UIFont fontWithName:@"AvenirNext-Bold" size:s]
+#define kDefaultFontUltraLight(s)		[UIFont fontWithName:@"AvenirNext-UltraLight" size:s]
+#define kDefaultFontMedium(s)           [UIFont fontWithName:@"AvenirNext-Medium" size:s]
 
 #define kBackgroundImageNameBlue    @"cloudy_plus"
 #define kBackgroundImageNameOrange  @"sunny_plus"

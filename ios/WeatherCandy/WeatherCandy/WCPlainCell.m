@@ -27,7 +27,7 @@
 
 - (void)setup
 {
-    self.mainLabel.font = kDefaultFontMedium(18);
+    self.mainLabel.font = kDefaultFontMedium(16);
     self.mainLabel.textColor = [UIColor whiteColor];
     self.backgroundColor = kDefaultBackgroundColor;
     self.tintColor = [UIColor whiteColor];

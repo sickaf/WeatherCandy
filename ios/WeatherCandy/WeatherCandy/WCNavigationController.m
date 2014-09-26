@@ -22,7 +22,7 @@
     self.navigationBar.barTintColor = kDefaultBackgroundColor;
     self.navigationBar.tintColor = [UIColor whiteColor];
     
-    self.navigationBar.titleTextAttributes = @{NSFontAttributeName: kDefaultFontMedium(18), NSForegroundColorAttributeName : [UIColor whiteColor]};
+    self.navigationBar.titleTextAttributes = @{NSFontAttributeName: kDefaultFontMedium(16), NSForegroundColorAttributeName : [UIColor whiteColor]};
 }
 
 @end

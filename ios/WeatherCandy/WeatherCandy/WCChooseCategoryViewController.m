@@ -30,29 +30,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.girlButtonOutlet.titleLabel.font = kDefaultFontMedium(50);
-    self.guyButtonOutlet.titleLabel.font = kDefaultFontMedium(50);
-    self.animalButtonOutlet.titleLabel.font = kDefaultFontMedium(50);
     
 }
 
-- (void) viewDidLayoutSubviews
-{
-    //toss on the gradients
-    [self addGradientView:self.chooseGirlsImageView];
-    [self addGradientView:self.chooseGuysImageView];
-    [self addGradientView:self.chooseAnimalsImageView];
-}
-
-- (void)addGradientView:(UIView *)parentView {
-    
-    CAGradientLayer *gradient = [CAGradientLayer layer];
-    gradient.frame = parentView.bounds;
-    UIColor *top = [kDefaultBackgroundColor colorWithAlphaComponent:0.7];
-    UIColor *bottom = [kDefaultBackgroundColor colorWithAlphaComponent:0.9];
-    gradient.colors = [NSArray arrayWithObjects:(id)[top CGColor], (id)[bottom CGColor], nil];
-    [parentView.layer insertSublayer:gradient atIndex:0];
-}
 
 - (IBAction)girlButton:(UIButton *)sender {
     [[WCSettings sharedSettings] setHasChosenCategory:YES];

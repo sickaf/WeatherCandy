@@ -36,7 +36,7 @@
 
 - (void)setup
 {
-    self.titleLabel.font = kDefaultFontMedium(18);
+    self.titleLabel.font = kDefaultFontMedium(16);
     [self setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
     [self setTitleColor:[UIColor colorWithWhite:1 alpha:0.6] forState:UIControlStateHighlighted];
 }

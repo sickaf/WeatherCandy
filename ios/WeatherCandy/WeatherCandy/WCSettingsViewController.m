@@ -204,7 +204,7 @@
     container.backgroundColor = [UIColor clearColor];
     
     UILabel *new = [[UILabel alloc] initWithFrame:CGRectMake(15, 0, self.view.bounds.size.width - 30, 60)];
-    new.font = kDefaultFontMedium(15);
+    new.font = kDefaultFontMedium(14);
     new.textColor = [UIColor colorWithWhite:1.0 alpha:0.5];
     new.textAlignment = NSTextAlignmentLeft;
     new.numberOfLines = 0;
@@ -222,7 +222,7 @@
     container.backgroundColor = [UIColor clearColor];
 
     UILabel *new = [[UILabel alloc] initWithFrame:CGRectMake(15, 10, self.view.bounds.size.width - 20, 40)];
-    new.font = kDefaultFontMedium(18);
+    new.font = kDefaultFontMedium(16);
     new.textColor = [UIColor colorWithWhite:1.0 alpha:0.5];
     new.textAlignment = NSTextAlignmentLeft;
     new.numberOfLines = 0;
@@ -274,14 +274,14 @@
             cell.tempToggle.selectedSegmentIndex = [[WCSettings sharedSettings] tempUnit];
             cell.selectionStyle = UITableViewCellSelectionStyleNone;
             cell.backgroundColor = kDefaultBackgroundColor;
-            cell.mainLabel.font = kDefaultFontMedium(18);
+            cell.mainLabel.font = kDefaultFontMedium(16);
             cell.mainLabel.textColor = [UIColor whiteColor];
             return cell;
         }
         else if (indexPath.row == 2)  //Notifications cell
         {
             WCNotificationsSwitchCell *cell = [tableView dequeueReusableCellWithIdentifier:@"NotificationsSwitchCell" forIndexPath:indexPath];
-            cell.label.font = kDefaultFontMedium(18);
+            cell.label.font = kDefaultFontMedium(16);
             cell.label.textColor = [UIColor whiteColor];
             cell.backgroundColor = kDefaultBackgroundColor;
             cell.selectionStyle = UITableViewCellSelectionStyleNone;

@@ -13,8 +13,8 @@
 
 - (void)awakeFromNib
 {
-    self.timeLabel.font = kDefaultFontMedium(14);
-    self.tempLabel.font = kDefaultFontMedium(14);
+    self.timeLabel.font = kDefaultFontMedium(11);
+    self.tempLabel.font = kDefaultFontMedium(13);
     self.timeLabel.alpha = 0.5;
 }
 

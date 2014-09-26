@@ -17,6 +17,7 @@
 		7F15E83A19CBD64B002539A5 /* WCErrorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F15E83919CBD64B002539A5 /* WCErrorView.m */; };
 		7F1BEE6819C4143300D2AA70 /* WCWeather.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F1BEE6719C4143300D2AA70 /* WCWeather.m */; };
 		7F1BEE6B19C41A3D00D2AA70 /* WCForecastWeather.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F1BEE6A19C41A3D00D2AA70 /* WCForecastWeather.m */; };
+		7F9D6C5C19D50E4A00BCEE94 /* WCCategoryButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9D6C5B19D50E4A00BCEE94 /* WCCategoryButton.m */; };
 		7FA92D1D19D2804200202D1D /* WCNetworkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FA92D1C19D2804200202D1D /* WCNetworkManager.m */; };
 		7FA92D2319D2E7B400202D1D /* WCData.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FA92D2219D2E7B400202D1D /* WCData.m */; };
 		7FAACE4019D14D170018A92D /* Apsalar.js in Resources */ = {isa = PBXBuildFile; fileRef = 7FAACE3E19D14D170018A92D /* Apsalar.js */; };
@@ -111,6 +112,8 @@
 		7F1BEE6719C4143300D2AA70 /* WCWeather.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCWeather.m; sourceTree = "<group>"; };
 		7F1BEE6919C41A3D00D2AA70 /* WCForecastWeather.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WCForecastWeather.h; sourceTree = "<group>"; };
 		7F1BEE6A19C41A3D00D2AA70 /* WCForecastWeather.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCForecastWeather.m; sourceTree = "<group>"; };
+		7F9D6C5A19D50E4A00BCEE94 /* WCCategoryButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WCCategoryButton.h; sourceTree = "<group>"; };
+		7F9D6C5B19D50E4A00BCEE94 /* WCCategoryButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCCategoryButton.m; sourceTree = "<group>"; };
 		7FA92D1B19D2804200202D1D /* WCNetworkManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WCNetworkManager.h; sourceTree = "<group>"; };
 		7FA92D1C19D2804200202D1D /* WCNetworkManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCNetworkManager.m; sourceTree = "<group>"; };
 		7FA92D2119D2E7B400202D1D /* WCData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WCData.h; sourceTree = "<group>"; };
@@ -300,6 +303,8 @@
 				7FBE0F6719C6DCEA00319B9C /* WCTitleButton.m */,
 				7F15E83819CBD64B002539A5 /* WCErrorView.h */,
 				7F15E83919CBD64B002539A5 /* WCErrorView.m */,
+				7F9D6C5A19D50E4A00BCEE94 /* WCCategoryButton.h */,
+				7F9D6C5B19D50E4A00BCEE94 /* WCCategoryButton.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -637,6 +642,7 @@
 				7FAE69FC19B5B42D0061B1BD /* AFHTTPSessionManager.m in Sources */,
 				7FAE6A0019B5B42D0061B1BD /* AFURLRequestSerialization.m in Sources */,
 				7FAE69D819B5A6BA0061B1BD /* WCCollectionViewCell.m in Sources */,
+				7F9D6C5C19D50E4A00BCEE94 /* WCCategoryButton.m in Sources */,
 				7FDB145619B8A0D300790272 /* WCTintedImageView.m in Sources */,
 				7F15E83A19CBD64B002539A5 /* WCErrorView.m in Sources */,
 				7FB123AB19BD7C6400EFAAC3 /* WCSettings.m in Sources */,
