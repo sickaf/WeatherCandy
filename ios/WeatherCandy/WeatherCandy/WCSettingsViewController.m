@@ -49,7 +49,8 @@
     [self.navigationItem setBackBarButtonItem: backButton];
 }
 
-- (void)viewWillAppear:(BOOL)animated {
+- (void)viewWillAppear:(BOOL)animated
+{
     [super viewWillAppear:animated];
     [self updateNotificationStatus];
     [self.tableView reloadData]; // to reload selected cell

@@ -64,11 +64,6 @@
     
     _imgData = @[];
     
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cityChanged:) name:kCityChangedNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tempUnitToggled:) name:kReloadTempLabelsNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appBecameActive:) name:UIApplicationDidBecomeActiveNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshImages:) name:kReloadImagesNotification object:nil];
-    
     _dateFormatter = [[NSDateFormatter alloc] init];
     [_dateFormatter setDateStyle:NSDateFormatterNoStyle];
     [_dateFormatter setTimeStyle:NSDateFormatterShortStyle];
@@ -111,8 +106,13 @@
         [self.view addSubview:_categoryChooser.view];
         [self addChildViewController:_categoryChooser];
         [_categoryChooser didMoveToParentViewController:self];
-        
     }
+    
+    // Subcribe to notifications
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(cityChanged:) name:kCityChangedNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(tempUnitToggled:) name:kReloadTempLabelsNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appBecameActive:) name:UIApplicationDidBecomeActiveNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(refreshImages:) name:kReloadImagesNotification object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -305,6 +305,10 @@
             
             // Refresh all of the UI
             [self refreshTempUI];
+            
+            // Save date last updated for future refreshing
+            [[NSUserDefaults standardUserDefaults] setObject:[NSDate date] forKey:@"last_updated"];
+            [[NSUserDefaults standardUserDefaults] synchronize];
         }
         else {
             self.error = YES;
@@ -420,6 +424,17 @@
     }
 }
 
+- (void)updateIfNeeded
+{
+    NSDate *savedDate = [[NSUserDefaults standardUserDefaults] objectForKey:@"last_updated"];
+    NSDate *now = [NSDate date];
+    NSTimeInterval difference = [now timeIntervalSince1970] - [savedDate timeIntervalSince1970];
+    
+    if (savedDate && difference > 60 * 10) {
+        [self getInitialData];
+    }
+}
+
 #pragma mark - notifications
 
 - (void)cityChanged:(NSNotification *)note
@@ -439,6 +454,10 @@
 {
     WCSettings *shared = [WCSettings sharedSettings];
     shared.locationEnabled = [self hasLocationAccess];
+    
+    if ([[WCSettings sharedSettings] hasChosenCategory] && !self.loading) {
+        [self updateIfNeeded];
+    }
 }
 
 - (void)refreshImages:(NSNotification *)note
