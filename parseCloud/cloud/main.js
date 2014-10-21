@@ -32,13 +32,14 @@ function getWeatherCandyData(request, response) {
   console.log("imageCategory is "+imageCategory);
   var timezone = request.params.timezone;
   console.log('date without timezone adjustment: ' + request.params.date*1000);
-  var currentDate = new Date(request.params.date*1000 + (timezone*1000));
+  var currentDate = new Date(request.params.date*1000);
+  var currentAdjustedDate = new Date(request.params.date*1000 + (timezone*1000));
   var cityName = request.params.cityName;
   var cityID = request.params.cityID;
   var weatherQueryString ="api.openweathermap.org/data/2.5/weather?";
   var forecastQueryString ="api.openweathermap.org/data/2.5/forecast?";
   // Adjust for timezone
-  console.log('adjusted date: ' + currentDate);
+  console.log('adjusted date: ' + currentAdjustedDate);
 
   //build weatherQueryString with parameters the client sent us
   if (cityID !== undefined ) { 
@@ -57,7 +58,7 @@ function getWeatherCandyData(request, response) {
     console.log("didnt get enough info in the call, weather going to fail.");
   }
 
-  var dateString = currentDate.yyyymmdd();
+  var dateString = currentAdjustedDate.yyyymmdd();
   console.log('looking for instagram photos for: ' + dateString);
   var IGPhotoQuery = new Parse.Query("IGPhoto");
   IGPhotoQuery.equalTo("forDate", dateString);
@@ -97,7 +98,7 @@ function getWeatherCandyData(request, response) {
           {
             var forecastResponse = JSON.parse(forecastResponse.text);
 
-            console.log('current date ' + currentDate.getTime() / 1000);
+            console.log('current date ' + currentAdjustedDate.getTime() / 1000);
 
             objForClient.forecastList = [];
 
