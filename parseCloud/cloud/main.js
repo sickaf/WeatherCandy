@@ -30,12 +30,16 @@ function getWeatherCandyData(request, response) {
   var lon = request.params.lon;
   var imageCategory = Number(request.params.imageCategory);
   console.log("imageCategory is "+imageCategory);
-  var currentDate = new Date(request.params.date*1000);
+  var timezone = request.params.timezone;
+  console.log('date without timezone adjustment: ' + request.params.date*1000);
+  var currentDate = new Date(request.params.date*1000 + (timezone*1000));
   var cityName = request.params.cityName;
   var cityID = request.params.cityID;
   var weatherQueryString ="api.openweathermap.org/data/2.5/weather?";
   var forecastQueryString ="api.openweathermap.org/data/2.5/forecast?";
-  
+  // Adjust for timezone
+  console.log('adjusted date: ' + currentDate);
+
   //build weatherQueryString with parameters the client sent us
   if (cityID !== undefined ) { 
     console.log("got cityID="+cityID);
