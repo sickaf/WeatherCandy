@@ -14,8 +14,12 @@
 #define kFindCityURL @"http://api.geonames.org/searchJSON"
 #define kGetWeatherURL @"https://api.parse.com/1/functions/getWeatherCandyData"
 
-#define kParseAppID @"p8AF2BKCLQ7fr3oJXPg43fOL6LXAK3mwAb5Ywnke"
-#define kParseAPIKey @"v8C3jQHw0b8JkoCMy3Vn9QgqLdl3F7TxptAKfSVx"
+#define kParseAppID @"p8AF2BKCLQ7fr3oJXPg43fOL6LXAK3mwAb5Ywnke" //prod
+#define kParseAPIKey @"v8C3jQHw0b8JkoCMy3Vn9QgqLdl3F7TxptAKfSVx" //prod
+
+//#define kParseAppID @"fc28JBIZOa74iIGVJaPqLGL48UOWOOapDpyeWzia" //dev
+//#define kParseAPIKey @"WgCOeII34VaTj105iXOt2ts00BcdRfjRJ8Ojew20" //dev 
+
 
 @interface WCNetworkManager ()
 
