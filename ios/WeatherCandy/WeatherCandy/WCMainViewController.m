@@ -267,7 +267,7 @@
         return enabled;
     }
     
-    enabled = (status == kCLAuthorizationStatusAuthorized);
+    enabled = (status == kCLAuthorizationStatusAuthorizedWhenInUse);
     
     return enabled;
 }
@@ -381,27 +381,6 @@
     [self.bgGradientImageView.layer addAnimation:transition forKey:nil];
 }
 
-- (void)openProfileForIndexPath:(NSIndexPath *)indexPath
-{
-    WCPhoto *p = _imgData[indexPath.row];
-
-    //analytics
-    NSString *rowStr = [NSString stringWithFormat:@"%ld", (long)indexPath.row];
-    NSDictionary *analyticsDimensions = @{
-                                            @"didTapPhoto" : @"1",
-                                            @"category" : [NSString stringWithFormat:@"%d", [[WCSettings sharedSettings] selectedImageCategory]],
-                                            @"notificationsOn" : [NSString stringWithFormat:@"%d", [[WCSettings sharedSettings] notificationsOn]],
-                                            @"username" : p.username,
-                                            @"photoIndex": rowStr
-                                          };
-    [Apsalar event:@"photoEvent_Test" withArgs:analyticsDimensions];
-    
-    
-    UIActionSheet *as = [[UIActionSheet alloc] initWithTitle:p.username delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Instagram Profile", nil];
-    [as showInView:self.view];
-}
-
-
 - (void)changeToCity:(WCCity *)city
 {
     [self.titleButton setTitle:city.name forState:UIControlStateNormal];
@@ -484,18 +463,6 @@
     vc.modalPresentationStyle = UIModalPresentationCustom;
     vc.transitioningDelegate = self;
     [self presentViewController:vc animated:YES completion:nil];
-}
-
-- (IBAction)pressedAction:(id)sender
-{
-    if (_gettingData || _loading || !_imgData.count) return;
-
-    UICollectionViewCell *current = [[self.collectionView visibleCells] firstObject];
-    NSIndexPath *currentInd = [self.collectionView indexPathForCell:current];
-    
-    [Apsalar event:@"didPressActionButton"];
-    
-    [self openProfileForIndexPath:currentInd];
 }
 
 - (void)pressedRetry:(id)sender
@@ -624,9 +591,7 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     [Apsalar event:@"didTapPhoto"];
-
     [collectionView deselectItemAtIndexPath:indexPath animated:NO];
-    [self openProfileForIndexPath:indexPath];
 }
 
 #pragma mark - Choose category delegate
@@ -726,14 +691,8 @@
             [self handleLocationTurnedOff];
             break;
         }
-        case kCLAuthorizationStatusAuthorized: {
-            WCSettings *settings = [WCSettings sharedSettings];
-            [settings setLocationEnabled:YES];
-            // Location available, start updating if not already
-            [_locationManager startUpdatingLocation];
-            break;
-        }
-        case kCLAuthorizationStatusAuthorizedWhenInUse: {
+        case kCLAuthorizationStatusAuthorizedWhenInUse:
+        case kCLAuthorizationStatusAuthorizedAlways: {
             WCSettings *settings = [WCSettings sharedSettings];
             [settings setLocationEnabled:YES];
             // Location available, start updating if not already

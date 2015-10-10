@@ -50,7 +50,7 @@
     [Apsalar event:@"notificationEvent_Test" withArgs:analyticsDimensions];
     
 
-    localNotification.repeatInterval = NSDayCalendarUnit;
+    localNotification.repeatInterval = NSCalendarUnitDay;
     [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
     NSLog(@"Just scheduled a notification for %@", localNotification.fireDate.description);
     [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];

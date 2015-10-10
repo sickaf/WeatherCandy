@@ -31,20 +31,12 @@
     
     [PFAnalytics trackAppOpenedWithLaunchOptions:launchOptions];
     
-    [Crashlytics startWithAPIKey:@"7ce2c109a52bd76cf97eacb387877d4289329a2d"];    
+    [Crashlytics startWithAPIKey:@"7ce2c109a52bd76cf97eacb387877d4289329a2d"];
     
-#ifdef __IPHONE_8_0
-    //Right, that is the point
-    if(NSFoundationVersionNumber > NSFoundationVersionNumber_iOS_7_1) {
-        UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:(UIRemoteNotificationTypeBadge
-                                                                                             |UIRemoteNotificationTypeSound
-                                                                                             |UIRemoteNotificationTypeAlert) categories:nil];
-        [[UIApplication sharedApplication] registerUserNotificationSettings:settings];
-    }
-#endif
-    //register to receive notifications
-    UIRemoteNotificationType myTypes = UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeSound;
-    [[UIApplication sharedApplication] registerForRemoteNotificationTypes:myTypes];
+    UIUserNotificationSettings *settings = [UIUserNotificationSettings settingsForTypes:(UIUserNotificationTypeAlert
+                                                                                         | UIUserNotificationTypeBadge
+                                                                                         | UIUserNotificationTypeSound) categories:nil];
+    [application registerUserNotificationSettings:settings];
     
     return YES;
 }

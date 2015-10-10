@@ -44,7 +44,7 @@
     //Get rid of back button label for view controllers being pushed
     UIBarButtonItem *backButton = [[UIBarButtonItem alloc]
                                    initWithTitle: @""
-                                   style: UIBarButtonItemStyleBordered
+                                   style:UIBarButtonItemStylePlain
                                    target: nil action: nil];
     [self.navigationItem setBackBarButtonItem: backButton];
 }
@@ -64,18 +64,9 @@
 
 - (void)updateNotificationStatus
 {
-    if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 8.0)
-    {
-        UIUserNotificationSettings *currentSettings = [[UIApplication sharedApplication] currentUserNotificationSettings];
-        UIUserNotificationType enabledTypes = currentSettings.types;
-        [[WCSettings sharedSettings] setNotificationsAllowed:(enabledTypes != UIUserNotificationTypeNone)];
-    }
-    else
-    {
-        UIRemoteNotificationType types = [[UIApplication sharedApplication] enabledRemoteNotificationTypes];
-        [[WCSettings sharedSettings] setNotificationsAllowed: (types != UIRemoteNotificationTypeNone)];
-    }
-
+    UIUserNotificationSettings *currentSettings = [[UIApplication sharedApplication] currentUserNotificationSettings];
+    UIUserNotificationType enabledTypes = currentSettings.types;
+    [[WCSettings sharedSettings] setNotificationsAllowed:(enabledTypes != UIUserNotificationTypeNone)];
 }
 
 #pragma mark - Actions
