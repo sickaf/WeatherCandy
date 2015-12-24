@@ -19,7 +19,6 @@
 #import "WCAboutViewController.h"
 #import "WCCategoryCell.h"
 #import "WCAddCityViewController.h"
-#import "Apsalar.h"
 
 @interface WCSettingsViewController ()
 
@@ -79,30 +78,12 @@
 - (IBAction)segmentChanged:(UISegmentedControl *)sender
 {
     [[WCSettings sharedSettings] setTempUnit:(int)sender.selectedSegmentIndex];
-    
-    //Analytics
-    NSDictionary *analyticsDimensions = @{
-                                          @"didChangeTemperatureUnit" : @"1",
-                                          @"currentTemperatureUnit" : [NSString stringWithFormat:@"%d", [[WCSettings sharedSettings] tempUnit]],
-                                          @"category" : [NSString stringWithFormat:@"%d", [[WCSettings sharedSettings] selectedImageCategory]],
-                                          @"notificationsOn" : [NSString stringWithFormat:@"%d", [[WCSettings sharedSettings] notificationsOn]],
-                                          };
-    // Send the dimensions to Parse
-    [Apsalar event:@"weatherEvent_Test" withArgs:analyticsDimensions];
 
-    
     [[NSNotificationCenter defaultCenter] postNotificationName:kReloadTempLabelsNotification object:nil];
 }
 
-
 - (IBAction)notificationsSwitchChanged:(UISwitch *)sender
 {
-    //analytics
-    NSDictionary *analyticsDimensions = nil;
-    NSString *categoryString = [NSString stringWithFormat:@"%d", [[WCSettings sharedSettings] selectedImageCategory]];
-    
-
-    
     if (sender.isOn) //Switched on
     {
         if ([[WCSettings sharedSettings] notificationsAllowed]) //app has permission
@@ -115,14 +96,6 @@
         }
         else //no permission
         {
-            //analytics
-            analyticsDimensions = @{
-                                     @"didTurnOn" : @"0",
-                                     @"attemptedToTurnOn": @"1",
-                                     @"imageCategory" : categoryString
-                                                  };
-            
-            
             [sender setOn:NO animated:YES];
             UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Notifications disabled"
                                                             message:@"Go to Settings to turn on notifications for Weather Candy"
@@ -135,21 +108,10 @@
     }
     else //Switched off
     {
-        //analytics
-        analyticsDimensions = @{
-                                @"didTurnOn" : @"0",
-                                @"attemptedToTurnOn": @"0",
-                                @"imageCategory" : categoryString
-                                              };
         [[WCSettings sharedSettings] setNotificationsOn:NO];
         [[UIApplication sharedApplication] cancelAllLocalNotifications];
     }
-    
-    // Send the dimensions to Parse
-    [Apsalar event:@"notificationEvent_Test" withArgs:analyticsDimensions];
-
 }
-
 
 #pragma mark - Table view data source
 
@@ -349,13 +311,9 @@
         //grab and push view controller
         WCAboutViewController *vc = [[UIStoryboard storyboardWithName:@"Settings" bundle:[NSBundle mainBundle]] instantiateViewControllerWithIdentifier:@"About"];
         [self.navigationController pushViewController:vc animated:YES];
-        
-        [Apsalar event:@"didPressAbout_Settings"];
     }
     else if(indexPath.section == 1 && indexPath.row == 1)  // Contact us
     {
-        [Apsalar event:@"didPressMail_Settings"];
-
         if ([MFMailComposeViewController canSendMail])
         {
             if (!self.mailComposer)

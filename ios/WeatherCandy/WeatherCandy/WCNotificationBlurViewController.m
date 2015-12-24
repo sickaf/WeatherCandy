@@ -8,7 +8,6 @@
 
 #import "WCNotificationBlurViewController.h"
 #import "WCSettings.h"
-#import "Apsalar.h"
 #import <Parse/Parse.h>
 
 
@@ -34,27 +33,14 @@
     localNotification.fireDate = self.notificationDatePicker.date;
     localNotification.alertBody = @"Check the weather!";
     
-    
     //Analytics
     NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
     [dateFormatter setDateFormat:@"HH:mm"];
-    NSString *dateString = [dateFormatter stringFromDate:self.notificationDatePicker.date];
-    NSString *categoryString = [NSString stringWithFormat:@"%d", [[WCSettings sharedSettings] selectedImageCategory]];
-    NSDictionary *analyticsDimensions = @{
-                                 @"didTurnOn" : @"1",
-                                 @"attemptedToTurnOn": @"1",
-                                 @"timeSetFor": dateString,
-                                 @"imageCategory" : categoryString
-                                 };
-    // Send the dimensions to Parse
-    [Apsalar event:@"notificationEvent_Test" withArgs:analyticsDimensions];
     
-
     localNotification.repeatInterval = NSCalendarUnitDay;
     [[UIApplication sharedApplication] scheduleLocalNotification:localNotification];
     NSLog(@"Just scheduled a notification for %@", localNotification.fireDate.description);
     [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
-
-
 }
+
 @end

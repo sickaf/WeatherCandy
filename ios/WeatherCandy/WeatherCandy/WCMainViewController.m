@@ -24,7 +24,6 @@
 #import "WCForecastWeather.h"
 #import "WCSettings.h"
 #import "WCErrorView.h"
-#import "Apsalar.h"
 #import "WCNetworkManager.h"
 
 @interface WCMainViewController () {
@@ -537,22 +536,10 @@
 {
     if ([collectionView isEqual:self.forecastCollectionView])
     {
-        
-        if (collectionView.frame.origin.x >= 0 && !indexPath.section) {
-            
-            //Analytics
-            NSDictionary *analyticsDimensions = @{
-                                                  @"didTapForecast" : @"1",
-                                                  @"category" : [NSString stringWithFormat:@"%d", [[WCSettings sharedSettings] selectedImageCategory]],
-                                                  @"currentTemperatureUnit" : [NSString stringWithFormat:@"%d", [[WCSettings sharedSettings] tempUnit]],
-                                                  @"notificationsOn" : [NSString stringWithFormat:@"%d", [[WCSettings sharedSettings] notificationsOn]],
-                                                  };
-            // Send the dimensions to Parse
-            [Apsalar event:@"weatherEvent_Test" withArgs:analyticsDimensions];
-
+        if (collectionView.frame.origin.x >= 0 && !indexPath.section)
+        {
             [self bumpForecast];
         }
-        
         return NO;
     }
     
@@ -590,7 +577,6 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    [Apsalar event:@"didTapPhoto"];
     [collectionView deselectItemAtIndexPath:indexPath animated:NO];
 }
 

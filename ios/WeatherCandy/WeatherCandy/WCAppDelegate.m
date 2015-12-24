@@ -8,7 +8,6 @@
 
 #import "WCAppDelegate.h"
 #import "WCSettings.h"
-#import "Apsalar.h"
 #import <Parse/Parse.h>
 #import <Crashlytics/Crashlytics.h>
 
@@ -53,18 +52,6 @@
 
 - (void)applicationWillEnterForeground:(UIApplication *)application {
     // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
-}
-
-- (void)applicationDidBecomeActive:(UIApplication *)application
-{
-    [Apsalar startSession:@"sickaf" withKey:@"JOrEiHc9"];
-    [Apsalar setBatchesEvents:YES];
-}
-
-- (BOOL)application:(UIApplication *)application openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation
-{
-    [Apsalar startSession:@"sickaf" withKey:@"JOrEiHc9" andURL:url];
-    return YES;
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application {

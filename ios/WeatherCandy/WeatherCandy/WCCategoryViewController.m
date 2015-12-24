@@ -10,7 +10,6 @@
 #import "WCCategoryCell.h"
 #import "WCSettings.h"
 #import "WCConstants.h"
-#import "Apsalar.h"
 #import <Parse/Parse.h>
 
 @interface WCCategoryViewController () {
@@ -38,19 +37,8 @@
 - (void)dealloc
 {
     WCImageCategory selectedCategory = [[WCSettings sharedSettings] selectedImageCategory];
-    if (selectedCategory != _previousImageCategory) {
-        
-        //analytics
-        NSDictionary *analyticsDimensions = @{
-                                                @"didChangeCategory" : @"1",
-                                                @"previousCategory" : [NSString stringWithFormat:@"%d", _previousImageCategory],
-                                                @"selectedCategory" : [NSString stringWithFormat:@"%d", selectedCategory],
-                                                @"notificationsOn" : [NSString stringWithFormat:@"%d", [[WCSettings sharedSettings] notificationsOn]]
-                                                };
-
-        // Send the dimensions to Parse
-        [Apsalar event:@"categoryEvent_Test" withArgs:analyticsDimensions];
-
+    if (selectedCategory != _previousImageCategory)
+    {
         [[NSNotificationCenter defaultCenter] postNotificationName:kReloadImagesNotification object:nil];
     }
 }
