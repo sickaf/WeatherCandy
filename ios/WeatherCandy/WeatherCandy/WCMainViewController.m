@@ -612,49 +612,6 @@
     }];
 }
 
-#pragma mark - Action sheet delegate
-
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    NSDictionary *analyticsDimensions = nil;
-    
-    if (buttonIndex == 0)
-    {
-        NSString *st = [NSString stringWithFormat:@"instagram://user?username=%@", actionSheet.title];
-        NSURL *instagramURL = [NSURL URLWithString:st];
-        if ([[UIApplication sharedApplication] canOpenURL:instagramURL]) {
-            [[UIApplication sharedApplication] openURL:instagramURL];
-        }
-        else {
-            UIAlertView *sry = [[UIAlertView alloc] initWithTitle:@"Uh oh" message:@"You don't have Instagram installed. Please install it and try again." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-            [sry show];
-        }
-        
-        //Analytics
-        analyticsDimensions = @{
-                                @"didGoToInstagram" : @"1",
-                                @"category" : [NSString stringWithFormat:@"%d", [[WCSettings sharedSettings] selectedImageCategory]],
-                                @"notificationsOn" : [NSString stringWithFormat:@"%d", [[WCSettings sharedSettings] notificationsOn]],
-                                @"username" : actionSheet.title,
-                                };
-        
-        // Send the dimensions to Parse
-    }
-    else //cancelled action sheet
-    {
-        //analytics
-        analyticsDimensions = @{
-                                @"didCancelActionSheet" : @"1",
-                                @"category" : [NSString stringWithFormat:@"%d", [[WCSettings sharedSettings] selectedImageCategory]],
-                                @"notificationsOn" : [NSString stringWithFormat:@"%d", [[WCSettings sharedSettings] notificationsOn]],
-                                @"username" : actionSheet.title,
-                                };
-
-    }
-    [Apsalar event:@"photoEvent_Test" withArgs:analyticsDimensions];
-
-}
-
 #pragma mark - animation delegate
 
 -(id<UIViewControllerAnimatedTransitioning>)animationControllerForPresentedController:(UIViewController *)presented presentingController:(UIViewController *)presenting sourceController:(UIViewController *)source {
