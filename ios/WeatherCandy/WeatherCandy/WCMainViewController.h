@@ -19,7 +19,7 @@ typedef enum {
     WCBackgroundTypeOrange,
 } WCBackgroundType;
 
-@interface WCMainViewController : UIViewController <UICollectionViewDataSource, UICollectionViewDelegate, UINavigationControllerDelegate, UIActionSheetDelegate, UIViewControllerTransitioningDelegate, CLLocationManagerDelegate, WCChooseCategoryProtocol>
+@interface WCMainViewController : UIViewController <UICollectionViewDataSource, UICollectionViewDelegate, UINavigationControllerDelegate, UIViewControllerTransitioningDelegate, CLLocationManagerDelegate, WCChooseCategoryProtocol>
 
 @property (weak, nonatomic) IBOutlet UICollectionView *collectionView;
 

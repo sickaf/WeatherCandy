@@ -24,7 +24,6 @@
 #import "WCForecastWeather.h"
 #import "WCSettings.h"
 #import "WCErrorView.h"
-#import "Apsalar.h"
 #import "WCNetworkManager.h"
 
 @interface WCMainViewController () {
@@ -267,7 +266,7 @@
         return enabled;
     }
     
-    enabled = (status == kCLAuthorizationStatusAuthorized);
+    enabled = (status == kCLAuthorizationStatusAuthorizedWhenInUse);
     
     return enabled;
 }
@@ -381,27 +380,6 @@
     [self.bgGradientImageView.layer addAnimation:transition forKey:nil];
 }
 
-- (void)openProfileForIndexPath:(NSIndexPath *)indexPath
-{
-    WCPhoto *p = _imgData[indexPath.row];
-
-    //analytics
-    NSString *rowStr = [NSString stringWithFormat:@"%ld", (long)indexPath.row];
-    NSDictionary *analyticsDimensions = @{
-                                            @"didTapPhoto" : @"1",
-                                            @"category" : [NSString stringWithFormat:@"%d", [[WCSettings sharedSettings] selectedImageCategory]],
-                                            @"notificationsOn" : [NSString stringWithFormat:@"%d", [[WCSettings sharedSettings] notificationsOn]],
-                                            @"username" : p.username,
-                                            @"photoIndex": rowStr
-                                          };
-    [Apsalar event:@"photoEvent_Test" withArgs:analyticsDimensions];
-    
-    
-    UIActionSheet *as = [[UIActionSheet alloc] initWithTitle:p.username delegate:self cancelButtonTitle:@"Cancel" destructiveButtonTitle:nil otherButtonTitles:@"Instagram Profile", nil];
-    [as showInView:self.view];
-}
-
-
 - (void)changeToCity:(WCCity *)city
 {
     [self.titleButton setTitle:city.name forState:UIControlStateNormal];
@@ -486,18 +464,6 @@
     [self presentViewController:vc animated:YES completion:nil];
 }
 
-- (IBAction)pressedAction:(id)sender
-{
-    if (_gettingData || _loading || !_imgData.count) return;
-
-    UICollectionViewCell *current = [[self.collectionView visibleCells] firstObject];
-    NSIndexPath *currentInd = [self.collectionView indexPathForCell:current];
-    
-    [Apsalar event:@"didPressActionButton"];
-    
-    [self openProfileForIndexPath:currentInd];
-}
-
 - (void)pressedRetry:(id)sender
 {
     [self getInitialData];
@@ -570,22 +536,10 @@
 {
     if ([collectionView isEqual:self.forecastCollectionView])
     {
-        
-        if (collectionView.frame.origin.x >= 0 && !indexPath.section) {
-            
-            //Analytics
-            NSDictionary *analyticsDimensions = @{
-                                                  @"didTapForecast" : @"1",
-                                                  @"category" : [NSString stringWithFormat:@"%d", [[WCSettings sharedSettings] selectedImageCategory]],
-                                                  @"currentTemperatureUnit" : [NSString stringWithFormat:@"%d", [[WCSettings sharedSettings] tempUnit]],
-                                                  @"notificationsOn" : [NSString stringWithFormat:@"%d", [[WCSettings sharedSettings] notificationsOn]],
-                                                  };
-            // Send the dimensions to Parse
-            [Apsalar event:@"weatherEvent_Test" withArgs:analyticsDimensions];
-
+        if (collectionView.frame.origin.x >= 0 && !indexPath.section)
+        {
             [self bumpForecast];
         }
-        
         return NO;
     }
     
@@ -623,10 +577,7 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    [Apsalar event:@"didTapPhoto"];
-
     [collectionView deselectItemAtIndexPath:indexPath animated:NO];
-    [self openProfileForIndexPath:indexPath];
 }
 
 #pragma mark - Choose category delegate
@@ -645,49 +596,6 @@
         [_categoryChooser removeFromParentViewController];
         _categoryChooser = nil;
     }];
-}
-
-#pragma mark - Action sheet delegate
-
-- (void)actionSheet:(UIActionSheet *)actionSheet clickedButtonAtIndex:(NSInteger)buttonIndex
-{
-    NSDictionary *analyticsDimensions = nil;
-    
-    if (buttonIndex == 0)
-    {
-        NSString *st = [NSString stringWithFormat:@"instagram://user?username=%@", actionSheet.title];
-        NSURL *instagramURL = [NSURL URLWithString:st];
-        if ([[UIApplication sharedApplication] canOpenURL:instagramURL]) {
-            [[UIApplication sharedApplication] openURL:instagramURL];
-        }
-        else {
-            UIAlertView *sry = [[UIAlertView alloc] initWithTitle:@"Uh oh" message:@"You don't have Instagram installed. Please install it and try again." delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-            [sry show];
-        }
-        
-        //Analytics
-        analyticsDimensions = @{
-                                @"didGoToInstagram" : @"1",
-                                @"category" : [NSString stringWithFormat:@"%d", [[WCSettings sharedSettings] selectedImageCategory]],
-                                @"notificationsOn" : [NSString stringWithFormat:@"%d", [[WCSettings sharedSettings] notificationsOn]],
-                                @"username" : actionSheet.title,
-                                };
-        
-        // Send the dimensions to Parse
-    }
-    else //cancelled action sheet
-    {
-        //analytics
-        analyticsDimensions = @{
-                                @"didCancelActionSheet" : @"1",
-                                @"category" : [NSString stringWithFormat:@"%d", [[WCSettings sharedSettings] selectedImageCategory]],
-                                @"notificationsOn" : [NSString stringWithFormat:@"%d", [[WCSettings sharedSettings] notificationsOn]],
-                                @"username" : actionSheet.title,
-                                };
-
-    }
-    [Apsalar event:@"photoEvent_Test" withArgs:analyticsDimensions];
-
 }
 
 #pragma mark - animation delegate
@@ -726,14 +634,8 @@
             [self handleLocationTurnedOff];
             break;
         }
-        case kCLAuthorizationStatusAuthorized: {
-            WCSettings *settings = [WCSettings sharedSettings];
-            [settings setLocationEnabled:YES];
-            // Location available, start updating if not already
-            [_locationManager startUpdatingLocation];
-            break;
-        }
-        case kCLAuthorizationStatusAuthorizedWhenInUse: {
+        case kCLAuthorizationStatusAuthorizedWhenInUse:
+        case kCLAuthorizationStatusAuthorizedAlways: {
             WCSettings *settings = [WCSettings sharedSettings];
             [settings setLocationEnabled:YES];
             // Location available, start updating if not already

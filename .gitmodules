@@ -1,3 +1,0 @@
-[submodule "ios/WeatherCandy/Frameworks/AFNetworking"]
-	path = ios/WeatherCandy/Frameworks/AFNetworking
-	url = https://github.com/AFNetworking/AFNetworking.git
