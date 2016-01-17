@@ -113,39 +113,27 @@
     
     NSString *dateString = [NSString stringWithFormat:@"%i", (int)[[NSDate date] timeIntervalSince1970]];
     NSString *tzString = [NSString stringWithFormat:@"%li", (long)tz.secondsFromGMT];
-    NSString *categoryString = [NSString stringWithFormat:@"%i",category];
+    NSInteger categoryString = [[NSString stringWithFormat:@"%i",category] integerValue];
     
-    NSDictionary *params;
-    
-    if (cityID) {
-        params = @{@"cityID": cityID,
-                                 @"date": dateString,
-                                 @"imageCategory": categoryString,
-                                 @"timezone": tzString};
+    NSMutableDictionary *params = [@{@"date": dateString,
+                                    @"imageCategory": @(categoryString),
+                                    @"timezone": tzString} mutableCopy];
+    if (cityID)
+    {
+        params[@"cityID"] = cityID;
     }
-    else {
-        params = @{@"lat": [NSString stringWithFormat:@"%f",lat],
-                   @"lon": [NSString stringWithFormat:@"%f",lon],
-                   @"date":dateString,
-                   @"imageCategory":categoryString,
-                   @"timezone":tzString};
+    else
+    {
+        params[@"lat"] = [NSString stringWithFormat:@"%f",lat];
+        params[@"lon"] = [NSString stringWithFormat:@"%f",lon];
     }
-    
-    
-    
-
-//    self.mainManager.responseSerializer.acceptableContentTypes = [self.mainManager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/html"];
     
     AFHTTPRequestSerializer *serializer = self.mainManager.requestSerializer;
-//    NSMutableURLRequest *request = [serializer requestWithMethod:@"POST" URLString:kGetWeatherURL parameters:nil error:nil];
-    NSLog(@"LMAO");
 
     NSMutableURLRequest *request = [serializer requestWithMethod:@"POST" URLString:kGetWeatherURL parameters:params error:nil];
     NSData *data = [NSJSONSerialization dataWithJSONObject:params options:0 error:nil];
     request.HTTPBody = data;
     [self.mainManager GET:kGetWeatherURL parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-
-//    AFHTTPRequestOperation *op = [self.mainManager HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
 
         NSLog(@"LOL");
         NSLog(@"JSON: %@", responseObject);

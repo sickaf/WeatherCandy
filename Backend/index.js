@@ -2,30 +2,19 @@ var express = require('express');
 var app = express();
 var request = require('request');
 
-
 app.set('port', (process.env.PORT || 9000));
 app.use(express.static(__dirname + '/public'));
 
 app.get('/', function(req, res) {
-	console.log("new request: "+JSON.stringify(req.query, undefined, 2));
-	getWeatherCandyData(req, res);
+  console.log("new request: "+JSON.stringify(req.query, undefined, 2));
+  getWeatherCandyData(req, res);
 });
-
 
 app.listen(app.get('port'), function() {
   console.log("We're live fuckers!!! Peep port:" + app.get('port'))
 });
-
-
-Date.prototype.yyyymmdd = function() {
-  var yyyy = this.getFullYear().toString();
-  var mm = (this.getMonth()+1).toString(); // getMonth() is zero-based
-  var dd  = this.getDate().toString();
-  return yyyy +"-"+ (mm[1]?mm:"0"+mm[0]) +"-"+ (dd[1]?dd:"0"+dd[0]); // padding
-};
  
 function getWeatherCandyData(req, res) {
-
 
   var objForClient = new Object();
   var lat = req.query.lat;
@@ -61,12 +50,10 @@ function getWeatherCandyData(req, res) {
     return res.status(400).send("Grin not enough data in request.");
   }
 
-  var dateString = currentAdjustedDate.yyyymmdd();
-
-
   objForClient.IGPhotoSet = [];
- 	request(weatherQueryString, function (error, response, currentWeatherResponse) {
- 		if(error){ return res.status(500).end(); }
+  request(weatherQueryString, function (error, response, currentWeatherResponse) {
+
+    if (error) { return res.status(500).end(); }
 
     var curWeather = JSON.parse(currentWeatherResponse);
     objForClient.currentWeather = {};
@@ -78,7 +65,7 @@ function getWeatherCandyData(req, res) {
     objForClient.currentWeather.cityName = curWeather.name;
 
     request(forecastQueryString, function (error, response, forecastResponse) {
-    	if(error){ return res.status(500).end(); }
+      if(error){ return res.status(500).end(); }
 
       var forecastResponse = JSON.parse(forecastResponse);
 
@@ -101,44 +88,67 @@ function getWeatherCandyData(req, res) {
       var redditQueryString;
       console.log('THE IMAGE CATEGORY IS : ' + imageCategory);
       if(imageCategory === 0){ //girls
-        redditQueryString = 'https://www.reddit.com/r/nsfw/search.json?q=site%3Aimgur&restrict_sr=on&sort=top&t=all';
+        console.log('got here');
+        redditQueryString = 'https://www.reddit.com/r/nsfw';
       } 
       else if(imageCategory === 1){ //guys
-        redditQueryString = 'https://www.reddit.com/r/LadyBoners/search.json?q=site%3Aimgur&restrict_sr=on&sort=top&t=all';
+        redditQueryString = 'https://www.reddit.com/r/LadyBoners';
       }
       else if(imageCategory === 2){ //animals
-        redditQueryString = 'https://www.reddit.com/r/aww/search.json?q=site%3Aimgur&restrict_sr=on&sort=top&t=all';
+        redditQueryString = 'https://www.reddit.com/r/aww';
       }
 
-			request(redditQueryString, function (error, response, redditResp) {
-    		if(error){ return res.status(500).end(); }
+      redditQueryString+='/search.json?q=site%3Aimgur&restrict_sr=on&sort=top&t=day&type=link&limit=50';
 
-        var children = JSON.parse(redditResp).data.children;
-        var urls = [];
-        var counter = 0;
-        for(var i = 0; objForClient.IGPhotoSet.length < 3 && children.length > i; i++){
-          if( children[i].data &&
-              children[i].data.media &&
-              children[i].data.media.oembed &&
-              children[i].data.media.oembed.thumbnail_url){
-            
-            console.log("the URL IS "+children[i].data.media.oembed.thumbnail_url);
+      request(redditQueryString, function (error, response, redditResp) {
 
-            objForClient.IGPhotoSet.push({ 
-              "PhotoNum": counter,
-              "IGUsername":'devspinn',
-              "IGUrl": children[i].data.media.oembed.thumbnail_url, 
-              "IGForDate": dateString,
-              "imageCategory": imageCategory
-            });
-            counter++;
-          }
+        if (error) { return res.status(500).end(); }
+
+        var pics = JSON.parse(redditResp).data.children;
+
+        // Remove gallery links and gifs
+        for (pic in pics) 
+        {
+          var picUrl = pics[pic].data.url;
+          var endsWithGIF = picUrl.indexOf('.gif', picUrl.length - 4) !== -1;
+
+          if (picUrl.indexOf('gallery') == -1 || endsWithGIF) 
+            {
+              pics.splice(pic,1);
+            }
         }
+
+        var pic = pics[Math.floor(Math.random()*pics.length)];
+        var picUrl = pic.data.url;
+
+        var endsWithJpg = picUrl.indexOf('.jpg', picUrl.length - 4) !== -1;
+        var endsWithPng = picUrl.indexOf('.png', picUrl.length - 4) !== -1;
+
+        var url = '';
+        if (endsWithJpg || endsWithPng) 
+        {
+          url = picUrl;
+        }
+        else 
+        {
+          var slashIndex = picUrl.lastIndexOf('/');
+          var imageId = picUrl.substring(slashIndex + 1);
+          url = 'http://i.imgur.com/' + imageId + '.jpg';
+        }
+
+        console.log("the URL IS " + url);
+
+        objForClient.IGPhotoSet.push({ 
+              "PhotoNum": 1,
+              "IGUsername":'devspinn',
+              "IGUrl": url, 
+              "imageCategory": imageCategory
+        });
+
         res.status(200).json({result: objForClient});
       });
-		});
-	});
-
+    });
+  });
 
   function convertCondition(original) {
     var storm = [200, 201, 202, 210, 211, 212, 221, 230, 231, 232, 900, 901, 902, 957, 958, 959, 960, 961, 962,771, 781]; //0    
