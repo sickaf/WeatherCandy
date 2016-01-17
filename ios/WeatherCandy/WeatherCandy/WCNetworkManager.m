@@ -12,7 +12,8 @@
 #import "WCSettings.h"
 
 #define kFindCityURL @"http://api.geonames.org/searchJSON"
-#define kGetWeatherURL @"https://api.parse.com/1/functions/getWeatherCandyData"
+//#define kGetWeatherURL @"https://api.parse.com/1/functions/getWeatherCandyData"
+#define kGetWeatherURL @"http://localhost:9000"
 
 #define kParseAppID @"p8AF2BKCLQ7fr3oJXPg43fOL6LXAK3mwAb5Ywnke" //prod
 #define kParseAPIKey @"v8C3jQHw0b8JkoCMy3Vn9QgqLdl3F7TxptAKfSVx" //prod
@@ -64,7 +65,7 @@
     
     
     [self.addCityManager GET:kFindCityURL parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        
+    
         if (!operation.isCancelled) {
             
             NSDictionary *dict = responseObject;
@@ -131,13 +132,23 @@
     }
     
     
+    
+
+//    self.mainManager.responseSerializer.acceptableContentTypes = [self.mainManager.responseSerializer.acceptableContentTypes setByAddingObject:@"text/html"];
+    
     AFHTTPRequestSerializer *serializer = self.mainManager.requestSerializer;
-    NSMutableURLRequest *request = [serializer requestWithMethod:@"POST" URLString:kGetWeatherURL parameters:nil error:nil];
+//    NSMutableURLRequest *request = [serializer requestWithMethod:@"POST" URLString:kGetWeatherURL parameters:nil error:nil];
+    NSLog(@"LMAO");
+
+    NSMutableURLRequest *request = [serializer requestWithMethod:@"POST" URLString:kGetWeatherURL parameters:params error:nil];
     NSData *data = [NSJSONSerialization dataWithJSONObject:params options:0 error:nil];
     request.HTTPBody = data;
-    
-    AFHTTPRequestOperation *op = [self.mainManager HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        
+    [self.mainManager GET:kGetWeatherURL parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
+
+//    AFHTTPRequestOperation *op = [self.mainManager HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
+
+        NSLog(@"LOL");
+        NSLog(@"JSON: %@", responseObject);
         NSDictionary *result = responseObject[@"result"];
         
         // Instagram
@@ -203,12 +214,14 @@
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"FUCK");
+        NSLog(@"Error serializing %@", error);
         if (!operation.isCancelled) {
             if (completion) completion(nil, error);
         }
     }];
     
-    [self.mainManager.operationQueue addOperation:op];
+//    [self.mainManager.operationQueue addOperation:op];
 }
 
 
