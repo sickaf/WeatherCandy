@@ -12,8 +12,7 @@
 #import "WCSettings.h"
 
 #define kFindCityURL @"http://api.geonames.org/searchJSON"
-//#define kGetWeatherURL @"https://api.parse.com/1/functions/getWeatherCandyData"
-#define kGetWeatherURL @"http://192.168.1.151:9000"
+#define kGetWeatherURL @"https://weathercandy.herokuapp.com"
 
 @interface WCNetworkManager ()
 
