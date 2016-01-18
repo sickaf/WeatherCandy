@@ -39,9 +39,6 @@
     self.tableView.separatorColor = [UIColor colorWithWhite:0.2 alpha:1.000];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appBecameActive:) name:UIApplicationDidBecomeActiveNotification object:nil];
-
-    NSLog(@"This is it: %@", @"This is my string text!");
-
     
     //Get rid of back button label for view controllers being pushed
     UIBarButtonItem *backButton = [[UIBarButtonItem alloc]

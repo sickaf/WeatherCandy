@@ -15,13 +15,6 @@
 //#define kGetWeatherURL @"https://api.parse.com/1/functions/getWeatherCandyData"
 #define kGetWeatherURL @"http://192.168.1.151:9000"
 
-#define kParseAppID @"p8AF2BKCLQ7fr3oJXPg43fOL6LXAK3mwAb5Ywnke" //prod
-#define kParseAPIKey @"v8C3jQHw0b8JkoCMy3Vn9QgqLdl3F7TxptAKfSVx" //prod
-
-//#define kParseAppID @"fc28JBIZOa74iIGVJaPqLGL48UOWOOapDpyeWzia" //dev
-//#define kParseAPIKey @"WgCOeII34VaTj105iXOt2ts00BcdRfjRJ8Ojew20" //dev 
-
-
 @interface WCNetworkManager ()
 
 @property (strong, nonatomic) AFHTTPRequestOperationManager *mainManager;
@@ -40,15 +33,6 @@
     });
     return sharedManager;
 }
-
-//- (id)init
-//{
-//    self = [super init];
-//    if (self) {
-//        
-//    }
-//    return self;
-//}
 
 #pragma mark - Methods
 
@@ -133,10 +117,8 @@
     NSMutableURLRequest *request = [serializer requestWithMethod:@"POST" URLString:kGetWeatherURL parameters:params error:nil];
     NSData *data = [NSJSONSerialization dataWithJSONObject:params options:0 error:nil];
     request.HTTPBody = data;
-    [self.mainManager GET:kGetWeatherURL parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-
-        NSLog(@"LOL");
-        NSLog(@"JSON: %@", responseObject);
+    [self.mainManager GET:kGetWeatherURL parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject)
+    {
         NSDictionary *result = responseObject[@"result"];
         
         // Instagram
@@ -202,16 +184,12 @@
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"FUCK");
         NSLog(@"Error serializing %@", error);
         if (!operation.isCancelled) {
             if (completion) completion(nil, error);
         }
     }];
-    
-//    [self.mainManager.operationQueue addOperation:op];
 }
-
 
 - (void)cancelAllWeatherRequests
 {
@@ -231,8 +209,6 @@
         _mainManager = [AFHTTPRequestOperationManager manager];
         
         AFHTTPRequestSerializer *serializer = [AFHTTPRequestSerializer serializer];
-        [serializer setValue:kParseAppID forHTTPHeaderField:@"X-Parse-Application-Id"];
-        [serializer setValue:kParseAPIKey forHTTPHeaderField:@"X-Parse-REST-API-Key"];
         [serializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
         
         _mainManager.requestSerializer = serializer;
