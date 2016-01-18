@@ -106,20 +106,24 @@ function getWeatherCandyData(req, res) {
 
         var pics = JSON.parse(redditResp).data.children;
 
+        var filteredPics = [];
+
         // Remove gallery links and gifs
         for (pic in pics) 
         {
           var picUrl = pics[pic].data.url;
           var endsWithGIF = picUrl.indexOf('.gif', picUrl.length - 4) !== -1 || picUrl.indexOf('.gifv', picUrl.length - 5) !== -1;
 
-          if (picUrl.indexOf('gallery') == -1 || endsWithGIF) 
+          if (picUrl.indexOf('gallery') == -1 && !endsWithGIF) 
             {
-              pics.splice(pic,1);
+              filteredPics.push(pics[pic])
             }
         }
 
-        var pic = pics[Math.floor(Math.random()*pics.length)];
-        var picUrl = pic.data.url;
+        console.log(filteredPics);
+
+        var pic = filteredPics[Math.floor(Math.random()*filteredPics.length)];
+        var picUrl = pic ? pic.data.url : '';
 
         var endsWithJpg = picUrl.indexOf('.jpg', picUrl.length - 4) !== -1;
         var endsWithPng = picUrl.indexOf('.png', picUrl.length - 4) !== -1;
@@ -129,7 +133,7 @@ function getWeatherCandyData(req, res) {
         {
           url = picUrl;
         }
-        else 
+        else if (picUrl.length > 0)
         {
           var slashIndex = picUrl.lastIndexOf('/');
           var imageId = picUrl.substring(slashIndex + 1);

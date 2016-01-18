@@ -31,7 +31,7 @@
     if (_imageURL == imageURL) return;
     _imageURL = imageURL;
     
-    [_downloadIndicator setHidden:NO];
+    [_downloadIndicator setHidden:imageURL.length > 0 ? NO : YES];
     
     __weak __typeof(self)weakSelf = self;
     [self.imageView setImageWithURL:[NSURL URLWithString:imageURL] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
@@ -59,7 +59,7 @@
 
 - (void)layoutSubviews
 {
-    _downloadIndicator.center = CGPointMake(CGRectGetMidX(self.bounds), self.imageView.center.y + 40);
+    _downloadIndicator.center = CGPointMake(CGRectGetMidX(self.bounds), self.imageView.center.y - 40);
     [super layoutSubviews];
 }
 
