@@ -209,7 +209,7 @@
             result = @"Guys";
             break;
         case 2:
-            result = @"Cute animals";
+            result = @"Aww";
             break;
         default:
             result = @"Girls";
