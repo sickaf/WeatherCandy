@@ -13,7 +13,7 @@
 
 #define kFindCityURL @"http://api.geonames.org/searchJSON"
 //#define kGetWeatherURL @"https://api.parse.com/1/functions/getWeatherCandyData"
-#define kGetWeatherURL @"http://localhost:9000"
+#define kGetWeatherURL @"http://192.168.1.151:9000"
 
 #define kParseAppID @"p8AF2BKCLQ7fr3oJXPg43fOL6LXAK3mwAb5Ywnke" //prod
 #define kParseAPIKey @"v8C3jQHw0b8JkoCMy3Vn9QgqLdl3F7TxptAKfSVx" //prod

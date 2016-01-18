@@ -110,7 +110,7 @@ function getWeatherCandyData(req, res) {
         for (pic in pics) 
         {
           var picUrl = pics[pic].data.url;
-          var endsWithGIF = picUrl.indexOf('.gif', picUrl.length - 4) !== -1;
+          var endsWithGIF = picUrl.indexOf('.gif', picUrl.length - 4) !== -1 || picUrl.indexOf('.gifv', picUrl.length - 5) !== -1;
 
           if (picUrl.indexOf('gallery') == -1 || endsWithGIF) 
             {
