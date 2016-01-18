@@ -17,9 +17,6 @@
 		7F15E83A19CBD64B002539A5 /* WCErrorView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F15E83919CBD64B002539A5 /* WCErrorView.m */; };
 		7F1BEE6819C4143300D2AA70 /* WCWeather.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F1BEE6719C4143300D2AA70 /* WCWeather.m */; };
 		7F1BEE6B19C41A3D00D2AA70 /* WCForecastWeather.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F1BEE6A19C41A3D00D2AA70 /* WCForecastWeather.m */; };
-		7F48E4BB1C4C8094009542F6 /* FLAnimatedImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F48E4B71C4C8094009542F6 /* FLAnimatedImage.m */; };
-		7F48E4BC1C4C8094009542F6 /* FLAnimatedImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F48E4B91C4C8094009542F6 /* FLAnimatedImageView.m */; };
-		7F48E4BD1C4C8094009542F6 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7F48E4BA1C4C8094009542F6 /* Info.plist */; };
 		7F9D6C5C19D50E4A00BCEE94 /* WCCategoryButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F9D6C5B19D50E4A00BCEE94 /* WCCategoryButton.m */; };
 		7FA92D1D19D2804200202D1D /* WCNetworkManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FA92D1C19D2804200202D1D /* WCNetworkManager.m */; };
 		7FA92D2319D2E7B400202D1D /* WCData.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FA92D2219D2E7B400202D1D /* WCData.m */; };
@@ -99,11 +96,6 @@
 		7F1BEE6719C4143300D2AA70 /* WCWeather.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCWeather.m; sourceTree = "<group>"; };
 		7F1BEE6919C41A3D00D2AA70 /* WCForecastWeather.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WCForecastWeather.h; sourceTree = "<group>"; };
 		7F1BEE6A19C41A3D00D2AA70 /* WCForecastWeather.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCForecastWeather.m; sourceTree = "<group>"; };
-		7F48E4B61C4C8094009542F6 /* FLAnimatedImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLAnimatedImage.h; sourceTree = "<group>"; };
-		7F48E4B71C4C8094009542F6 /* FLAnimatedImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLAnimatedImage.m; sourceTree = "<group>"; };
-		7F48E4B81C4C8094009542F6 /* FLAnimatedImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FLAnimatedImageView.h; sourceTree = "<group>"; };
-		7F48E4B91C4C8094009542F6 /* FLAnimatedImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FLAnimatedImageView.m; sourceTree = "<group>"; };
-		7F48E4BA1C4C8094009542F6 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		7F9D6C5A19D50E4A00BCEE94 /* WCCategoryButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WCCategoryButton.h; sourceTree = "<group>"; };
 		7F9D6C5B19D50E4A00BCEE94 /* WCCategoryButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WCCategoryButton.m; sourceTree = "<group>"; };
 		7FA92D1B19D2804200202D1D /* WCNetworkManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WCNetworkManager.h; sourceTree = "<group>"; };
@@ -309,19 +301,6 @@
 			name = Objects;
 			sourceTree = "<group>";
 		};
-		7F48E4B51C4C8094009542F6 /* FLAnimatedImage */ = {
-			isa = PBXGroup;
-			children = (
-				7F48E4B61C4C8094009542F6 /* FLAnimatedImage.h */,
-				7F48E4B71C4C8094009542F6 /* FLAnimatedImage.m */,
-				7F48E4B81C4C8094009542F6 /* FLAnimatedImageView.h */,
-				7F48E4B91C4C8094009542F6 /* FLAnimatedImageView.m */,
-				7F48E4BA1C4C8094009542F6 /* Info.plist */,
-			);
-			name = FLAnimatedImage;
-			path = Frameworks/FLAnimatedImage;
-			sourceTree = "<group>";
-		};
 		7FDB144719B7683E00790272 /* ImageEffects */ = {
 			isa = PBXGroup;
 			children = (
@@ -427,7 +406,6 @@
 		820114A219B35C0100F44D0B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				7F48E4B51C4C8094009542F6 /* FLAnimatedImage */,
 				C301225C1BC8967F00DB3131 /* AFNetworking */,
 				7FAACE4219D14D540018A92D /* libsqlite3.0.dylib */,
 				7FE6389E19CD646B00EB1A52 /* Crashlytics.framework */,
@@ -543,7 +521,6 @@
 			files = (
 				7FF217DD19C3563A00D045BF /* Avenir Next.ttc in Resources */,
 				8201148719B3548A00F44D0B /* Main.storyboard in Resources */,
-				7F48E4BD1C4C8094009542F6 /* Info.plist in Resources */,
 				8201148919B3548A00F44D0B /* Images.xcassets in Resources */,
 				7FDB143719B6ECEE00790272 /* Settings.storyboard in Resources */,
 				82F4CB6519D143C100156D69 /* OOBE.storyboard in Resources */,
@@ -587,7 +564,6 @@
 				7FAE69D819B5A6BA0061B1BD /* WCCollectionViewCell.m in Sources */,
 				7F9D6C5C19D50E4A00BCEE94 /* WCCategoryButton.m in Sources */,
 				7FDB145619B8A0D300790272 /* WCTintedImageView.m in Sources */,
-				7F48E4BC1C4C8094009542F6 /* FLAnimatedImageView.m in Sources */,
 				7F15E83A19CBD64B002539A5 /* WCErrorView.m in Sources */,
 				7FB123AB19BD7C6400EFAAC3 /* WCSettings.m in Sources */,
 				7F1BEE6819C4143300D2AA70 /* WCWeather.m in Sources */,
@@ -616,7 +592,6 @@
 				C30122701BC8967F00DB3131 /* AFHTTPRequestOperation.m in Sources */,
 				7FDB145D19B8AED500790272 /* RMDownloadIndicator.m in Sources */,
 				8207B64B19D0FD3400C752FB /* WCChooseCategoryViewController.m in Sources */,
-				7F48E4BB1C4C8094009542F6 /* FLAnimatedImage.m in Sources */,
 				7F0C773419BF22AD00E2C44C /* UIImageViewAligned.m in Sources */,
 				7FDB144619B759EE00790272 /* WCTitleButtonViewController.m in Sources */,
 				C30122721BC8967F00DB3131 /* AFHTTPSessionManager.m in Sources */,
