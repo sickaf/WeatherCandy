@@ -67,14 +67,10 @@
     [currentInstallation saveInBackground];
 }
 
-#ifdef __IPHONE_8_0
 - (void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings
 {
     //register to receive notifications
     [application registerForRemoteNotifications];
 }
-
-#endif
-
 
 @end

@@ -89,7 +89,7 @@ function getWeatherCandyData(req, res) {
       console.log('THE IMAGE CATEGORY IS : ' + imageCategory);
       if(imageCategory === 0){ //girls
         console.log('got here');
-        redditQueryString = 'https://www.reddit.com/r/nsfw';
+        redditQueryString = 'https://www.reddit.com/r/prettygirls';
       } 
       else if(imageCategory === 1){ //guys
         redditQueryString = 'https://www.reddit.com/r/LadyBoners';
@@ -119,8 +119,6 @@ function getWeatherCandyData(req, res) {
               filteredPics.push(pics[pic])
             }
         }
-
-        console.log(filteredPics);
 
         var pic = filteredPics[Math.floor(Math.random()*filteredPics.length)];
         var picUrl = pic ? pic.data.url : '';
