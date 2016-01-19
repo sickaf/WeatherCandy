@@ -39,7 +39,7 @@
     self.tableView.separatorColor = [UIColor colorWithWhite:0.2 alpha:1.000];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(appBecameActive:) name:UIApplicationDidBecomeActiveNotification object:nil];
-
+    
     //Get rid of back button label for view controllers being pushed
     UIBarButtonItem *backButton = [[UIBarButtonItem alloc]
                                    initWithTitle: @""
@@ -209,7 +209,7 @@
             result = @"Guys";
             break;
         case 2:
-            result = @"Cute animals";
+            result = @"Aww";
             break;
         default:
             result = @"Girls";

@@ -36,17 +36,10 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="hcZ-Lq-qUr">
-                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="320"/>
+                                                    <rect key="frame" x="0.0" y="0.0" width="320" height="480"/>
                                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="width" secondItem="hcZ-Lq-qUr" secondAttribute="height" multiplier="1:1" id="0GL-va-4kw"/>
-                                                    </constraints>
-                                                </imageView>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="re7-DE-tfd">
-                                                    <rect key="frame" x="0.0" y="320" width="320" height="320"/>
-                                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="width" secondItem="re7-DE-tfd" secondAttribute="height" multiplier="1:1" id="xk2-6z-Vl2"/>
+                                                        <constraint firstAttribute="width" secondItem="hcZ-Lq-qUr" secondAttribute="height" multiplier="1:1.5" id="0GL-va-4kw"/>
                                                     </constraints>
                                                 </imageView>
                                             </subviews>
@@ -55,15 +48,11 @@
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="hcZ-Lq-qUr" secondAttribute="trailing" id="Cnq-X0-yDH"/>
-                                            <constraint firstItem="re7-DE-tfd" firstAttribute="leading" secondItem="y33-ON-PpN" secondAttribute="leading" id="LdG-gA-NcI"/>
                                             <constraint firstItem="hcZ-Lq-qUr" firstAttribute="top" secondItem="y33-ON-PpN" secondAttribute="top" id="XLc-eP-bH4"/>
                                             <constraint firstItem="hcZ-Lq-qUr" firstAttribute="leading" secondItem="y33-ON-PpN" secondAttribute="leading" id="kAJ-lp-5f2"/>
-                                            <constraint firstAttribute="trailing" secondItem="re7-DE-tfd" secondAttribute="trailing" id="nB1-BT-nMt"/>
-                                            <constraint firstItem="re7-DE-tfd" firstAttribute="top" secondItem="hcZ-Lq-qUr" secondAttribute="bottom" id="wsv-9l-ets"/>
                                         </constraints>
                                         <connections>
                                             <outlet property="imageView" destination="hcZ-Lq-qUr" id="TKf-ke-c4c"/>
-                                            <outlet property="reflectionView" destination="re7-DE-tfd" id="SOT-6I-bmo"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>

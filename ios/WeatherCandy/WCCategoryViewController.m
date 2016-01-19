@@ -27,9 +27,7 @@
     self.title = @"Themes";
     self.tableView.backgroundColor = [UIColor colorWithWhite:0.200 alpha:1.000];
     self.tableView.separatorColor = [UIColor colorWithWhite:0.2 alpha:1.000];
-    
-    
-    
+
     _previousImageCategory = [[WCSettings sharedSettings] selectedImageCategory];
     _chosenImageCategory = _previousImageCategory;
 }
@@ -94,7 +92,7 @@
     }
     else if (indexPath.row == 2)
     {
-    cell.textLabel.text = @"Cute animals";
+    cell.textLabel.text = @"Aww";
     if(cat == WCImageCategoryAnimal) {
         cell.accessoryType = UITableViewCellAccessoryCheckmark;
     }

@@ -22,6 +22,7 @@
     [self.contentView insertSubview:closedIndicator belowSubview:self.imageView];
     [closedIndicator setHidden:YES];
     [closedIndicator loadIndicator];
+    
     _downloadIndicator = closedIndicator;
 }
 
@@ -30,16 +31,14 @@
     if (_imageURL == imageURL) return;
     _imageURL = imageURL;
     
-    [_downloadIndicator setHidden:NO];
+    [_downloadIndicator setHidden:imageURL.length > 0 ? NO : YES];
     
     __weak __typeof(self)weakSelf = self;
     [self.imageView setImageWithURL:[NSURL URLWithString:imageURL] success:^(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image) {
         __strong __typeof(weakSelf)strongSelf = weakSelf;
         
-        UIImage *reflectedImage = [UIImage imageWithCGImage:image.CGImage scale:image.scale orientation:UIImageOrientationDownMirrored];
-        
         strongSelf.imageView.image = image;
-        strongSelf.reflectionView.image = reflectedImage;
+        
         [strongSelf.downloadIndicator setHidden:YES];
         [[NSNotificationCenter defaultCenter] postNotificationName:kImageDownloadedNotification object:nil];
     } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error) {
@@ -54,14 +53,13 @@
 {
     [super prepareForReuse];
     self.imageView.image = nil;
-    self.reflectionView.image = nil;
     self.imageURL = nil;
     [self.downloadIndicator updateWithTotalBytes:100.0f downloadedBytes:0.0f];
 }
 
 - (void)layoutSubviews
 {
-    _downloadIndicator.center = CGPointMake(CGRectGetMidX(self.bounds), self.imageView.center.y + 40);
+    _downloadIndicator.center = CGPointMake(CGRectGetMidX(self.bounds), self.imageView.center.y - 40);
     [super layoutSubviews];
 }
 

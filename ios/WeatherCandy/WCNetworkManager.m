@@ -12,14 +12,7 @@
 #import "WCSettings.h"
 
 #define kFindCityURL @"http://api.geonames.org/searchJSON"
-#define kGetWeatherURL @"https://api.parse.com/1/functions/getWeatherCandyData"
-
-#define kParseAppID @"p8AF2BKCLQ7fr3oJXPg43fOL6LXAK3mwAb5Ywnke" //prod
-#define kParseAPIKey @"v8C3jQHw0b8JkoCMy3Vn9QgqLdl3F7TxptAKfSVx" //prod
-
-//#define kParseAppID @"fc28JBIZOa74iIGVJaPqLGL48UOWOOapDpyeWzia" //dev
-//#define kParseAPIKey @"WgCOeII34VaTj105iXOt2ts00BcdRfjRJ8Ojew20" //dev 
-
+#define kGetWeatherURL @"https://weathercandy.herokuapp.com"
 
 @interface WCNetworkManager ()
 
@@ -40,15 +33,6 @@
     return sharedManager;
 }
 
-//- (id)init
-//{
-//    self = [super init];
-//    if (self) {
-//        
-//    }
-//    return self;
-//}
-
 #pragma mark - Methods
 
 - (void)findCitiesWithSearchText:(NSString *)text completion:(void (^)(NSArray *cities, NSError *error))completion
@@ -64,7 +48,7 @@
     
     
     [self.addCityManager GET:kFindCityURL parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        
+    
         if (!operation.isCancelled) {
             
             NSDictionary *dict = responseObject;
@@ -112,32 +96,28 @@
     
     NSString *dateString = [NSString stringWithFormat:@"%i", (int)[[NSDate date] timeIntervalSince1970]];
     NSString *tzString = [NSString stringWithFormat:@"%li", (long)tz.secondsFromGMT];
-    NSString *categoryString = [NSString stringWithFormat:@"%i",category];
+    NSInteger categoryString = [[NSString stringWithFormat:@"%i",category] integerValue];
     
-    NSDictionary *params;
-    
-    if (cityID) {
-        params = @{@"cityID": cityID,
-                                 @"date": dateString,
-                                 @"imageCategory": categoryString,
-                                 @"timezone": tzString};
+    NSMutableDictionary *params = [@{@"date": dateString,
+                                    @"imageCategory": @(categoryString),
+                                    @"timezone": tzString} mutableCopy];
+    if (cityID)
+    {
+        params[@"cityID"] = cityID;
     }
-    else {
-        params = @{@"lat": [NSString stringWithFormat:@"%f",lat],
-                   @"lon": [NSString stringWithFormat:@"%f",lon],
-                   @"date":dateString,
-                   @"imageCategory":categoryString,
-                   @"timezone":tzString};
+    else
+    {
+        params[@"lat"] = [NSString stringWithFormat:@"%f",lat];
+        params[@"lon"] = [NSString stringWithFormat:@"%f",lon];
     }
-    
     
     AFHTTPRequestSerializer *serializer = self.mainManager.requestSerializer;
-    NSMutableURLRequest *request = [serializer requestWithMethod:@"POST" URLString:kGetWeatherURL parameters:nil error:nil];
+
+    NSMutableURLRequest *request = [serializer requestWithMethod:@"POST" URLString:kGetWeatherURL parameters:params error:nil];
     NSData *data = [NSJSONSerialization dataWithJSONObject:params options:0 error:nil];
     request.HTTPBody = data;
-    
-    AFHTTPRequestOperation *op = [self.mainManager HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        
+    [self.mainManager GET:kGetWeatherURL parameters:params success:^(AFHTTPRequestOperation *operation, id responseObject)
+    {
         NSDictionary *result = responseObject[@"result"];
         
         // Instagram
@@ -203,14 +183,12 @@
         }
         
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        NSLog(@"Error serializing %@", error);
         if (!operation.isCancelled) {
             if (completion) completion(nil, error);
         }
     }];
-    
-    [self.mainManager.operationQueue addOperation:op];
 }
-
 
 - (void)cancelAllWeatherRequests
 {
@@ -230,8 +208,6 @@
         _mainManager = [AFHTTPRequestOperationManager manager];
         
         AFHTTPRequestSerializer *serializer = [AFHTTPRequestSerializer serializer];
-        [serializer setValue:kParseAppID forHTTPHeaderField:@"X-Parse-Application-Id"];
-        [serializer setValue:kParseAPIKey forHTTPHeaderField:@"X-Parse-REST-API-Key"];
         [serializer setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
         
         _mainManager.requestSerializer = serializer;

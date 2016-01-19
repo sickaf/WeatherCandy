@@ -13,6 +13,7 @@
 
 
 @interface WCChooseCategoryViewController ()
+
 @property (strong, nonatomic) IBOutlet UIImageView *chooseGirlsImageView;
 @property (strong, nonatomic) IBOutlet UIImageView *chooseGuysImageView;
 @property (strong, nonatomic) IBOutlet UIImageView *chooseAnimalsImageView;
@@ -20,6 +21,7 @@
 - (IBAction)girlButton:(UIButton *)sender;
 - (IBAction)guyButton:(UIButton *)sender;
 - (IBAction)animalButton:(UIButton *)sender;
+
 @property (strong, nonatomic) IBOutlet UIButton *guyButtonOutlet;
 @property (strong, nonatomic) IBOutlet UIButton *girlButtonOutlet;
 @property (strong, nonatomic) IBOutlet UIButton *animalButtonOutlet;
@@ -28,25 +30,22 @@
 
 @implementation WCChooseCategoryViewController
 
-- (void)viewDidLoad {
-    [super viewDidLoad];
-    
-}
-
-
-- (IBAction)girlButton:(UIButton *)sender {
+- (IBAction)girlButton:(UIButton *)sender
+{
     [[WCSettings sharedSettings] setHasChosenCategory:YES];
     [[WCSettings sharedSettings] setSelectedImageCategory:0];
     [self notify];
 }
 
-- (IBAction)guyButton:(UIButton *)sender {
+- (IBAction)guyButton:(UIButton *)sender
+{
     [[WCSettings sharedSettings] setHasChosenCategory:YES];
     [[WCSettings sharedSettings] setSelectedImageCategory:1];
     [self notify];
 }
 
-- (IBAction)animalButton:(UIButton *)sender {
+- (IBAction)animalButton:(UIButton *)sender
+{
     [[WCSettings sharedSettings] setHasChosenCategory:YES];
     [[WCSettings sharedSettings] setSelectedImageCategory:2];
     [self notify];
