@@ -4,6 +4,7 @@ var request = require('request');
 var convertCondition = require('./lib/utils/conditionConverter');
 var buildWeatherQueryParams = require('./lib/utils/weatherQueryParamsBuilder');
 var buildForecastList = require('./lib/utils/forecastListBuilder');
+var picsUtil = require('./lib/utils/picsUtil');
 
 app.set('port', (process.env.PORT || 9000));
 app.use(express.static(__dirname + '/public'));
@@ -91,44 +92,16 @@ function getWeatherCandyData(req, res) {
 
         var pics = JSON.parse(redditResp).data.children;
 
-        var filteredPics = [];
+        var filteredPics = pics.filter(picsUtil.picUrlFilter);
+        var pic = filteredPics[Math.floor(Math.random() * filteredPics.length)];
+        var urlForClient = picsUtil.getPicUrlForClient(pic);
 
-        // Remove gallery links and gifs
-        for (pic in pics)
-        {
-          var picUrl = pics[pic].data.url;
-          var endsWithGIF = picUrl.indexOf('.gif', picUrl.length - 4) !== -1 || picUrl.indexOf('.gifv', picUrl.length - 5) !== -1;
-
-          if (picUrl.indexOf('gallery') == -1 && !endsWithGIF)
-            {
-              filteredPics.push(pics[pic])
-            }
-        }
-
-        var pic = filteredPics[Math.floor(Math.random()*filteredPics.length)];
-        var picUrl = pic ? pic.data.url : '';
-
-        var endsWithJpg = picUrl.indexOf('.jpg', picUrl.length - 4) !== -1;
-        var endsWithPng = picUrl.indexOf('.png', picUrl.length - 4) !== -1;
-
-        var url = '';
-        if (endsWithJpg || endsWithPng)
-        {
-          url = picUrl;
-        }
-        else if (picUrl.length > 0)
-        {
-          var slashIndex = picUrl.lastIndexOf('/');
-          var imageId = picUrl.substring(slashIndex + 1);
-          url = 'http://i.imgur.com/' + imageId + '.jpg';
-        }
-
-        console.log("the URL IS " + url);
+        console.log("the URL IS " + urlForClient);
 
         objForClient.IGPhotoSet.push({
               "PhotoNum": 1,
               "IGUsername":'devspinn',
-              "IGUrl": url,
+              "IGUrl": urlForClient,
               "imageCategory": imageCategory
         });
 
