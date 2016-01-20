@@ -3,7 +3,7 @@ var app = express();
 var request = require('request');
 var convertCondition = require('./lib/utils/conditionConverter');
 var buildWeatherQueryParams = require('./lib/utils/weatherQueryParamsBuilder');
-var buildForecastList = require('./lib/utils/forecastListbuilder');
+var buildForecastList = require('./lib/utils/forecastListBuilder');
 
 app.set('port', (process.env.PORT || 9000));
 app.use(express.static(__dirname + '/public'));
