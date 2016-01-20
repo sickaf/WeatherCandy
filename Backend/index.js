@@ -2,6 +2,7 @@ var express = require('express');
 var app = express();
 var request = require('request');
 var convertCondition = require('./lib/utils/conditionConverter');
+var buildWeatherQueryParams = require('./lib/utils/weatherQueryParamsBuilder');
 
 app.set('port', (process.env.PORT || 9000));
 app.use(express.static(__dirname + '/public'));
@@ -14,7 +15,7 @@ app.get('/', function(req, res) {
 app.listen(app.get('port'), function() {
   console.log("We're live fuckers!!! Peep port:" + app.get('port'))
 });
- 
+
 function getWeatherCandyData(req, res) {
 
   var objForClient = new Object();
@@ -30,22 +31,16 @@ function getWeatherCandyData(req, res) {
   var cityID = req.query.cityID;
   var weatherQueryString ="http://api.openweathermap.org/data/2.5/weather?appid=487b0d8cfa3d312ed2df471ce763f655&";
   var forecastQueryString ="http://api.openweathermap.org/data/2.5/forecast?appid=487b0d8cfa3d312ed2df471ce763f655&";
+  var weatherQueryParams = null;
   // Adjust for timezone
   console.log('adjusted date is: ' + currentAdjustedDate);
 
   //build weatherQueryString with parameters the client sent us
-  if (cityID) { 
-    console.log("got cityID="+cityID);
-    weatherQueryString = weatherQueryString+"id="+cityID;
-    forecastQueryString = forecastQueryString+"id="+cityID;
-  } else if (lat && lon) { // TODO: use isNaN here instead
-    console.log("got lat="+lat+" and lon="+lon);
-    weatherQueryString = weatherQueryString+"lat="+lat+"&lon="+lon;
-    forecastQueryString = forecastQueryString+"lat="+lat+"&lon="+lon;
-  } else if (cityName) {
-    console.log("got cityName="+cityName);
-    weatherQueryString = weatherQueryString+"q="+cityName;
-    forecastQueryString = forecastQueryString+"q="+cityName;
+  weatherQueryParams = buildWeatherQueryParams(cityID, lat, lon, cityName);
+
+  if (weatherQueryParams) {
+    weatherQueryString += weatherQueryParams;
+    forecastQueryString += weatherQueryParams;
   } else {
     console.log("didnt get enough info in the call, weather going to fail.");
     return res.status(400).send("Grin not enough data in request.");
@@ -76,7 +71,7 @@ function getWeatherCandyData(req, res) {
 
       forecastResponse.list.forEach(function(entry) {
         var dateOfForecast = new Date(entry["dt"]);
-        if ((currentDate.getTime() / 1000) < dateOfForecast.getTime()) 
+        if ((currentDate.getTime() / 1000) < dateOfForecast.getTime())
         {
           var forecastUnit = {};
           forecastUnit.dt = entry.dt;
@@ -91,7 +86,7 @@ function getWeatherCandyData(req, res) {
       if(imageCategory === 0){ //girls
         console.log('got here');
         redditQueryString = 'https://www.reddit.com/r/prettygirls';
-      } 
+      }
       else if(imageCategory === 1){ //guys
         redditQueryString = 'https://www.reddit.com/r/LadyBoners';
       }
@@ -110,12 +105,12 @@ function getWeatherCandyData(req, res) {
         var filteredPics = [];
 
         // Remove gallery links and gifs
-        for (pic in pics) 
+        for (pic in pics)
         {
           var picUrl = pics[pic].data.url;
           var endsWithGIF = picUrl.indexOf('.gif', picUrl.length - 4) !== -1 || picUrl.indexOf('.gifv', picUrl.length - 5) !== -1;
 
-          if (picUrl.indexOf('gallery') == -1 && !endsWithGIF) 
+          if (picUrl.indexOf('gallery') == -1 && !endsWithGIF)
             {
               filteredPics.push(pics[pic])
             }
@@ -128,7 +123,7 @@ function getWeatherCandyData(req, res) {
         var endsWithPng = picUrl.indexOf('.png', picUrl.length - 4) !== -1;
 
         var url = '';
-        if (endsWithJpg || endsWithPng) 
+        if (endsWithJpg || endsWithPng)
         {
           url = picUrl;
         }
@@ -141,10 +136,10 @@ function getWeatherCandyData(req, res) {
 
         console.log("the URL IS " + url);
 
-        objForClient.IGPhotoSet.push({ 
+        objForClient.IGPhotoSet.push({
               "PhotoNum": 1,
               "IGUsername":'devspinn',
-              "IGUrl": url, 
+              "IGUrl": url,
               "imageCategory": imageCategory
         });
 
