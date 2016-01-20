@@ -3,6 +3,7 @@ var app = express();
 var request = require('request');
 var convertCondition = require('./lib/utils/conditionConverter');
 var buildWeatherQueryParams = require('./lib/utils/weatherQueryParamsBuilder');
+var buildForecastList = require('./lib/utils/forecastListbuilder');
 
 app.set('port', (process.env.PORT || 9000));
 app.use(express.static(__dirname + '/public'));
@@ -67,19 +68,7 @@ function getWeatherCandyData(req, res) {
 
       console.log('current date ' + currentAdjustedDate.getTime() / 1000);
 
-      objForClient.forecastList = [];
-
-      forecastResponse.list.forEach(function(entry) {
-        var dateOfForecast = new Date(entry["dt"]);
-        if ((currentDate.getTime() / 1000) < dateOfForecast.getTime())
-        {
-          var forecastUnit = {};
-          forecastUnit.dt = entry.dt;
-          forecastUnit.temperature = entry.main.temp;
-          forecastUnit.condition = convertCondition(entry.weather[0].id);
-          objForClient.forecastList.push(forecastUnit);
-        };
-      });
+      objForClient.forecastList = buildForecastList(forecastResponse.list, currentDate);
 
       var redditQueryString;
       console.log('THE IMAGE CATEGORY IS : ' + imageCategory);
