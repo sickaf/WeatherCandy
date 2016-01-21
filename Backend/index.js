@@ -6,6 +6,8 @@ var buildWeatherQueryParams = require('./lib/utils/weatherQueryParamsBuilder');
 var buildForecastList = require('./lib/utils/forecastListBuilder');
 var picsUtil = require('./lib/utils/picsUtil');
 
+var categories = require('./categories');
+
 app.set('port', (process.env.PORT || 9000));
 app.use(express.static(__dirname + '/public'));
 
@@ -16,6 +18,11 @@ app.get('/', function(req, res) {
 
 app.listen(app.get('port'), function() {
   console.log("We're live fuckers!!! Peep port:" + app.get('port'))
+});
+
+// todo(marcus): move this somewhere
+app.get('/api/categories', function(req, res) {
+  res.status(200).json(categories);
 });
 
 function getWeatherCandyData(req, res) {
@@ -71,10 +78,11 @@ function getWeatherCandyData(req, res) {
 
       objForClient.forecastList = buildForecastList(forecastResponse.list, currentDate);
 
+      // todo(marcus): determine redditQueryString from categories and imageCategory
       var redditQueryString;
       console.log('THE IMAGE CATEGORY IS : ' + imageCategory);
       if(imageCategory === 0){ //girls
-        console.log('got here');
+        console.log('got here yesterday!');
         redditQueryString = 'https://www.reddit.com/r/prettygirls';
       }
       else if(imageCategory === 1){ //guys
@@ -110,3 +118,5 @@ function getWeatherCandyData(req, res) {
     });
   });
 }
+
+module.exports = app;

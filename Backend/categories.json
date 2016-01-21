@@ -1,0 +1,7 @@
+{
+  "categories": [
+    {"id": 0, "displayName": "Girls", "subreddit": "prettygirls", "background_image_url": "upfam.png"},
+    {"id": 1, "displayName": "Guys", "subreddit": "LadyBoners", "background_image_url": "batwing.png"},
+    {"id": 2, "displayName": "Aww", "subreddit": "aww", "background_image_url": "kyle_conkle.png"}
+  ]
+}
