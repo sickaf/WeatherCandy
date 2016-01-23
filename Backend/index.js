@@ -5,6 +5,7 @@ var convertCondition = require('./lib/utils/conditionConverter');
 var buildWeatherQueryParams = require('./lib/utils/weatherQueryParamsBuilder');
 var buildForecastList = require('./lib/utils/forecastListBuilder');
 var picsUtil = require('./lib/utils/picsUtil');
+var currentWeatherUtil = require('./lib/utils/currentWeatherUtil');
 
 app.set('port', (process.env.PORT || 9000));
 app.use(express.static(__dirname + '/public'));
@@ -54,13 +55,7 @@ function getWeatherCandyData(req, res) {
     if (error) { return res.status(500).end(); }
 
     var curWeather = JSON.parse(currentWeatherResponse);
-    objForClient.currentWeather = {};
-    objForClient.currentWeather.temperature = curWeather.main.temp;
-    objForClient.currentWeather.condition = convertCondition(curWeather.weather[0].id);
-    objForClient.currentWeather.dt = curWeather.dt;
-    objForClient.currentWeather.sunrise = curWeather.sys.sunrise;
-    objForClient.currentWeather.sunset  = curWeather.sys.sunset;
-    objForClient.currentWeather.cityName = curWeather.name;
+    objForClient.currentWeather = currentWeatherUtil(curWeather);
 
     request(forecastQueryString, function (error, response, forecastResponse) {
       if(error){ return res.status(500).end(); }
